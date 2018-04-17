@@ -25,6 +25,10 @@ and activate the devtools package. Use the following code to
 install and activate the package:
 
 > install.packages("devtools")
+
 > library(devtools)
+
 > devtools::install_github("mwheymans/psfmi")
+
 > library(psfmi)
+
