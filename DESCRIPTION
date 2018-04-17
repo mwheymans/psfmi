@@ -1,0 +1,33 @@
+Package: psfmi
+Type: Package
+Depends:
+  R (>= 3.4.4),
+Imports:
+  survival (>= 2.41-3), 
+	car (>= 3.0-0), 
+	norm (>= 1.0-9.5), 
+	miceadds (>= 2.10-14), 
+	foreign (>= 0.8-69), 
+	crayon (>= 1.3.4)
+Title: Predictor selection in multiple imputed datasets
+Version: 0.1.0
+Authors@R: c(
+  person("Martijn", "Heymans", email = "mw.heymans@vumc.nl", role=c("cre", "aut")),
+  person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
+Description: 
+	Package contains functions that apply pooling or backward selection 
+	for a prediction model with logistic regression. For categorical predictors, 
+	the overall p-value is obtained by pooling the total covariance matrix (D1 method), 
+	pooling Chi-square values (D2 method), pooling Likelihood ratio statistics 
+	(method of Meng and Rubin) or pooling the median p-values (MPR rule). 
+	For continuous or dichotomous variables Rubin?s rules are used, 
+	although one of the four methods can also be chosen. 
+Encoding: 
+	UTF-8
+LazyData: 
+	true
+RoxygenNote: 6.0.1
+License: GPL-2
+URL: https://github.com/mwheymans/psfmi
+BugReports: https://github.com/mwheymans/psfmi/issues 
+
