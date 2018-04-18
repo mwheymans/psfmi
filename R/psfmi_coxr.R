@@ -4,7 +4,8 @@
 #'  models using different selection methods.
 #'
 #' @param data Data frame or data matrix with stacked multiple imputed datasets.
-#'   The original dataset that contains missing values must be excluded from the dataset.
+#'   The original dataset that contains missing values must be excluded from the dataset. The imputed
+#'   datasets must be distinguished by an imputation variable, specified under impvar, and starting by 1. 
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the imputed datasets.
 #' @param time Follow up time.
