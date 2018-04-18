@@ -1,17 +1,21 @@
 #' Predictor selection function for logistic regression models
 #'
-#' \code{psfmi_lr} Backward selection of predictors for logistic regression models using different selection methods.
+#' \code{psfmi_lr} Backward selection of predictors for logistic regression models
+#' using different selection methods.
 #'
 #' @param data Data frame or data matrix with stacked multiple imputed datasets.
-#'   The original dataset that contains missing values must be excluded from the dataset.
+#'   The original dataset that contains missing values must be excluded from the
+#'   dataset. The imputed datasets must be distinguished by an imputation variable,
+#'   specified under impvar, and starting by 1.   
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
-#' @param impvar A character vector. Name of the variable that distinguishes the imputed datasets.
+#' @param impvar A character vector. Name of the variable that distinguishes the
+#' imputed datasets.
 #' @param Outcome Character vector containing the name of the outcome variable.
 #' @param predictors Character vector with the names of the predictor variables.
 #'   At least one predictor variable has to be defined.
 #' @param p.crit A numerical scalar. P-value selection criterium.
-#' @param cat.predictors A single string or a vector of strings to define the categorical variables.
-#'   Default is NULL categorical predictors.
+#' @param cat.predictors A single string or a vector of strings to define the
+#' categorical variables. Default is NULL categorical predictors.
 #' @param int.predictors A single string or a vector of strings with the names of the variables that form
 #'   an interaction pair, separated by a “:” symbol.
 #' @param keep.predictors A single string or a vector of strings including the variables that are forced
