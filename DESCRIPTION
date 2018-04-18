@@ -14,6 +14,7 @@ Version: 0.1.0
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@vumc.nl", role=c("cre", "aut")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
+Date: 2018
 Description: 
 	Package contains functions that apply pooling or backward selection 
 	for a prediction model with logistic regression. For categorical predictors, 
