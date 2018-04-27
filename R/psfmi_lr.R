@@ -1,12 +1,13 @@
-#' Predictor selection function for logistic regression models
+#' Pooling and Predictor selection function for Logistic regression prediction
+#' models in imputed datasets
 #'
-#' \code{psfmi_lr} Backward selection of predictors for logistic regression models
-#' using different selection methods.
+#' \code{psfmi_lr} Pooling and backward selection for Logistic regression
+#' prediction models in imputed datasets using different selection methods.
 #'
 #' @param data Data frame or data matrix with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
-#'   specified under impvar, and starting by 1.   
+#'   specified under impvar, and starting by 1.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the
 #' imputed datasets.
@@ -56,19 +57,26 @@
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
 #'
-#'   # Predictor selection, force variable Smoking in model, using p<0.05 and method D1
+#'   # Predictor selection using p<0.05 and method MPR
+#'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+#'   predictors=c("Gender", "Smoking", "Function", "JobControl",
+#'   "JobDemands", "SocialSupport"), p.crit = 0.05, method="MPR")
+#'
+#'   # Predictor selection, force variable Smoking in model,
+#'   # using p<0.05 and method MR
 #'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
-#'   p.crit = 0.05, method="D1")
+#'   p.crit = 0.05, method="MR")
 #'
-#'   # Predictor selection, including categorical and interaction variables
-#'   # and forcing interaction variable in model, using p<0.05 and D1
+#'   # Predictor selection, including categorical and interaction terms
+#'   # and forcing interaction terms and another variable in model,
+#'   # using p<0.05 and method D1
 #'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
 #'   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
 #'   int.predictors = c("Carrying:Smoking", "Gender:Smoking"),
-#'   keep.predictors = c("Smoking:Carrying"), method="D1")
+#'   keep.predictors = c("Smoking:Carrying", "JobControl"), method="D1")
 #'
 #' @export
 psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
