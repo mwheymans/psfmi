@@ -1,11 +1,13 @@
-#' Predictor selection function for Cox regression models
+#' Pooling and Predictor selection function for Cox regression prediction
+#' models in imputed datasets
 #'
-#' \code{psfmi_coxr} Backward selection of predictors for Cox regression
-#'  models using different selection methods.
+#' \code{psfmi_coxr} Pooling and backward selection for Cox regression
+#' prediction models in imputed datasets using different selection methods.
 #'
-#' @param data Data frame or data matrix with stacked multiple imputed datasets.
+#' @param data Data frame or data matrix with stacked multiple imputed
+#' datasets.
 #'   The original dataset that contains missing values must be excluded from the dataset. The imputed
-#'   datasets must be distinguished by an imputation variable, specified under impvar, and starting by 1. 
+#'   datasets must be distinguished by an imputation variable, specified under impvar, and starting by 1.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the imputed datasets.
 #' @param time Follow up time.
@@ -55,13 +57,19 @@
 #'   "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=0.05,
 #'   method="D1", cat.predictors=c("Expect_cat"))
 #'
+#'  # Predictor selection using p<0.05 and method MPR
+#'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+#'   predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
+#'   "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=0.05,
+#'   cat.predictors=c("Expect_cat"), method="MPR")
+#'
 #'   # Predictor selection, force variable Tampa scale in model
-#'   # using p<0.05 and method D1
+#'   # using p<0.05 and method D2
 #'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
 #'   predictors=c("Duration", "Previous",  "Radiation", "Onset",
 #'   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
 #'   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
-#'   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D1" )
+#'   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
 #'
 #' @export
 psfmi_coxr <-
