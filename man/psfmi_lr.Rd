@@ -2,7 +2,8 @@
 % Please edit documentation in R/psfmi_lr.R
 \name{psfmi_lr}
 \alias{psfmi_lr}
-\title{Predictor selection function for logistic regression models}
+\title{Pooling and Predictor selection function for Logistic regression prediction
+models in imputed datasets}
 \usage{
 psfmi_lr(data, nimp = 5, impvar = NULL, Outcome, predictors = NULL,
   p.crit = 1, cat.predictors = NULL, int.predictors = NULL,
@@ -10,11 +11,14 @@ psfmi_lr(data, nimp = 5, impvar = NULL, Outcome, predictors = NULL,
 }
 \arguments{
 \item{data}{Data frame or data matrix with stacked multiple imputed datasets.
-The original dataset that contains missing values must be excluded from the dataset.}
+The original dataset that contains missing values must be excluded from the
+dataset. The imputed datasets must be distinguished by an imputation variable,
+specified under impvar, and starting by 1.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
-\item{impvar}{A character vector. Name of the variable that distinguishes the imputed datasets.}
+\item{impvar}{A character vector. Name of the variable that distinguishes the
+imputed datasets.}
 
 \item{Outcome}{Character vector containing the name of the outcome variable.}
 
@@ -23,8 +27,8 @@ At least one predictor variable has to be defined.}
 
 \item{p.crit}{A numerical scalar. P-value selection criterium.}
 
-\item{cat.predictors}{A single string or a vector of strings to define the categorical variables.
-Default is NULL categorical predictors.}
+\item{cat.predictors}{A single string or a vector of strings to define the
+categorical variables. Default is NULL categorical predictors.}
 
 \item{int.predictors}{A single string or a vector of strings with the names of the variables that form
 an interaction pair, separated by a “:” symbol.}
@@ -41,7 +45,8 @@ chosen method (under method) is shown. If FALSE (default) p-value for categorica
 to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
 }
 \description{
-\code{psfmi_lr} Backward selection of predictors for logistic regression models using different selection methods.
+\code{psfmi_lr} Pooling and backward selection for Logistic regression
+prediction models in imputed datasets using different selection methods.
 }
 \details{
 print.method allows to choose between different p-value pooling methods. “D1” is pooling of
@@ -59,19 +64,26 @@ print.method allows to choose between different p-value pooling methods. “D1�
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
 
-  # Predictor selection, force variable Smoking in model, using p<0.05 and method D1
+  # Predictor selection using p<0.05 and method MPR
+  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "Function", "JobControl",
+  "JobDemands", "SocialSupport"), p.crit = 0.05, method="MPR")
+
+  # Predictor selection, force variable Smoking in model,
+  # using p<0.05 and method MR
   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
-  p.crit = 0.05, method="D1")
+  p.crit = 0.05, method="MR")
 
-  # Predictor selection, including categorical and interaction variables
-  # and forcing interaction variable in model, using p<0.05 and D1
+  # Predictor selection, including categorical and interaction terms
+  # and forcing interaction terms and another variable in model,
+  # using p<0.05 and method D1
   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   int.predictors = c("Carrying:Smoking", "Gender:Smoking"),
-  keep.predictors = c("Smoking:Carrying"), method="D1")
+  keep.predictors = c("Smoking:Carrying", "JobControl"), method="D1")
 
 }
 \references{
