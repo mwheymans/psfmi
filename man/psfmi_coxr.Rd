@@ -2,15 +2,18 @@
 % Please edit documentation in R/psfmi_coxr.R
 \name{psfmi_coxr}
 \alias{psfmi_coxr}
-\title{Predictor selection function for Cox regression models}
+\title{Pooling and Predictor selection function for Cox regression prediction
+models in imputed datasets}
 \usage{
 psfmi_coxr(data, nimp = 5, impvar = NULL, time, status, predictors = NULL,
   p.crit = 1, cat.predictors = NULL, int.predictors = NULL,
   keep.predictors = NULL, method = NULL, print.method = FALSE)
 }
 \arguments{
-\item{data}{Data frame or data matrix with stacked multiple imputed datasets.
-The original dataset that contains missing values must be excluded from the dataset.}
+\item{data}{Data frame or data matrix with stacked multiple imputed
+datasets.
+  The original dataset that contains missing values must be excluded from the dataset. The imputed
+  datasets must be distinguished by an imputation variable, specified under impvar, and starting by 1.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
@@ -43,8 +46,8 @@ chosen method (under method) is shown. If FALSE (default) p-value for categorica
 to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
 }
 \description{
-\code{psfmi_coxr} Backward selection of predictors for Cox regression
- models using different selection methods.
+\code{psfmi_coxr} Pooling and backward selection for Cox regression
+prediction models in imputed datasets using different selection methods.
 }
 \details{
 print.method allows to choose between different p-value pooling methods. “D1” is pooling of
@@ -64,13 +67,19 @@ print.method allows to choose between different p-value pooling methods. “D1�
   "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=0.05,
   method="D1", cat.predictors=c("Expect_cat"))
 
+ # Predictor selection using p<0.05 and method MPR
+  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
+  "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=0.05,
+  cat.predictors=c("Expect_cat"), method="MPR")
+
   # Predictor selection, force variable Tampa scale in model
-  # using p<0.05 and method D1
+  # using p<0.05 and method D2
   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
   predictors=c("Duration", "Previous",  "Radiation", "Onset",
   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
-  "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D1" )
+  "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
 
 }
 \references{
