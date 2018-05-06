@@ -9,14 +9,22 @@ predictors. Also interaction terms between different type of
 predictor variables are allowed. It is also possible to force  
 predictors or interaction terms in the model during predictor selection.
 
-The pooling methods are the Meng and Rubin likelihood ratio statistics 
-method, the pooling covariance matrix or D1 method, the pooling of 
-Chi-square values or D2 method and a method that is called 
-Median P Rule (MPR) that pools the median of the p-values.
+The basic pooling method is Rubin's Rules (RR). For categorical predictors
+(> 2 categories) the following pooling methods are available: the Meng 
+and Rubin likelihood ratio statistics method, the pooling covariance matrix 
+or D1 method, the pooling of Chi-square values or D2 method and a method 
+that is called Median P Rule (MPR) that pools the median of the p-values.
 
 A function called psfmi_lr is available for logistic regression 
 models and another function that is called psfmi_coxr, 
 for right censored Cox regression models.
+
+With respect to introducing interaction terms in the model, only 
+two-way interactions are allowed. If interaction terms are included 
+and backward selection is applied, interaction terms are dropped 
+from the model following the hierarchy principle. This means
+that interactions are considered during backward selection when both
+main effects are in the model.
 
 A function that is called miperform_lr evaluates the apparent performance 
 of logistic regression prediction models in imputed datasets. 
