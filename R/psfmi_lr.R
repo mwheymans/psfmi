@@ -28,9 +28,13 @@
 #'   chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
 #'   to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.
 #'
-#' @details print.method allows to choose between different p-value pooling methods. “D1” is pooling of
-#'   the total covariance matrix, ”D2” is pooling of Chi-square values, “MR” is pooling Likelihood ratio
-#'   statistics (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule).
+#' @details The basic pooling procedure to derive pooled coefficients, standard errors, 95
+#'  confidence intervals and p-values is Rubin's Rules (RR). Specific procedures are
+#'  available to derive pooled p-values for categorical variables (> 2 categories).
+#'  print.method allows to choose between these pooling methods that are:
+#'  “D1” is pooling of the total covariance matrix, ”D2” is pooling of Chi-square values,
+#'  “MR” is pooling Likelihood ratio statistics (method of Meng and Rubin) and “MPR”
+#'  is pooling of median p-values (MPR rule).
 #'
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
 #'   covariates in logistic regression models after multiple imputation: power and applicability
