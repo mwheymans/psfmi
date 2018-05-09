@@ -20,7 +20,7 @@ Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@vumc.nl", role=c("cre", "aut")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
 Date: 2018
-Description: 
+Description:
 	Package contains functions to apply pooling or backward selection 
 	for logistic or Cox regression prediction models. For categorical predictors, 
 	the overall p-value is obtained by pooling the total covariance 
@@ -35,11 +35,14 @@ Description:
 	also available. Bootstrap internal validation is performed in each 
 	imputed dataset results are pooled. Backward selection as part of 
 	internal validation	is  optional and recommended.
-Encoding: 
+Encoding:
 	UTF-8
-LazyData: 
+LazyData:
 	true
 RoxygenNote: 6.0.1
 License: GPL (>= 2)
 URL: https://github.com/mwheymans/psfmi
 BugReports: https://github.com/mwheymans/psfmi/issues 
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
