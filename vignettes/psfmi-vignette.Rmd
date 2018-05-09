@@ -1,0 +1,196 @@
+---
+title: "Welcome to the psfmi package"
+author: "Martijn W Heymans"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{psfmi}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+On this page you will find information of the psfmi package. 
+The	package contains functions to apply pooling or backward 
+selection (BS) for logistic or Cox regression prediction models. 
+
+The basic pooling method is Rubin's Rules. New is that for categorical predictors, different methods to derive pooled p-values are available as: 
+the total covariance matrix (D1 method), pooling Chi-square values 
+(D2 method), pooling Likelihood ratio statistics (method of Meng and Rubin) 
+or pooling the median p-values (MPR rule). Moreover, two-way interaction 
+terms between continuous, dichotomous and categorical predictors
+are allowed during BS. Also, all type of predictors, interaction terms or 
+a combination, can be forced in the model during BS. For very large datasets
+and a large number of imputed datasets the D1 and MR methods may be less 
+efficient than the D2 and MPR methods.
+
+The package also contains functions to generate	apparent model performance 
+measures over imputed datasets as ROC/AUC, Nagelkerke R-squares, 
+Hosmer & Lemeshow test values and calibration plots. A wrapper function 
+over Frank Harrell's validate function is available. Bootstrap internal 
+validation is performed in each imputed dataset and results are pooled. 
+BS as part of internal validation	is  optional and recommended.
+
+## Installing the psfmi package
+
+The package can be installed by running the following code in 
+the R console window:
+ 
+ install.packages("devtools")
+ 
+ library(devtools)
+ 
+ devtools::install_github("mwheymans/psfmi")
+ 
+ library(psfmi)
+
+## Main functions
+
+The main functions that are available in the psfmi package are:
+
+psfmi_lr: for Logistic regression models 
+
+psfmi_coxr: for Cox regression models
+
+miperform_lr: for performance and internal validation of logistic regression 
+models
+
+## Examples 
+
+* [Logistic Regression]
+    + [Pooling without BS and method D1] 
+    + [Pooling with BS and method MR] 
+    + [Pooling with BS including several interaction terms and method D2]
+    + [Pooling with BS and forcing interaction terms and method D1]
+      
+* [Cox regression]
+    + [Pooling without BS and method D1] 
+    + [Pooling with BS and method MPR] 
+    + [Pooling with BS including interaction terms and method D2]
+
+## Logistic Regression
+
+### Pooling without BS and method D1
+
+```{r}
+
+  library(psfmi)
+  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "Function", "JobControl",
+  "JobDemands", "SocialSupport"), method="D1")
+  
+```
+
+Back to [Examples]
+
+### Pooling with BS and method MR
+
+Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and as method MR (Meng and Rubin likelihood ratio statistics) and
+forcing the predictor "Smoking" in the models during backward selection
+
+```{r}
+
+  library(psfmi)
+  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "Function", "JobControl",
+  "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
+  p.crit = 0.05, method="MR")
+
+```
+
+Back to [Examples]
+
+### Pooling with BS including several interaction terms and method D2
+      
+Pooling Logistic regression models over 5 imputed datasets with BS
+using a p-value of 0.05 and as method D1. Several  interaction terms,
+including with a categorical predictor, are part of the selection procedure.
+
+```{r}
+
+  library(psfmi)
+  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+  "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
+  int.predictors = c("Carrying:Smoking", "Gender:Smoking"), method="D2")
+
+```
+
+Back to [Examples]
+
+### Pooling with BS and forcing interaction terms and method D1
+      
+Same as above but now forcing several predictors, including interaction terms,
+in the model during BS.
+
+```{r}
+
+  library(psfmi)
+  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+  "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
+  int.predictors = c("Carrying:Smoking", "Gender:Smoking"),
+  keep.predictors = c("Smoking:Carrying", "JobControl"), method="D1")
+
+```
+
+Back to [Examples]
+
+## Cox Regression
+
+### Pooling without BS and method D1
+
+```{r}
+
+  library(psfmi)
+  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
+  "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=1,
+  cat.predictors=c("Expect_cat"), method="D1")
+
+```  
+
+Back to [Examples]
+
+### Pooling with BS and method MPR
+
+```{r}
+
+  library(psfmi)
+  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
+  "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=0.05,
+  cat.predictors=c("Expect_cat"), method="MPR")
+
+```  
+
+Back to [Examples]
+
+### Pooling with BS including interaction terms and method D2
+
+Pooling Cox regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and as method D2 including interaction terms with 
+a categorical predictor and forcing the predictor "Tampascale" in the models 
+during backward selection
+
+```{r}
+
+  library(psfmi)
+  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  predictors=c("Duration", "Previous",  "Radiation", "Onset",
+  "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
+  "Expect_cat"), int.predictors=c("Tampascale:Radiation",
+  "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
+
+```  
+
+Back to [Examples]
