@@ -311,10 +311,10 @@ miperform_lr <-
 
     if(cal.plot==T) {
       ID.mi <- rep(1:nimp, each=10)
-      myX <- scale_x_continuous(limits = c(0, 1),
+      myX <- scale_x_continuous(limits = c(-0.1, 1.1),
         breaks=seq(0,1,0.1),
         name = "Predicted Probabilities")
-      myY <- scale_y_continuous(limits = c(0, 1),
+      myY <- scale_y_continuous(limits = c(-0.1, 1.1),
         breaks=seq(0,1,0.1),
         name = "Observed Probabilities")
       data.cal.plot <- data.frame(ID.mi, "Obs"=unlist(obs.group),
