@@ -176,7 +176,8 @@ miperform_lr <-
     fm <- as.formula(paste(Y, paste(P, collapse = "+")))
 
     # Calculate pooled LP
-    data.imp <- split(data, 1:nimp)
+    data.imp <- split(data[data[,impvar] %in% c(imp.start:nimp), ], 
+      data[data[,impvar] %in% c(imp.start:nimp), impvar])
     p.model <- lapply(data.imp, function(x) {
       coef(glm(fm, family=binomial, data=x))
     })
