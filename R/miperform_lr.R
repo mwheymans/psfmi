@@ -312,15 +312,15 @@ miperform_lr <-
     }
 
     if(cal.plot==T) {
-      ID.mi <- rep(1:nimp, each=10)
+      ID.mi <- rep(imp.start:nimp, each=10)
       data.cal.plot <- data.frame(ID.mi, "Obs"=unlist(obs.group),
         "Pred"=unlist(pred.group))
       theme_set(theme_bw())
-      myX <- scale_x_continuous(breaks=seq(0,1,0.1),
-        name = "Predicted Probabilities")
-      myY <- scale_y_continuous(breaks=seq(0,1,0.1),
-        name = "Observed Probabilities")
       if(plot.indiv==T){
+        myX <- scale_x_continuous(breaks=seq(0,1,0.1),
+          name = "Predicted Probabilities")
+        myY <- scale_y_continuous(breaks=seq(0,1,0.1),
+          name = "Observed Probabilities")
         # Calibration plot in each imputed dataset
         g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred", y = "Obs",
           group = "ID.mi")) + geom_point() + theme(panel.grid.major = element_blank(),
@@ -331,6 +331,10 @@ miperform_lr <-
         g3 <- g2 + geom_abline(slope=1, intercept=0, linetype="dashed")
         print(g3)
       } else {
+        myX <- scale_x_continuous(breaks=seq(0,1,0.1),
+          name = "Predicted Probabilities")
+        myY <- scale_y_continuous(breaks=seq(0,1,0.1),
+          name = "Observed Probabilities")
         # Overlaying Calibration plots
         g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred",
           y = "Obs", group = "ID.mi")) + geom_point() +
