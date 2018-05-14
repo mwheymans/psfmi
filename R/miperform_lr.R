@@ -7,8 +7,6 @@
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
 #'   specified under impvar.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
-#' @param imp.start A numerical scalar. Start number of first imputed dataset.
-#'   Default is 1 for first imputed dataset.
 #' @param impvar A character vector. Name of the variable that distinguishes the
 #'   imputed datasets.
 #' @param Outcome Character vector containing the name of the outcome variable.
@@ -82,7 +80,7 @@
 #'
 #' @export
 miperform_lr <-
-  function(data, nimp=5, imp.start=1, impvar=NULL, Outcome,
+  function(data, nimp=5, impvar=NULL, Outcome,
   predictors=NULL, cat.predictors=NULL, int.predictors=NULL,
   cal.plot=FALSE, plot.indiv=FALSE, int.val=FALSE,
   method="boot", B=250, bw=FALSE, rule="p", type="individual",
@@ -176,15 +174,15 @@ miperform_lr <-
     fm <- as.formula(paste(Y, paste(P, collapse = "+")))
 
     # Calculate pooled LP
-    data.imp <- split(data[data[,impvar] %in% c(imp.start:nimp), ], 
-      data[data[,impvar] %in% c(imp.start:nimp), impvar])
+    data.imp <- split(data[data[,impvar] %in% c(1:nimp), ], 
+      data[data[,impvar] %in% c(1:nimp), impvar])
     p.model <- lapply(data.imp, function(x) {
       coef(glm(fm, family=binomial, data=x))
     })
     lp.pool <- colMeans(do.call("rbind", p.model))
 
     # Start loop for Rubin's Rules
-    for (i in imp.start:nimp) {
+    for (i in 1:nimp) {
       f <- glm(fm, data = data[data[impvar] == i, ],
         family = binomial)
       y.i[[i]] <- f$y
@@ -312,16 +310,18 @@ miperform_lr <-
     }
 
     if(cal.plot==T) {
-      ID.mi <- rep(imp.start:nimp, each=10)
+      ID.mi <- rep(1:nimp, each=10)
+      myX <- scale_x_continuous(limits = c(0, 1),
+        breaks=seq(0,1,0.1),
+        name = "Predicted Probabilities")
+      myY <- scale_y_continuous(limits = c(0, 1),
+        breaks=seq(0,1,0.1),
+        name = "Observed Probabilities")
       data.cal.plot <- data.frame(ID.mi, "Obs"=unlist(obs.group),
         "Pred"=unlist(pred.group))
       theme_set(theme_bw())
       if(plot.indiv==T){
-        myX <- scale_x_continuous(breaks=seq(0,1,0.1),
-          name = "Predicted Probabilities")
-        myY <- scale_y_continuous(breaks=seq(0,1,0.1),
-          name = "Observed Probabilities")
-        # Calibration plot in each imputed dataset
+         # Calibration plot in each imputed dataset
         g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred", y = "Obs",
           group = "ID.mi")) + geom_point() + theme(panel.grid.major = element_blank(),
             panel.grid.minor = element_blank())
@@ -331,10 +331,6 @@ miperform_lr <-
         g3 <- g2 + geom_abline(slope=1, intercept=0, linetype="dashed")
         print(g3)
       } else {
-        myX <- scale_x_continuous(breaks=seq(0,1,0.1),
-          name = "Predicted Probabilities")
-        myY <- scale_y_continuous(breaks=seq(0,1,0.1),
-          name = "Observed Probabilities")
         # Overlaying Calibration plots
         g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred",
           y = "Obs", group = "ID.mi")) + geom_point() +
