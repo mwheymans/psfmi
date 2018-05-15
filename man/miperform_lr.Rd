@@ -4,7 +4,7 @@
 \alias{miperform_lr}
 \title{Evaluate performance of logistic regression models over MI datasets}
 \usage{
-miperform_lr(data, nimp = 5, imp.start = 1, impvar = NULL, Outcome,
+miperform_lr(data, nimp = 5, impvar = NULL, Outcome,
   predictors = NULL, cat.predictors = NULL, int.predictors = NULL,
   cal.plot = FALSE, plot.indiv = FALSE, int.val = FALSE,
   method = "boot", B = 250, bw = FALSE, rule = "p",
