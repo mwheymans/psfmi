@@ -18,9 +18,6 @@ specified under impvar.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
-\item{imp.start}{A numerical scalar. Start number of first imputed dataset.
-Default is 1 for first imputed dataset.}
-
 \item{impvar}{A character vector. Name of the variable that distinguishes the
 imputed datasets.}
 
