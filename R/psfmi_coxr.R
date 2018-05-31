@@ -91,7 +91,7 @@ psfmi_coxr <-
     # Check data input
     if (!(is.matrix(data) | is.data.frame(data)))
       stop("Data should be a matrix or data frame")
-    data <- as.data.frame(data)
+    data <- data.frame(data.matrix(data))
     if ((nvar <- ncol(data)) < 2)
       stop("Data should contain at least two columns")
     if(is.null(impvar))
