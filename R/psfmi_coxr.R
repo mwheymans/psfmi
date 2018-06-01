@@ -141,7 +141,7 @@ psfmi_coxr <-
     # predictors and last interactions!
     P <- c(P, cat.P, int.P)
     if (is.null(P))
-      stop("\n", "No predictors defined, cannot f model", "\n\n")
+      stop("\n", "No predictors defined, cannot fit model", "\n\n")
 
     # Define predictors from model for D1 method because order
     # of variables of interaction term changes
