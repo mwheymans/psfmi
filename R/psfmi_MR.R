@@ -108,9 +108,10 @@ psfmi_MR <-
       cat("\n", "MR Pooled p-values", "\n")
       print(pool.MR)
     }
-    id.p.value.RR <- grep("factor", row.names(model.res))
-    res.RR <- model.res1[-c(1, id.p.value.RR), 3]
-    names(res.RR) <- row.names(model.res)[-c(1, id.p.value.RR)]
+    id.p.value.RR.f <- grep("factor", row.names(model.res))
+    id.p.RR.spl <- grep("rcs", row.names(model.res))
+    res.RR <- model.res[-c(1, id.p.value.RR.f, id.p.RR.spl), 3]
+    names(res.RR) <- row.names(model.res)[-c(1, id.p.value.RR.f, id.p.RR.spl)]
     pool.MR[names(res.RR), 1] <- res.RR
     cat("\n")
     names(pool.MR) <- "Mixed p-values (MR & RR)"

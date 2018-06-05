@@ -22,17 +22,22 @@ Authors@R: c(
 Date: 2018
 Description:
 	Package contains functions to apply pooling or backward selection 
-	for logistic or Cox regression prediction models. For categorical predictors, 
-	the overall p-value is obtained by pooling the total covariance 
-	matrix (D1 method),	pooling Chi-square values (D2 method), 
-	pooling Likelihood ratio statistics	(method of Meng and Rubin) or 
-	pooling the median p-values (MPR rule). For continuous and dichotomous 
-	variables Rubin's rules are used, although one of the four methods 
+	for logistic or Cox regression prediction models. Backward selection is 
+	done from the pooled model on basis of the Wald p-value. The model
+	can contain continuous, dichotomous, categorical predictors, interaction
+	terms between all type of these predictors. Continuous predictors
+	can also be introduced as restricted cubic spline coefficients. 
+	For categorical and spline predictors, the overall p-value is obtained 
+	by pooling the total covariance matrix (D1 method),	pooling Chi-square 
+	values (D2 method), pooling Likelihood ratio statistics	
+	(method of Meng and Rubin) or pooling the median p-values (MPR rule). 
+	For continuous and dichotomous variables Rubin's rules are used
+	as the basic pooling method, although one of the four methods 
 	can also be chosen. The package also contains functions to generate 
 	apparent model performance measures over imputed datasets as ROC/AUC, 
 	Nagelkerke R-squares, Hosmer & Lemeshow test values and calibration
 	plots. A wrapper function over Frank Harrell's validate function is 
-	also available. Bootstrap internal validation is performed in each 
+	used for that. Bootstrap internal validation is performed in each 
 	imputed dataset results are pooled. Backward selection as part of 
 	internal validation	is  optional and recommended.
 Encoding:

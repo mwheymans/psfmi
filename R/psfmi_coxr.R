@@ -1,8 +1,8 @@
-#' Pooling and Predictor selection function for Cox regression prediction
-#' models in imputed datasets
+#' Pooling and predictor selection function for Cox regression
+#' models in multiply imputed datasets
 #'
 #' \code{psfmi_coxr} Pooling and backward selection for Cox regression
-#' prediction models in imputed datasets using different selection methods.
+#' models in multiply imputed datasets using different selection methods.
 #'
 #' @param data Data frame or data matrix with stacked multiple imputed
 #' datasets.
@@ -17,10 +17,13 @@
 #' @param p.crit A numerical scalar. P-value selection criterium.
 #' @param cat.predictors A single string or a vector of strings to define the categorical variables.
 #'   Default is NULL categorical predictors.
+#' @param spline.predictors A single string or a vector of strings to define the
+#' (restricted cubic) spline variables. Default is NULL spline predictors.
 #' @param int.predictors A single string or a vector of strings with the names of the variables that form
 #'   an interaction pair, separated by a “:” symbol.
 #' @param keep.predictors A single string or a vector of strings including the variables that are forced
-#'   in the model during predictor selection. Categorical and interaction variables are allowed.
+#'   in the model during predictor selection. Categorical and interaction variables are allowed. See details.
+#' @param knots A numerical vector that defines the number of knots for each spline predictor separately.
 #' @param method A character vector to indicate the pooling method for p-values to pool the
 #'   total model or used during predictor selection. This can be "D1", "D2", "MR" or "MPR".
 #'   See details for more information.
@@ -30,11 +33,13 @@
 #'
 #' @details The basic pooling procedure to derive pooled coefficients, standard errors, 95
 #'  confidence intervals and p-values is Rubin's Rules (RR). Specific procedures are
-#'  available to derive pooled p-values for categorical variables (> 2 categories).
+#'  available to derive pooled p-values for categorical (> 2 categories) and spline variables.
 #'  print.method allows to choose between these pooling methods that are:
 #'  “D1” is pooling of the total covariance matrix, ”D2” is pooling of Chi-square values,
 #'  “MR” is pooling Likelihood ratio statistics (method of Meng and Rubin) and “MPR”
-#'  is pooling of median p-values (MPR rule).
+#'  is pooling of median p-values (MPR rule). Spline regression coefficients are defined
+#'  by using the rcs function for restricted cubic splines of the rms package of Frank Harrell.
+#'  A minimum number of 3 knots as defined under knots is needed.
 #'
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
 #'   covariates in logistic regression models after multiple imputation: power and applicability
@@ -75,18 +80,26 @@
 #'   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
 #'   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
 #'
+#'   # Predictor selection, including spline coefficient (3 knots) and interaction
+#'   # term between predictor and spline variable, using p<0.05 and method D1
+#'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+#'   predictors=c("Duration", "Previous",  "Radiation", "Onset",
+#'   "Function"), p.crit=0.05, spline.predictors=c("Tampascale"),
+#'   int.predictors=c("Tampascale:Radiation"), knots=3, method="D1" )
+#'
 #' @export
 psfmi_coxr <-
   function(data, nimp=5, impvar=NULL, time, status, predictors=NULL,
-  p.crit=1, cat.predictors=NULL, int.predictors=NULL, keep.predictors=NULL,
-  method=NULL, print.method=FALSE)
+  p.crit=1, cat.predictors=NULL, spline.predictors=NULL, int.predictors=NULL,
+  keep.predictors=NULL, knots=NULL, method=NULL, print.method=FALSE)
 {
 
     P <- predictors
     cat.P <- cat.predictors
     keep.P <- keep.predictors
     int.P <- int.predictors
-    P.check <-c(P, cat.P)
+    s.P <- spline.predictors
+    P.check <-c(P, cat.P, s.P)
 
     # Check data input
     if (!(is.matrix(data) | is.data.frame(data)))
@@ -106,6 +119,8 @@ psfmi_coxr <-
       stop("\n", "Number of imputed datasets must be > 1", "\n\n")
     }
     if (p.crit > 1) stop("\n", "P-value criterium > 1", "\n")
+    if (length(knots) != length(s.P))
+      stop("\n", "Number of knots not specified for every spline variable", "\n")
     if (!is.null(cat.P)) {
       if(any(cat.P%in%P)){
         cat.P.double <- cat.P[cat.P%in%P]
@@ -114,7 +129,14 @@ psfmi_coxr <-
         stop()
       }
     }
-
+    if (!is.null(s.P)) {
+      if(any(s.P%in%P)){
+        s.P.double <- s.P[s.P%in%P]
+        cat(red("\n", "Spline variable(s) -", s.P.double,
+          "- also defined as Predictor", "\n\n"))
+        stop()
+      }
+    }
     if(any(duplicated(P))){
       cat(red("\n", "Predictor(s) - ", c(P[duplicated(P)]),
         " - defined more than once", "\n\n"))
@@ -139,7 +161,7 @@ psfmi_coxr <-
 
     # First predictors, second cetegorical
     # predictors and last interactions!
-    P <- c(P, cat.P, int.P)
+    P <- c(P, cat.P, s.P, int.P)
     if (is.null(P))
       stop("\n", "No predictors defined, cannot fit model", "\n\n")
 
@@ -151,7 +173,6 @@ psfmi_coxr <-
       f <- survival::coxph(fm, data = data[data[impvar] == 1, ])
       P <- names(coef(f))
     }
-
     if (!is.null(keep.P)) {
       for(i in 1:length(keep.P)){
         if(grepl(":", keep.P[i])) {
@@ -184,7 +205,25 @@ psfmi_coxr <-
         }
       }
     }
-
+    if (!is.null(s.P)) {
+      if(length(s.P)==1){
+        P <- gsub(s.P,
+          replacement=paste0("rcs(", s.P, ",", knots, ")"), P)
+        if(!is.null(keep.P)){
+          keep.P <- gsub(s.P,
+            replacement=paste0("rcs(", s.P, ",", knots, ")"), keep.P)
+        }
+      } else {
+        for(i in 1:length(s.P)) {
+          P <- gsub(s.P[i],
+            replacement=paste0("rcs(", s.P[i], ",", knots[i], ")"), P)
+          if(!is.null(keep.P)){
+            keep.P <- gsub(s.P[i],
+              replacement=paste0("rcs(", s.P[i], ",", knots[i], ")"), keep.P)
+          }
+        }
+      }
+    }
     levels.cat.P <- lapply(cat.P, function(x) {
       nr.levels.cat.P <- length(table(data[data[impvar] == 1, ][, x]))
       if (nr.levels.cat.P < 3) {
@@ -327,11 +366,9 @@ psfmi_coxr <-
       cat("\n", "D2 Pooled p-values", "\n")
     }
     # Combine D2 with RR
-    id.p.RR <- grep("factor", row.names(pool.RR))
-    if(length(id.p.RR)==0){
-      mi.chisq[, 2] <- pool.RR[, 3]
-    }
-    res.RR <- pool.RR[-id.p.RR, 3]
+    id.p.RR.f <- grep("factor", row.names(pool.RR))
+    id.p.RR.spl <- grep("rcs", row.names(pool.RR))
+    res.RR <- pool.RR[-c(id.p.RR.f, id.p.RR.spl), 3]
     mi.chisq[names(res.RR), 2] <- res.RR
     cat("\n", "Pooled p-values (D2 & RR)", "\n")
     print(mi.chisq)
@@ -352,11 +389,9 @@ psfmi_coxr <-
       print(est.D1)
     }
     # Combine D1 with RR
-    id.p.RR <- grep("factor", row.names(pool.RR))
-    if(length(id.p.RR)==0){
-        est.D1[, 2] <- pool.RR[, 3]
-    }
-    res.RR <- pool.RR[-id.p.RR, 3]
+    id.p.RR.f <- grep("factor", row.names(pool.RR))
+    id.p.RR.spl <- grep("rcs", row.names(pool.RR))
+    res.RR <- pool.RR[-c(id.p.RR.f, id.p.RR.spl), 3]
     est.D1[names(res.RR), 2] <- res.RR
     cat("\n", "Pooled p-values (D1 & RR)", "\n")
     print(est.D1)
@@ -373,11 +408,9 @@ psfmi_coxr <-
         print(med.pvalue)
      }
     # Combine Median p with RR
-    id.p.RR <- grep("factor", row.names(pool.RR))
-    if(length(id.p.RR)==0){
-      med.pvalue[, 1] <- pool.RR[, 3]
-    }
-    res.RR <- pool.RR[-id.p.RR, 3]
+    id.p.RR.f <- grep("factor", row.names(pool.RR))
+    id.p.RR.spl <- grep("rcs", row.names(pool.RR))
+    res.RR <- pool.RR[-c(id.p.RR.f, id.p.RR.spl), 3]
     med.pvalue[names(res.RR), 1] <- res.RR
     cat("\n", "Pooled p-values (MPR & RR)", "\n")
     print(med.pvalue)
