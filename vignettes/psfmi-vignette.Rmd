@@ -70,11 +70,13 @@ models
     + [Pooling with BS and method MR] 
     + [Pooling with BS including several interaction terms and method D2]
     + [Pooling with BS and forcing interaction terms and method D1]
+    + [Pooling with BS including spline coefficient and method D1]
       
 * [Cox regression]
     + [Pooling without BS and method D1] 
     + [Pooling with BS and method MPR] 
     + [Pooling with BS including interaction terms and method D2]
+    + [Pooling with BS including spline coefficient and method D1]
 
 ## Logistic Regression
 
@@ -145,6 +147,25 @@ in the model during BS.
 
 Back to [Examples]
 
+### Pooling with BS including spline coefficient and method D1
+
+Pooling Logistic regression models over 5 imputed datasets with BS
+using a p-value of 0.05 and as method D1. A spline predictor and interaction 
+term are part of the selection procedure.
+
+```{r}
+
+  library(psfmi)
+  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "JobControl", "JobDemands",
+  "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
+  spline.predictors=c("Function"), int.predictors = c("Carrying:Smoking"), 
+  knots=3, method="D1")
+
+```
+
+Back to [Examples]
+
 ## Cox Regression
 
 ### Pooling without BS and method D1
@@ -190,6 +211,25 @@ during backward selection
   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
+
+```  
+
+Back to [Examples]
+
+### Pooling with BS including spline coefficient and method D1
+
+Pooling Cox regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and as method D1 including a spline predictor
+and forcing these in the models during backward selection
+
+```{r}
+
+  library(psfmi)
+  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  predictors=c("Duration", "Previous",  "Radiation", "Onset", "Function"), 
+  p.crit=0.05, cat.predictors=c("Satisfaction"), spline.predictors=c("Tampascale"),
+  int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
+  knots=3, method="D1")
 
 ```  
 
