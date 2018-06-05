@@ -4,8 +4,8 @@ Welcome to the psfmi package.
 
 With this package you can pool logistic or Cox regression models,
 or perform backward variable selection, in multiply imputed datasets. 
-The models may include continuous, dichotomous, categorical (> 2) 
-categories and spline predictors. Also interaction terms between these type of 
+The models may include continuous, dichotomous, categorical (> 2 
+categories) and spline predictors. Also interaction terms between these type of 
 predictor variables are allowed. It is also possible to force (spline)  
 predictors or interaction terms in the model during predictor selection.
 
