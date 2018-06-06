@@ -11,7 +11,7 @@ predictors or interaction terms in the model during predictor selection.
 
 The basic pooling method is Rubin's Rules (RR). For categorical and 
 spline predictors the following pooling methods are available to derive
-and overall p-value: the Meng and Rubin likelihood ratio statistics method, 
+an overall p-value: the Meng and Rubin likelihood ratio statistics method, 
 the pooling covariance matrix or D1 method, the pooling of Chi-square 
 values or D2 method and a method that is called Median P Rule (MPR) 
 that pools the median of the p-values.
