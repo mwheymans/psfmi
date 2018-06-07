@@ -286,6 +286,13 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
     cat("\n", "Variables included in model =", P, "\n")
 
     if(method=="MR"){
+      cat.spline.P <- lapply(int.P[grep(":", int.P)],
+        function(x) {
+          str.int <- unlist(strsplit(x, split=":"))
+          if (all(str.int %in% c(cat.P, s.P)))
+            stop("Interaction terms between only categorical and/or spline predictors in model,
+              Use as method D1, D2 or MPR")
+        })
       cat("\n", "Mixed Pooled p-values (RR / MR)", "\n")
       p.pool <- psfmi_MR(data=data, nimp=nimp, impvar=impvar,
         P=P, Outcome=Outcome, p.crit=p.crit,

@@ -53,9 +53,9 @@ psfmi_MR <-
         coef.fit1[[i]] <- summary(fit.1)[[12]][, 1]
         se.fit1[[i]] <- summary(fit.1)[[12]][, 2]
         coef.fit0[[i]] <- summary(fit.0)[[12]][, 1]
-        if (length(coef.fit0[[i]]==1)) names(coef.fit0[[i]]) <- "intercept"
+        if (length(coef.fit0[[i]])==1) names(coef.fit0[[i]]) <- "intercept"
         se.fit0[[i]] <- summary(fit.0)[[12]][, 2]
-        if (length(se.fit0[[i]]==1)) names(se.fit0[[i]]) <- "intercept"
+        if (length(se.fit0[[i]])==1) names(se.fit0[[i]]) <- "intercept"
       }
 
       coef.fit1.qhat <- do.call("rbind", coef.fit1)
