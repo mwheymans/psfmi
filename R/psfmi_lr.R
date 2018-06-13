@@ -126,6 +126,8 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
   }
   if (p.crit > 1)
     stop("\n", "P-value criterium > 1", "\n")
+  if (any(knots<3))
+    stop("\n", "Number of knots must be > 2", "\n")
   if (length(knots) != length(s.P))
     stop("\n", "Number of knots not specified for every spline variable", "\n")
   if (!is.null(cat.P)) {
@@ -290,7 +292,7 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
         function(x) {
           str.int <- unlist(strsplit(x, split=":"))
           if (all(str.int %in% c(cat.P, s.P)))
-            stop("Interactions between 2 categorical, 2 spline predictors or 
+            stop("Interactions between 2 categorical, 2 spline or 
               categorical and spline predictors not allowed for method MR,
               Use method D1, D2 or MPR instead")
         })

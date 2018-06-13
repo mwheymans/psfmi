@@ -119,6 +119,8 @@ psfmi_coxr <-
       stop("\n", "Number of imputed datasets must be > 1", "\n\n")
     }
     if (p.crit > 1) stop("\n", "P-value criterium > 1", "\n")
+    if (any(knots<3))
+      stop("\n", "Number of knots must be > 2", "\n")
     if (length(knots) != length(s.P))
       stop("\n", "Number of knots not specified for every spline variable", "\n")
     if (!is.null(cat.P)) {
