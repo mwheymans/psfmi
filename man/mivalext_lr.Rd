@@ -40,18 +40,18 @@ generated. Default is FALSE.}
  are provided and can be used as information for the order of the coefficient
  values as input for lp.orig. If FALSE (default) validation procedure is executed
  with coefficient values fitted in the order as used under lp.orig.
-
- @details The following information of the externally validated model is provided:
+\description{
+\code{mivalext_lr} External validation of logistic prediction models
+}
+\details{ 
+The following information of the externally validated model is provided:
  pooled ROC curve (median and backtransformed after pooling log transformed
  ROC curves), pooled Nagelkerke R-Square value (median and backtransformed
  after pooling Fisher transformed values), pooled Hosmer and Lemeshow Test (using
  miceadds package), pooled coefficients when model is freely estimated in imputed
  datasets and the pooled linear predictor (LP), after the externally validaed LP
  is estimated in each imputed dataset (provides information about miscalibration
- in intercept and slope).}
-}
-\description{
-\code{mivalext_lr} External validation of logistic prediction models
+ in intercept and slope).
 }
 \examples{
 

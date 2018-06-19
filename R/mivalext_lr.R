@@ -25,7 +25,7 @@
 #'  values as input for lp.orig. If FALSE (default) validation procedure is executed
 #'  with coefficient values fitted in the order as used under lp.orig.
 #'
-#'  @details The following information of the externally validated model is provided:
+#' @details The following information of the externally validated model is provided:
 #'  pooled ROC curve (median and backtransformed after pooling log transformed
 #'  ROC curves), pooled Nagelkerke R-Square value (median and backtransformed
 #'  after pooling Fisher transformed values), pooled Hosmer and Lemeshow Test (using
