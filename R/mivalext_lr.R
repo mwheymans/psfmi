@@ -91,12 +91,14 @@ mivalext_lr <-
   # Check data input
   if (!(is.matrix(data.val) | is.data.frame(data.val)))
     stop("Validation dataset should be a matrix or data frame")
-
+  data.val <- data.frame(data.matrix(data.val))
+  
   if(!is.null(data.orig)) {
   if (ncol(data.orig) < 2)
       stop("Original data should contain at least two columns")
   if (!(is.matrix(data.orig) | is.data.frame(data.orig)))
     stop("Original dataset should be a matrix or data frame")
+  data.orig <- data.frame(data.matrix(data.orig))
   if (!is.null(lp.orig))
     stop("Not needed to define lp.orig, coefficient values
       are derived from original dataset as defined under data.orig")
