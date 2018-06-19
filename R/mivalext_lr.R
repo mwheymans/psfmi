@@ -152,8 +152,6 @@ mivalext_lr <-
   roc.f.mi.i <- se.roc.mi.i <- se.roc.mi.i.logit <- list()
   coef.mi.i <- lp.ext.mi <- hl.mi.i <- list()
 
-  nimp <- 5
-
 # Determine performance in each
 # imputed external dataset
 for(i in 1:nimp) {
