@@ -52,7 +52,9 @@ The following information of the externally validated model is provided:
  miceadds package), pooled coefficients when model is freely estimated in imputed
  datasets and the pooled linear predictor (LP), after the externally validaed LP
  is estimated in each imputed dataset (provides information about miscalibration
- in intercept and slope).
+ in intercept and slope). When the external validation is very poor,
+ the R2 fixed can become negative due to the poor fit of the model in 
+ the external dataset (in that case you may report a R2 of zero).
 }
 \examples{
 

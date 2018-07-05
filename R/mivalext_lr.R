@@ -32,7 +32,9 @@
 #'  miceadds package), pooled coefficients when model is freely estimated in imputed
 #'  datasets and the pooled linear predictor (LP), after the externally validaed LP
 #'  is estimated in each imputed dataset (provides information about miscalibration
-#'  in intercept and slope).
+#'  in intercept and slope). When the external validation is very poor,
+#'  the R2 fixed can become negative due to the poor fit of the model in 
+#'  the external dataset (in that case you may report a R2 of zero). 
 #'
 #' @references F. Harrell. Regression Modeling Strategies. With Applications to
 #'  Linear Models, Logistic and Ordinal Regression, and Survival Analysis. Springer,
@@ -92,7 +94,7 @@ mivalext_lr <-
   if (!(is.matrix(data.val) | is.data.frame(data.val)))
     stop("Validation dataset should be a matrix or data frame")
   data.val <- data.frame(data.matrix(data.val))
-  
+
   if(!is.null(data.orig)) {
   if (ncol(data.orig) < 2)
       stop("Original data should contain at least two columns")
@@ -148,7 +150,7 @@ mivalext_lr <-
       stop("Number of Predictors not equal to number of coefficients under lp.orig")
   }
 
-  rsq.mi.i <- pred.group <- obs.group <- hl.mi.i <- list()
+  rsq.mi.i <- rsq.mi.i.cal <- pred.group <- obs.group <- hl.mi.i <- list()
   roc.f.mi.i <- se.roc.mi.i <- se.roc.mi.i.logit <- list()
   coef.mi.i <- lp.ext.mi <- hl.mi.i <- list()
 
@@ -172,6 +174,15 @@ for(i in 1:nimp) {
   # Nagelkerke R squared
   rsq.mi.i[[i]] <- f.ext.stats$stats["R2"]
 
+  # Calibrated R squared
+  n <- f.ext.lp$df.null + 1
+  k <- f.ext.lp$rank
+  logLik1 <- as.numeric(logLik(f.ext.lp))
+  f.ext.lp0 <- update(f.ext.lp, . ~ 1)
+  logLik0 <- as.numeric(logLik(f.ext.lp0))
+  rsq.mi.i.cal[[i]] <- (1 - exp(-2 * 
+      (logLik1 - logLik0)/n)) / (1 - exp(logLik0 * 2/n))
+  
   # Group predicted probabilities
   group.dec <- cut(p.ext, quantile(p.ext,
     c(seq(0, 1, 0.1))))
@@ -228,7 +239,7 @@ roc.med.iqr <- round(summary(unlist(roc.f.mi.i))[-c(1, 4, 6)], 5)
 roc.res <- list("ROC (logit)"=roc.m.log,
   "ROC (median)"=roc.med.iqr)
 
-#### Pooling R square
+#### Pooling R square (uncalibrated)
 # Fisher z Transformation
 z.rsq <- atanh(unlist(rsq.mi.i))
 z.rsq.p <- mean(z.rsq)
@@ -247,8 +258,30 @@ inv.z.rsq.p <- round(tanh(z.rsq.p), 5)
 # Median and IQR R square
 rsq.med.iqr <- round(summary(unlist(rsq.mi.i))[-c(1,4,6)], 5)
 
-res.rsq <- list("R2 (Fisher Z)"=inv.z.rsq.p,
-  "Median R2"=rsq.med.iqr)
+res.rsq <- list("Fisher Z (fixed)"=inv.z.rsq.p,
+  "Median (fixed)"=rsq.med.iqr)
+
+#### Pooling R square (calibrated)
+# Fisher z Transformation
+z.rsq.cal <- atanh(unlist(rsq.mi.i.cal))
+z.rsq.p.cal <- mean(z.rsq.cal)
+
+# within variance
+n <- nrow(data.val[data.val[, impvar] == 1, ])
+se.z.rsq.cal <- 1/(n-3)
+# between variance
+b.rsq.cal <- var(z.rsq.cal)
+# total variance
+tv.rsq.cal <- se.z.rsq.cal + ((1 + (1/nimp)) * b.rsq.cal)
+se.t.rsq.cal <- sqrt(tv.rsq.cal)
+# inv Fisher z = pooled rsq
+inv.z.rsq.p.cal <- round(tanh(z.rsq.p.cal), 5)
+
+# Median and IQR R square
+rsq.med.iqr.cal <- round(summary(unlist(rsq.mi.i.cal))[-c(1,4,6)], 5)
+
+res.rsq.cal <- list("Fisher Z (calibrated)"=inv.z.rsq.p.cal,
+  "Median (calibrated)"=rsq.med.iqr.cal)
 
 # H&L test
 res.hl <- round(miceadds::micombine.chisquare(unlist(hl.mi.i),
@@ -257,6 +290,7 @@ res.hl <- round(miceadds::micombine.chisquare(unlist(hl.mi.i),
 cat("\n", "Pooled performance measures over m =",
   nimp, "imputed external validation datasets", "\n\n")
 res.perform <- list("ROC"=roc.res, "R2"=res.rsq,
+  "R2"=res.rsq.cal,
   "Hosmer & Lemeshow test"=res.hl,
   "Pooled Coefficients (Model freely estimated in each MI dataset)"=coef.pool,
   "Pooled LP ext"=lp.pool)
