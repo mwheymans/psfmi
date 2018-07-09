@@ -6,7 +6,7 @@
 \usage{
 mivalext_lr(data.val = NULL, data.orig = NULL, nimp = 5, impvar = NULL,
   Outcome, predictors = NULL, lp.orig = NULL, cal.plot = FALSE,
-  plot.indiv = FALSE, val.check = FALSE)
+  plot.indiv = FALSE, val.check = FALSE, g = 10)
 }
 \arguments{
 \item{data.val}{Data frame or data matrix with stacked multiple imputed validation datasets.
@@ -40,6 +40,9 @@ generated. Default is FALSE.}
 are provided and can be used as information for the order of the coefficient
 values as input for lp.orig. If FALSE (default) validation procedure is executed
 with coefficient values fitted in the order as used under lp.orig.}
+
+\item{g}{A numerical scalar. Number of groups for the Hosmer and
+Lemeshow test. Default is 10.}
 }
 \description{
 \code{mivalext_lr} External validation of logistic prediction models
@@ -53,7 +56,7 @@ The following information of the externally validated model is provided:
  datasets and the pooled linear predictor (LP), after the externally validaed LP
  is estimated in each imputed dataset (provides information about miscalibration
  in intercept and slope). When the external validation is very poor,
- the R2 fixed can become negative due to the poor fit of the model in 
+ the R2 fixed can become negative due to the poor fit of the model in
  the external dataset (in that case you may report a R2 of zero).
 }
 \examples{

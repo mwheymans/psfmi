@@ -24,6 +24,8 @@
 #'  are provided and can be used as information for the order of the coefficient
 #'  values as input for lp.orig. If FALSE (default) validation procedure is executed
 #'  with coefficient values fitted in the order as used under lp.orig.
+#' @param g A numerical scalar. Number of groups for the Hosmer and
+#'  Lemeshow test. Default is 10.
 #'
 #' @details The following information of the externally validated model is provided:
 #'  pooled ROC curve (median and backtransformed after pooling log transformed
@@ -33,8 +35,8 @@
 #'  datasets and the pooled linear predictor (LP), after the externally validaed LP
 #'  is estimated in each imputed dataset (provides information about miscalibration
 #'  in intercept and slope). When the external validation is very poor,
-#'  the R2 fixed can become negative due to the poor fit of the model in 
-#'  the external dataset (in that case you may report a R2 of zero). 
+#'  the R2 fixed can become negative due to the poor fit of the model in
+#'  the external dataset (in that case you may report a R2 of zero).
 #'
 #' @references F. Harrell. Regression Modeling Strategies. With Applications to
 #'  Linear Models, Logistic and Ordinal Regression, and Survival Analysis. Springer,
@@ -83,7 +85,8 @@
 #' @export
 mivalext_lr <-
   function(data.val=NULL, data.orig=NULL, nimp=5, impvar=NULL, Outcome,
-    predictors=NULL, lp.orig=NULL, cal.plot=FALSE, plot.indiv=FALSE, val.check=FALSE)
+    predictors=NULL, lp.orig=NULL, cal.plot=FALSE, plot.indiv=FALSE,
+    val.check=FALSE, g=10)
 {
 
   if(is.null(predictors))
@@ -180,15 +183,22 @@ for(i in 1:nimp) {
   logLik1 <- as.numeric(logLik(f.ext.lp))
   f.ext.lp0 <- update(f.ext.lp, . ~ 1)
   logLik0 <- as.numeric(logLik(f.ext.lp0))
-  rsq.mi.i.cal[[i]] <- (1 - exp(-2 * 
+  rsq.mi.i.cal[[i]] <- (1 - exp(-2 *
       (logLik1 - logLik0)/n)) / (1 - exp(logLik0 * 2/n))
-  
-  # Group predicted probabilities
-  group.dec <- cut(p.ext, quantile(p.ext,
-    c(seq(0, 1, 0.1))))
-  pred.group[[i]] <- tapply(p.ext, group.dec, mean)
-  # Observed probabilities
-  obs.group[[i]] <- tapply(f.ext$y, group.dec, mean)
+
+  if (cal.plot == TRUE){
+    # Group predicted probabilities for calibration curve
+    if(length(unique(p.ext))<10) {
+      stop("Cannot generate calibration curve, number of groups too small,
+        set cal.plot=F")
+    } else {
+      group.dec <- cut(p.ext, quantile(p.ext,
+        c(seq(0, 1, 0.1))))
+      pred.group[[i]] <- tapply(p.ext, group.dec, mean)
+      # Observed probabilities
+      obs.group[[i]] <- tapply(f.ext$y, group.dec, mean)
+    }
+  }
 
   # ROC/AUC
   roc.f.mi.i[[i]] <- roc(f.ext$y, p.ext)$auc
@@ -197,7 +207,11 @@ for(i in 1:nimp) {
     (roc.f.mi.i[[i]]*(1-roc.f.mi.i[[i]]))
 
   # Hosmer and Lemeshow Chi square value
-  hl.mi.i[[i]] <- hoslem.test(f.ext$y, p.ext)[[1]]
+  if(g<4){
+    stop("For Hosmer and Lemeshow test, number of groups must be > 3")
+  } else {
+    hl.mi.i[[i]] <- hoslem.test(f.ext$y, p.ext, g=g)[[1]]
+  }
 }
 
 coef.pool <- round(colMeans(do.call("rbind", coef.mi.i)), 5)
@@ -285,7 +299,7 @@ res.rsq.cal <- list("Fisher Z (calibrated)"=inv.z.rsq.p.cal,
 
 # H&L test
 res.hl <- round(miceadds::micombine.chisquare(unlist(hl.mi.i),
-  8, display = F), 5)
+  g-2, display = F), 5)
 
 cat("\n", "Pooled performance measures over m =",
   nimp, "imputed external validation datasets", "\n\n")
