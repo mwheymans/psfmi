@@ -36,10 +36,10 @@ all calibration curves that are estimated in each imputed datset,
 or individual curves as a result of calibrating the model in each 
 imputed dataset separately. The pooled linear predictor is also returned.
 
-You can use these functions, after you have installed the
-package from the Github website. Before that you have to install 
-and activate the devtools package. Use the following code to
-install and activate the package:
+The package needs R 3.4.4 or higher. You can use the functions functions, 
+after you have installed the package from the Github website. 
+Before that you have to install and activate the devtools package. 
+Use the following code to install and activate the package:
 
 > install.packages("devtools")
 
