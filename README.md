@@ -36,7 +36,7 @@ all calibration curves that are estimated in each imputed datset,
 or individual curves as a result of calibrating the model in each 
 imputed dataset separately. The pooled linear predictor is also returned.
 
-The package needs R 3.4.4 or higher. You can use the functions functions, 
+The package needs R 3.4.4 or higher. You can use the functions, 
 after you have installed the package from the Github website. 
 Before that you have to install and activate the devtools package. 
 Use the following code to install and activate the package:
