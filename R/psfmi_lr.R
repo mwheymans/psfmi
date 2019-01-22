@@ -336,7 +336,7 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
 
       cat("\n", "Pooled model (Rubin's Rules)", "\n")
       print(pool.RR)
-
+      
       if(any(is.infinite(pool.RR))){
         cat(red("\n", "Check Pooled Model, some estimates
           could not be estimated", "\n"))
