@@ -4,9 +4,9 @@
 \alias{mivalext_lr}
 \title{External Validation of logistic prediction models in MI datasets}
 \usage{
-mivalext_lr(data.val = NULL, data.orig = NULL, nimp = 5, impvar = NULL,
-  Outcome, predictors = NULL, lp.orig = NULL, cal.plot = FALSE,
-  plot.indiv = FALSE, val.check = FALSE, g = 10)
+mivalext_lr(data.val = NULL, data.orig = NULL, nimp = 5,
+  impvar = NULL, Outcome, predictors = NULL, lp.orig = NULL,
+  cal.plot = FALSE, plot.indiv = FALSE, val.check = FALSE, g = 10)
 }
 \arguments{
 \item{data.val}{Data frame or data matrix with stacked multiple imputed validation datasets.

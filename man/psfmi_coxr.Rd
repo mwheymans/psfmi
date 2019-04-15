@@ -5,10 +5,11 @@
 \title{Pooling and predictor selection function for Cox regression
 models in multiply imputed datasets}
 \usage{
-psfmi_coxr(data, nimp = 5, impvar = NULL, time, status, predictors = NULL,
-  p.crit = 1, cat.predictors = NULL, spline.predictors = NULL,
-  int.predictors = NULL, keep.predictors = NULL, knots = NULL,
-  method = NULL, print.method = FALSE)
+psfmi_coxr(data, nimp = 5, impvar = NULL, time, status,
+  predictors = NULL, p.crit = 1, cat.predictors = NULL,
+  spline.predictors = NULL, int.predictors = NULL,
+  keep.predictors = NULL, knots = NULL, method = NULL,
+  print.method = FALSE)
 }
 \arguments{
 \item{data}{Data frame or data matrix with stacked multiple imputed
@@ -44,7 +45,7 @@ in the model during predictor selection. Categorical and interaction variables a
 \item{knots}{A numerical vector that defines the number of knots for each spline predictor separately.}
 
 \item{method}{A character vector to indicate the pooling method for p-values to pool the
-total model or used during predictor selection. This can be "D1", "D2", "MR" or "MPR".
+total model or used during predictor selection. This can be "D1", "D2", or "MPR".
 See details for more information.}
 
 \item{print.method}{logical vector. If TRUE full matrix with p-values of all variables according to
@@ -61,8 +62,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  available to derive pooled p-values for categorical (> 2 categories) and spline variables.
  print.method allows to choose between these pooling methods that are:
  “D1” is pooling of the total covariance matrix, ”D2” is pooling of Chi-square values,
- “MR” is pooling Likelihood ratio statistics (method of Meng and Rubin) and “MPR”
- is pooling of median p-values (MPR rule). Spline regression coefficients are defined
+ and “MPR” is pooling of median p-values (MPR rule). Spline regression coefficients are defined
  by using the rcs function for restricted cubic splines of the rms package of Frank Harrell.
  A minimum number of 3 knots as defined under knots is needed.
 }

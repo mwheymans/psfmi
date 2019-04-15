@@ -1,7 +1,7 @@
 
 export(D1_logistic)
 export(D1_cox)
-export(psfmi_MR)
+export(psfmi_D3)
 export(psfmi_lr)
 export(psfmi_coxr)
 export(miperform_lr)

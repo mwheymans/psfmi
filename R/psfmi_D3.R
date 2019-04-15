@@ -1,6 +1,6 @@
 #' Meng & Rubin pooling method called by psfmi_lr
 #'
-#' \code{psfmi_MR} Function to pool using Meng & Rubin pooling method
+#' \code{psfmi_D3} Function to pool using Meng & Rubin pooling method
 #'
 #' @param data Data frame or data matrix with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the dataset.
@@ -15,7 +15,7 @@
 #'   to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used
 #'
 #' @export
-psfmi_MR <-
+psfmi_D3 <-
   function(data, nimp, impvar, Outcome, P, p.crit, print.method)
 {
 
@@ -94,26 +94,26 @@ psfmi_MR <-
       else w <- v * (1 + 1/dimQ2) * ((1 + 1/rm)^2)/2
 
       pool.p.val[j, ] <- round(1 - pf(Dm, dimQ2, w), 5)
-      pool.MR <- pool.p.val
+      pool.D3 <- pool.p.val
 
-      dimnames(pool.MR) <- list(c(P), "Pooled p-value")
-      pool.MR <- data.frame(pool.MR)
-      names(pool.MR) <- "MR p-values"
+      dimnames(pool.D3) <- list(c(P), "Pooled p-value")
+      pool.D3 <- data.frame(pool.D3)
+      names(pool.D3) <- "D3 p-values"
     }
 
     cat("\n", "Pooled model (Rubin's Rules)", "\n")
     model.res <- model.res1
     print(model.res)
     if(print.method){
-      cat("\n", "MR Pooled p-values", "\n")
-      print(pool.MR)
+      cat("\n", "D3 Pooled p-values", "\n")
+      print(pool.D3)
     }
     id.p.value.RR.f <- grep("factor", row.names(model.res))
     id.p.RR.spl <- grep("rcs", row.names(model.res))
     res.RR <- model.res[-c(1, id.p.value.RR.f, id.p.RR.spl), 3]
     names(res.RR) <- row.names(model.res)[-c(1, id.p.value.RR.f, id.p.RR.spl)]
-    pool.MR[names(res.RR), 1] <- res.RR
+    pool.D3[names(res.RR), 1] <- res.RR
     cat("\n")
-    names(pool.MR) <- "Mixed p-values (MR & RR)"
-    print(pool.MR)
+    names(pool.D3) <- "Mixed p-values (D3 & RR)"
+    print(pool.D3)
 }

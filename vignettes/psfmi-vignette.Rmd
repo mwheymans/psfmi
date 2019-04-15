@@ -29,7 +29,7 @@ or pooling the median p-values (MPR rule). Moreover, two-way interaction
 terms between continuous, dichotomous and categorical predictors
 are allowed during BS. Also, all type of predictors, interaction terms or 
 a combination, can be forced in the model during BS. For very large datasets
-and a large number of imputed datasets the D1 and MR methods may be less 
+and a large number of imputed datasets the D1 and D3 methods may be less 
 efficient than the D2 and MPR methods.
 
 The package also contains functions to generate	apparent model performance 
@@ -67,7 +67,7 @@ models
 
 * [Logistic Regression]
     + [Pooling without BS and method D1] 
-    + [Pooling with BS and method MR] 
+    + [Pooling with BS and method D3] 
     + [Pooling with BS including several interaction terms and method D2]
     + [Pooling with BS and forcing interaction terms and method D1]
     + [Pooling with BS including spline coefficient and method D1]
@@ -93,10 +93,10 @@ models
 
 Back to [Examples]
 
-### Pooling with BS and method MR
+### Pooling with BS and method D3
 
 Pooling Logistic regression models over 5 imputed datasets with backward selection
-using a p-value of 0.05 and as method MR (Meng and Rubin likelihood ratio statistics) and
+using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statistics) and
 forcing the predictor "Smoking" in the models during backward selection
 
 ```{r}
@@ -105,7 +105,7 @@ forcing the predictor "Smoking" in the models during backward selection
   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
-  p.crit = 0.05, method="MR")
+  p.crit = 0.05, method="D3")
 
 ```
 
