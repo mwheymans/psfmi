@@ -6,7 +6,7 @@ With this package you can pool logistic or Cox regression models,
 or perform backward variable selection in multiply imputed datasets. 
 The models may include continuous, dichotomous, categorical (> 2 
 categories) and spline predictors. Also interaction terms between these type of 
-predictor variables are allowed. It is also possible to force (spline)  
+predictor variables are possible. It is also possible to force (spline)  
 predictors or interaction terms in the model during predictor selection.
 
 The basic pooling method is Rubin's Rules (RR). For categorical and 
@@ -39,7 +39,7 @@ imputed dataset separately. The pooled linear predictor is also returned.
 The package needs R 3.4.4 or higher. You can use the functions, 
 after you have installed the package from the Github website. 
 Before that you have to install and activate the devtools package. 
-Use the following code to install and activate the package:
+Use the following code to install and activate the packag from Githube:
 
 > install.packages("devtools")
 
