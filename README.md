@@ -8,6 +8,7 @@ The models may include continuous, dichotomous, categorical (> 2
 categories) and spline predictors. Also interaction terms between these type of 
 predictor variables are possible. It is also possible to force (spline)  
 predictors or interaction terms in the model during predictor selection.
+This is the first package that contains these possibilities. 
 
 The basic pooling method is Rubin's Rules (RR). For categorical and 
 spline predictors the following pooling methods are available to derive
