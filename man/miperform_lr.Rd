@@ -105,7 +105,7 @@ F. Harrell. Regression Modeling Strategies. With Applications to
  Linear Models, Logistic and Ordinal Regression, and Survival Analysis. Springer,
  New York, NY, 2015.
 
-Van Buuren S. (2012). Flexible Imputation of Missing Data. Chapman &
+Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman &
  Hall/CRC Interdisciplinary Statistics. Boca Raton.
 
 Harel, O. (2009). The estimation of R2 and adjusted R2 in
