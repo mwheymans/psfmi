@@ -1,6 +1,6 @@
 ## Test environments
 *	MacOS Mojave versie 10.14.4, R studio 1.1.383, R version 3.5.3
-* win-builder (devel)
+* win-builder (devel and release)
 * Ubuntu 14.04.5 LTS (on Travis CI) (Done. Your build exited with 0)
 
 ## R CMD check results
