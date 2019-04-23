@@ -117,4 +117,6 @@ Marshall A, Altman DG, Holder RL, Royston P. Combining estimates of interest in 
 
 Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman & Hall/CRC
   Interdisciplinary Statistics. Boca Raton.
+
+http://missingdatasolutions.rbind.io/
 }

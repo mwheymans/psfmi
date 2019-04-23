@@ -51,7 +51,8 @@
 #'   2009;9:57.
 #' @references Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman & Hall/CRC
 #'   Interdisciplinary Statistics. Boca Raton.
-#'
+#' @references http://missingdatasolutions.rbind.io/
+#' 
 #' @examples
 #'   # Pooling model (without backward selection) using D1
 #'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",

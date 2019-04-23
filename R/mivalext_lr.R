@@ -43,7 +43,8 @@
 #'  New York, NY, 2015.
 #' @references Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman &
 #'  Hall/CRC Interdisciplinary Statistics. Boca Raton.
-#'
+#' @references http://missingdatasolutions.rbind.io/
+#' 
 #'@examples
 #'
 #' # Run models in MI datasets and get information of

@@ -29,7 +29,7 @@ that interactions are considered during backward selection when both
 main effects are in the model.
 
 A function that is called miperform_lr evaluates the apparent performance 
-of logistic regression prediction models in imputed datasets. 
+of logistic regression prediction models in multiple imputed datasets. 
 The performanance measures that are reported are the ROC/AUC, 
 (Nagerkerke) R-squared and the Hosmer and Lemeshow test. 
 Also calibration curves can be generated, overlayed curves that pool 
@@ -38,9 +38,10 @@ or individual curves as a result of calibrating the model in each
 imputed dataset separately. The pooled linear predictor is also returned.
 
 The package needs R 3.4.4 or higher. You can use the functions, 
-after you have installed the package from the Github website. 
-Before that you have to install and activate the devtools package. 
-Use the following code to install and activate the packag from Githube:
+after you have installed the package from CRAN or the Github website 
+(development version). For Github you first have to install and activate 
+the devtools package. Use the following code to install and activate 
+the package from Github:
 
 > install.packages("devtools")
 

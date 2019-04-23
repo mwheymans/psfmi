@@ -47,7 +47,8 @@
 #' @references Harel, O. (2009). The estimation of R2 and adjusted R2 in
 #'  incomplete data sets using multiple imputation. Journal of Applied Statistics,
 #'  36(10), 1109-1118
-#'
+#' @references http://missingdatasolutions.rbind.io/
+#' 
 #'@examples
 #'
 #' # Apparent Performance measures over 5 imputed datasets with
