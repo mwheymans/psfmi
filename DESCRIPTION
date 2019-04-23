@@ -19,7 +19,7 @@ Version: 0.1.0
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
-Date: as.Date("2019/4/23")
+Date: Sys.time()
 Description:
 	Package contains functions to apply pooling or backward selection 
 	for logistic or Cox regression prediction models in multiple imputed
