@@ -85,6 +85,7 @@ cat.predictors=c("Carrying", "Satisfaction"),
 int.predictors=c("Carrying:Smoking", "Gender:Smoking"),
 cal.plot=TRUE, plot.indiv = TRUE)
 
+\dontrun{
 # Apparent and Bootstrap corrected Performance measures
 # over 10 imputed datasets with individual calibration plots
 # including BW selection
@@ -94,6 +95,7 @@ Outcome=c("Chronic"), predictors=c("Gender", "Pain",
 cat.predictors=c("Carrying", "Satisfaction"),
 int.predictors=c("Carrying:Smoking"),
 cal.plot=TRUE, plot.indiv = FALSE, int.val=TRUE, B=200)
+}
 
 }
 \references{

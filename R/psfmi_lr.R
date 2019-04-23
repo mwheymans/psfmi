@@ -72,6 +72,7 @@
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), p.crit = 0.05, method="MPR")
 #'
+#'\dontrun{
 #'   # Predictor selection, force variable Smoking in model,
 #'   # using p<0.05 and method D3
 #'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
@@ -95,6 +96,7 @@
 #'   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
 #'   spline.predictors=c("Function"), int.predictors = c("Gender:Smoking"),
 #'   keep.predictors = c("JobControl"), knots=3, method="D1")
+#'}
 #'
 #' @export
 psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,

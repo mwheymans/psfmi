@@ -81,6 +81,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), p.crit = 0.05, method="MPR")
 
+\dontrun{
   # Predictor selection, force variable Smoking in model,
   # using p<0.05 and method D3
   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
@@ -104,6 +105,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   spline.predictors=c("Function"), int.predictors = c("Gender:Smoking"),
   keep.predictors = c("JobControl"), knots=3, method="D1")
+}
 
 }
 \references{

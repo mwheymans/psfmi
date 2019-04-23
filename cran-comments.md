@@ -1,7 +1,6 @@
 ## Resubmission
 This is a resubmission. In this version I have:
-Omitted the mis-spelled words and changed the date field according
-to ISO requirement.
+Omitted the mis-spelled words, the date field and adjusted the examples so that they run <5s.
 
 ## Test environments
 *	MacOS Mojave versie 10.14.4, R studio 1.1.383, R version 3.5.3
