@@ -19,14 +19,14 @@ Version: 0.1.0
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
-Date: 2019-04-23
+Date: as.Date("2019/4/23")
 Description:
 	Package contains functions to apply pooling or backward selection 
 	for logistic or Cox regression prediction models in multiple imputed
 	datasets. Backward selection can be done from the pooled model using 
 	Rubin's Rules (RR), the total covariance matrix (D1 method), pooling 
 	Chi-square values (D2 method), pooling Likelihood ratio statistics	
-	(D3) or pooling the median p-values (MPR). The model	can contain 
+	(D3) or pooling the median p-values. The model	can contain 
 	continuous, dichotomous, categorical predictors and interaction terms 
 	between all	type of these predictors. Continuous predictors	can also 
 	be introduced as restricted cubic spline coefficients. It is also possible 
