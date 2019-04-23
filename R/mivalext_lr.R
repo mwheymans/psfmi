@@ -32,7 +32,7 @@
 #'  ROC curves), pooled Nagelkerke R-Square value (median and backtransformed
 #'  after pooling Fisher transformed values), pooled Hosmer and Lemeshow Test (using
 #'  miceadds package), pooled coefficients when model is freely estimated in imputed
-#'  datasets and the pooled linear predictor (LP), after the externally validaed LP
+#'  datasets and the pooled linear predictor (LP), after the externally validated LP
 #'  is estimated in each imputed dataset (provides information about miscalibration
 #'  in intercept and slope). When the external validation is very poor,
 #'  the R2 fixed can become negative due to the poor fit of the model in

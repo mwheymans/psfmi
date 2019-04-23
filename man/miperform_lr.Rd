@@ -47,7 +47,7 @@ performance measures.}
 \item{B}{The number of bootstrap resamples, default is 250.}
 
 \item{bw}{If TRUE backward selection is applied during bootstrap
-internal validation. Deafult is FALSE. Backward selection is done
+internal validation. Default is FALSE. Backward selection is done
 using the fastbw function of the rms package.}
 
 \item{rule}{Set at "p" for backward selection using the p-value as

@@ -26,7 +26,7 @@
 #'  performance measures.
 #' @param B The number of bootstrap resamples, default is 250.
 #' @param bw If TRUE backward selection is applied during bootstrap
-#'  internal validation. Deafult is FALSE. Backward selection is done
+#'  internal validation. Default is FALSE. Backward selection is done
 #'  using the fastbw function of the rms package.
 #' @param rule Set at "p" for backward selection using the p-value as
 #'  criterium when bw=TRUE.

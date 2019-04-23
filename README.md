@@ -33,7 +33,7 @@ of logistic regression prediction models in multiple imputed datasets.
 The performanance measures that are reported are the ROC/AUC, 
 (Nagerkerke) R-squared and the Hosmer and Lemeshow test. 
 Also calibration curves can be generated, overlayed curves that pool 
-all calibration curves that are estimated in each imputed datset, 
+all calibration curves that are estimated in each imputed dataset, 
 or individual curves as a result of calibrating the model in each 
 imputed dataset separately. The pooled linear predictor is also returned.
 
