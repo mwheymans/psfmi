@@ -19,25 +19,24 @@ Version: 0.1.0
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
-Date: 2019
+Date: 2019-04-23
 Description:
 	Package contains functions to apply pooling or backward selection 
 	for logistic or Cox regression prediction models in multiple imputed
 	datasets. Backward selection can be done from the pooled model using 
 	Rubin's Rules (RR), the total covariance matrix (D1 method), pooling 
 	Chi-square values (D2 method), pooling Likelihood ratio statistics	
-	(method of Meng and Rubin or D3) or pooling the median p-values (MPR rule). 
-	The model	can contain continuous, dichotomous, categorical predictors 
-	and interaction terms between all	type of these predictors. 
-	Continuous predictors	can also be introduced as restricted cubic spline
-	(RCS) coefficients. It is also possible to force (spline) predictors 
-	or interaction terms in the model during predictor selection.
+	(D3) or pooling the median p-values (MPR). The model	can contain 
+	continuous, dichotomous, categorical predictors and interaction terms 
+	between all	type of these predictors. Continuous predictors	can also 
+	be introduced as restricted cubic spline coefficients. It is also possible 
+	to force (spline) predictors or interaction terms in the model during predictor 
+	selection.
 	The package also contains functions to generate apparent model performance 
-	measures over imputed datasets as ROC/AUC, Nagelkerke R-squares, 
-	Hosmer & Lemeshow test values and calibration	plots. A wrapper function 
-	over Frank Harrell's validate function is	used for that. 
-	Bootstrap internal validation is performed in each imputed dataset and 
-	results are pooled. Backward selection as part of internal validation	
+	measures over imputed datasets as ROC/AUC, R-squares, fit test values and 
+	calibration	plots. A wrapper function	over Frank Harrell's validate function 
+	is	used for that. Bootstrap internal validation is performed in each imputed dataset 
+	and results are pooled. Backward selection as part of internal validation	
 	is optional and recommended.
 Encoding: UTF-8
 LazyData:
