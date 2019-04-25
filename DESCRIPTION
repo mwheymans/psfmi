@@ -20,23 +20,25 @@ Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
 Description:
-	Package contains functions to apply pooling or backward selection 
+	Provides functions to apply pooling or backward selection 
 	for logistic or Cox regression prediction models in multiple imputed
 	datasets. Backward selection can be done from the pooled model using 
 	Rubin's Rules (RR), the total covariance matrix (D1 method), pooling 
-	Chi-square values (D2 method), pooling Likelihood ratio statistics	
-	(D3) or pooling the median p-values. The model	can contain 
+	Chi-square values (D2 method), pooling likelihood ratio statistics	
+	(D3) or pooling the median p-values. The model can contain 
 	continuous, dichotomous, categorical predictors and interaction terms 
 	between all	type of these predictors. Continuous predictors	can also 
 	be introduced as restricted cubic spline coefficients. It is also possible 
 	to force (spline) predictors or interaction terms in the model during predictor 
-	selection.
-	The package also contains functions to generate apparent model performance 
+	selection. The package also contains functions to generate apparent model performance 
 	measures over imputed datasets as ROC/AUC, R-squares, fit test values and 
 	calibration	plots. A wrapper function	over Frank Harrell's validate function 
 	is	used for that. Bootstrap internal validation is performed in each imputed dataset 
 	and results are pooled. Backward selection as part of internal validation	
 	is optional and recommended.
+	Eekhout I, van de Wiel MA, Heymans MW (2017) <doi:10.1186/s12874-017-0404-7>.
+	van de Wiel MA, Berkhof J, van Wieringen WN (2009) <doi:10.1093/biostatistics/kxp011>.
+	Marshall A, Altman DG, Holder RL, Royston P (2009) <doi:10.1186/1471-2288-9-57>.
 Encoding: UTF-8
 LazyData:
 	true

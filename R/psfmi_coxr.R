@@ -59,28 +59,10 @@
 #'   predictors=c("Duration", "Radiation", "Onset"), p.crit=1,
 #'   method="D1", cat.predictors=c("Expect_cat"))
 #'
-#'\dontrun{
 #'   # Predictor selection using p<0.05 and method D1
 #'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-#'   predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
-#'   "Previous", "Tampascale"), p.crit=0.15,
-#'   method="MPR", cat.predictors=c("Expect_cat"))
-#'
-#'   # Predictor selection, force variable Tampa scale in model
-#'   # using p<0.05 and method D2
-#'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-#'   predictors=c("Duration", "Previous",  "Radiation", "Onset",
-#'   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
-#'   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
-#'   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
-#'
-#'   # Predictor selection, including spline coefficient (3 knots) and interaction
-#'   # term between predictor and spline variable, using p<0.05 and method D1
-#'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-#'   predictors=c("Duration", "Previous",  "Radiation", "Onset",
-#'   "Function"), p.crit=0.05, spline.predictors=c("Tampascale"),
-#'   int.predictors=c("Tampascale:Radiation"), knots=3, method="D1" )
-#'}
+#'   predictors=c("Duration", "Radiation", "Onset", "Previous", "Tampascale"), p.crit=0.15,
+#'   method="D1", cat.predictors=c("Expect_cat"))
 #'
 #' @export
 psfmi_coxr <-

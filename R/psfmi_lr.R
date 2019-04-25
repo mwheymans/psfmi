@@ -72,32 +72,6 @@
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), p.crit = 0.05, method="MPR")
 #'
-#'\dontrun{
-#'   # Predictor selection, force variable Smoking in model,
-#'   # using p<0.05 and method D3
-#'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-#'   predictors=c("Gender", "Smoking", "Function", "JobControl",
-#'   "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
-#'   p.crit = 0.05, method="D3")
-#'
-#'   # Predictor selection, including categorical and interaction terms
-#'   # and forcing interaction terms and another variable in model,
-#'   # using p<0.05 and method D1
-#'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-#'   predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
-#'   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
-#'   int.predictors = c("Carrying:Smoking", "Gender:Smoking"),
-#'   keep.predictors = c("Smoking:Carrying", "JobControl"), method="D1")
-#'
-#'   # Predictor selection, including categorical, spline (3 knots) and
-#'   # interaction terms and forcing variable in model, using p<0.05 and method D1
-#'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-#'   predictors=c("Gender", "Smoking", "JobControl", "JobDemands",
-#'   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
-#'   spline.predictors=c("Function"), int.predictors = c("Gender:Smoking"),
-#'   keep.predictors = c("JobControl"), knots=3, method="D1")
-#'}
-#'
 #' @export
 psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
   p.crit=1, cat.predictors=NULL, spline.predictors=NULL, int.predictors=NULL,
