@@ -36,9 +36,9 @@ Description:
 	is	used for that. Bootstrap internal validation is performed in each imputed dataset 
 	and results are pooled. Backward selection as part of internal validation	
 	is optional and recommended.
-	Eekhout I, van de Wiel MA, Heymans MW (2017) <doi:10.1186/s12874-017-0404-7>.
-	van de Wiel MA, Berkhof J, van Wieringen WN (2009) <doi:10.1093/biostatistics/kxp011>.
-	Marshall A, Altman DG, Holder RL, Royston P (2009) <doi:10.1186/1471-2288-9-57>.
+	Eekhout (2017) <doi:10.1186/s12874-017-0404-7>.
+	Wiel (2009) <doi:10.1093/biostatistics/kxp011>.
+	Marshall (2009) <doi:10.1186/1471-2288-9-57>.
 Encoding: UTF-8
 LazyData:
 	true

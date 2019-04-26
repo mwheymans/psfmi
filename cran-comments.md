@@ -1,5 +1,13 @@
 ## Resubmission
 This is a resubmission. In this version I have:
+Started the Description with just "Provides..." and did not capitalize non-names (e.g. Likelihood - likelihood).
+
+I have added references as  (year) <doi:...>  
+
+I have changed my examples into small executable examples in all of my Rd-files.
+
+## Resubmission
+This is a resubmission. In this version I have:
 Omitted the mis-spelled words, the date field and adjusted the examples so that they run <5s.
 
 ## Test environments
