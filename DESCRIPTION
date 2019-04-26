@@ -24,7 +24,7 @@ Description:
 	for logistic or Cox regression prediction models in multiple imputed
 	datasets. Backward selection can be done from the pooled model using 
 	Rubin's Rules (RR), the total covariance matrix (D1 method), pooling 
-	Chi-square values (D2 method), pooling likelihood ratio statistics	
+	chi-square values (D2 method), pooling likelihood ratio statistics	
 	(D3) or pooling the median p-values. The model can contain 
 	continuous, dichotomous, categorical predictors and interaction terms 
 	between all	type of these predictors. Continuous predictors	can also 
@@ -33,7 +33,7 @@ Description:
 	selection. The package also contains functions to generate apparent model performance 
 	measures over imputed datasets as ROC/AUC, R-squares, fit test values and 
 	calibration	plots. A wrapper function	over Frank Harrell's validate function 
-	is	used for that. Bootstrap internal validation is performed in each imputed dataset 
+	is used for that. Bootstrap internal validation is performed in each imputed dataset 
 	and results are pooled. Backward selection as part of internal validation	
 	is optional and recommended.
 	Eekhout (2017) <doi:10.1186/s12874-017-0404-7>.
