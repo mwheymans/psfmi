@@ -57,20 +57,13 @@
 #' @references http://missingdatasolutions.rbind.io/
 #'
 #' @examples
-#'   # Pooling model (without backward selection) using D1
 #'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), method="D1")
 #'
-#'   # Predictor selection using p<0.05 and method D1
 #'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
-#'
-#'   # Predictor selection using p<0.05 and method MPR
-#'   psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-#'   predictors=c("Gender", "Smoking", "Function", "JobControl",
-#'   "JobDemands", "SocialSupport"), p.crit = 0.05, method="MPR")
 #'
 #' @export
 psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,

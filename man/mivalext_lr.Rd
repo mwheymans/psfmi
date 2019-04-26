@@ -60,42 +60,15 @@ The following information of the externally validated model is provided:
  the external dataset (in that case you may report a R2 of zero).
 }
 \examples{
-
-# Run models in MI datasets and get information of
-# the order of the predictors in the LP, to
-# define lp.orig accordingly.
 mivalext_lr(data.val=lbpmilr, nimp=10, impvar="Impnr", Outcome="Chronic",
 predictors=c("Gender", "factor(Carrying)", "Function", "Tampascale",  "Age"),
 lp.orig=c(-9.2, -0.34, 0.92, 1.5, 0.5, 0.26, -0.02),
 cal.plot=TRUE, plot.indiv=TRUE, val.check = TRUE)
 
-# Externally validate a LP using the coefficients as defined under lp.orig
 mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 predictors=c("Gender", "factor(Carrying)", "Function", "Tampascale", "Age"),
 lp.orig=c(-9.2, -0.34, 0.92, 1.1, -0.05, 0.26, -0.02),
 cal.plot=TRUE, plot.indiv=TRUE, val.check = FALSE)
-
-# Externally validate a LP using the coefficients as defined under lp.orig,
-# including a restricted cubic spline predictor with 3 knots
-mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-predictors=c("Gender", "factor(Carrying)", "Function", "Tampascale", "rcs(Age, 3)"),
-lp.orig=c(-9.2, -0.34, 0.92, 1.1, -0.05, 0.26,-0.018, 0.005),
-cal.plot=TRUE, plot.indiv=TRUE, val.check = FALSE)
-
-# Externally validate a LP when the original coefficients
-# are fitted in the development dataset
-mivalext_lr(data.val=lbpmilr, data.orig=lbpmilr_dev, nimp=5, impvar="Impnr",
-Outcome="Chronic", predictors=c("Gender", "factor(Carrying)",
-"Function", "Tampascale", "Radiation", "Age"),
-lp.orig=NULL, cal.plot=TRUE, plot.indiv=TRUE, val.check = FALSE)
-
-# Externally validate a LP when the original coefficients
-# are fitted in the development dataset, including
-# a restricted cubic spline predictor with 3 knots
-mivalext_lr(data.val=lbpmilr, data.orig=lbpmilr_dev, nimp=5, impvar="Impnr",
-Outcome="Chronic", predictors=c("factor(Carrying)",
-"Function", "Tampascale", "Radiation", "rcs(Age, 3)"),
-lp.orig=NULL, cal.plot=TRUE, plot.indiv=FALSE, val.check = FALSE)
 
 }
 \references{

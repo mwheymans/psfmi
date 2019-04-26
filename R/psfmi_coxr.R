@@ -54,12 +54,10 @@
 #' @references http://missingdatasolutions.rbind.io/
 #' 
 #' @examples
-#'   # Pooling model (without backward selection) using D1
 #'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
 #'   predictors=c("Duration", "Radiation", "Onset"), p.crit=1,
 #'   method="D1", cat.predictors=c("Expect_cat"))
 #'
-#'   # Predictor selection using p<0.05 and method D1
 #'   psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
 #'   predictors=c("Duration", "Radiation", "Onset", "Previous", "Tampascale"), p.crit=0.15,
 #'   method="D1", cat.predictors=c("Expect_cat"))

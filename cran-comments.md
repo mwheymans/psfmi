@@ -1,5 +1,9 @@
 ## Resubmission
 This is a resubmission. In this version I have:
+Excluded annotated lines at location of example.
+
+## Resubmission
+This is a resubmission. In this version I have:
 Started the Description with just "Provides..." and did not capitalize non-names (e.g. Likelihood - likelihood).
 
 I have added references as  (year) <doi:...>  

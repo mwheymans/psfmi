@@ -66,36 +66,12 @@ the order of the variable in the model (starting with the intercept).}
 \code{miperform_lr} Evaluate Performance of logistic regression models
 }
 \examples{
-
-# Apparent Performance measures over 5 imputed datasets with
-# overlaying calibration plots
 miperform_lr(data=lbpmilr, nimp=5, impvar="Impnr",
 Outcome=c("Chronic"), predictors=c("Gender", "Pain",
 "Tampascale","Smoking","Function", "Radiation", "Age"),
 cat.predictors=c("Carrying", "Satisfaction"),
 int.predictors=c("Carrying:Smoking", "Gender:Smoking"),
 cal.plot=TRUE, plot.indiv = FALSE)
-
-# Apparent Performance measures over 5 imputed datasets with
-# individual calibration plots
-miperform_lr(data=lbpmilr, nimp=5, impvar="Impnr",
-Outcome=c("Chronic"), predictors=c("Gender", "Pain",
-"Tampascale","Smoking","Function", "Radiation", "Age"),
-cat.predictors=c("Carrying", "Satisfaction"),
-int.predictors=c("Carrying:Smoking", "Gender:Smoking"),
-cal.plot=TRUE, plot.indiv = TRUE)
-
-\dontrun{
-# Apparent and Bootstrap corrected Performance measures
-# over 10 imputed datasets with individual calibration plots
-# including BW selection
-miperform_lr(data=lbpmilr, nimp=10, impvar="Impnr",
-Outcome=c("Chronic"), predictors=c("Gender", "Pain",
-"Tampascale","Smoking","Function", "Radiation", "Age"),
-cat.predictors=c("Carrying", "Satisfaction"),
-int.predictors=c("Carrying:Smoking"),
-cal.plot=TRUE, plot.indiv = FALSE, int.val=TRUE, B=200)
-}
 
 }
 \references{

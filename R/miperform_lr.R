@@ -50,9 +50,6 @@
 #' @references http://missingdatasolutions.rbind.io/
 #' 
 #'@examples
-#'
-#' # Apparent Performance measures over 5 imputed datasets with
-#' # overlaying calibration plots
 #' miperform_lr(data=lbpmilr, nimp=5, impvar="Impnr",
 #' Outcome=c("Chronic"), predictors=c("Gender", "Pain",
 #' "Tampascale","Smoking","Function", "Radiation", "Age"),
