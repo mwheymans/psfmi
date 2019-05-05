@@ -52,6 +52,13 @@ See details for more information.}
 chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
 to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
 }
+\value{
+a \code{psfmi_coxr} object from which the following objects can be extracted: pooled model \code{RR_model}, 
+ pooled p-values according to method \code{multiparm_p}, predictors excluded at each step \code{coef.excl_step}, 
+ and \code{impvar}, \code{nimp}, \code{method}, \code{p.crit}, \code{predictors}, 
+ \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
+ \code{spline.predictors}, \code{knots}, \code{print.method}.
+}
 \description{
 \code{psfmi_coxr} Pooling and backward selection for Cox regression
 models in multiply imputed datasets using different selection methods.
@@ -67,14 +74,26 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  A minimum number of 3 knots as defined under knots is needed.
 }
 \examples{
-  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-  predictors=c("Duration", "Radiation", "Onset"), p.crit=1,
+  # Pooling model using method D1
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
+  status="Status", predictors=c("Duration", "Radiation", "Onset"), p.crit=1, 
   method="D1", cat.predictors=c("Expect_cat"))
-
-  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-  predictors=c("Duration", "Radiation", "Onset", "Previous", "Tampascale"), p.crit=0.15,
-  method="D1", cat.predictors=c("Expect_cat"))
-
+  # Pooled Model
+  pool_coxr$RR_Model
+  # Pooled p-values with D1
+  pool_coxr$multiparm_p
+  
+  # Predictor selection using method D2
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
+  status="Status", predictors=c("Previous",  "Radiation", "Onset",
+  "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Expect_cat"), 
+  int.predictors=c("Tampascale:Radiation",
+  "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2")
+  # Selected Models
+  pool_coxr$RR_Model
+  # Pooled p-values with D2
+  pool_coxr$multiparm_p
+  
 }
 \references{
 Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical

@@ -50,6 +50,13 @@ See details for more information.}
 chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
 to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
 }
+\value{
+a \code{psfmi_lr} object from which the following objects can be extracted: pooled model \code{RR_model}, 
+ pooled p-values according to method \code{multiparm_p}, predictors excluded at each step \code{coef.excl_step}, 
+ and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{predictors}, 
+ \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
+ \code{spline.predictors}, \code{knots}, \code{print.method}.
+}
 \description{
 \code{psfmi_lr} Pooling and backward selection for Logistic regression
 prediction models in multiply imputed datasets using different selection methods.
@@ -66,13 +73,23 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  A minimum number of 3 knots as defined under knots is needed.
 }
 \examples{
-  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  # Pooling model using method D1
+  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), method="D1")
+  # Pooled Model
+  pool_lr$RR_Model
+  # Pooled p-values with D1
+  pool_lr$multiparm_p
 
-  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  # Predictor selection using method D1
+  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
+  # Selected Models
+  pool_lr$RR_Model
+  # Pooled p-values with D1
+  pool_lr$multiparm_p
 
 }
 \references{

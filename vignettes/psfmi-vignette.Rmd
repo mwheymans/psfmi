@@ -22,7 +22,8 @@ On this page you will find information of the psfmi package.
 The	package contains functions to apply pooling or backward 
 selection (BS) for logistic or Cox regression prediction models. 
 
-The basic pooling method is Rubin's Rules. New is that for categorical predictors, different methods to derive pooled p-values are available as: 
+The basic pooling method is Rubin's Rules. New is that for categorical predictors, 
+different methods to derive pooled p-values are available as: 
 the total covariance matrix (D1 method), pooling Chi-square values 
 (D2 method), pooling Likelihood ratio statistics (method of Meng and Rubin) 
 or pooling the median p-values (MPR rule). Moreover, two-way interaction 
@@ -41,7 +42,7 @@ BS as part of internal validation	is  optional and recommended.
 
 ## Installing the psfmi package
 
-The package can be installed by running the following code in 
+The package can be installed from Github by running the following code in 
 the R console window:
  
  install.packages("devtools")
@@ -56,12 +57,14 @@ the R console window:
 
 The main functions that are available in the psfmi package are:
 
-psfmi_lr: for Logistic regression models 
+psfmi_lr: pooling and selection of Logistic regression models in multiple imputed datasets 
 
-psfmi_coxr: for Cox regression models
+psfmi_coxr: pooling and selection of Cox regression models in multiple imputed datasets
 
 miperform_lr: for performance and internal validation of logistic regression 
-models
+models in multiple imputed datasets
+
+mivalext_lr: external validation in multiple imputed datasets
 
 ## Examples 
 
@@ -85,9 +88,11 @@ models
 ```{r}
 
   library(psfmi)
-  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), method="D1")
+  pool_lr$RR_Model
+  pool_lr$multiparm_p
   
 ```
 
@@ -102,10 +107,12 @@ forcing the predictor "Smoking" in the models during backward selection
 ```{r}
 
   library(psfmi)
-  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
   p.crit = 0.05, method="D3")
+  pool_lr$RR_Model
+  pool_lr$multiparm_p
 
 ```
 
@@ -120,10 +127,12 @@ including with a categorical predictor, are part of the selection procedure.
 ```{r}
 
   library(psfmi)
-  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   int.predictors = c("Carrying:Smoking", "Gender:Smoking"), method="D2")
+  pool_lr$RR_Model
+  pool_lr$multiparm_p
 
 ```
 
@@ -137,11 +146,13 @@ in the model during BS.
 ```{r}
 
   library(psfmi)
-  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   int.predictors = c("Carrying:Smoking", "Gender:Smoking"),
   keep.predictors = c("Smoking:Carrying", "JobControl"), method="D1")
+  pool_lr$RR_Model
+  pool_lr$multiparm_p
 
 ```
 
@@ -156,11 +167,13 @@ term are part of the selection procedure.
 ```{r}
 
   library(psfmi)
-  psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "JobControl", "JobDemands",
   "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   spline.predictors=c("Function"), int.predictors = c("Carrying:Smoking"), 
   knots=3, method="D1")
+  pool_lr$RR_Model
+  pool_lr$multiparm_p
 
 ```
 
@@ -173,10 +186,12 @@ Back to [Examples]
 ```{r}
 
   library(psfmi)
-  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
   predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
   "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=1,
   cat.predictors=c("Expect_cat"), method="D1")
+  pool_coxr$RR_Model
+  pool_coxr$multiparm_p
 
 ```  
 
@@ -187,11 +202,13 @@ Back to [Examples]
 ```{r}
 
   library(psfmi)
-  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
   predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
   "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=0.05,
   cat.predictors=c("Expect_cat"), method="MPR")
-
+  pool_coxr$RR_Model
+  pool_coxr$multiparm_p
+  
 ```  
 
 Back to [Examples]
@@ -206,12 +223,14 @@ during backward selection
 ```{r}
 
   library(psfmi)
-  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
   predictors=c("Duration", "Previous",  "Radiation", "Onset",
   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
-
+  pool_coxr$RR_Model
+  pool_coxr$multiparm_p
+  
 ```  
 
 Back to [Examples]
@@ -225,12 +244,14 @@ and forcing these in the models during backward selection
 ```{r}
 
   library(psfmi)
-  psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
   predictors=c("Duration", "Previous",  "Radiation", "Onset", "Function"), 
   p.crit=0.05, cat.predictors=c("Satisfaction"), spline.predictors=c("Tampascale"),
   int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
   knots=3, method="D1")
-
+  pool_coxr$RR_Model
+  pool_coxr$multiparm_p
+  
 ```  
 
 Back to [Examples]

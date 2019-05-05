@@ -9,7 +9,6 @@ Imports:
 	miceadds (>= 2.10-14),
 	mitools (>= 2.3),
 	foreign (>= 0.8-69), 
-	crayon (>= 1.3.4),
 	pROC (>= 1.11.0),
 	rms (>= 5.1-2),
 	ResourceSelection (>= 0.3-2),
