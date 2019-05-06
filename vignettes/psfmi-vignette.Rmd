@@ -38,7 +38,13 @@ measures over imputed datasets as ROC/AUC, Nagelkerke R-squares,
 Hosmer & Lemeshow test values and calibration plots. A wrapper function 
 over Frank Harrell's validate function is available. Bootstrap internal 
 validation is performed in each imputed dataset and results are pooled. 
-BS as part of internal validation	is  optional and recommended.
+BS as part of internal validation	is optional and recommended.
+A function with the name mivalext_lr can be used to externally validate
+prediction models in multiple imputed datasets. The following information 
+of the externally validated model is provided: pooled ROC/AUC, (Nagelkerke) 
+R-Square value, Hosmer and Lemeshow Test, pooled coefficients when the model 
+is freely estimated in imputed datasets and the pooled linear predictor (LP), 
+with information about miscalibration in intercept and slope. 
 
 ## Installing the psfmi package
 
