@@ -45,10 +45,10 @@ with coefficient values fitted in the order as used under lp.orig.}
 Lemeshow test. Default is 10.}
 }
 \value{
-a \code{mivalext_lr} object from which the following objects 
- can be extracted: ROC results \code{ROC}, R squared results (fixed and calibrated) 
- \code{R2 (fixed)} and \code{R2 (calibr)}, Hosmer and Lemeshow test \code{HL_test}, 
- coefficients pooled \code{coef_pooled}, linear predictor pooled \code{LP_pooled ext}, 
+A \code{mivalext_lr} object from which the following objects 
+ can be extracted: ROC results as \code{ROC}, R squared results (fixed and calibrated) 
+ as \code{R2 (fixed)} and \code{R2 (calibr)}, Hosmer and Lemeshow test as \code{HL_test}, 
+ coefficients pooled as \code{coef_pooled}, linear predictor pooled as \code{LP_pooled ext}, 
  and \code{Outcome}, \code{nimp}, \code{impvar}, \code{val.check}, 
  \code{g} and \code{coef.check}.
 }

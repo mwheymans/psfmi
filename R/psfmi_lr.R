@@ -41,8 +41,8 @@
 #'  by using the rcs function for restricted cubic splines of the rms package of Frank Harrell.
 #'  A minimum number of 3 knots as defined under knots is needed.
 #'
-#'@return a \code{psfmi_lr} object from which the following objects can be extracted: pooled model \code{RR_model}, 
-#'  pooled p-values according to method \code{multiparm_p}, predictors excluded at each step \code{coef.excl_step}, 
+#'@return A \code{psfmi_lr} object from which the following objects can be extracted: pooled model as \code{RR_model}, 
+#'  pooled p-values according to pooling method as \code{multiparm_p}, predictors excluded at each step as \code{coef.excl_step}, 
 #'  and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{predictors}, 
 #'  \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
 #'  \code{spline.predictors}, \code{knots}, \code{print.method}.

@@ -63,10 +63,10 @@ in the model during backward selection. The integer value matches
 the order of the variable in the model (starting with the intercept).}
 }
 \value{
-a \code{miperform_lr} object from which the following objects 
- can be extracted: ROC results \code{ROC}, R squared results \code{R2}, 
- Hosmer and Lemeshow test \code{HL_test}, linear predictor pooled \code{LP_pooled}, 
- performance after internal validation \code{Int_val_pooled}, 
+A \code{miperform_lr} object from which the following objects 
+ can be extracted: ROC results as \code{ROC}, R squared results as \code{R2}, 
+ Hosmer and Lemeshow test as \code{HL_test}, linear predictor pooled as \code{LP_pooled}, 
+ performance after internal validation as \code{Int_val_pooled}, 
  and \code{Outcome}, \code{nimp}, \code{impvar}, \code{predictors}, 
  \code{cat.predictors}, \code{int.predictors}, \code{int.val}.
 }

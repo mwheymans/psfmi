@@ -53,10 +53,10 @@ chosen method (under method) is shown. If FALSE (default) p-value for categorica
 to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
 }
 \value{
-a \code{psfmi_coxr} object from which the following objects can be extracted: pooled model \code{RR_model}, 
- pooled p-values according to method \code{multiparm_p}, predictors excluded at each step \code{coef.excl_step}, 
- and \code{impvar}, \code{nimp}, \code{method}, \code{p.crit}, \code{predictors}, 
- \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
+A \code{psfmi_coxr} object from which the following objects can be extracted: pooled model as 
+ \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, predictors 
+ excluded at each step as \code{coef.excl_step}, and \code{impvar}, \code{nimp}, \code{method}, 
+ \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
  \code{spline.predictors}, \code{knots}, \code{print.method}.
 }
 \description{
