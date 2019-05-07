@@ -44,7 +44,7 @@ R-Square value, Hosmer and Lemeshow Test, pooled coefficients when the model
 is freely estimated in imputed datasets and the pooled linear predictor (LP), 
 with information about miscalibration in intercept and slope. 
 
-The package needs R 3.4 or higher. You can use the functions, 
+The package needs R 3.4.0 or higher. You can use the functions, 
 after you have installed the package from CRAN or the Github website 
 (development version). For Github you first have to install and activate 
 the devtools package. Use the following code to install and activate 
