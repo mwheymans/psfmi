@@ -1,5 +1,32 @@
 ## Resubmission
 This is a resubmission. In this version I have:
+Provided small executable examples. 
+Omitted cat()/print() in functions and used message() on a minority basis.
+Changed the functions so that the user can extract separate objects. 
+
+## Test environments
+*	MacOS Mojave versie 10.14.4, R studio 1.1.383, R version 3.5.3
+* win-builder (devel and release), R version 3.6.0
+* Ubuntu 14.04.5 LTS (on Travis CI) (Done. Your build exited with 0)
+
+## R CMD check results
+Duration: 1m 29.8s
+
+0 errors √ | 0 warnings √ | 0 notes √
+
+## devtools::test()
+Loading psfmi
+Testing psfmi
+√ | OK F W S | Context
+√ |  0       | testthat.R
+== Results =====================================================================
+OK:       0
+Failed:   0
+Warnings: 0
+Skipped:  0
+
+## Resubmission
+This is a resubmission. In this version I have:
 Excluded annotated lines at location of example.
 
 ## Resubmission
