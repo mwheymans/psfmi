@@ -1,5 +1,11 @@
 ## Resubmission
 This is a resubmission. In this version I have:
+Added small executable examples in all the exported functions'
+Rd files to illustrate the use of the exported function.
+Deleted comments in examples.
+
+## Resubmission
+This is a resubmission. In this version I have:
 Provided small executable examples. 
 Omitted cat()/print() in functions and used message() on a minority basis.
 Changed the functions so that the user can extract separate objects. 
