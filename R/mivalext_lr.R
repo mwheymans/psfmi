@@ -235,7 +235,7 @@ mivalext_lr <-
     roc.res <- list("ROC (logit)"=roc.m.log,
                     "ROC (median)"=roc.med.iqr)
     
-    #### Pooling R square (uncalibrated)
+    # Pooling R square (uncalibrated)
     # Fisher z Transformation
     z.rsq <- atanh(unlist(rsq.mi.i))
     z.rsq.p <- mean(z.rsq)
@@ -257,7 +257,7 @@ mivalext_lr <-
     res.rsq <- list("Fisher Z (fixed)"=inv.z.rsq.p,
                     "Median (fixed)"=rsq.med.iqr)
     
-    #### Pooling R square (calibrated)
+    # Pooling R square (calibrated)
     # Fisher z Transformation
     z.rsq.cal <- atanh(unlist(rsq.mi.i.cal))
     z.rsq.p.cal <- mean(z.rsq.cal)

@@ -14,6 +14,11 @@
 #'   chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
 #'   to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used
 #'
+#'@examples 
+#'  psfmi_D3(data=lbpmilr, nimp=5, impvar="Impnr",
+#'  P=c("Gender", "Smoking", "Function", "JobControl"), 
+#'  Outcome="Chronic", print.method = FALSE)
+#'
 #' @export
 psfmi_D3 <-
   function(data, nimp, impvar, Outcome, P, p.crit, print.method)
@@ -109,7 +114,7 @@ psfmi_D3 <-
     res.RR <- model.res[-c(1, id.p.value.RR.f, id.p.RR.spl), 3]
     names(res.RR) <- row.names(model.res)[-c(1, id.p.value.RR.f, id.p.RR.spl)]
     pool.D3[names(res.RR), 1] <- res.RR
-    names(pool.D3) <- "D3 & RR p-values"
+    names(pool.D3) <- "D3 p-values"
     if(print.method) pool.D3 <- pool.D3_orig
     pool.D3
   }

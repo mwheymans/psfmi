@@ -21,3 +21,9 @@ The original dataset that contains missing values must be excluded from the data
 \description{
 \code{D1_logistic} D1 pooling method
 }
+\examples{
+ D1_logistic(data=lbpmilr, nimp=5, impvar="Impnr", 
+ fm=Chronic ~ Gender + Smoking + Function + JobControl,
+ names.var=list("Gender", "Smoking", "Function", "JobControl"))
+
+}

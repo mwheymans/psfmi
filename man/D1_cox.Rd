@@ -21,3 +21,10 @@ The original dataset that contains missing values must be excluded from the data
 \description{
 \code{D1_cox} D1 pooling method
 }
+\examples{
+ 
+ D1_cox(data=lbpmicox, nimp=5, impvar="Impnr", 
+ fm=survival::Surv(Time, Status) ~ Duration + Radiation + Onset,
+ names.var=list("Duration", "Radiation", "Onset"))
+
+}

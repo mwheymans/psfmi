@@ -60,24 +60,18 @@
 #' @references http://missingdatasolutions.rbind.io/
 #' 
 #' @examples
-#'   # Pooling model using method D1
 #'   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
 #'   status="Status", predictors=c("Duration", "Radiation", "Onset"), p.crit=1, 
 #'   method="D1", cat.predictors=c("Expect_cat"))
-#'   # Pooled Model
 #'   pool_coxr$RR_Model
-#'   # Pooled p-values with D1
 #'   pool_coxr$multiparm_p
 #'   
-#'   # Predictor selection using method D2
 #'   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
 #'   status="Status", predictors=c("Previous",  "Radiation", "Onset",
 #'   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Expect_cat"), 
 #'   int.predictors=c("Tampascale:Radiation",
 #'   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2")
-#'   # Selected Models
 #'   pool_coxr$RR_Model
-#'   # Pooled p-values with D2
 #'   pool_coxr$multiparm_p
 #'   
 #' @export
@@ -306,7 +300,7 @@ psfmi_coxr <-
       
       coef.f.qhat <- do.call("rbind", coef.f)
       
-      #### Rubin's Rules
+      # Rubin's Rules
       
       RR <- norm::mi.inference(coef.f, se.f, 0.95)
       pool.RR <- do.call("cbind", RR)[, -c(3, 7, 8)]
@@ -333,10 +327,10 @@ psfmi_coxr <-
         some parameters could not be estimated", "\n")
       }
       
-      ### D2
+      # D2
       if(method=="D2")
       {
-        #### Get Chi/square values
+        # Get Chi/square values
         LChisq <- apply(chi.LR, 1 , as.list)
         
         mi.chiL <- lapply(1:length(LChisq),
@@ -366,7 +360,7 @@ psfmi_coxr <-
         # Res.f is the dataframe with the CHISQ
         # pooled p-values for all variables
       }
-      ### D1
+      # D1
       if(method=="D1")
       {
         est.D1 <- est.D1_orig <- data.frame(D1_cox(data = data,
@@ -391,7 +385,7 @@ psfmi_coxr <-
         multiparm_p[[k]] <- est.D1
         names(multiparm_p)[k] <- paste("Step", k)
       }
-      ### Med P Rule
+      # Med P Rule
       if(method=="MPR")
       {
         med.pvalue <- med.pvalue_orig <- round(data.frame(apply(chi.p,

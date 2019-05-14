@@ -73,22 +73,16 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  A minimum number of 3 knots as defined under knots is needed.
 }
 \examples{
-  # Pooling model using method D1
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), method="D1")
-  # Pooled Model
   pool_lr$RR_Model
-  # Pooled p-values with D1
   pool_lr$multiparm_p
 
-  # Predictor selection using method D1
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
-  # Selected Models
   pool_lr$RR_Model
-  # Pooled p-values with D1
   pool_lr$multiparm_p
 
 }

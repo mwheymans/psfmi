@@ -9,6 +9,11 @@
 #' @param fm regression formula from coxph object
 #' @param names.var list of predictors included in pooled regression model
 #'
+#'@examples  
+#'  D1_cox(data=lbpmicox, nimp=5, impvar="Impnr", 
+#'  fm=survival::Surv(Time, Status) ~ Duration + Radiation + Onset,
+#'  names.var=list("Duration", "Radiation", "Onset"))
+#'
 #' @export
 D1_cox <-
   function(data, impvar, nimp, fm, names.var)
@@ -71,10 +76,10 @@ D1_cox <-
         round(v2, 0)
         p.value <- round(1-pf(d1, nr.var, v2), 4)
       }
-      res[[i]] <- c("F-statistic"=d1, "P-value"=p.value)
+      res[[i]] <- c("F-statistic"=d1, "p-value"=p.value)
     }
     #print(res)
     res <- matrix(unlist(res), length(names.var), 2, byrow=T)
-    dimnames(res) <- list(names.var, c("Chi-sq", "Pooled P-value"))
+    dimnames(res) <- list(names.var, c("Chi-sq", "p-value"))
     res
 }

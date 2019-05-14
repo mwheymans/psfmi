@@ -201,7 +201,7 @@ miperform_lr <-
       # Hosmer and Lemeshow test
       hl.i[[i]] <- hoslem.test(f$y, pred.i[[i]])[[1]]
       
-      #### Internal bootstrap validation
+      # Internal bootstrap validation
       if(int.val==T) {
         f <- rms::lrm(fm.int, data = data[data[impvar] == i, ], x=T, y=T)
         int.val.i[[i]] <- rms::validate(f, method=method, B=B, bw=bw,
@@ -248,7 +248,7 @@ miperform_lr <-
     roc.res <- list("ROC (logit)"=roc.m.log,
                     "ROC (median)"=roc.med.iqr)
     
-    #### Pooling R square
+    # Pooling R square
     # Fisher z Transformation
     z.rsq <- atanh(unlist(rsq.i))
     z.rsq.p <- mean(z.rsq)

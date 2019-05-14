@@ -9,6 +9,11 @@
 #' @param fm regression formula from glm object
 #' @param names.var list of predictors included in pooled regression model
 #'
+#'@examples 
+#'  D1_logistic(data=lbpmilr, nimp=5, impvar="Impnr", 
+#'  fm=Chronic ~ Gender + Smoking + Function + JobControl,
+#'  names.var=list("Gender", "Smoking", "Function", "JobControl"))
+#'
 #' @export
 D1_logistic <-
   function(data, impvar, nimp, fm, names.var)
@@ -71,10 +76,10 @@ D1_logistic <-
         round(v2, 0)
         p.value <- round(1-stats::pf(d1, nr.var, v2), 4)
       }
-      res[[i]] <- c("F-statistic"=d1, "P-value"=p.value)
+      res[[i]] <- c("F-statistic"=d1, "p-value"=p.value)
     }
     #print(res)
     res <- matrix(unlist(res), length(names.var), 2, byrow=T)
-    dimnames(res) <- list(names.var, c("Chi_sq", "D1 & RR_p_values"))
+    dimnames(res) <- list(names.var, c("Chi_sq", "p-values"))
     res
 }

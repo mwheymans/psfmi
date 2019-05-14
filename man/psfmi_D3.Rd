@@ -28,3 +28,9 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 \description{
 \code{psfmi_D3} Function to pool using Meng & Rubin pooling method
 }
+\examples{
+ psfmi_D3(data=lbpmilr, nimp=5, impvar="Impnr",
+ P=c("Gender", "Smoking", "Function", "JobControl"), 
+ Outcome="Chronic", print.method = FALSE)
+
+}

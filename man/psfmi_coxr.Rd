@@ -74,24 +74,18 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  A minimum number of 3 knots as defined under knots is needed.
 }
 \examples{
-  # Pooling model using method D1
   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
   status="Status", predictors=c("Duration", "Radiation", "Onset"), p.crit=1, 
   method="D1", cat.predictors=c("Expect_cat"))
-  # Pooled Model
   pool_coxr$RR_Model
-  # Pooled p-values with D1
   pool_coxr$multiparm_p
   
-  # Predictor selection using method D2
   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
   status="Status", predictors=c("Previous",  "Radiation", "Onset",
   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Expect_cat"), 
   int.predictors=c("Tampascale:Radiation",
   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2")
-  # Selected Models
   pool_coxr$RR_Model
-  # Pooled p-values with D2
   pool_coxr$multiparm_p
   
 }

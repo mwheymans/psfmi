@@ -63,22 +63,16 @@
 #' @references http://missingdatasolutions.rbind.io/
 #'
 #' @examples
-#'   # Pooling model using method D1
 #'   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), method="D1")
-#'   # Pooled Model
 #'   pool_lr$RR_Model
-#'   # Pooled p-values with D1
 #'   pool_lr$multiparm_p
 #'
-#'   # Predictor selection using method D1
 #'   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 #'   predictors=c("Gender", "Smoking", "Function", "JobControl",
 #'   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
-#'   # Selected Models
 #'   pool_lr$RR_Model
-#'   # Pooled p-values with D1
 #'   pool_lr$multiparm_p
 #'
 #' @export
@@ -327,7 +321,7 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
     if(method=="D1" | method=="D2" | method=="MPR"){
       # D2
       if(method=="D2") {
-        #### Get Chi/square values
+        # Get Chi/square values
         LChisq <- apply(chi.LR, 1 , as.list)
         mi.chiL <- lapply(1:length(LChisq), function(i, x, y) {
           x <- unlist(LChisq[[i]])
