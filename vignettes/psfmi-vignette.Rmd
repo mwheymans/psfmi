@@ -48,8 +48,8 @@ with information about miscalibration in intercept and slope.
 
 ## Installing the psfmi package
 
-The package can be installed from Github by running the following code in 
-the R console window:
+The package can be installed from CRAN and the development version from Github 
+by running the following code in the R console window:
  
  install.packages("devtools")
  
