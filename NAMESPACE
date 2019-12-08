@@ -6,6 +6,7 @@ export(psfmi_lr)
 export(psfmi_coxr)
 export(miperform_lr)
 export(mivalext_lr)
+export(psfmi_stab)
 
 importFrom("stats", glm)
 importFrom("stats", coef)
@@ -32,3 +33,6 @@ importFrom("ggplot2", theme_set, theme_bw, element_blank,
   stat_smooth, facet_wrap, geom_abline, aes_string,
   geom_point, ggplot, scale_x_continuous, scale_y_continuous,
   theme)
+importFrom("dplyr", group_by, sample_n, n, group_by_all,
+  arrange, count, desc, select)
+importFrom(magrittr,"%>%")

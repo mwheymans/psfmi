@@ -80,6 +80,8 @@ psfmi_coxr <-
    p.crit=1, cat.predictors=NULL, spline.predictors=NULL, int.predictors=NULL,
    keep.predictors=NULL, knots=NULL, method=NULL, print.method=FALSE)
   {
+    call <- match.call()
+    
     P <- predictors
     cat.P <- cat.predictors
     keep.P <- keep.predictors
@@ -261,9 +263,9 @@ psfmi_coxr <-
     if(any(!keep.P %in% P))
       stop("\n", "Variables to keep not defined as Predictor", "\n\n")
     
-    coef.f <- se.f <- RR.model <- multiparm_p <- coef.excl_step <- step.nr <- list()
+    coef.f <- se.f <- RR.model <- multiparm_p <- coef.excl_step <- step.nr <- P_in_step <- list()
     for (k in 1:length(P)) {
-      
+      P_in_step[[k]] <- P
       chi.LR <- data.frame(matrix(0,
                                   length(P), nimp))
       chi.p <- data.frame(matrix(0,
@@ -401,7 +403,7 @@ psfmi_coxr <-
         
         if(print.method) {
           med.pvalue <- med.pvalue_orig
-          names(med.pvalue_orig) <- "MPR P-values"
+          names(med.pvalue) <- "MPR P-values"
         }
         
         multiparm_p[[k]] <- med.pvalue
@@ -573,17 +575,29 @@ psfmi_coxr <-
       coef.excl_step[[k]] <- coef.excl
       # End k loop
     }
-    if(p.crit==1) coef.excl_step <- as.null(coef.excl_step)
+    if(p.crit==1) {
+      coef.excl_step <- as.null(coef.excl_step)
+      P_select <- P_in_step[[1]]
+    }
     else {
       coef.excl_step <- data.frame(do.call("rbind", coef.excl_step))
       names(coef.excl_step) <- "Excluded"
       row.names(coef.excl_step) <- paste("Step", 1:nrow(coef.excl_step))
+      
+      outOrder_step <- P_in_step[[1]]
+      P_select <- data.frame(do.call("rbind", lapply(P_in_step, function(x) {
+        outOrder_step %in% x
+      })))
+      names(P_select) <- P_in_step[[1]]
+      P_select[P_select==TRUE] <- 1
     }
     
-    pooledobj <- list("RR_Model"=RR.model, "multiparm_p"=multiparm_p, "coef.excl_step" = coef.excl_step,
-      "impvar"=impvar, "nimp"=nimp, "method"=method, "p.crit"=p.crit,
-      "predictors"=predictors, "cat.predictors"=cat.predictors,
-      "keep.predictors"=keep.predictors, "int.predictors"=int.predictors,
-      "spline.predictors"=spline.predictors, "knots"=knots, "print.method"=print.method)
+    pooledobj <- list(data = data, RR_Model = RR.model, multiparm_p = multiparm_p,
+                      predictors_in = P_select, predictors_out = coef.excl_step, time = time,
+                      status = status, impvar = impvar, nimp = nimp, method = method, p.crit = p.crit,
+                      predictors = predictors, cat.predictors = cat.predictors, call = call,
+                      keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = "survival",
+                      spline.predictors = spline.predictors, knots = knots, print.method = print.method)
+    class(pooledobj) <- "pmimods"
     return(pooledobj)
 }

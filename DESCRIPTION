@@ -12,7 +12,9 @@ Imports:
 	pROC (> 1.11.0),
 	rms (> 5.1-2),
 	ResourceSelection (> 0.3-2),
-	ggplot2 (> 2.2.1)
+	ggplot2 (> 2.2.1),
+	dplyr (>= 0.8.3),
+	magrittr (>= 1.5)
 Title: Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets
 Version: 0.1.0
 Authors@R: c(

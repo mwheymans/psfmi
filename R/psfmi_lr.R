@@ -80,6 +80,8 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
  p.crit=1, cat.predictors=NULL, spline.predictors=NULL, int.predictors=NULL,
  keep.predictors=NULL, knots=NULL, method=NULL, print.method=FALSE)
 {
+  call <- match.call()
+  
   P <- predictors
   cat.P <- cat.predictors
   keep.P <- keep.predictors
@@ -261,10 +263,10 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
   
   # Start  loop for backward selection over imputed datasets
   
-  coef.f <- se.f <- RR.model <- multiparm_p <- coef.excl_step <- step.nr <- list()
+  coef.f <- se.f <- RR.model <- multiparm_p <- coef.excl_step <- step.nr <- P_in_step <- list()
   
   for (k in 1:length(P)) {
-    
+    P_in_step[[k]] <- P
     if(method=="D3"){
       cat.spline.P <- lapply(int.P[grep(":", int.P)],
         function(x) {
@@ -372,17 +374,17 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
       if(method=="MPR") {
         med.pvalue <- med.pvalue_orig <- round(data.frame(apply(chi.p, 1, median)), 5)
         rownames(med.pvalue) <- rownames(med.pvalue_orig) <- P
-        names(med.pvalue) <- "MPR & RR P-values"
         
         # Combine Median p with RR
         id.p.RR.f <- grep("factor", row.names(pool.RR))
         id.p.RR.spl <- grep("rcs", row.names(pool.RR))
         res.RR <- pool.RR[-c(1, id.p.RR.f, id.p.RR.spl), 3]
         med.pvalue[names(res.RR), 1] <- res.RR
+        names(med.pvalue) <- "MPR & RR P-values"
         
         if(print.method) {
           med.pvalue <- med.pvalue_orig
-          names(med.pvalue_orig) <- "MPR P-values"
+          names(med.pvalue) <- "MPR P-values"
         }
         
         multiparm_p[[k]] <- med.pvalue
@@ -558,17 +560,29 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
     coef.excl_step[[k]] <- coef.excl
     # End k loop
   }
-  if(p.crit==1) coef.excl_step <- as.null(coef.excl_step)
+  if(p.crit==1) {
+    coef.excl_step <- as.null(coef.excl_step)
+    P_select <- P_in_step[[1]]
+  }
   else {
     coef.excl_step <- data.frame(do.call("rbind", coef.excl_step))
     names(coef.excl_step) <- "Excluded"
     row.names(coef.excl_step) <- paste("Step", 1:nrow(coef.excl_step))
+    
+    outOrder_step <- P_in_step[[1]]
+    P_select <- data.frame(do.call("rbind", lapply(P_in_step, function(x) {
+      outOrder_step %in% x
+    })))
+    names(P_select) <- P_in_step[[1]]
+    P_select[P_select==TRUE] <- 1
   }
   
-  pooledobj <- list("RR_Model"=RR.model, "multiparm_p"=multiparm_p, "coef.excl_step" = coef.excl_step,
-   "impvar"=impvar, "nimp"=nimp, "Outcome"=Outcome, "method"=method, "p.crit"=p.crit,
-   "predictors"=predictors, "cat.predictors"=cat.predictors,
-   "keep.predictors"=keep.predictors, "int.predictors"=int.predictors,
-   "spline.predictors"=spline.predictors, "knots"=knots, "print.method"=print.method)
+  pooledobj <- list(data = data, RR_Model = RR.model, multiparm_p = multiparm_p,
+                    predictors_in = P_select, predictors_out = coef.excl_step,
+                    impvar = impvar, nimp = nimp, Outcome = Outcome, method = method, p.crit = p.crit,
+                    predictors = predictors, cat.predictors = cat.predictors, call = call,
+                    keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = "binomial",
+                    spline.predictors = spline.predictors, knots = knots, print.method = print.method)
+  class(pooledobj) <- "pmimods"
   return(pooledobj)
 }
