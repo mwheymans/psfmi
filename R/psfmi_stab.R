@@ -50,61 +50,56 @@
 #' @export
 psfmi_stab <- function(obj, nboot=20)
 {
-  if (class(obj)!="pmimods")
-    stop("Object should be of type pmimods")
-  call <- match.call()
-  nboot <- nboot
-  data <- obj$data
-
-  P_select_boot <- list()
-  for(i in 1:nboot){
-    message("\n", "boot", i, "\n")
-    data_boot <- data %>%
-      group_by(obj$impvar) %>%
-      sample_n(nrow(data), replace = TRUE)
-    data_boot <- data.frame(data_boot)[, -ncol(data_boot)]
-
+    if (class(obj)!="pmimods")
+      stop("Object should be of type pmimods")
+    call <- match.call()
+    nboot <- nboot
+    data <- obj$data
+    
+    boot_data <- bootstraps(data, strata = obj$impvar, times = nboot)
+    boot_pred_pat <- lapply(boot_data$splits,
+     function(x) {
+     x <- as.data.frame(x)
     if(obj$model_type=="binomial") {
-      psfmi_boot <- psfmi_lr(data=data_boot, nimp=obj$nimp, impvar = obj$impvar,
-                             Outcome = obj$Outcome, predictors = obj$predictors,
-                             p.crit = obj$p.crit, cat.predictors = obj$cat.predictors,
-                             spline.predictors = obj$spline.predictors,
-                             int.predictors = obj$int.predictors, keep.predictors = obj$keep.predictors,
-                             knots = obj$knots, method = obj$method, print.method = obj$print.method)
-
+    psfmi_boot <- psfmi_lr(data=x, nimp=obj$nimp, impvar = obj$impvar,
+                Outcome = obj$Outcome, predictors = obj$predictors,
+                p.crit = obj$p.crit, cat.predictors = obj$cat.predictors,
+                spline.predictors = obj$spline.predictors,
+                int.predictors = obj$int.predictors, keep.predictors = obj$keep.predictors,
+                knots = obj$knots, method = obj$method, print.method = obj$print.method)
     }
     if(obj$model_type=="survival") {
-      psfmi_boot <- psfmi_coxr(data=data_boot, nimp=obj$nimp, impvar = obj$impvar,
-                               time = obj$time, status = obj$status, predictors = obj$predictors,
-                               p.crit = obj$p.crit, cat.predictors = obj$cat.predictors,
-                               spline.predictors = obj$spline.predictors,
-                               int.predictors = obj$int.predictors, keep.predictors = obj$keep.predictors,
-                               knots = obj$knots, method = obj$method, print.method = obj$print.method)
-
+    psfmi_boot <- psfmi_coxr(data=x, nimp=obj$nimp, impvar = obj$impvar,
+                time = obj$time, status = obj$status, predictors = obj$predictors,
+                 p.crit = obj$p.crit, cat.predictors = obj$cat.predictors,
+                 spline.predictors = obj$spline.predictors,
+                int.predictors = obj$int.predictors, keep.predictors = obj$keep.predictors,
+                knots = obj$knots, method = obj$method, print.method = obj$print.method)
     }
-    P_select_boot[[i]] <- psfmi_boot$predictors_in[nrow(psfmi_boot$predictors_in), ]
-  }
-
-  bif <- data.frame(do.call("rbind", P_select_boot))
-  colnames(bif) <- names(P_select_boot[[1]])
-  # Group selected models
-  bif_pat <- bif %>%
-    group_by_all %>%
-    count
-  # desc order of selected models
-  bif_pat_sort <- data.frame(bif_pat %>%
-                             arrange(desc(n)) %>%
-                             select(1:ncol(bif_pat)))
-  bif_pat_perc <- (bif_pat_sort$n / nboot) * 100
-  bif_pat_sort <- data.frame(bif_pat_sort, bif_pat_perc)
-  colnames(bif_pat_sort) <- c(names(P_select_boot[[1]]), "fr", "perc")
-
-  rownames(bif) <- paste("boot", 1:nboot)
-
-  bif_total <- colSums(bif)
-  bif_perc <- (bif_total / nboot) * 100
-
-  stabobj <- list(bif = bif, bif_total = bif_total, bif_perc = bif_perc,
-                  model_stab = bif_pat_sort, call = call)
-  return(stabobj)
+                              
+    boot_predictors_in <- psfmi_boot$predictors_in[nrow(psfmi_boot$predictors_in), ]
+    boot_predictors_in
+                            })
+    bif <- data.frame(do.call("rbind", boot_pred_pat))
+    
+    # Group selected models
+    bif_pat <- bif %>%
+      group_by_all %>%
+      count
+    
+    # desc order of selected models
+    bif_pat_sort <- data.frame(bif_pat %>%
+                                 arrange(desc(n)) %>%
+                                 select(1:ncol(bif_pat)))
+    bif_pat_perc <- round((bif_pat_sort$n / nboot) * 100, 0)
+    bif_pat_sort <- data.frame(bif_pat_sort, bif_pat_perc)
+    
+    rownames(bif) <- paste("boot", 1:nboot)
+    
+    bif_total <- colSums(bif)
+    bif_perc <- (bif_total / nboot) * 100
+    
+    stabobj <- list(bif = bif, bif_total = bif_total, bif_perc = bif_perc,
+                    model_stab = bif_pat_sort, call = call)
+    return(stabobj)
 }

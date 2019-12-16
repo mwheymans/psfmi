@@ -14,7 +14,8 @@ Imports:
 	ResourceSelection (> 0.3-2),
 	ggplot2 (> 2.2.1),
 	dplyr (>= 0.8.3),
-	magrittr (>= 1.5)
+	magrittr (>= 1.5),
+	rsample (>= 0.0.5)
 Title: Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets
 Version: 0.1.0
 Authors@R: c(

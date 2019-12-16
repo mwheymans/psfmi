@@ -36,3 +36,4 @@ importFrom("ggplot2", theme_set, theme_bw, element_blank,
 importFrom("dplyr", group_by, sample_n, n, group_by_all,
   arrange, count, desc, select)
 importFrom(magrittr,"%>%")
+importFrom("rsample",bootstraps)
