@@ -40,11 +40,13 @@
 #'  by using the rcs function for restricted cubic splines of the rms package of Frank Harrell.
 #'  A minimum number of 3 knots as defined under knots is needed.
 #'
-#'@return A \code{psfmi_coxr} object from which the following objects can be extracted: pooled model as 
-#'  \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, predictors 
-#'  excluded at each step as \code{coef.excl_step}, and \code{impvar}, \code{nimp}, \code{method}, 
-#'  \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
-#'  \code{spline.predictors}, \code{knots}, \code{print.method}.
+#'@return An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
+#'  which the following objects can be extracted: imputed datasets as \code{data}, selected 
+#'  pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, 
+#'  predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
+#'  as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{time}, \code{status}, \code{method}, 
+#'  \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
+#'  \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call} and \code{model_type}.
 #'    
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
 #'   covariates in logistic regression models after multiple imputation: power and applicability
@@ -73,6 +75,7 @@
 #'   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2")
 #'   pool_coxr$RR_Model
 #'   pool_coxr$multiparm_p
+#'   pool_coxr$predictors_in
 #'   
 #' @export
 psfmi_coxr <-
@@ -146,7 +149,7 @@ psfmi_coxr <-
              Predictor or Categorical Predictor", "\n\n")
     }
     
-    # First predictors, second cetegorical
+    # First predictors, second categorical
     # predictors and last interactions!
     P <- c(P, cat.P, s.P, int.P)
     if (is.null(P))
@@ -554,6 +557,7 @@ psfmi_coxr <-
       
       if (p.pool[, 1][del.coef.id] > p.crit) {
         if (length(P) == 0) {
+          coef.excl_step[[k]] <- coef.excl
           message("\n", "Selection correctly terminated, ",
                   "\n", "Model is empty after last step", "\n")
           (break)()
@@ -580,24 +584,39 @@ psfmi_coxr <-
       P_select <- P_in_step[[1]]
     }
     else {
-      coef.excl_step <- data.frame(do.call("rbind", coef.excl_step))
-      names(coef.excl_step) <- "Excluded"
-      row.names(coef.excl_step) <- paste("Step", 1:nrow(coef.excl_step))
-      
-      outOrder_step <- P_in_step[[1]]
-      P_select <- data.frame(do.call("rbind", lapply(P_in_step, function(x) {
-        outOrder_step %in% x
-      })))
-      names(P_select) <- P_in_step[[1]]
-      P_select[P_select==TRUE] <- 1
+      if(is_empty(coef.excl_step)){
+        coef.excl_step <- as.null(coef.excl_step)
+        P_select <- data.frame(matrix(rep(1, length(P_in_step[[1]])), 1, 
+                                      length(P_in_step[[1]]), byrow=TRUE))
+        rownames(P_select) <- "Step 1"
+        colnames(P_select) <- P_in_step[[1]]
+      }
+      else{  
+        coef.excl_step <- data.frame(do.call("rbind", coef.excl_step))
+        names(coef.excl_step) <- "Excluded"
+        row.names(coef.excl_step) <- paste("Step", 1:nrow(coef.excl_step))
+        
+        outOrder_step <- P_in_step[[1]]
+        P_select <- data.frame(do.call("rbind", lapply(P_in_step, function(x) {
+          outOrder_step %in% x
+        })))
+        names(P_select) <- P_in_step[[1]]
+        P_select[P_select==TRUE] <- 1
+        row.names(P_select) <- paste("Step", 1:nrow(P_select))
+        if(length(P_in_step[[1]]) == length(coef.excl_step[, 1])) {
+          r_null <- rep(0, length(P_in_step[[1]]))
+          names(r_null) <- P_in_step[[1]]
+          P_select <- bind_rows(P_select, r_null)
+          row.names(P_select) <- paste("Step", 1:nrow(P_select))
+        }
+      }
     }
-    
-    pooledobj <- list(data = data, RR_Model = RR.model, multiparm_p = multiparm_p,
+    pobj <- list(data = data, RR_Model = RR.model, multiparm_p = multiparm_p,
                       predictors_in = P_select, predictors_out = coef.excl_step, time = time,
                       status = status, impvar = impvar, nimp = nimp, method = method, p.crit = p.crit,
                       predictors = predictors, cat.predictors = cat.predictors, call = call,
                       keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = "survival",
                       spline.predictors = spline.predictors, knots = knots, print.method = print.method)
-    class(pooledobj) <- "pmimods"
-    return(pooledobj)
+    class(pobj) <- "smodsmi"
+    return(pobj)
 }

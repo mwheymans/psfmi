@@ -5,10 +5,21 @@
 \title{Pooling and Predictor selection function for Logistic regression
 models in multiply imputed datasets}
 \usage{
-psfmi_lr(data, nimp = 5, impvar = NULL, Outcome, predictors = NULL,
-  p.crit = 1, cat.predictors = NULL, spline.predictors = NULL,
-  int.predictors = NULL, keep.predictors = NULL, knots = NULL,
-  method = NULL, print.method = FALSE)
+psfmi_lr(
+  data,
+  nimp = 5,
+  impvar = NULL,
+  Outcome,
+  predictors = NULL,
+  p.crit = 1,
+  cat.predictors = NULL,
+  spline.predictors = NULL,
+  int.predictors = NULL,
+  keep.predictors = NULL,
+  knots = NULL,
+  method = NULL,
+  print.method = FALSE
+)
 }
 \arguments{
 \item{data}{Data frame or data matrix with stacked multiple imputed datasets.
@@ -26,7 +37,8 @@ imputed datasets.}
 \item{predictors}{Character vector with the names of the predictor variables.
 At least one predictor variable has to be defined.}
 
-\item{p.crit}{A numerical scalar. P-value selection criterium.}
+\item{p.crit}{A numerical scalar. P-value selection criterium. A value of 1 
+provides the pooled model without selection.}
 
 \item{cat.predictors}{A single string or a vector of strings to define the
 categorical variables. Default is NULL categorical predictors.}
@@ -51,11 +63,13 @@ chosen method (under method) is shown. If FALSE (default) p-value for categorica
 to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
 }
 \value{
-A \code{psfmi_lr} object from which the following objects can be extracted: pooled model as \code{RR_model}, 
- pooled p-values according to pooling method as \code{multiparm_p}, predictors excluded at each step as \code{coef.excl_step}, 
- and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{predictors}, 
- \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
- \code{spline.predictors}, \code{knots}, \code{print.method}.
+An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
+ which the following objects can be extracted: imputed datasets as \code{data}, selected 
+ pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, 
+ predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
+ as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, 
+ \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
+ \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call} and \code{model_type}.
 }
 \description{
 \code{psfmi_lr} Pooling and backward selection for Logistic regression
@@ -65,12 +79,11 @@ prediction models in multiply imputed datasets using different selection methods
 The basic pooling procedure to derive pooled coefficients, standard errors, 95
  confidence intervals and p-values is Rubin's Rules (RR). Specific procedures are
  available to derive pooled p-values for categorical (> 2 categories) and spline variables.
- print.method allows to choose between these pooling methods that are:
- “D1” is pooling of the total covariance matrix, ”D2” is pooling of Chi-square values,
- “D3” is pooling Likelihood ratio statistics (method of Meng and Rubin) and “MPR”
- is pooling of median p-values (MPR rule). Spline regression coefficients are defined
- by using the rcs function for restricted cubic splines of the rms package of Frank Harrell.
- A minimum number of 3 knots as defined under knots is needed.
+ print.method allows to choose between the pooling methods: “D1” is pooling of the total 
+ covariance matrix, ”D2” is pooling of Chi-square values, “D3” is pooling Likelihood ratio 
+ statistics (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule). 
+ Spline regression coefficients are defined by using the rcs function for restricted cubic 
+ splines of the rms package. A minimum number of 3 knots as defined under knots is required.
 }
 \examples{
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
@@ -84,6 +97,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
   pool_lr$RR_Model
   pool_lr$multiparm_p
+  pool_lr$predictors_in
 
 }
 \references{

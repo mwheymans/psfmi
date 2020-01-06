@@ -5,11 +5,22 @@
 \title{Pooling and predictor selection function for Cox regression
 models in multiply imputed datasets}
 \usage{
-psfmi_coxr(data, nimp = 5, impvar = NULL, time, status,
-  predictors = NULL, p.crit = 1, cat.predictors = NULL,
-  spline.predictors = NULL, int.predictors = NULL,
-  keep.predictors = NULL, knots = NULL, method = NULL,
-  print.method = FALSE)
+psfmi_coxr(
+  data,
+  nimp = 5,
+  impvar = NULL,
+  time,
+  status,
+  predictors = NULL,
+  p.crit = 1,
+  cat.predictors = NULL,
+  spline.predictors = NULL,
+  int.predictors = NULL,
+  keep.predictors = NULL,
+  knots = NULL,
+  method = NULL,
+  print.method = FALSE
+)
 }
 \arguments{
 \item{data}{Data frame or data matrix with stacked multiple imputed
@@ -53,11 +64,13 @@ chosen method (under method) is shown. If FALSE (default) p-value for categorica
 to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
 }
 \value{
-A \code{psfmi_coxr} object from which the following objects can be extracted: pooled model as 
- \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, predictors 
- excluded at each step as \code{coef.excl_step}, and \code{impvar}, \code{nimp}, \code{method}, 
- \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors},
- \code{spline.predictors}, \code{knots}, \code{print.method}.
+An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
+ which the following objects can be extracted: imputed datasets as \code{data}, selected 
+ pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, 
+ predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
+ as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{time}, \code{status}, \code{method}, 
+ \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
+ \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call} and \code{model_type}.
 }
 \description{
 \code{psfmi_coxr} Pooling and backward selection for Cox regression
@@ -87,6 +100,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2")
   pool_coxr$RR_Model
   pool_coxr$multiparm_p
+  pool_coxr$predictors_in
   
 }
 \references{
