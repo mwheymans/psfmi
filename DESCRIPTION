@@ -1,7 +1,7 @@
 Package: psfmi
 Type: Package
 Depends:
-  R (>= 3.4.0),
+  R (>= 3.5.0),
 Imports:
   survival (> 2.41-3), 
 	car (> 3.0-0), 
@@ -15,7 +15,13 @@ Imports:
 	ggplot2 (> 2.2.1),
 	dplyr (>= 0.8.3),
 	magrittr (>= 1.5),
-	rsample (>= 0.0.5)
+	rsample (>= 0.0.5),
+	purrr (>= 0.3.3),
+	tidyr (>= 1.0.0),
+	tibble (>= 2.1.3),
+	lme4 (>= 1.1-21),
+	mice (>= 3.7.0),
+	mitml (>= 0.3-7)
 Title: Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets
 Version: 0.1.0
 Authors@R: c(
@@ -45,7 +51,7 @@ Description:
 Encoding: UTF-8
 LazyData:
 	true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 License: GPL (>= 2)
 URL: https://github.com/mwheymans/psfmi
 BugReports: https://github.com/mwheymans/psfmi/issues 
