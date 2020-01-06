@@ -4,11 +4,26 @@
 \alias{miperform_lr}
 \title{Evaluate performance of logistic regression models over MI datasets}
 \usage{
-miperform_lr(data, nimp = 5, impvar = NULL, Outcome,
-  predictors = NULL, cat.predictors = NULL, int.predictors = NULL,
-  cal.plot = FALSE, plot.indiv = FALSE, int.val = FALSE,
-  method = "boot", B = 250, bw = FALSE, rule = "p",
-  type = "individual", p.val = 0.05, force = NULL)
+miperform_lr(
+  data,
+  nimp = 5,
+  impvar = NULL,
+  Outcome,
+  predictors = NULL,
+  cat.predictors = NULL,
+  int.predictors = NULL,
+  cal.plot = FALSE,
+  plot.indiv = FALSE,
+  groups_cal = 10,
+  int.val = FALSE,
+  method = "boot",
+  B = 250,
+  bw = FALSE,
+  rule = "p",
+  type = "individual",
+  p.val = 0.05,
+  force = NULL
+)
 }
 \arguments{
 \item{data}{Data frame or data matrix with stacked multiple imputed datasets.
@@ -36,6 +51,10 @@ the variables that form an interaction pair, separated by a “:” symbol.}
 
 \item{plot.indiv}{If TRUE calibration plots of each imputed dataset are
 generated.}
+
+\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot. 
+Default is 10. If the range of predicted probabilities is low 5 groups can be
+chosen.}
 
 \item{int.val}{If TRUE performance measures are reported as a result
 of internal validation in each imputed datasets. This is a wrapper function
@@ -74,12 +93,12 @@ A \code{miperform_lr} object from which the following objects
 \code{miperform_lr} Evaluate Performance of logistic regression models
 }
 \examples{
-miperform_lr(data=lbpmilr, nimp=5, impvar="Impnr",
-Outcome=c("Chronic"), predictors=c("Gender", "Pain",
-"Tampascale","Smoking","Function", "Radiation", "Age"),
-cat.predictors=c("Carrying", "Satisfaction"),
-int.predictors=c("Carrying:Smoking", "Gender:Smoking"),
-cal.plot=TRUE, plot.indiv = FALSE)
+ miperform_lr(data=lbpmilr, nimp=5, impvar="Impnr",
+ Outcome=c("Chronic"), predictors=c("Gender", "Pain",
+ "Tampascale","Smoking","Function", "Radiation", "Age"),
+ cat.predictors=c("Carrying", "Satisfaction"),
+ int.predictors=c("Carrying:Smoking", "Gender:Smoking"),
+ cal.plot=TRUE, plot.indiv = FALSE)
 
 }
 \references{

@@ -18,7 +18,10 @@
 #'   the variables that form an interaction pair, separated by a “:” symbol.
 #' @param cal.plot If TRUE a calibration plot is generated. Default is FALSE.
 #' @param plot.indiv If TRUE calibration plots of each imputed dataset are
-#' generated.
+#'   generated.
+#' @param groups_cal A numerical scalar. Number of groups used on the calibration plot. 
+#'  Default is 10. If the range of predicted probabilities is low 5 groups can be
+#'  chosen.
 #' @param int.val If TRUE performance measures are reported as a result
 #'  of internal validation in each imputed datasets. This is a wrapper function
 #'  of Frank Harrell´s validate function as part of the rms package.
@@ -58,18 +61,18 @@
 #' @references http://missingdatasolutions.rbind.io/
 #' 
 #'@examples
-#' miperform_lr(data=lbpmilr, nimp=5, impvar="Impnr",
-#' Outcome=c("Chronic"), predictors=c("Gender", "Pain",
-#' "Tampascale","Smoking","Function", "Radiation", "Age"),
-#' cat.predictors=c("Carrying", "Satisfaction"),
-#' int.predictors=c("Carrying:Smoking", "Gender:Smoking"),
-#' cal.plot=TRUE, plot.indiv = FALSE)
+#'  miperform_lr(data=lbpmilr, nimp=5, impvar="Impnr",
+#'  Outcome=c("Chronic"), predictors=c("Gender", "Pain",
+#'  "Tampascale","Smoking","Function", "Radiation", "Age"),
+#'  cat.predictors=c("Carrying", "Satisfaction"),
+#'  int.predictors=c("Carrying:Smoking", "Gender:Smoking"),
+#'  cal.plot=TRUE, plot.indiv = FALSE)
 #'
 #' @export
 miperform_lr <-
   function(data, nimp=5, impvar=NULL, Outcome,
    predictors=NULL, cat.predictors=NULL, int.predictors=NULL,
-   cal.plot=FALSE, plot.indiv=FALSE, int.val=FALSE,
+   cal.plot=FALSE, plot.indiv=FALSE, groups_cal=10, int.val=FALSE,  
    method="boot", B=250, bw=FALSE, rule="p", type="individual",
    p.val=0.05, force=NULL)
   {
@@ -92,6 +95,9 @@ miperform_lr <-
       stop("Number of imputed datasets is not defined, use nimp!")
     if (nimp < 2) {
       stop("\n", "Number of imputed datasets must be > 1", "\n\n")
+    }
+    if (all(groups_cal !=5, groups_cal !=10)) {
+      stop("\n", "Number of groups must be set to 10 or 5", "\n\n")
     }
     if (!is.null(cat.P)) {
       if(any(cat.P%in%P)){
@@ -174,8 +180,11 @@ miperform_lr <-
       pred.i[[i]] <- predict(f, type = "response")
       
       # Group predicted probabilities
-      group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
-                                             c(seq(0, 1, 0.1))))
+      if(groups_cal == 10) group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
+                                                              c(seq(0, 1, 0.1))))
+      if(groups_cal == 5) group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
+                                                             c(seq(0, 1, 0.2))))
+    
       pred.group[[i]] <- tapply(pred.i[[i]], group.dec, mean)
       # Observed probabilities
       obs.group[[i]] <- tapply(y.i[[i]], group.dec, mean)
@@ -302,7 +311,7 @@ miperform_lr <-
     }
     
     if(cal.plot==T) {
-      ID.mi <- rep(1:nimp, each=10)
+      ID.mi <- rep(1:nimp, each=groups_cal)
       myX <- scale_x_continuous(limits = c(-0.1, 1.1),
         breaks=seq(0,1,0.1),
         name = "Predicted Probabilities")
