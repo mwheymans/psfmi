@@ -2,8 +2,9 @@
 
 The psfmi package 
 
-With this package you can pool logistic or Cox regression models,
-or perform backward variable selection in multiply imputed datasets. 
+With this package you can pool logistic or Cox regression models and
+(generalized) linear mixed models or perform backward variable selection 
+of these models in multiply imputed datasets. 
 The models may include continuous, dichotomous, categorical (> 2 
 categories) and spline predictors. Also interaction terms between these type of 
 predictor variables are possible. It is also possible to force (spline)  
@@ -12,14 +13,14 @@ This is the first package that contains these possibilities.
 
 The basic pooling method is Rubin's Rules (RR). For categorical and 
 spline predictors the following pooling methods are available to derive
-overall p-values: the pooling covariance matrix or D1 method,
-the pooling of Chi-square values or D2 method, the Meng and Rubin 
-likelihood ratio statistics or D3 method and a method that is 
-called Median P Rule (MPR) that pools the median of the p-values.
+overall p-values: the D1, D2, and D3 method and a method that is 
+called Median P Rule (MPR) that pools the median of the p-values. 
+The latter is a simple but promising procedure.
 
 A function called psfmi_lr is available for logistic regression 
-models and a function that is called psfmi_coxr, 
-for right censored Cox regression models.
+models, a function that is called psfmi_coxr, for right censored 
+Cox regression models and a function that is called psfmi_mm for
+linear and logistic multilevel models (mixed models).
 
 With respect to introducing interaction terms in the model, only 
 two-way interactions are allowed. If interaction terms are included 
@@ -27,6 +28,11 @@ and backward selection is applied, interaction terms are dropped
 from the model following the hierarchy principle. This means
 that interactions are considered during backward selection when both
 main effects are in the model.
+
+The package also contains a function to study the stability of the
+models during backward selection. This function is called psfmi_stab
+and uses single bootstrapping for the logistic and Cox regression
+models and cluster bootstrapping for the multilevel models.
 
 A function that is called miperform_lr evaluates the apparent performance 
 of logistic regression prediction models in multiple imputed datasets. 
@@ -44,7 +50,7 @@ R-Square value, Hosmer and Lemeshow Test, pooled coefficients when the model
 is freely estimated in imputed datasets and the pooled linear predictor (LP), 
 with information about miscalibration in intercept and slope. 
 
-The package needs R 3.4.0 or higher. You can use the functions, 
+The package needs R 3.5.0 or higher. You can use the functions, 
 after you have installed the package from CRAN or the Github website 
 (development version). For Github you first have to install and activate 
 the devtools package. Use the following code to install and activate 
