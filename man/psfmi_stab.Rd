@@ -5,11 +5,14 @@
 \title{Function to evaluate predictor and model selection frequency by using bootstrapping
 over multiple imputed datasets.}
 \usage{
-psfmi_stab(obj, nboot = 20)
+psfmi_stab(pobj, boot_method = NULL, nboot = 20)
 }
 \arguments{
-\item{obj}{An object of class \code{pmimods}, produced by a previous call to \code{psfmi_lr}
-or \code{psfmi_coxr}.}
+\item{pobj}{An object of class \code{smodsmi} (selected models in multiply imputed datasets), 
+produced by a previous call to \code{psfmi_lr}, \code{psfmi_coxr} or \code{psfmi_mm}.}
+
+\item{boot_method}{A single string to define the bootstrap method. Use "single" after a call to 
+\code{psfmi_lr} and \code{psfmi_coxr} and "cluster" after a call to \code{psfmi_mm}.}
 
 \item{nboot}{A numerical scalar. Number of bootstrap samples to evaluate the stability. Default is 20.}
 }
@@ -22,13 +25,14 @@ A \code{psfmi_stab} object from which the following objects can be extracted: bo
 }
 \description{
 \code{psfmi_stab} Stability analysis of predictors and prediction models selected with
- the \code{psfmi_lr} or \code{psfmi_coxr} functions of the \code{psfmi} package.
+ the \code{psfmi_lr}, \code{psfmi_coxr} or \code{psfmi_mm} functions of the \code{psfmi} package.
 }
 \details{
-The function evaluates predictor selection frequency in stratified bootstrap samples.
+The function evaluates predictor selection frequency in stratified or cluster bootstrap samples.
  The stratification factor is the variable that separates the imputed datasets. It uses as input
- an object of class \code{pmimods} as a result of a previous call to the \code{psfmi_lr} or
- \code{psfmi_coxr} function.
+ an object of class \code{smodsmi} as a result of a previous call to the \code{psfmi_lr}, 
+ \code{psfmi_coxr} or \code{psfmi_mm} functions. In combination with the \code{psfmi_mm} function
+ a cluster bootstrap method is used where bootstrapping is used on the level of the clusters only.
 }
 \examples{
  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
@@ -38,7 +42,7 @@ The function evaluates predictor selection frequency in stratified bootstrap sam
  pool_lr$RR_Model
  pool_lr$multiparm_p
 
- stab_res <- psfmi_stab(pool_lr, nboot=100) # may take a while
+ stab_res <- psfmi_stab(pool_lr, boot_method = "single", nboot=100) # may take a while
  stab_res$bif
  stab_res$bif_perc
  stab_res$model_stab
