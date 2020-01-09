@@ -42,7 +42,7 @@
 #'
 #'@return An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
 #'  which the following objects can be extracted: imputed datasets as \code{data}, selected 
-#'  pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, 
+#'  pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm}, 
 #'  predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
 #'  as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{time}, \code{status}, \code{method}, 
 #'  \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
@@ -66,7 +66,7 @@
 #'   status="Status", predictors=c("Duration", "Radiation", "Onset"), p.crit=1, 
 #'   method="D1", cat.predictors=c("Expect_cat"))
 #'   pool_coxr$RR_Model
-#'   pool_coxr$multiparm_p
+#'   pool_coxr$multiparm
 #'   
 #'   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
 #'   status="Status", predictors=c("Previous",  "Radiation", "Onset",
@@ -74,7 +74,7 @@
 #'   int.predictors=c("Tampascale:Radiation",
 #'   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2")
 #'   pool_coxr$RR_Model
-#'   pool_coxr$multiparm_p
+#'   pool_coxr$multiparm
 #'   pool_coxr$predictors_in
 #'   
 #' @export
@@ -266,7 +266,7 @@ psfmi_coxr <-
     if(any(!keep.P %in% P))
       stop("\n", "Variables to keep not defined as Predictor", "\n\n")
     
-    coef.f <- se.f <- RR.model <- multiparm_p <- coef.excl_step <- step.nr <- P_in_step <- list()
+    coef.f <- se.f <- RR.model <- multiparm <- coef.excl_step <- step.nr <- P_in_step <- list()
     for (k in 1:length(P)) {
       P_in_step[[k]] <- P
       chi.LR <- data.frame(matrix(0,
@@ -353,15 +353,15 @@ psfmi_coxr <-
         id.p.RR.spl <- grep("rcs", row.names(pool.RR))
         res.RR <- pool.RR[-c(id.p.RR.f, id.p.RR.spl), 3]
         mi.chisq[names(res.RR), 2] <- res.RR
-        names(mi.chisq) <- c("D2", "D2 & RR p-values")
+        names(mi.chisq) <- c("D2", "p-value D2 & RR")
         
         if(print.method) {
           mi.chisq <- mi.chisq_orig
-          names(mi.chisq) <- c("D2", "D2 p-values")
+          names(mi.chisq) <- c("D2", "p-value D2")
         }
         
-        multiparm_p[[k]] <- mi.chisq
-        names(multiparm_p)[k] <- paste("Step", k)
+        multiparm[[k]] <- mi.chisq
+        names(multiparm)[k] <- paste("Step", k)
         # Res.f is the dataframe with the CHISQ
         # pooled p-values for all variables
       }
@@ -380,15 +380,15 @@ psfmi_coxr <-
         id.p.RR.spl <- grep("rcs", row.names(pool.RR))
         res.RR <- pool.RR[-c(id.p.RR.f, id.p.RR.spl), 3]
         est.D1[names(res.RR), 2] <- res.RR
-        names(est.D1) <- c("Chi_sq", "D1 & RR p-values")
+        names(est.D1) <- c("Chi_sq", "p-value D1 & RR")
         
         if(print.method) {
           est.D1 <- est.D1_orig
-          names(est.D1) <- c("Chi_sq", "D1 p-values")
+          names(est.D1) <- c("Chi_sq", "p-value D1")
         }
         
-        multiparm_p[[k]] <- est.D1
-        names(multiparm_p)[k] <- paste("Step", k)
+        multiparm[[k]] <- est.D1
+        names(multiparm)[k] <- paste("Step", k)
       }
       # Med P Rule
       if(method=="MPR")
@@ -396,7 +396,7 @@ psfmi_coxr <-
         med.pvalue <- med.pvalue_orig <- round(data.frame(apply(chi.p,
                                                                 1, median)), 4)
         row.names(med.pvalue) <- row.names(med.pvalue_orig) <- P
-        names(med.pvalue) <- "MPR & RR P-values"
+        names(med.pvalue) <- "P-value MPR & RR"
         
         # Combine Median p with RR
         id.p.RR.f <- grep("factor", row.names(pool.RR))
@@ -406,24 +406,24 @@ psfmi_coxr <-
         
         if(print.method) {
           med.pvalue <- med.pvalue_orig
-          names(med.pvalue) <- "MPR P-values"
+          names(med.pvalue) <- "P-value MPR"
         }
         
-        multiparm_p[[k]] <- med.pvalue
-        names(multiparm_p)[k] <- paste("Step", k)
+        multiparm[[k]] <- med.pvalue
+        names(multiparm)[k] <- paste("Step", k)
       }
       
       if(method=="D2"){
         p.pool <- data.frame(as.matrix(mi.chisq)[, 2])
-        names(p.pool) <- "RR & D2 p-value"
+        names(p.pool) <- "p-value RR & D2"
       }
       if(method=="D1"){
         p.pool <- data.frame(as.matrix(est.D1)[, 2])
-        names(p.pool) <- "RR & D1 p-value"
+        names(p.pool) <- "p-value RR & D1"
       }
       if(method=="MPR"){
         p.pool <- med.pvalue
-        names(p.pool) <- "RR & MPR p-value"
+        names(p.pool) <- "p-value RR & MPR"
       }
       
       if(!is.null(int.P)) {
@@ -611,7 +611,7 @@ psfmi_coxr <-
         }
       }
     }
-    pobj <- list(data = data, RR_Model = RR.model, multiparm_p = multiparm_p,
+    pobj <- list(data = data, RR_Model = RR.model, multiparm = multiparm,
                       predictors_in = P_select, predictors_out = coef.excl_step, time = time,
                       status = status, impvar = impvar, nimp = nimp, method = method, p.crit = p.crit,
                       predictors = predictors, cat.predictors = cat.predictors, call = call,

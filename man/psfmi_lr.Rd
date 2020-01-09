@@ -65,7 +65,7 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 \value{
 An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
  which the following objects can be extracted: imputed datasets as \code{data}, selected 
- pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, 
+ pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm}, 
  predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
  as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, 
  \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
@@ -90,13 +90,13 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), method="D1")
   pool_lr$RR_Model
-  pool_lr$multiparm_p
+  pool_lr$multiparm
 
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
   pool_lr$RR_Model
-  pool_lr$multiparm_p
+  pool_lr$multiparm
   pool_lr$predictors_in
 
 }

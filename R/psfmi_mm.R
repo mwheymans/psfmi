@@ -28,8 +28,8 @@
 #' categorical variables. Default is NULL categorical predictors.
 #' @param spline.predictors A single string or a vector of strings to define the
 #' (restricted cubic) spline variables. Default is NULL spline predictors. See details.
-#' @param int.predictors A single string or a vector of strings with the names of the variables that form
-#'   an interaction pair, separated by a “:” symbol.
+#' @param int.predictors A single string or a vector of strings with the names of the 
+#' variables that form an interaction pair, separated by a “:” symbol.
 #' @param keep.predictors A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. Categorical and interaction variables are allowed.
 #' @param knots A numerical vector that defines the number of knots for each spline predictor separately.
@@ -46,12 +46,12 @@
 #'  print.method allows to choose between the pooling methods: D1, D2 and D3 and MPR for pooling of 
 #'  median p-values (MPR rule). The D1, D2 and D3 methods are called from the package \code{mitml}.
 #'  For Logistic multilevel models (that are estimated using the \code{glmer} function), the D3 method
-#'  is not yet available. Spline regression coefficients are defined by using the rcs function for restricted cubic 
-#'  splines of the rms package. A minimum number of 3 knots as defined under knots is required.
+#'  is not yet available. Spline regression coefficients are defined by using the rcs function for 
+#'  restricted cubic splines of the rms package. A minimum number of 3 knots as defined under knots is required.
 #'
 #'@return An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
 #'  which the following objects can be extracted: imputed datasets as \code{data}, selected 
-#'  pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, 
+#'  pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm}, 
 #'  random effects as \code{random.eff}, predictors included at each selection step as \code{predictors_in}, 
 #'  predictors excluded at each step as \code{predictors_out}, and \code{family}, \code{impvar}, \code{clusvar}, 
 #'  \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{predictors}, \code{cat.predictors}, 
@@ -77,7 +77,7 @@
 #'   random.eff="( 1 | centre)", Outcome="dbp", cat.predictors = "bmi_cat",
 #'   p.crit=0.15, method="D1", print.method = FALSE)
 #'   pool_mm$RR_Model
-#'   pool_mm$multiparm_p
+#'   pool_mm$multiparm
 #'
 #' @export
 psfmi_mm <- function(data, nimp=5, impvar=NULL, clusvar = NULL, Outcome, predictors=NULL, 
@@ -236,7 +236,7 @@ if(any(!keep.P %in% P))
 
 # Start  loop for backward selection over imputed datasets
 
-coef.f <- se.f <- RR.model <- multiparm_p <- coef.excl_step <- step.nr <- P_in_step <- list()
+coef.f <- se.f <- RR.model <- multiparm <- coef.excl_step <- step.nr <- P_in_step <- list()
 
 for (k in 1:length(P)) {
   P_in_step[[k]] <- P
@@ -314,8 +314,8 @@ for (k in 1:length(P)) {
           names(est.DX) <- c( paste(method, "p-values"), paste(method, "F-statistic"))
         }
         
-        multiparm_p[[k]] <- est.DX
-        names(multiparm_p)[k] <- paste("Step", k)
+        multiparm[[k]] <- est.DX
+        names(multiparm)[k] <- paste("Step", k)
       }
     # MPR
     if(method=="MPR") {
@@ -334,8 +334,8 @@ for (k in 1:length(P)) {
           names(med.pvalue) <- ("MPR P-values")
         }
         
-        multiparm_p[[k]] <- med.pvalue
-        names(multiparm_p)[k] <- paste("Step", k)
+        multiparm[[k]] <- med.pvalue
+        names(multiparm)[k] <- paste("Step", k)
       }
     
       if(method=="D1" | method=="D2" | method=="D3") p.pool <- est.DX
@@ -524,7 +524,7 @@ else {
   }
 }
 
-pobj <- list(data = data, RR_Model = RR.model, multiparm_p = multiparm_p, random.eff = random.eff,
+pobj <- list(data = data, RR_Model = RR.model, multiparm = multiparm, random.eff = random.eff,
                   predictors_in = P_select, predictors_out = coef.excl_step, family = family,
                   impvar = impvar, clusvar = clusvar, nimp = nimp, Outcome = Outcome, method = method, p.crit = p.crit,
                   predictors = predictors, cat.predictors = cat.predictors, 

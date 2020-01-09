@@ -66,7 +66,7 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 \value{
 An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
  which the following objects can be extracted: imputed datasets as \code{data}, selected 
- pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm_p}, 
+ pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm}, 
  predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
  as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{time}, \code{status}, \code{method}, 
  \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
@@ -91,7 +91,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   status="Status", predictors=c("Duration", "Radiation", "Onset"), p.crit=1, 
   method="D1", cat.predictors=c("Expect_cat"))
   pool_coxr$RR_Model
-  pool_coxr$multiparm_p
+  pool_coxr$multiparm
   
   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
   status="Status", predictors=c("Previous",  "Radiation", "Onset",
@@ -99,7 +99,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   int.predictors=c("Tampascale:Radiation",
   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2")
   pool_coxr$RR_Model
-  pool_coxr$multiparm_p
+  pool_coxr$multiparm
   pool_coxr$predictors_in
   
 }

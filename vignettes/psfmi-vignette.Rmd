@@ -20,25 +20,26 @@ knitr::opts_chunk$set(
 
 On this page you will find information of the psfmi package. 
 The	package contains functions to apply pooling or backward 
-selection (BS) for logistic or Cox regression prediction models. 
+selection (BWS) for logistic, Cox regression and Multilevel
+(Mixed models) prediction models in multiply imputed datasets. 
 
-The basic pooling method is Rubin's Rules. New is that for categorical predictors, 
+The basic pooling method is Rubin's Rules. For categorical predictors, 
 different methods to derive pooled p-values are available as: 
-the total covariance matrix (D1 method), pooling Chi-square values 
-(D2 method), pooling Likelihood ratio statistics (method of Meng and Rubin) 
-or pooling the median p-values (MPR rule). Moreover, two-way interaction 
-terms between continuous, dichotomous and categorical predictors
-are allowed during BS. Also, all type of predictors, interaction terms or 
-a combination, can be forced in the model during BS. For very large datasets
-and a large number of imputed datasets the D1 and D3 methods may be less 
-efficient than the D2 and MPR methods.
+the D1, D2, D3 and MPR (Median R Rule) method. Also restricted 
+cubic spline coefficients can be used. Two-way interaction terms 
+between continuous, dichotomous and categorical predictors are also 
+possible in the model. All these type of predictors, interaction terms 
+or a combination, can be forced in the model during BWS. 
+Furthermore, the stability of models selected and the bootstrap inclusion 
+frequency can be evaluated. For logistic and Cox regression models bootstrapping 
+is than used and for Multilevel models cluster bootstrapping.
 
 The package also contains functions to generate	apparent model performance 
 measures over imputed datasets as ROC/AUC, Nagelkerke R-squares, 
 Hosmer & Lemeshow test values and calibration plots. A wrapper function 
 over Frank Harrell's validate function is available. Bootstrap internal 
 validation is performed in each imputed dataset and results are pooled. 
-BS as part of internal validation	is optional and recommended.
+BWS as part of internal validation is optional and recommended.
 A function with the name mivalext_lr can be used to externally validate
 prediction models in multiple imputed datasets. The following information 
 of the externally validated model is provided: pooled ROC/AUC, (Nagelkerke) 
@@ -63,33 +64,37 @@ by running the following code in the R console window:
 
 The main functions that are available in the psfmi package are:
 
-psfmi_lr: pooling and selection of Logistic regression models in multiple imputed datasets 
+psfmi_lr: pooling and selection of Logistic regression models in multiply imputed datasets. 
 
-psfmi_coxr: pooling and selection of Cox regression models in multiple imputed datasets
+psfmi_coxr: pooling and selection of Cox regression models in multiply imputed datasets.
+
+psfmi_mm: pooling and selection of linear and logistic Mixed models in multiply imputed datasets.
+
+psfmi_stab: stability evaluation of models and predictors in multiply imputed datasets.
 
 miperform_lr: for performance and internal validation of logistic regression 
-models in multiple imputed datasets
+models in multiply imputed datasets.
 
-mivalext_lr: external validation in multiple imputed datasets
+mivalext_lr: external validation in multiply imputed datasets.
 
 ## Examples 
 
 * [Logistic Regression]
-    + [Pooling without BS and method D1] 
-    + [Pooling with BS and method D3] 
-    + [Pooling with BS including several interaction terms and method D2]
-    + [Pooling with BS and forcing interaction terms and method D1]
-    + [Pooling with BS including spline coefficient and method D1]
+    + [Pooling without BWS and method D1] 
+    + [Pooling with BWS and method D1] 
+    + [Pooling with BWS including several interaction terms and method D2]
+    + [Pooling with BWS and forcing interaction terms and method D1]
+    + [Pooling with BWS including spline coefficient and method D1]
       
 * [Cox regression]
-    + [Pooling without BS and method D1] 
-    + [Pooling with BS and method MPR] 
-    + [Pooling with BS including interaction terms and method D2]
-    + [Pooling with BS including spline coefficient and method D1]
+    + [Pooling without BWS and method D1] 
+    + [Pooling with BWS and method MPR] 
+    + [Pooling with BWS including interaction terms and method D2]
+    + [Pooling with BWS including spline coefficient and method D1]
 
 ## Logistic Regression
 
-### Pooling without BS and method D1
+### Pooling without BWS and method D1
 
 ```{r}
 
@@ -98,17 +103,17 @@ mivalext_lr: external validation in multiple imputed datasets
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), method="D1")
   pool_lr$RR_Model
-  pool_lr$multiparm_p
+  pool_lr$multiparm
   
 ```
 
 Back to [Examples]
 
-### Pooling with BS and method D3
+### Pooling with BWS and method D1
 
 Pooling Logistic regression models over 5 imputed datasets with backward selection
-using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statistics) and
-forcing the predictor "Smoking" in the models during backward selection
+using a p-value of 0.05 and as method D1 and forcing the predictor "Smoking" in the 
+models during backward selection.
 
 ```{r}
 
@@ -116,57 +121,60 @@ forcing the predictor "Smoking" in the models during backward selection
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   predictors=c("Gender", "Smoking", "Function", "JobControl",
   "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
-  p.crit = 0.05, method="D3")
+  p.crit = 0.05, method="D1")
   pool_lr$RR_Model
-  pool_lr$multiparm_p
-
+  pool_lr$multiparm
+  pool_lr$predictors_in
+  
 ```
 
 Back to [Examples]
 
-### Pooling with BS including several interaction terms and method D2
+### Pooling with BWS including several interaction terms and method D2
       
-Pooling Logistic regression models over 5 imputed datasets with BS
-using a p-value of 0.05 and as method D1. Several  interaction terms,
-including with a categorical predictor, are part of the selection procedure.
+Pooling Logistic regression models over 5 imputed datasets with BWS
+using a p-value of 0.05 and as method D2. Several interaction terms,
+including a categorical predictor, are part of the selection procedure.
 
 ```{r}
 
   library(psfmi)
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-  predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
-  "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
+  predictors=c("Gender", "Smoking", "Function", "JobControl"), 
+  p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   int.predictors = c("Carrying:Smoking", "Gender:Smoking"), method="D2")
   pool_lr$RR_Model
-  pool_lr$multiparm_p
-
+  pool_lr$multiparm
+  pool_lr$predictors_in
+  
 ```
 
 Back to [Examples]
 
-### Pooling with BS and forcing interaction terms and method D1
+### Pooling with BWS and forcing interaction terms and method D1
       
 Same as above but now forcing several predictors, including interaction terms,
-in the model during BS.
+in the model during BWS.
 
 ```{r}
 
   library(psfmi)
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-  predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
-  "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
+  predictors=c("Gender", "Smoking", "Function", "JobControl"), 
+  p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   int.predictors = c("Carrying:Smoking", "Gender:Smoking"),
   keep.predictors = c("Smoking:Carrying", "JobControl"), method="D1")
   pool_lr$RR_Model
-  pool_lr$multiparm_p
-
+  pool_lr$multiparm
+  pool_lr$predictors_in
+  
 ```
 
 Back to [Examples]
 
-### Pooling with BS including spline coefficient and method D1
+### Pooling with BWS including spline coefficient and method D1
 
-Pooling Logistic regression models over 5 imputed datasets with BS
+Pooling Logistic regression models over 5 imputed datasets with BWS
 using a p-value of 0.05 and as method D1. A spline predictor and interaction 
 term are part of the selection procedure.
 
@@ -174,12 +182,13 @@ term are part of the selection procedure.
 
   library(psfmi)
   pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-  predictors=c("Gender", "Smoking", "JobControl", "JobDemands",
-  "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
+  predictors=c("Gender", "Smoking", "JobControl"), 
+  p.crit = 0.05, cat.predictors = c("Carrying", "Satisfaction"),
   spline.predictors=c("Function"), int.predictors = c("Carrying:Smoking"), 
   knots=3, method="D1")
   pool_lr$RR_Model
-  pool_lr$multiparm_p
+  pool_lr$multiparm
+  pool_lr$predictors_in
 
 ```
 
@@ -187,7 +196,7 @@ Back to [Examples]
 
 ## Cox Regression
 
-### Pooling without BS and method D1
+### Pooling without BWS and method D1
 
 ```{r}
 
@@ -197,34 +206,35 @@ Back to [Examples]
   "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=1,
   cat.predictors=c("Expect_cat"), method="D1")
   pool_coxr$RR_Model
-  pool_coxr$multiparm_p
-
+  pool_coxr$multiparm
+  
 ```  
 
 Back to [Examples]
 
-### Pooling with BS and method MPR
+### Pooling with BWS and method MPR
 
 ```{r}
 
   library(psfmi)
   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
   predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
-  "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=0.05,
+  "Previous", "Tampascale"), p.crit=0.05,
   cat.predictors=c("Expect_cat"), method="MPR")
   pool_coxr$RR_Model
-  pool_coxr$multiparm_p
+  pool_coxr$multiparm
+  pool_coxr$predictors_in
   
 ```  
 
 Back to [Examples]
 
-### Pooling with BS including interaction terms and method D2
+### Pooling with BWS including interaction terms and method D2
 
 Pooling Cox regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and as method D2 including interaction terms with 
-a categorical predictor and forcing the predictor "Tampascale" in the models 
-during backward selection
+a categorical predictor and forcing the predictor Tampascale in the models 
+during backward selection.
 
 ```{r}
 
@@ -235,17 +245,18 @@ during backward selection
   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
   "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2" )
   pool_coxr$RR_Model
-  pool_coxr$multiparm_p
+  pool_coxr$multiparm
+  pool_coxr$predictors_in
   
 ```  
 
 Back to [Examples]
 
-### Pooling with BS including spline coefficient and method D1
+### Pooling with BWS including spline coefficients and method D1
 
 Pooling Cox regression models over 5 imputed datasets with backward selection
-using a p-value of 0.05 and as method D1 including a spline predictor
-and forcing these in the models during backward selection
+using a p-value of 0.05 and as method D1 including a restricted cubic spline 
+predictor and forcing Tampascale in the models during backward selection.
 
 ```{r}
 
@@ -256,7 +267,8 @@ and forcing these in the models during backward selection
   int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
   knots=3, method="D1")
   pool_coxr$RR_Model
-  pool_coxr$multiparm_p
+  pool_coxr$multiparm
+  pool_coxr$predictors_in
   
 ```  
 

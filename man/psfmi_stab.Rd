@@ -40,7 +40,7 @@ The function evaluates predictor selection frequency in stratified or cluster bo
                    "Age", "Radiation", "SocialSupport", "Function"),
                    cat.predictors = c("Carrying"), p.crit =0.157, method="D1")
  pool_lr$RR_Model
- pool_lr$multiparm_p
+ pool_lr$multiparm
 
  stab_res <- psfmi_stab(pool_lr, boot_method = "single", nboot=100) # may take a while
  stab_res$bif
