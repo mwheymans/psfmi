@@ -4,7 +4,7 @@
 #' \code{psfmi_lr} Pooling and backward selection for Logistic regression
 #' prediction models in multiply imputed datasets using different selection methods.
 #'
-#' @param data Data frame or data matrix with stacked multiple imputed datasets.
+#' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
 #'   specified under impvar, and starting by 1.
@@ -81,7 +81,7 @@
 #' @export
 psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
  p.crit=1, cat.predictors=NULL, spline.predictors=NULL, int.predictors=NULL,
- keep.predictors=NULL, knots=NULL, method=NULL, print.method=FALSE)
+ keep.predictors=NULL, knots=NULL, method="RR", print.method=FALSE)
 {
   call <- match.call()
   
@@ -93,15 +93,19 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
   P.check <-c(P, cat.P, s.P)
   
   # Check data input
-  if (!(is.matrix(data) | is.data.frame(data)))
-    stop("Data should be a matrix or data frame")
-  data <- data.frame(data.matrix(data))
+  if (!(is.data.frame(data)))
+    stop("Data should be a data frame")
+  data <- data.frame(as_tibble(data))
+  data <- mutate_if(data, is.factor, ~ as.numeric(as.character(.x)))
+  if(!all(data[Outcome]==1 | data[Outcome]==0))
+    stop("Outcome should be a 0 - 1 variable")
   if ((nvar <- ncol(data)) < 2)
     stop("Data should contain at least two columns")
   if(is.null(impvar))
     stop("Imputation variable is not defined")
-  if(is.null(method))
-    stop("Define selection method: D1, D2, D3 or MPR")
+  if(is.null(method)) method="RR"
+  if(all(!is.null(cat.predictors) | !is.null(spline.predictors)) & method=="RR")
+    stop("Categorical or spline variables in model, define selection method: D1, D2, D3 or MPR")
   if (order(unique(data[, impvar]))[1] == 0)
     stop("Original dataset should not be included")
   if(is.null(nimp))
@@ -323,6 +327,8 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
       stop("\n", "Check Pooled Model, some parameters
           could not be estimated", "\n")
     }
+    p.pool <- data.frame(pool.RR[-1, 3])
+    if(method=="RR") multiparm <- NULL
     if(method=="D1" | method=="D2" | method=="MPR"){
       # D2
       if(method=="D2") {

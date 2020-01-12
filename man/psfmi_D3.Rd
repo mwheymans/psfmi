@@ -7,7 +7,7 @@
 psfmi_D3(data, nimp, impvar, Outcome, P, p.crit, print.method)
 }
 \arguments{
-\item{data}{Data frame or data matrix with stacked multiple imputed datasets.
+\item{data}{Data frame with stacked multiple imputed datasets.
 The original dataset that contains missing values must be excluded from the dataset.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}

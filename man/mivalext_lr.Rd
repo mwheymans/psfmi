@@ -19,7 +19,7 @@ mivalext_lr(
 )
 }
 \arguments{
-\item{data.val}{Data frame or data matrix with stacked multiple imputed validation datasets.
+\item{data.val}{Data frame with stacked multiple imputed validation datasets.
 The original dataset that contains missing values must be excluded from the
 dataset. The imputed datasets must be distinguished by an imputation variable,
 specified under impvar, and starting by 1.}

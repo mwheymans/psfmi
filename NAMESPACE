@@ -36,7 +36,7 @@ importFrom("ggplot2", theme_set, theme_bw, element_blank,
   geom_point, ggplot, scale_x_continuous, scale_y_continuous,
   theme)
 importFrom("dplyr", group_by, sample_n, n, group_by_all,
-  arrange, count, desc, select, bind_rows)
+  arrange, count, desc, select, bind_rows, mutate_if)
 importFrom(magrittr,"%>%")
 importFrom("rsample", bootstraps)
 importFrom("purrr", is_empty, map_int, map, transpose)

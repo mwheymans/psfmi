@@ -4,7 +4,7 @@
 #' \code{psfmi_mm} Pooling and backward selection for 2 level (generalized)
 #' linear mixed models in multiply imputed datasets using different selection methods.
 #'
-#' @param data Data frame or data matrix with stacked multiple imputed datasets.
+#' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
 #'   specified under impvar, and starting by 1 and the clusters should be 
@@ -83,7 +83,7 @@
 psfmi_mm <- function(data, nimp=5, impvar=NULL, clusvar = NULL, Outcome, predictors=NULL, 
                      random.eff=NULL, family="linear", p.crit=1, cat.predictors=NULL, 
                      spline.predictors=NULL, int.predictors=NULL, keep.predictors=NULL, 
-                     knots=NULL, method=NULL, print.method=FALSE)
+                     knots=NULL, method="RR", print.method=FALSE)
 {
 call <- match.call()
 
@@ -95,9 +95,10 @@ s.P <- spline.predictors
 P.check <-c(P, cat.P, s.P)
 
 # Check data input
-if (!(is.matrix(data) | is.data.frame(data)))
-  stop("Data should be a matrix or data frame")
-data <- data.frame(data.matrix(data))
+if (!(is.data.frame(data)))
+  stop("Data should be a data frame")
+data <- data.frame(as_tibble(data))
+data <- mutate_if(data, is.factor, ~ as.numeric(as.character(.x)))
 if(family == "binomial" & !all(data[Outcome]==1 | data[Outcome]==0))
   stop("Outcome should be a 0 - 1 variable")
 if ((nvar <- ncol(data)) < 2)
@@ -292,6 +293,8 @@ for (k in 1:length(P)) {
     #  stop("\n", "Check Pooled Model, some parameters
     #      could not be estimated", "\n")
     #}
+    p.pool <- data.frame(pool.RR[-1, 3])
+    if(method=="RR") multiparm <- NULL
     
     if(family=="linear" | (family=="binomial" & method!="D3")) {
     

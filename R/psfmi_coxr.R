@@ -4,9 +4,8 @@
 #' \code{psfmi_coxr} Pooling and backward selection for Cox regression
 #' models in multiply imputed datasets using different selection methods.
 #'
-#' @param data Data frame or data matrix with stacked multiple imputed
-#' datasets.
-#'   The original dataset that contains missing values must be excluded from the dataset. The imputed
+#' @param data Data frame with stacked multiple imputed
+#' datasets. The original dataset that contains missing values must be excluded from the dataset. The imputed
 #'   datasets must be distinguished by an imputation variable, specified under impvar, and starting by 1.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the imputed datasets.
@@ -81,7 +80,7 @@
 psfmi_coxr <-
   function(data, nimp=5, impvar=NULL, time, status, predictors=NULL,
    p.crit=1, cat.predictors=NULL, spline.predictors=NULL, int.predictors=NULL,
-   keep.predictors=NULL, knots=NULL, method=NULL, print.method=FALSE)
+   keep.predictors=NULL, knots=NULL, method="RR", print.method=FALSE)
   {
     call <- match.call()
     
@@ -93,15 +92,19 @@ psfmi_coxr <-
     P.check <-c(P, cat.P, s.P)
     
     # Check data input
-    if (!(is.matrix(data) | is.data.frame(data)))
-      stop("Data should be a matrix or data frame")
-    data <- data.frame(data.matrix(data))
+    if (!(is.data.frame(data)))
+      stop("Data should be a data frame")
+    data <- data.frame(as_tibble(data))
+    data <- mutate_if(data, is.factor, ~ as.numeric(as.character(.x)))
+    if(!all(data[status]==1 | data[status]==0))
+      stop("Outcome should be a 0 - 1 variable")
     if ((nvar <- ncol(data)) < 2)
       stop("Data should contain at least two columns")
     if(is.null(impvar))
       stop("Imputation variable is not defined")
-    if(is.null(method))
-      stop("Define selection method: D1, D2 or MPR")
+    if(is.null(method)) method="RR"
+    if(all(!is.null(cat.predictors) | !is.null(spline.predictors)) & method=="RR")
+      stop("Categorical or spline variables in model, define selection method: D1, D2, D3 or MPR")
     if (order(unique(data[, impvar]))[1] == 0)
       stop("Original dataset should not be included")
     if(is.null(nimp))
@@ -331,7 +334,8 @@ psfmi_coxr <-
         stop("\n", "Check Pooled Model,
         some parameters could not be estimated", "\n")
       }
-      
+      p.pool <- data.frame(pool.RR[, 3])
+      if(method=="RR") multiparm <- NULL
       # D2
       if(method=="D2")
       {

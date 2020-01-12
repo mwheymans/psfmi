@@ -2,7 +2,7 @@
 #'
 #' \code{psfmi_mm_multiparm} Function to pool according to D1, D2 and D3 methods
 #'
-#' @param data Data frame or data matrix with stacked multiple imputed datasets.
+#' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
 #'   specified under impvar, and starting by 1 and the clusters should be 

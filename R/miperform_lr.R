@@ -2,7 +2,7 @@
 #'
 #' \code{miperform_lr} Evaluate Performance of logistic regression models
 #'
-#' @param data Data frame or data matrix with stacked multiple imputed datasets.
+#' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
 #'   specified under impvar.
@@ -82,9 +82,12 @@ miperform_lr <-
     P.check <-c(P, cat.P)
     
     # Check data input
-    if (!(is.matrix(data) | is.data.frame(data)))
-      stop("Data should be a matrix or data frame")
-    data <- data.frame(data.matrix(data))
+    if (!(is.data.frame(data)))
+      stop("Data should be a data frame")
+    data <- data.frame(as_tibble(data))
+    data <- mutate_if(data, is.factor, ~ as.numeric(as.character(.x)))
+    if(!all(data[Outcome]==1 | data[Outcome]==0))
+      stop("Outcome should be a 0 - 1 variable")
     if ((nvar <- ncol(data)) < 2)
       stop("Data should contain at least two columns")
     if(is.null(impvar))

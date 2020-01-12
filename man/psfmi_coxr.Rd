@@ -18,14 +18,13 @@ psfmi_coxr(
   int.predictors = NULL,
   keep.predictors = NULL,
   knots = NULL,
-  method = NULL,
+  method = "RR",
   print.method = FALSE
 )
 }
 \arguments{
-\item{data}{Data frame or data matrix with stacked multiple imputed
-datasets.
-  The original dataset that contains missing values must be excluded from the dataset. The imputed
+\item{data}{Data frame with stacked multiple imputed
+datasets. The original dataset that contains missing values must be excluded from the dataset. The imputed
   datasets must be distinguished by an imputation variable, specified under impvar, and starting by 1.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}

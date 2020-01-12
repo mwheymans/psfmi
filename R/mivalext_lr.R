@@ -2,7 +2,7 @@
 #'
 #' \code{mivalext_lr} External validation of logistic prediction models
 #'
-#' @param data.val Data frame or data matrix with stacked multiple imputed validation datasets.
+#' @param data.val Data frame with stacked multiple imputed validation datasets.
 #'  The original dataset that contains missing values must be excluded from the
 #'  dataset. The imputed datasets must be distinguished by an imputation variable,
 #'  specified under impvar, and starting by 1.
@@ -75,16 +75,18 @@ mivalext_lr <-
     P <- predictors
     
     # Check data input
-    if (!(is.matrix(data.val) | is.data.frame(data.val)))
-      stop("Validation dataset should be a matrix or data frame")
-    data.val <- data.frame(data.matrix(data.val))
+    if (!(is.data.frame(data.val)))
+      stop("Data should be a data frame")
+    data.val <- data.frame(as_tibble(data.val))
+    data.val <- mutate_if(data.val, is.factor, ~ as.numeric(as.character(.x)))
     
     if(!is.null(data.orig)) {
       if (ncol(data.orig) < 2)
         stop("Original data should contain at least two columns")
-      if (!(is.matrix(data.orig) | is.data.frame(data.orig)))
-        stop("Original dataset should be a matrix or data frame")
-      data.orig <- data.frame(data.matrix(data.orig))
+      if (!(is.data.frame(data.orig)))
+        stop("Original dataset should be a data frame")
+      data.orig <- data.frame(as_tibble(data.orig))
+      data.orig <- mutate_if(data.orig, is.factor, ~ as.numeric(as.character(.x)))
       if (!is.null(lp.orig))
         stop("Not needed to define lp.orig, coefficient values
       are derived from original dataset as defined under data.orig")

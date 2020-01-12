@@ -2,7 +2,7 @@
 #'
 #' \code{psfmi_D3} Function to pool using Meng & Rubin pooling method
 #'
-#' @param data Data frame or data matrix with stacked multiple imputed datasets.
+#' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the dataset.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the imputed datasets.
