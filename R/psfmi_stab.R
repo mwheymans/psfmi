@@ -57,7 +57,9 @@ psfmi_stab <- function(pobj, boot_method=NULL, nboot=20)
   if(class(pobj)!="smodsmi") 
     stop("Object should be of type smodsmi")
   if(is.null(boot_method)) 
-    stop("boot_method is not defined, choose single or cluster") 
+    stop("boot_method is not defined, choose single or cluster")
+  if(pobj$p.crit==1) 
+    stop("To determine Model Stability p.crit must be < 1")
   call <- match.call()
   nboot <- nboot
   data <- pobj$data
