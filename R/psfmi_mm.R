@@ -293,8 +293,10 @@ for (k in 1:length(P)) {
     #  stop("\n", "Check Pooled Model, some parameters
     #      could not be estimated", "\n")
     #}
-    p.pool <- data.frame(pool.RR[-1, 3])
-    if(method=="RR") multiparm <- NULL
+    if(method=="RR"){
+      p.pool <- data.frame(pool.RR[-1, 3])
+      multiparm <- NULL
+    }
     
     if(family=="linear" | (family=="binomial" & method!="D3")) {
     

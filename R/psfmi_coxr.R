@@ -334,8 +334,10 @@ psfmi_coxr <-
         stop("\n", "Check Pooled Model,
         some parameters could not be estimated", "\n")
       }
-      p.pool <- data.frame(pool.RR[, 3])
-      if(method=="RR") multiparm <- NULL
+      if(method=="RR"){
+        p.pool <- data.frame(pool.RR[, 3])
+        multiparm <- NULL
+      }
       # D2
       if(method=="D2")
       {

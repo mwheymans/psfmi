@@ -327,8 +327,11 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
       stop("\n", "Check Pooled Model, some parameters
           could not be estimated", "\n")
     }
-    p.pool <- data.frame(pool.RR[-1, 3])
-    if(method=="RR") multiparm <- NULL
+    if(method=="RR"){
+      p.pool <- data.frame(pool.RR[-1, 3])
+      multiparm <- NULL
+    }
+    
     if(method=="D1" | method=="D2" | method=="MPR"){
       # D2
       if(method=="D2") {
