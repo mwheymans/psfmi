@@ -84,7 +84,8 @@ An object of class \code{smodsmi} (selected models in multiply imputed datasets)
  predictors excluded at each step as \code{predictors_out}, and \code{family}, \code{impvar}, \code{clusvar}, 
  \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{predictors}, \code{cat.predictors}, 
  \code{keep.predictors}, \code{int.predictors}, \code{spline.predictors}, \code{knots}, \code{print.method}, 
- \code{model_type} and \code{call} .
+ \code{model_type}, \code{call}, \code{predictors_final} for names of predictors in final step and 
+ \code{fit.formula} is the regression formula of start model.
 }
 \description{
 \code{psfmi_mm} Pooling and backward selection for 2 level (generalized)

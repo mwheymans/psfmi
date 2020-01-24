@@ -33,7 +33,7 @@
 #'   regression analysis based on fractional polynomials for modelling continuous variables. (2008).
 #'   Chapter 8, Model Stability. Wiley, Chichester
 #' @references Heinze G, Wallisch C, Dunkler D. Variable selection - A review and
-#'  recommendations for the practicing statistician. Biom J. 2018 May;60(3):431-449. 
+#'  recommendations for the practicing statistician. Biom J. 2018;60(3):431-449. 
 #'
 #' @references http://missingdatasolutions.rbind.io/
 #'
@@ -55,11 +55,11 @@ psfmi_stab <- function(pobj, boot_method=NULL, nboot=20)
 {
   
   if(class(pobj)!="smodsmi") 
-    stop("Object should be of type smodsmi")
+    stop("Object should be of type smodsmi", "\n")
   if(is.null(boot_method)) 
-    stop("boot_method is not defined, choose single or cluster")
+    stop("boot_method is not defined, choose single or cluster", "\n")
   if(pobj$p.crit==1) 
-    stop("To determine Model Stability p.crit must be < 1")
+    stop("To determine Model Stability p.crit must be < 1", "\n")
   call <- match.call()
   nboot <- nboot
   data <- pobj$data

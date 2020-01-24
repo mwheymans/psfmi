@@ -64,7 +64,7 @@ Royston P, Sauerbrei W (2008) Multivariable model-building – a pragmatic appro
   Chapter 8, Model Stability. Wiley, Chichester
 
 Heinze G, Wallisch C, Dunkler D. Variable selection - A review and
- recommendations for the practicing statistician. Biom J. 2018 May;60(3):431-449.
+ recommendations for the practicing statistician. Biom J. 2018;60(3):431-449.
 
 http://missingdatasolutions.rbind.io/
 }

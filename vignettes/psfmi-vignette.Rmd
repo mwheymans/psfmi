@@ -34,18 +34,21 @@ Furthermore, the stability of models selected and the bootstrap inclusion
 frequency can be evaluated. For logistic and Cox regression models bootstrapping 
 is than used and for Multilevel models cluster bootstrapping.
 
-The package also contains functions to generate	apparent model performance 
+The package also contains a function to generate pooled model performance 
 measures over imputed datasets as ROC/AUC, Nagelkerke R-squares, 
-Hosmer & Lemeshow test values and calibration plots. A wrapper function 
-over Frank Harrell's validate function is available. Bootstrap internal 
-validation is performed in each imputed dataset and results are pooled. 
-BWS as part of internal validation is optional and recommended.
-A function with the name mivalext_lr can be used to externally validate
-prediction models in multiple imputed datasets. The following information 
-of the externally validated model is provided: pooled ROC/AUC, (Nagelkerke) 
-R-Square value, Hosmer and Lemeshow Test, pooled coefficients when the model 
-is freely estimated in imputed datasets and the pooled linear predictor (LP), 
-with information about miscalibration in intercept and slope. 
+Brier score and calibration plots. A function to apply Bootstrap internal validation	
+is also available where two methods can be used to combine bootstrapping and
+multiple imputationfor internal validation. One method, boot_MI, first draws 
+bootstrap samples and	subsequently performs multiple imputation and with 
+the other method, MI_boot, first bootstrap samples are drawn from each imputed 
+dataset before results are combined. Backward selection	as part of internal 
+validation is also an option. A function with the name mivalext_lr can be 
+used to externally validate prediction models in multiply imputed datasets. 
+The following information of the externally validated model is provided: 
+pooled ROC/AUC, (Nagelkerke) R-Square value, Hosmer and Lemeshow Test, 
+pooled coefficients when the model is freely estimated in imputed datasets and 
+the pooled linear predictor (LP), with information about miscalibration 
+in intercept and slope. 
 
 ## Installing the psfmi package
 
@@ -72,7 +75,7 @@ psfmi_mm: pooling and selection of linear and logistic Mixed models in multiply 
 
 psfmi_stab: stability evaluation of models and predictors in multiply imputed datasets.
 
-miperform_lr: for performance and internal validation of logistic regression 
+psfmi_perform: for performance and internal validation of logistic regression 
 models in multiply imputed datasets.
 
 mivalext_lr: external validation in multiply imputed datasets.
@@ -91,6 +94,10 @@ mivalext_lr: external validation in multiply imputed datasets.
     + [Pooling with BWS and method MPR] 
     + [Pooling with BWS including interaction terms and method D2]
     + [Pooling with BWS including spline coefficient and method D1]
+
+* [Stability analysis]
+    + [Stability analysis of Logistic regression model] 
+
 
 ## Logistic Regression
 
@@ -270,6 +277,41 @@ predictor and forcing Tampascale in the models during backward selection.
   pool_coxr$multiparm
   pool_coxr$predictors_in
   
+```  
+
+Back to [Examples]
+
+## Stability analysis
+
+### Stability analysis of Logistic regression model
+
+```{r}
+
+  library(psfmi)
+  psfmi_res <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+                      predictors=c("Gender", "Smoking", "JobControl", "Age", "Duration",
+                         "JobDemands", "SocialSupport"), p.crit =0.157, method="MPR",
+                      cat.predictors = "Satisfaction", int.predictors = c("Gender:JobControl"))
+
+  stab_res <- psfmi_stab(psfmi_res, boot_method = "single", nboot=20)
+  stab_res
+
+```  
+
+Back to [Examples]
+
+### Stability analysis of Cox regression model
+
+```{r}
+
+  library(psfmi)
+  psfmi_res <- psfmi_coxr(data=lbpmicox, impvar="Impnr", nimp=5,  p.crit=0.157, method="MPR",
+           predictors=c("Duration", "Previous",  "Radiation", "Onset"),
+           time="Time", status="Status", spline.predictors = "Tampascale", knots=3)
+
+  stab_res <- psfmi_stab(psfmi_res, boot_method = "single", nboot=20)
+  stab_res
+
 ```  
 
 Back to [Examples]

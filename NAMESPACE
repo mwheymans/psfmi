@@ -4,11 +4,12 @@ export(D1_cox)
 export(psfmi_D3)
 export(psfmi_lr)
 export(psfmi_coxr)
-export(miperform_lr)
+export(psfmi_perform)
 export(mivalext_lr)
 export(psfmi_mm)
 export(psfmi_mm_multiparm)
 export(psfmi_stab)
+export(pool_performance)
 
 importFrom("stats", glm)
 importFrom("stats", coef)
@@ -36,14 +37,15 @@ importFrom("ggplot2", theme_set, theme_bw, element_blank,
   geom_point, ggplot, scale_x_continuous, scale_y_continuous,
   theme)
 importFrom("dplyr", group_by, sample_n, n, group_by_all,
-  arrange, count, desc, select, bind_rows, mutate_if)
+  arrange, count, desc, select, bind_rows, mutate_if,
+  group_split)
 importFrom(magrittr,"%>%")
 importFrom("rsample", bootstraps)
 importFrom("purrr", is_empty, map_int, map, transpose)
-importFrom("tidyr", nest, unnest)
+importFrom("tidyr", nest, unnest, replace_na)
 importFrom("tibble", as_tibble)
 importFrom("lme4", lmer, glmer, fixef)
-importFrom("mice", pool)
+importFrom("mice", mice, pool, complete)
 importFrom("mitml", testModels)
 
 

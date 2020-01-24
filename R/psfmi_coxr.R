@@ -45,7 +45,10 @@
 #'  predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
 #'  as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{time}, \code{status}, \code{method}, 
 #'  \code{p.crit}, \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
-#'  \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call} and \code{model_type}.
+#'  \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call}, \code{model_type} and 
+#'  \code{predictors_final} for names of predictors in final selection step, \code{fit.formula} is the 
+#'  regression formula of start model and \code{predictors_initial} for names of predictors in start
+#'  model.
 #'    
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
 #'   covariates in logistic regression models after multiple imputation: power and applicability
@@ -587,13 +590,14 @@ psfmi_coxr <-
     }
     if(p.crit==1) {
       coef.excl_step <- as.null(coef.excl_step)
-      P_select <- P_in_step[[1]]
+      P_select <- data.frame(matrix(1, 1, length(P_in_step[[1]]), byrow=TRUE))
+      colnames(P_select) <- P_in_step[[1]]
+      predictors_final <- P_in_step[[1]]
     }
     else {
       if(is_empty(coef.excl_step)){
         coef.excl_step <- as.null(coef.excl_step)
-        P_select <- data.frame(matrix(rep(1, length(P_in_step[[1]])), 1, 
-                                      length(P_in_step[[1]]), byrow=TRUE))
+        P_select <- data.frame(matrix(1, 1, length(P_in_step[[1]]), byrow=TRUE))
         rownames(P_select) <- "Step 1"
         colnames(P_select) <- P_in_step[[1]]
       }
@@ -616,13 +620,17 @@ psfmi_coxr <-
           row.names(P_select) <- paste("Step", 1:nrow(P_select))
         }
       }
+      predictors_final <- colnames(P_select)[which(P_select[nrow(P_select), ]==1)]
     }
+    fit.formula <- as.formula(paste(Y, paste(P_in_step[[1]], collapse = "+")))
     pobj <- list(data = data, RR_Model = RR.model, multiparm = multiparm,
                       predictors_in = P_select, predictors_out = coef.excl_step, time = time,
                       status = status, impvar = impvar, nimp = nimp, method = method, p.crit = p.crit,
                       predictors = predictors, cat.predictors = cat.predictors, call = call,
                       keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = "survival",
-                      spline.predictors = spline.predictors, knots = knots, print.method = print.method)
+                      spline.predictors = spline.predictors, knots = knots, print.method = print.method,
+                      fit.formula = fit.formula, predictors_final = predictors_final,
+                      predictors_initial = P_in_step[[1]])
     class(pobj) <- "smodsmi"
     return(pobj)
 }

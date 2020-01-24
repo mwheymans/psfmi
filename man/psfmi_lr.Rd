@@ -69,7 +69,10 @@ An object of class \code{smodsmi} (selected models in multiply imputed datasets)
  predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
  as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, 
  \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
- \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call} and \code{model_type}.
+ \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call}, \code{model_type},
+ \code{predictors_final} for names of predictors in final selection step, \code{fit.formula} is the 
+ regression formula of start model and \code{predictors_initial} for names of predictors in start
+ model.
 }
 \description{
 \code{psfmi_lr} Pooling and backward selection for Logistic regression

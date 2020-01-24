@@ -47,7 +47,10 @@
 #'  predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
 #'  as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, 
 #'  \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
-#'  \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call} and \code{model_type}.
+#'  \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call}, \code{model_type},
+#'  \code{predictors_final} for names of predictors in final selection step, \code{fit.formula} is the 
+#'  regression formula of start model and \code{predictors_initial} for names of predictors in start
+#'  model.
 #'
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
 #'   covariates in logistic regression models after multiple imputation: power and applicability
@@ -575,7 +578,9 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
   }
   if(p.crit==1) {
     coef.excl_step <- as.null(coef.excl_step)
-    P_select <- P_in_step[[1]]
+    P_select <- data.frame(matrix(1, 1, length(P_in_step[[1]]), byrow=TRUE))
+    colnames(P_select) <- P_in_step[[1]]
+    predictors_final <- P_in_step[[1]]
   }
   else {
     if(is_empty(coef.excl_step)){
@@ -604,14 +609,17 @@ psfmi_lr <- function(data, nimp=5, impvar=NULL, Outcome, predictors=NULL,
         row.names(P_select) <- paste("Step", 1:nrow(P_select))
       }
     }
+    predictors_final <- colnames(P_select)[which(P_select[nrow(P_select), ]==1)]
   }
-  
+  fit.formula <- as.formula(paste(Y, paste(P_in_step[[1]], collapse = "+")))
   pobj <- list(data = data, RR_Model = RR.model, multiparm = multiparm,
                     predictors_in = P_select, predictors_out = coef.excl_step,
                     impvar = impvar, nimp = nimp, Outcome = Outcome, method = method, p.crit = p.crit,
                     predictors = predictors, cat.predictors = cat.predictors, call = call,
                     keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = "binomial",
-                    spline.predictors = spline.predictors, knots = knots, print.method = print.method)
+                    spline.predictors = spline.predictors, knots = knots, print.method = print.method,
+                    fit.formula = fit.formula, predictors_final = predictors_final,
+                    predictors_initial = P_in_step[[1]])
   class(pobj) <- "smodsmi"
   return(pobj)
 }
