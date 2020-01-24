@@ -75,7 +75,7 @@ psfmi_mm: pooling and selection of linear and logistic Mixed models in multiply 
 
 psfmi_stab: stability evaluation of models and predictors in multiply imputed datasets.
 
-psfmi_perform: for performance and internal validation of logistic regression 
+psfmi_perform: performance and internal validation of logistic regression 
 models in multiply imputed datasets.
 
 mivalext_lr: external validation in multiply imputed datasets.
@@ -97,6 +97,7 @@ mivalext_lr: external validation in multiply imputed datasets.
 
 * [Stability analysis]
     + [Stability analysis of Logistic regression model] 
+    + [Stability analysis of Cox regression model]
 
 
 ## Logistic Regression
