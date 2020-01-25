@@ -1,5 +1,4 @@
-#' Function to evaluate predictor and model selection frequency by using bootstrapping
-#' over multiple imputed datasets.
+#' Function to evaluate bootstrap predictor and model stability in multiply imputed datasets.
 #'
 #' \code{psfmi_stab} Stability analysis of predictors and prediction models selected with
 #'  the \code{psfmi_lr}, \code{psfmi_coxr} or \code{psfmi_mm} functions of the \code{psfmi} package.
@@ -93,7 +92,8 @@ psfmi_stab <- function(pobj, boot_method=NULL, nboot=20)
   }
   if(class(pobj)=="smodsmi" & boot_method == "cluster")
   {
-    
+    if(is_empty(pobj$clusvar))
+      stop("\n", "No cluster variable defined, use single bootstrapping method")
     cluster_bootmi <- function(data, impvar, clusvar, nimp, nboot)
     {
       boot_imp <- list()
