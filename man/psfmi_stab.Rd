@@ -2,8 +2,7 @@
 % Please edit documentation in R/psfmi_stab.R
 \name{psfmi_stab}
 \alias{psfmi_stab}
-\title{Function to evaluate predictor and model selection frequency by using bootstrapping
-over multiple imputed datasets.}
+\title{Function to evaluate bootstrap predictor and model stability in multiply imputed datasets.}
 \usage{
 psfmi_stab(pobj, boot_method = NULL, nboot = 20)
 }

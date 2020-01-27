@@ -104,11 +104,14 @@ psfmi_perform <- function(pobj, data_orig = NULL, nboot = 10, int_val = FALSE, m
 ##############################
   call <- match.call()
 if(class(pobj)!="smodsmi")
-  stop("\n", "Object should be of type smodsmi")
+  stop("\n", "Object should be of type smodsmi", "\n")
+if(pobj$method=="D2")
+  stop("\n", "Choose method D1, D3 or MPR for pooling or variable selection first,", "\n",
+         "Method D2 can become unstable during bootstrap validation", "\n")
 if(pobj$model_type=="survival")
-  stop("\n", "Internal validation only available for models of type binomial")
+  stop("\n", "Internal validation only available for models of type binomial", "\n")
 if(!is.null(pobj$random.eff))
-    stop("\n", "Function only available for regression models without random effects")
+    stop("\n", "Function only available for regression models without random effects", "\n")
   
 if(int_val==TRUE) {
   cal.plot==FALSE
