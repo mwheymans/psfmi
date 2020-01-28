@@ -560,7 +560,7 @@ pobjval <- list(res_boot = res_boot, intval = val_res,
 return(pobjval)
 }
 if(!int_val){
-  message("\n", "Internal validation is done without Bacward selection", "\n")
+  message("\n", "Performance measures pooled in original multiply imputed datasets", "\n")
   Y <- c(paste(pobj$Outcome, paste("~")))
   if(is_empty(pobj$predictors_final)) {
     pobj$predictors_final <- 1
