@@ -10,6 +10,7 @@ export(psfmi_mm)
 export(psfmi_mm_multiparm)
 export(psfmi_stab)
 export(pool_performance)
+export(pool_intadj)
 
 importFrom("stats", glm)
 importFrom("stats", coef)
@@ -38,10 +39,11 @@ importFrom("ggplot2", theme_set, theme_bw, element_blank,
   theme)
 importFrom("dplyr", group_by, sample_n, n, group_by_all,
   arrange, count, desc, select, bind_rows, mutate_if,
-  group_split)
+  group_split, filter)
 importFrom(magrittr,"%>%")
 importFrom("rsample", bootstraps)
-importFrom("purrr", is_empty, map_int, map, transpose)
+importFrom("purrr", is_empty, map_int, map, transpose,
+  pluck)
 importFrom("tidyr", nest, unnest, replace_na)
 importFrom("tibble", as_tibble)
 importFrom("lme4", lmer, glmer, fixef)
