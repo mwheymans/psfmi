@@ -23,13 +23,13 @@ Imports:
 	mice (>= 3.6.0),
 	mitml (>= 0.3-7)
 Title: Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
 Description:
 	Provides functions to apply pooling or backward selection 
-	for logistic, Cox regression and Multilevel (mixed models) prediction 
+	of logistic, Cox regression and Multilevel (mixed models) prediction 
 	models in multiply imputed datasets. Backward selection can be done 
 	from the pooled model using Rubin's Rules (RR), the D1, D2, D3 and 
 	promising MPR (median p-values) method. The model can contain 
@@ -37,17 +37,17 @@ Description:
 	between all	these type of predictors. Continuous predictors	can also 
 	be introduced as restricted cubic spline (RCS) coefficients. It is also possible 
 	to force (spline) predictors or interaction terms in the model during predictor 
-	selection. The package also included a function to evaluate the stability 
+	selection. The package includes a function to evaluate the stability 
 	of the models	using bootstrapping and cluster bootstrapping. The package further 
-	contains functions to generate pooled model performance measures in imputed datasets 
-	as ROC/AUC, R-squares, fit test values and calibration	plots for logistic 
-	regression models. A function to apply Bootstrap internal validation	
-	is also available where two methods can be used to combine bootstrapping and
-	multiple imputationfor internal validation. One method, boot_MI, first draws 
-	bootstrap samples and	subsequently performs multiple imputation and with 
+	contains functions to generate pooled model performance measures in multiply 
+	imputed datasets as ROC/AUC, R-squares, Brier score, fit test values and 
+	calibration	plots for logistic regression models. A function to apply 
+	Bootstrap internal validation	is also available where two methods can be 
+	used to combine bootstrapping and	multiple imputation. One method, boot_MI, 
+	first draws	bootstrap samples and	subsequently performs multiple imputation and with 
 	the other method, MI_boot, first bootstrap samples are drawn from each imputed 
 	dataset before results are combined. The adjusted intercept after shrinkage of
-	the pooled regression coefficients can be obtained. Backward selection	
+	the pooled regression coefficients can be subsequently obtained. Backward selection	
 	as part of internal validation is also an option. Also a function to externally 
 	validate logistic	prediction models in multiple imputed datasets is available.
 	Eekhout (2017) <doi:10.1186/s12874-017-0404-7>.

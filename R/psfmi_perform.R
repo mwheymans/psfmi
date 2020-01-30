@@ -109,7 +109,7 @@ if(pobj$method=="D2")
   stop("\n", "Choose method D1, D3 or MPR for pooling or variable selection first,", "\n",
          "Method D2 can become unstable during bootstrap validation", "\n")
 if(pobj$model_type=="survival")
-  stop("\n", "Internal validation only available for models of type binomial", "\n")
+  stop("\n", "Function only available for models of type binomial", "\n")
 if(!is.null(pobj$random.eff))
     stop("\n", "Function only available for regression models without random effects", "\n")
   
