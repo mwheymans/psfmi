@@ -15,7 +15,7 @@
 #'  The first method is faster. See details for more information.
 #' @param nimp_boot_MI Numerical scalar. Number of imputed datasets for method boot_MI.
 #'  Default is 5. When not defined, the number of multiply imputed datasets is used of the  
-#'  previous call to the function code{psfmi_lr}.
+#'  previous call to the function \code{psfmi_lr}.
 #' @param p.crit A numerical scalar. P-value selection criterium used for backward selection
 #'  during internal validation. When set at 1, pooling and internal validation is done without 
 #'  backward selection. 
@@ -129,11 +129,6 @@ if(int_val==TRUE){
     stop("\n", "Validation method not defined, choose boot_MI or MI_boot")
 
 if(method=="MI_boot") {
-
-  if(is.null(nimp_boot_MI))
-    nimp_boot_MI <- pobj$nimp
-  if (nimp_boot_MI < 2)
-    stop("\n", "Number of imputed datasets for MI_boot must be > 1", "\n")
 
 imp1 <- pobj$data[pobj$data[pobj$impvar] == 1, ]
 boot_data <- bootstraps(imp1, times = nboot)
@@ -347,6 +342,8 @@ if(is.null(data_orig))
     stop("Include original data with missing values for the boot_MI method")
 if(is.null(nimp_boot_MI))
   nimp_boot_MI <- pobj$nimp
+if (nimp_boot_MI < 2)
+  stop("\n", "Number of imputed datasets for MI_boot must be > 1", "\n")
 
 data_orig <- data_orig
 if(is.null(predictorMatrix))

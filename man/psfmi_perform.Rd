@@ -39,7 +39,7 @@ The first method is faster. See details for more information.}
 
 \item{nimp_boot_MI}{Numerical scalar. Number of imputed datasets for method boot_MI.
 Default is 5. When not defined, the number of multiply imputed datasets is used of the  
-previous call to the function code{psfmi_lr}.}
+previous call to the function \code{psfmi_lr}.}
 
 \item{p.crit}{A numerical scalar. P-value selection criterium used for backward selection
 during internal validation. When set at 1, pooling and internal validation is done without 
