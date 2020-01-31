@@ -554,7 +554,7 @@ row.names(val_res) <- c("AUC", "R2", "Brier", "Slope")
 
 pobjval <- list(res_boot = res_boot, intval = val_res, 
                 predictors_in=predictors_selected, nboot = nboot,
-                nimp = nimp, nimp_boot_MI = nimp_boot_MI)
+                nimp = pobj$nimp, nimp_boot_MI = nimp_boot_MI)
 return(pobjval)
 }
 if(!int_val){
