@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>D1 method for Predictor selection called by psfmi_lr — D1_logistic • psfmi</title>
+<title>Pooling performance measures over multiply imputed datasets — pool_performance • psfmi</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="D1 method for Predictor selection called by psfmi_lr — D1_logistic" />
-<meta property="og:description" content="D1_logistic D1 pooling method" />
+<meta property="og:title" content="Pooling performance measures over multiply imputed datasets — pool_performance" />
+<meta property="og:description" content="pool_performance Pooling performance measures" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,16 +117,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>D1 method for Predictor selection called by psfmi_lr</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/D1_logistic.R'><code>R/D1_logistic.R</code></a></small>
-    <div class="hidden name"><code>D1_logistic.Rd</code></div>
+    <h1>Pooling performance measures over multiply imputed datasets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/pool_performance.R'><code>R/pool_performance.R</code></a></small>
+    <div class="hidden name"><code>pool_performance.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>D1_logistic</code> D1 pooling method</p>
+    <p><code>pool_performance</code> Pooling performance measures</p>
     </div>
 
-    <pre class="usage"><span class='fu'>D1_logistic</span>(<span class='no'>data</span>, <span class='no'>impvar</span>, <span class='no'>nimp</span>, <span class='no'>fm</span>, <span class='no'>names.var</span>)</pre>
+    <pre class="usage"><span class='fu'>pool_performance</span>(
+  <span class='no'>data</span>,
+  <span class='no'>nimp</span>,
+  <span class='no'>impvar</span>,
+  <span class='no'>Outcome</span>,
+  <span class='no'>predictors</span>,
+  <span class='no'>cal.plot</span>,
+  <span class='no'>plot.indiv</span>,
+  <span class='kw'>groups_cal</span> <span class='kw'>=</span> <span class='fl'>10</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,32 +146,71 @@
 The original dataset that contains missing values must be excluded from the dataset.</p></td>
     </tr>
     <tr>
-      <th>impvar</th>
-      <td><p>A character vector. Name of the variable that distinguishes the imputed datasets.</p></td>
-    </tr>
-    <tr>
       <th>nimp</th>
       <td><p>A numerical scalar. Number of imputed datasets. Default is 5.</p></td>
     </tr>
     <tr>
-      <th>fm</th>
-      <td><p>regression formula from glm object</p></td>
+      <th>impvar</th>
+      <td><p>A character vector. Name of the variable that distinguishes the imputed datasets.</p></td>
     </tr>
     <tr>
-      <th>names.var</th>
-      <td><p>list of predictors included in pooled regression model</p></td>
+      <th>Outcome</th>
+      <td><p>Character vector containing the name of the outcome variable.</p></td>
+    </tr>
+    <tr>
+      <th>predictors</th>
+      <td><p>Character vector with the names of the predictor variables as used in the
+formula part of an glm object.</p></td>
+    </tr>
+    <tr>
+      <th>cal.plot</th>
+      <td><p>If TRUE a calibration plot is generated. Default is FALSE. Can be used in combination
+with int_val = FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>plot.indiv</th>
+      <td><p>If TRUE calibration plots for each separate imputed dataset are generated, 
+otherwise all calibration plots are plotted in one figure.</p></td>
+    </tr>
+    <tr>
+      <th>groups_cal</th>
+      <td><p>A numerical scalar. Number of groups used on the calibration plot. 
+Default is 10. If the range of predicted probabilities is too low 5 groups can be
+chosen.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='fu'>D1_logistic</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
- <span class='kw'>fm</span><span class='kw'>=</span><span class='no'>Chronic</span> ~ <span class='no'>Gender</span> + <span class='no'>Smoking</span> + <span class='no'>Function</span> + <span class='no'>JobControl</span>,
- <span class='kw'>names.var</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"JobControl"</span>))</div><div class='output co'>#&gt;            Chi_sq p-values
-#&gt; Gender      0.944   0.3313
-#&gt; Smoking     0.040   0.8415
-#&gt; Function   10.328   0.0013
-#&gt; JobControl  0.035   0.8517</div><div class='input'>
+    <pre class="examples"><div class='input'> <span class='fu'>pool_performance</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
+ <span class='kw'>Outcome</span> <span class='kw'>=</span> <span class='st'>"Chronic"</span>, <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>, <span class='st'>"rcs(Tampascale, 3)"</span>, <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>,
+ <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span>, <span class='st'>"factor(Carrying)"</span>), <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='pool_performance-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $ROC_pooled
+#&gt;               95% Low       ROC    95% Up
+#&gt; ROC (logit) 0.7215633 0.8763023 0.9508982
+#&gt; 
+#&gt; $coef_pooled
+#&gt;                   (Intercept)                        Gender 
+#&gt;                  -16.11926408                    0.04856963 
+#&gt;                          Pain  rcs(Tampascale, 3)Tampascale 
+#&gt;                    0.59288225                    0.37551651 
+#&gt; rcs(Tampascale, 3)Tampascale'                       Smoking 
+#&gt;                   -0.40200341                    0.10798609 
+#&gt;                      Function                     Radiation 
+#&gt;                   -0.05245742                    0.24642908 
+#&gt;                           Age             factor(Carrying)2 
+#&gt;                   -0.02814208                    1.04089245 
+#&gt;             factor(Carrying)3 
+#&gt;                    1.25873721 
+#&gt; 
+#&gt; $R2_pooled
+#&gt; [1] 0.5290033
+#&gt; 
+#&gt; $Brier_pooled
+#&gt; [1] 0.1430828
+#&gt; 
+#&gt; $nimp
+#&gt; [1] 5
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

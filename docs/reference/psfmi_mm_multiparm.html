@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>D1 method for Predictor selection called by psfmi_lr — D1_logistic • psfmi</title>
+<title>Multiparameter pooling methods called by psfmi_mm — psfmi_mm_multiparm • psfmi</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="D1 method for Predictor selection called by psfmi_lr — D1_logistic" />
-<meta property="og:description" content="D1_logistic D1 pooling method" />
+<meta property="og:title" content="Multiparameter pooling methods called by psfmi_mm — psfmi_mm_multiparm" />
+<meta property="og:description" content="psfmi_mm_multiparm Function to pool according to D1, D2 and D3 methods" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,16 +117,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>D1 method for Predictor selection called by psfmi_lr</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/D1_logistic.R'><code>R/D1_logistic.R</code></a></small>
-    <div class="hidden name"><code>D1_logistic.Rd</code></div>
+    <h1>Multiparameter pooling methods called by psfmi_mm</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/psfmi_mm_multiparm.R'><code>R/psfmi_mm_multiparm.R</code></a></small>
+    <div class="hidden name"><code>psfmi_mm_multiparm.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>D1_logistic</code> D1 pooling method</p>
+    <p><code>psfmi_mm_multiparm</code> Function to pool according to D1, D2 and D3 methods</p>
     </div>
 
-    <pre class="usage"><span class='fu'>D1_logistic</span>(<span class='no'>data</span>, <span class='no'>impvar</span>, <span class='no'>nimp</span>, <span class='no'>fm</span>, <span class='no'>names.var</span>)</pre>
+    <pre class="usage"><span class='fu'>psfmi_mm_multiparm</span>(
+  <span class='no'>data</span>,
+  <span class='no'>nimp</span>,
+  <span class='no'>impvar</span>,
+  <span class='no'>Outcome</span>,
+  <span class='no'>P</span>,
+  <span class='no'>p.crit</span>,
+  <span class='no'>family</span>,
+  <span class='no'>random.eff</span>,
+  <span class='no'>method</span>,
+  <span class='no'>print.method</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,35 +145,70 @@
     <tr>
       <th>data</th>
       <td><p>Data frame with stacked multiple imputed datasets.
-The original dataset that contains missing values must be excluded from the dataset.</p></td>
-    </tr>
-    <tr>
-      <th>impvar</th>
-      <td><p>A character vector. Name of the variable that distinguishes the imputed datasets.</p></td>
+The original dataset that contains missing values must be excluded from the
+dataset. The imputed datasets must be distinguished by an imputation variable,
+specified under impvar, and starting by 1 and the clusters should be 
+distinguished by a cluster variable, specified under clusvar.</p></td>
     </tr>
     <tr>
       <th>nimp</th>
       <td><p>A numerical scalar. Number of imputed datasets. Default is 5.</p></td>
     </tr>
     <tr>
-      <th>fm</th>
-      <td><p>regression formula from glm object</p></td>
+      <th>impvar</th>
+      <td><p>A character vector. Name of the variable that distinguishes the
+imputed datasets.</p></td>
     </tr>
     <tr>
-      <th>names.var</th>
-      <td><p>list of predictors included in pooled regression model</p></td>
+      <th>Outcome</th>
+      <td><p>Character vector containing the name of the outcome variable.</p></td>
+    </tr>
+    <tr>
+      <th>P</th>
+      <td><p>Character vector with the names of the predictor variables.
+At least one predictor variable has to be defined.</p></td>
+    </tr>
+    <tr>
+      <th>p.crit</th>
+      <td><p>A numerical scalar. P-value selection criterium. A value of 1 
+provides the pooled model without selection.</p></td>
+    </tr>
+    <tr>
+      <th>family</th>
+      <td><p>Character vector to specify the type of model, "linear" is used to 
+call the <code>lmer</code> function and "binomial" is used to call the <code>glmer</code>
+function of the <code>lme4</code> package. See details for more information.</p></td>
+    </tr>
+    <tr>
+      <th>random.eff</th>
+      <td><p>Character vector to specify the random effects as used by the 
+<code>lmer</code> and <code>glmer</code> functions of the <code>lme4</code> package.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>A character vector to indicate the pooling method for p-values to pool the
+total model or used during predictor selection. This can be "D1", "D2", "D3" or "MPR".
+See details for more information.</p></td>
+    </tr>
+    <tr>
+      <th>print.method</th>
+      <td><p>logical vector. If TRUE full matrix with p-values of all variables according to
+chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
+to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='fu'>D1_logistic</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
- <span class='kw'>fm</span><span class='kw'>=</span><span class='no'>Chronic</span> ~ <span class='no'>Gender</span> + <span class='no'>Smoking</span> + <span class='no'>Function</span> + <span class='no'>JobControl</span>,
- <span class='kw'>names.var</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"JobControl"</span>))</div><div class='output co'>#&gt;            Chi_sq p-values
-#&gt; Gender      0.944   0.3313
-#&gt; Smoking     0.040   0.8415
-#&gt; Function   10.328   0.0013
-#&gt; JobControl  0.035   0.8517</div><div class='input'>
+    <pre class="examples"><div class='input'> <span class='fu'>psfmi_mm_multiparm</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ipdna_md</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>".imp"</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"linear"</span>,
+ <span class='kw'>P</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"bnp"</span>, <span class='st'>"dbp"</span>, <span class='st'>"lvef"</span>, <span class='st'>"bmi_cat"</span>),
+ <span class='kw'>random.eff</span><span class='kw'>=</span><span class='st'>"( 1 | centre)"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"sbp"</span>,
+ <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.05</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>, <span class='kw'>print.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;         p-values F-statistic
+#&gt; gender   0.00135    12.03735
+#&gt; bnp      0.63774     0.25556
+#&gt; dbp      0.02808    11.23401
+#&gt; lvef     0.00004    80.64193
+#&gt; bmi_cat  0.57571     0.57948</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

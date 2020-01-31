@@ -7,28 +7,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets • psfmi</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets">
 <meta property="og:description" content="
 	Provides functions to apply pooling or backward selection 
-	for logistic or Cox regression prediction models in multiple imputed
-	datasets. Backward selection can be done from the pooled model using 
-	Rubin's Rules (RR), the total covariance matrix (D1 method), pooling 
-	chi-square values (D2 method), pooling likelihood ratio statistics	
-	(D3) or pooling the median p-values. The model can contain 
+	of logistic, Cox regression and Multilevel (mixed models) prediction 
+	models in multiply imputed datasets. Backward selection can be done 
+	from the pooled model using Rubin's Rules (RR), the D1, D2, D3 and 
+	promising MPR (median p-values) method. The model can contain 
 	continuous, dichotomous, categorical predictors and interaction terms 
-	between all	type of these predictors. Continuous predictors	can also 
-	be introduced as restricted cubic spline coefficients. It is also possible 
+	between all	these type of predictors. Continuous predictors	can also 
+	be introduced as restricted cubic spline (RCS) coefficients. It is also possible 
 	to force (spline) predictors or interaction terms in the model during predictor 
-	selection. The package also contains functions to generate apparent model performance 
-	measures over imputed datasets as ROC/AUC, R-squares, fit test values and 
-	calibration	plots. A wrapper function	over Frank Harrell's validate function 
-	is used for that. Bootstrap internal validation is performed in each imputed dataset 
-	and results are pooled. Backward selection as part of internal validation	
-	is optional and recommended. Also a function to externally validate logistic
-	prediction models in multiple imputed datasets is available.
+	selection. The package includes a function to evaluate the stability 
+	of the models	using bootstrapping and cluster bootstrapping. The package further 
+	contains functions to generate pooled model performance measures in multiply 
+	imputed datasets as ROC/AUC, R-squares, Brier score, fit test values and 
+	calibration	plots for logistic regression models. A function to apply 
+	Bootstrap internal validation	is also available where two methods can be 
+	used to combine bootstrapping and	multiple imputation. One method, boot_MI, 
+	first draws	bootstrap samples and	subsequently performs multiple imputation and with 
+	the other method, MI_boot, first bootstrap samples are drawn from each imputed 
+	dataset before results are combined. The adjusted intercept after shrinkage of
+	the pooled regression coefficients can be subsequently obtained. Backward selection	
+	as part of internal validation is also an option. Also a function to externally 
+	validate logistic	prediction models in multiple imputed datasets is available.
 	Eekhout (2017) &lt;doi:10.1186/s12874-017-0404-7&gt;.
 	Wiel (2009) &lt;doi:10.1093/biostatistics/kxp011&gt;.
 	Marshall (2009) &lt;doi:10.1186/1471-2288-9-57&gt;.">
@@ -51,7 +56,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -95,20 +100,23 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="contents col-md-9">
 <div id="psfmi" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#psfmi" class="anchor"></a>psfmi</h1></div>
 <p>The psfmi package</p>
-<p>With this package you can pool logistic or Cox regression models, or perform backward variable selection in multiply imputed datasets. The models may include continuous, dichotomous, categorical (&gt; 2 categories) and spline predictors. Also interaction terms between these type of predictor variables are possible. It is also possible to force (spline)<br>
+<p>With this package you can pool logistic or Cox regression models and (generalized) linear mixed models in multiply imputed datasets or perform backward variable selection from the pooled model. The models may include continuous, dichotomous, categorical (&gt; 2 categories) and spline predictors. Also interaction terms between these type of predictor variables are possible. It is also possible to force (spline)<br>
 predictors or interaction terms in the model during predictor selection. This is the first package that contains these possibilities.</p>
-<p>The basic pooling method is Rubin’s Rules (RR). For categorical and spline predictors the following pooling methods are available to derive overall p-values: the pooling covariance matrix or D1 method, the pooling of Chi-square values or D2 method, the Meng and Rubin likelihood ratio statistics or D3 method and a method that is called Median P Rule (MPR) that pools the median of the p-values.</p>
-<p>A function called psfmi_lr is available for logistic regression models and a function that is called psfmi_coxr, for right censored Cox regression models.</p>
+<p>A function called psfmi_lr is available for logistic regression models, a function that is called psfmi_coxr, for right censored Cox regression models and a function that is called psfmi_mm for linear and logistic multilevel models (mixed models).</p>
+<p>The basic pooling method is Rubin’s Rules (RR). For categorical and spline predictors the following pooling methods are available: D1, D2, and D3 and a method that is called Median P Rule (MPR) that pools the median of p-values. The latter is a simple but very promising procedure.</p>
 <p>With respect to introducing interaction terms in the model, only two-way interactions are allowed. If interaction terms are included and backward selection is applied, interaction terms are dropped from the model following the hierarchy principle. This means that interactions are considered during backward selection when both main effects are in the model.</p>
-<p>A function that is called miperform_lr evaluates the apparent performance of logistic regression prediction models in multiple imputed datasets. The performanance measures that are reported are the pooled ROC/AUC, (Nagerkerke) R-squared and the Hosmer and Lemeshow test. Also calibration curves can be generated, overlayed curves that pool all calibration curves that are estimated in each imputed dataset, or individual curves as a result of calibrating the model in each imputed dataset separately. The pooled linear predictor is also returned.</p>
+<p>The package also contains a function to study the stability of the models during backward selection. This function is called psfmi_stab and uses single bootstrapping for logistic and Cox regression models and cluster bootstrapping for multilevel models.</p>
+<p>A function that is called psfmi_perform evaluates the pooled performance of logistic regression prediction models in multiple imputed datasets. The performanance measures that are reported are the pooled ROC/AUC, (Nagerkerke) R-squared and the Brier score. Also calibration curves can be generated, overlayed curves that pool all calibration curves that are estimated in each imputed dataset, or individual curves as a result of calibrating the model in each imputed dataset separately. The pooled linear predictor is also returned. With this function it is also possible to apply internal validation using bootstrapping. Two methods are available: One method, boot_MI, first draws bootstrap samples and<br>
+subsequently performs multiple imputation and with the other method, MI_boot, first bootstrap samples are drawn from each imputed dataset before results are combined. Backward selection as part of internal validation is also an option.</p>
 <p>A function with the name mivalext_lr can be used to externally validate prediction models in multiple imputed datasets. The following information of the externally validated model is provided: pooled ROC/AUC, (Nagelkerke) R-Square value, Hosmer and Lemeshow Test, pooled coefficients when the model is freely estimated in imputed datasets and the pooled linear predictor (LP), with information about miscalibration in intercept and slope.</p>
-<p>The package needs R 3.4.0 or higher. You can use the functions, after you have installed the package from CRAN or the Github website (development version). For Github you first have to install and activate the devtools package. Use the following code to install and activate the package from Github:</p>
+<p>The package needs R 3.5.0 or higher. You can use the functions, after you have installed the package from CRAN or the Github website (development version). For Github you first have to install and activate the devtools package. Use the following code to install and activate the package from Github:</p>
 <blockquote>
 <p>install.packages(“devtools”)</p>
 </blockquote>
@@ -124,7 +132,7 @@ predictors or interaction terms in the model during predictor selection. This is
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -153,17 +161,20 @@ predictors or interaction terms in the model during predictor selection. This is
   </div>
 </div>
 
+
       <footer><div class="copyright">
   <p>Developed by Martijn Heymans.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
