@@ -36,11 +36,11 @@ The function provides the pooled adjusted intercept after shrinkage of pooled
  res_psfmi$RR_Model
 
  set.seed(100)
- res_val <- psfmi_perform(res_psfmi, method = "MI_boot", nboot=50, 
+ res_val <- psfmi_perform(res_psfmi, method = "MI_boot", nboot=25, 
    int_val = TRUE, p.crit=1, cal.plot=FALSE, plot.indiv=FALSE)
  res_val$intval
 
- res <- pool_intadj(res_psfmi, shrinkage_factor = 0.8730036)
+ res <- pool_intadj(res_psfmi, shrinkage_factor = 0.9150642)
  res$int_adj
  res$coef_shrink_pooled
   
