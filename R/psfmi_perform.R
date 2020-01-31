@@ -14,7 +14,7 @@
 #'  imputation in each bootstrap sample. To use the second method data_orig has to be specified.
 #'  The first method is faster. See details for more information.
 #' @param nimp_boot_MI Numerical scalar. Number of imputed datasets for method boot_MI.
-#'  Default is 5. When not defined, the number of multiply imputed datasets is used of the  
+#'  When not defined, the number of multiply imputed datasets is used of the  
 #'  previous call to the function \code{psfmi_lr}.
 #' @param p.crit A numerical scalar. P-value selection criterium used for backward selection
 #'  during internal validation. When set at 1, pooling and internal validation is done without 
@@ -97,7 +97,7 @@
 #'  
 #' @export
 psfmi_perform <- function(pobj, data_orig = NULL, nboot = 10, int_val = FALSE, method = NULL, 
-                      nimp_boot_MI = 5, p.crit = 1, mice_method = NULL, mice_niter = 10, 
+                      nimp_boot_MI = NULL, p.crit = 1, mice_method = NULL, mice_niter = 10, 
                       mice_seed = NA, predictorMatrix=NULL, cal.plot=FALSE, plot.indiv=FALSE, 
                       groups_cal=10)
 {
