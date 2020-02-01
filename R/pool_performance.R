@@ -19,8 +19,9 @@
 #'
 #'@examples 
 #'  pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 
-#'  Outcome = "Chronic", predictors = c("Gender", "Pain", "rcs(Tampascale, 3)", "Smoking", "Function", 
-#'  "Radiation", "Age", "factor(Carrying)"), cal.plot=TRUE, plot.indiv=FALSE)
+#'  Outcome = "Chronic", predictors = c("Gender", "Pain", "rcs(Tampascale, 3)", 
+#'  "Smoking", "Function", "Radiation", "Age", "factor(Carrying)"), 
+#'  cal.plot=TRUE, plot.indiv=FALSE)
 #'
 #' @export
 pool_performance <- function(data, nimp, impvar, Outcome, predictors, cal.plot, plot.indiv, groups_cal=10){
