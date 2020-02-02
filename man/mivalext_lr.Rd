@@ -68,9 +68,9 @@ A \code{mivalext_lr} object from which the following objects
 }
 \details{
 The following information of the externally validated model is provided:
- \code{ROC} pooled ROC curve (median and backtransformed after pooling log transformed
+ \code{ROC} pooled ROC curve (median and back transformed after pooling log transformed
  ROC curves), \code{R2_fixed} and \code{R2_calibr} pooled Nagelkerke R-Square value 
- (median and backtransformed after pooling Fisher transformed values), \code{HLtest} 
+ (median and back transformed after pooling Fisher transformed values), \code{HLtest} 
  pooled Hosmer and Lemeshow Test (using miceadds package), \code{coef_pooled} pooled 
  coefficients when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
  the pooled linear predictor (LP), after the externally validated LP is estimated in 

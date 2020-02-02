@@ -7,7 +7,7 @@ Excluded function miperform_lr.
 Updated the vignettes. 
 
 ## R CMD check results
-Duration: 2m 54.8s
+Duration: 2m 45.6s
 
 0 errors √ | 0 warnings √ | 0 notes √
 
