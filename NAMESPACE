@@ -49,6 +49,8 @@ importFrom("tibble", as_tibble)
 importFrom("lme4", lmer, glmer, fixef)
 importFrom("mice", mice, pool, complete)
 importFrom("mitml", testModels)
+importFrom("foreign", read.spss)
+importFrom("mitools", MIcombine, imputationList)
 
 
 
