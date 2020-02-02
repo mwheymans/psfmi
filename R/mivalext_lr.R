@@ -29,9 +29,9 @@
 #'  Lemeshow test. Default is 10.
 #'
 #' @details The following information of the externally validated model is provided:
-#'  \code{ROC} pooled ROC curve (median and backtransformed after pooling log transformed
+#'  \code{ROC} pooled ROC curve (median and back transformed after pooling log transformed
 #'  ROC curves), \code{R2_fixed} and \code{R2_calibr} pooled Nagelkerke R-Square value 
-#'  (median and backtransformed after pooling Fisher transformed values), \code{HLtest} 
+#'  (median and back transformed after pooling Fisher transformed values), \code{HLtest} 
 #'  pooled Hosmer and Lemeshow Test (using miceadds package), \code{coef_pooled} pooled 
 #'  coefficients when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
 #'  the pooled linear predictor (LP), after the externally validated LP is estimated in 
@@ -221,7 +221,7 @@ mivalext_lr <-
       ((1 + (1/nimp)) * b.roc.logit)
     se.t.roc.logit <- sqrt(tv.roc.logit)
     
-    # Backtransform
+    # Back transform
     inv.roc <- exp(p.roc.logit) /
       (1 + exp(p.roc.logit))
     inv.roc.u <- exp(p.roc.logit + (1.96*se.t.roc.logit)) /

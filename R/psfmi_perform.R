@@ -47,9 +47,9 @@
 #'@return A \code{psfmi_perform} object from which the following objects can be extracted: \code{res_boot}, 
 #'  result of pooled performance (in multiply imputed datasets) at each bootstrap step of ROC app (pooled 
 #'  ROC), ROC test (pooled ROC after bootstrap model is applied in original multiply imputed datasets), 
-#'  same for R2 app (Nagelkerke's R2),  R2 test, Brier app and Brier test. Information is also provided 
-#'  about testing the Calibration slope at each bootstrap step as interc test and 
-#'  Slope test. The performance measures are pooled by a call to the function \code{pool_performance}. Another
+#'  same for R2 app (Nagelkerke's R2), R2 test, Brier app and Brier test. Information is also provided 
+#'  about testing the Calibration slope at each bootstrap step as interc test and Slope test. 
+#'  The performance measures are pooled by a call to the function \code{pool_performance}. Another
 #'  object that can be extracted is \code{intval}, with information of the AUC, R2, Brier score and 
 #'  Calibration slope averaged over the bootstrap samples, in terms of: Orig (original datasets), 
 #'  Apparent (models applied in bootstrap samples), Test (bootstrap models are applied in original datasets),

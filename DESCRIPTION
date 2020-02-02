@@ -35,7 +35,7 @@ Description:
 	promising MPR (median p-values) method. The model can contain 
 	continuous, dichotomous, categorical predictors and interaction terms 
 	between all	these type of predictors. Continuous predictors	can also 
-	be introduced as restricted cubic spline (RCS) coefficients. It is also possible 
+	be introduced as restricted cubic spline (rcs) coefficients. It is also possible 
 	to force (spline) predictors or interaction terms in the model during predictor 
 	selection. The package includes a function to evaluate the stability 
 	of the models	using bootstrapping and cluster bootstrapping. The package further 

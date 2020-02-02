@@ -65,6 +65,9 @@
 #'   2009;9:57.
 #' @references Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman & Hall/CRC
 #'   Interdisciplinary Statistics. Boca Raton.
+#' @references EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach 
+#'  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.
+#'  
 #' @references http://missingdatasolutions.rbind.io/
 #'
 #' @examples
