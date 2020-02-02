@@ -73,7 +73,7 @@
 #' @references http://missingdatasolutions.rbind.io/
 #'
 #' @examples
-#'   pool_mm <- psfmi_mm(data=ipdna_md, nimp=5, impvar=".imp", family="linear",
+#'   pool_mm <- psfmi_mm(data=ipdna_md, nimp=3, impvar=".imp", family="linear",
 #'   predictors=c("gender", "afib", "sbp"), clusvar = "centre",
 #'   random.eff="( 1 | centre)", Outcome="dbp", cat.predictors = "bmi_cat",
 #'   p.crit=0.15, method="D1", print.method = FALSE)

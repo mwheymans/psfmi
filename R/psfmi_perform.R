@@ -83,17 +83,6 @@
 #' res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
 #'   plot.indiv=FALSE)
 #'   res_val  
-#' 
-#' res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
-#'   predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
-#'   "Age"), cat.predictors = "Carrying", keep.predictors = "Function", 
-#'   p.crit = 0.157, method="D1")   
-#'  
-#' res_val <- psfmi_perform(res_psfmi, int_val = TRUE, method = "MI_boot", 
-#'   nboot = 10, p.crit=0.157,
-#'   cal.plot=FALSE, plot.indiv=FALSE)
-#'   res_val$res_boot
-#'   res_val$intval
 #'  
 #' @export
 psfmi_perform <- function(pobj, data_orig = NULL, nboot = 10, int_val = FALSE, method = NULL, 

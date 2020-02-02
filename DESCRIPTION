@@ -7,8 +7,8 @@ Imports:
 	car (> 3.0-0), 
 	norm (>= 1.0-9.5), 
 	miceadds (> 2.10-14),
-	mitools (> 2.3),
-	foreign (> 0.8-69), 
+	mitools (>= 2.4),
+	foreign (>= 0.8-72), 
 	pROC (> 1.11.0),
 	rms (> 5.1-2),
 	ResourceSelection (> 0.3-2),
@@ -32,7 +32,7 @@ Description:
 	of logistic, Cox regression and Multilevel (mixed models) prediction 
 	models in multiply imputed datasets. Backward selection can be done 
 	from the pooled model using Rubin's Rules (RR), the D1, D2, D3 and 
-	promising MPR (median p-values) method. The model can contain 
+	promising median p-values method. The model can contain 
 	continuous, dichotomous, categorical predictors and interaction terms 
 	between all	these type of predictors. Continuous predictors	can also 
 	be introduced as restricted cubic spline coefficients. It is also possible 
