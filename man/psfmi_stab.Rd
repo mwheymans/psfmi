@@ -41,7 +41,7 @@ The function evaluates predictor selection frequency in stratified or cluster bo
  pool_lr$RR_Model
  pool_lr$multiparm
 
- stab_res <- psfmi_stab(pool_lr, boot_method = "single", nboot=10) # may take a while
+ stab_res <- psfmi_stab(pool_lr, boot_method = "single", nboot=10) 
  stab_res$bif
  stab_res$bif_perc
  stab_res$model_stab

@@ -81,8 +81,8 @@
 #'   "Age"), p.crit = 1, method="D1")
 #'  
 #' res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
-#' plot.indiv=FALSE)
-#' res_val  
+#'   plot.indiv=FALSE)
+#'   res_val  
 #' 
 #' res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
 #'   predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
@@ -568,10 +568,10 @@ if(!int_val){
   }
 
   perform_mi_orig <- pool_performance(data=pobj$data, nimp = pobj$nimp,
-                                      impvar=pobj$impvar, Outcome = pobj$Outcome,
-                                      predictors = pobj$predictors_final, cal.plot=cal.plot, 
-                                      plot.indiv=plot.indiv,
-                                      groups_cal = groups_cal)
+                       impvar=pobj$impvar, Outcome = pobj$Outcome,
+                       predictors = pobj$predictors_final, cal.plot=cal.plot, 
+                       plot.indiv=plot.indiv,
+                       groups_cal = groups_cal)
 }
 return(perform_mi_orig)
 }

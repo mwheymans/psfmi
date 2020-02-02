@@ -624,13 +624,13 @@ psfmi_coxr <-
     }
     fit.formula <- as.formula(paste(Y, paste(P_in_step[[1]], collapse = "+")))
     pobj <- list(data = data, RR_Model = RR.model, multiparm = multiparm,
-                      predictors_in = P_select, predictors_out = coef.excl_step, time = time,
-                      status = status, impvar = impvar, nimp = nimp, method = method, p.crit = p.crit,
-                      predictors = predictors, cat.predictors = cat.predictors, call = call,
-                      keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = "survival",
-                      spline.predictors = spline.predictors, knots = knots, print.method = print.method,
-                      fit.formula = fit.formula, predictors_final = predictors_final,
-                      predictors_initial = P_in_step[[1]])
+        predictors_in = P_select, predictors_out = coef.excl_step, time = time,
+        status = status, impvar = impvar, nimp = nimp, method = method, p.crit = p.crit,
+        predictors = predictors, cat.predictors = cat.predictors, call = call,
+        keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = "survival",
+        spline.predictors = spline.predictors, knots = knots, print.method = print.method,
+        fit.formula = fit.formula, predictors_final = predictors_final,
+        predictors_initial = P_in_step[[1]])
     class(pobj) <- "smodsmi"
     return(pobj)
 }

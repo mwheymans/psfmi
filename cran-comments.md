@@ -1,5 +1,30 @@
 ## Resubmission
 This is a resubmission. In this version I have:
+Updated version nr to 0.2.0.
+Added the new functions pool_intadj.R, pool_performance.R, psfmi_mm.R,
+psfmi_mm_multiparm, psfmi_perform, psfmi_stab.
+Excluded function miperform_lr. 
+Updated the vignettes. 
+
+## R CMD check results
+Duration: 2m 54.8s
+
+0 errors √ | 0 warnings √ | 0 notes √
+
+## devtools::test()
+Loading psfmi
+Testing psfmi
+√ |  OK F W S | Context
+√ |   0       | testthat.R
+
+== Results =====================================================================
+OK:       0
+Failed:   0
+Warnings: 0
+Skipped:  0
+
+## Resubmission
+This is a resubmission. In this version I have:
 Added small executable examples in all the exported functions'
 Rd files to illustrate the use of the exported function.
 Deleted comments in examples.
@@ -9,7 +34,6 @@ This is a resubmission. In this version I have:
 Provided small executable examples. 
 Omitted cat()/print() in functions and used message() on a minority basis.
 Changed the functions so that the user can extract separate objects. 
-
 ## Test environments
 *	MacOS Mojave versie 10.14.4, R studio 1.1.383, R version 3.5.3
 * win-builder (devel and release), R version 3.6.0

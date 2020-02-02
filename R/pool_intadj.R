@@ -1,6 +1,7 @@
-#' Provides adjusted intercept after shrinkage pooled coefficients in multiply imputed datasets
+#' Provides pooled adjusted intercept after shrinkage of pooled coefficients 
+#'  in multiply imputed datasets
 #'
-#' \code{pool_intadj} Provides pooled adjusted intercept after shrinkage pooled coefficients 
+#' \code{pool_intadj} Provides pooled adjusted intercept after shrinkage of the pooled coefficients 
 #'  in multiply imputed datasets for models selected with the \code{psfmi_lr} function and 
 #'  internally validated with the \code{psfmi_perform} function.
 #'
@@ -33,11 +34,11 @@
 #'  res_psfmi$RR_Model
 #'
 #'  set.seed(100)
-#'  res_val <- psfmi_perform(res_psfmi, method = "MI_boot", nboot=25, 
+#'  res_val <- psfmi_perform(res_psfmi, method = "MI_boot", nboot=10, 
 #'    int_val = TRUE, p.crit=1, cal.plot=FALSE, plot.indiv=FALSE)
 #'  res_val$intval
 #'
-#'  res <- pool_intadj(res_psfmi, shrinkage_factor = 0.9150642)
+#'  res <- pool_intadj(res_psfmi, shrinkage_factor = 0.9774058)
 #'  res$int_adj
 #'  res$coef_shrink_pooled
 #'   
@@ -72,11 +73,11 @@ pool_intadj <- function(pobj, shrinkage_factor){
   })
   
   coef_orig_pooled <- colMeans(do.call("rbind",
-                                       map(int_adj, function(x) pluck(x, 2))))
+      map(int_adj, function(x) pluck(x, 2))))
   coef_shrink_pooled <- colMeans(do.call("rbind",
-                                         map(int_adj, function(x) pluck(x, 3))))
+      map(int_adj, function(x) pluck(x, 3))))
   int_adj <- mean(unlist(data.frame(do.call("rbind",
-                                            map(int_adj, function(x) pluck(x, 1))))))
+      map(int_adj, function(x) pluck(x, 1))))))
   
   resobj <- list(int_adj = int_adj, coef_shrink_pooled = coef_shrink_pooled,
                  coef_orig_pooled = coef_orig_pooled, nimp=pobj$nimp)

@@ -2,15 +2,17 @@
 % Please edit documentation in R/D1_logistic.R
 \name{D1_logistic}
 \alias{D1_logistic}
-\title{D1 method for Predictor selection called by psfmi_lr}
+\title{D1 method called by psfmi_lr}
 \usage{
 D1_logistic(data, impvar, nimp, fm, names.var)
 }
 \arguments{
 \item{data}{Data frame with stacked multiple imputed datasets.
-The original dataset that contains missing values must be excluded from the dataset.}
+The original dataset that contains missing values must be excluded 
+from the dataset.}
 
-\item{impvar}{A character vector. Name of the variable that distinguishes the imputed datasets.}
+\item{impvar}{A character vector. Name of the variable that distinguishes 
+the imputed datasets.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 

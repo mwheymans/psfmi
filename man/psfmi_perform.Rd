@@ -99,8 +99,8 @@ res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
   "Age"), p.crit = 1, method="D1")
  
 res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
-plot.indiv=FALSE)
-res_val  
+  plot.indiv=FALSE)
+  res_val  
 
 res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
   predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 

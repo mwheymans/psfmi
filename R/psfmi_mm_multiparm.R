@@ -23,9 +23,10 @@
 #' @param method A character vector to indicate the pooling method for p-values to pool the
 #'   total model or used during predictor selection. This can be "D1", "D2", "D3" or "MPR".
 #'   See details for more information.
-#' @param print.method logical vector. If TRUE full matrix with p-values of all variables according to
-#'   chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
-#'   to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.
+#' @param print.method logical vector. If TRUE full matrix with p-values of 
+#'   all variables according to chosen method (under method) is shown. If FALSE (default) 
+#'   p-value for categorical variables according to method are shown and for continuous 
+#'   and dichotomous predictors Rubin’s Rules are used.
 #'
 #'@examples 
 #'  psfmi_mm_multiparm(data=ipdna_md, nimp=5, impvar=".imp", family="linear",

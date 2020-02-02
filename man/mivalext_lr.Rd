@@ -2,7 +2,8 @@
 % Please edit documentation in R/mivalext_lr.R
 \name{mivalext_lr}
 \alias{mivalext_lr}
-\title{External Validation of logistic prediction models in MI datasets}
+\title{External Validation of logistic prediction models in 
+ multiply imputed datasets}
 \usage{
 mivalext_lr(
   data.val = NULL,
@@ -19,12 +20,12 @@ mivalext_lr(
 )
 }
 \arguments{
-\item{data.val}{Data frame with stacked multiple imputed validation datasets.
+\item{data.val}{Data frame with stacked multiply imputed validation datasets.
 The original dataset that contains missing values must be excluded from the
 dataset. The imputed datasets must be distinguished by an imputation variable,
 specified under impvar, and starting by 1.}
 
-\item{data.orig}{A single data frame or data matrix containing the original dataset
+\item{data.orig}{A single data frame containing the original dataset
 that was used to develop the model. Used to estimate the original regression
 coefficients in case lp.orig is not provided.}
 
@@ -67,14 +68,16 @@ A \code{mivalext_lr} object from which the following objects
 }
 \details{
 The following information of the externally validated model is provided:
- pooled ROC curve (median and backtransformed after pooling log transformed
- ROC curves), pooled Nagelkerke R-Square value (median and backtransformed
- after pooling Fisher transformed values), pooled Hosmer and Lemeshow Test (using
- miceadds package), pooled coefficients when model is freely estimated in imputed
- datasets and the pooled linear predictor (LP), after the externally validated LP
- is estimated in each imputed dataset (provides information about miscalibration
- in intercept and slope). When the external validation is very poor,
- the R2 fixed can become negative due to the poor fit of the model in
+ \code{ROC} pooled ROC curve (median and backtransformed after pooling log transformed
+ ROC curves), \code{R2_fixed} and \code{R2_calibr} pooled Nagelkerke R-Square value 
+ (median and backtransformed after pooling Fisher transformed values), \code{HLtest} 
+ pooled Hosmer and Lemeshow Test (using miceadds package), \code{coef_pooled} pooled 
+ coefficients when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
+ the pooled linear predictor (LP), after the externally validated LP is estimated in 
+ each imputed dataset (provides information about miscalibration in intercept and slope). 
+ In addition information is provided about \code{nimp}, \code{impvar}, \code{Outcome},
+ \code{val_ckeck}, \code{g} and \code{coef_check}. When the external validation is 
+ very poor, the R2 fixed can become negative due to the poor fit of the model in
  the external dataset (in that case you may report a R2 of zero).
 }
 \examples{

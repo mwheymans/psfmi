@@ -3,16 +3,18 @@
 #' \code{pool_performance} Pooling performance measures
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
-#'   The original dataset that contains missing values must be excluded from the dataset.
+#'   The original dataset that contains missing values must be excluded 
+#'   from the dataset.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
-#' @param impvar A character vector. Name of the variable that distinguishes the imputed datasets.
+#' @param impvar A character vector. Name of the variable that distinguishes 
+#'   the imputed datasets.
 #' @param Outcome Character vector containing the name of the outcome variable.
-#' @param predictors Character vector with the names of the predictor variables as used in the
-#'  formula part of an glm object.
-#' @param cal.plot If TRUE a calibration plot is generated. Default is FALSE. Can be used in combination
-#'  with int_val = FALSE.
-#' @param plot.indiv If TRUE calibration plots for each separate imputed dataset are generated, 
-#'  otherwise all calibration plots are plotted in one figure.       
+#' @param predictors Character vector with the names of the predictor 
+#'   variables as used in the formula part of an glm object.
+#' @param cal.plot If TRUE a calibration plot is generated. Default is FALSE. 
+#'   Can be used in combination with int_val = FALSE.
+#' @param plot.indiv If TRUE calibration plots for each separate imputed dataset 
+#'   are generated, otherwise all calibration plots are plotted in one figure.       
 #' @param groups_cal A numerical scalar. Number of groups used on the calibration plot. 
 #'  Default is 10. If the range of predicted probabilities is too low 5 groups can be
 #'  chosen. 
@@ -24,7 +26,8 @@
 #'  cal.plot=TRUE, plot.indiv=FALSE)
 #'
 #' @export
-pool_performance <- function(data, nimp, impvar, Outcome, predictors, cal.plot, plot.indiv, groups_cal=10){
+pool_performance <- function(data, nimp, impvar, Outcome, predictors, 
+      cal.plot, plot.indiv, groups_cal=10){
 
   coef.f <- se.f <- pred.i <- lp.i <- rsq.i <- list()
   roc.f.i <- se.roc.f.i <- se.roc.f.i.logit <- brier.i <- list()
@@ -45,9 +48,9 @@ pool_performance <- function(data, nimp, impvar, Outcome, predictors, cal.plot, 
     if(cal.plot){
     # Group predicted probabilities
     if(groups_cal == 10) group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
-                                                                c(seq(0, 1, 0.1))))
+            c(seq(0, 1, 0.1))))
     if(groups_cal == 5) group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
-                                                               c(seq(0, 1, 0.2))))
+            c(seq(0, 1, 0.2))))
 
     pred.group[[i]] <- tapply(pred.i[[i]], group.dec, mean)
     # Observed probabilities
@@ -134,19 +137,20 @@ pool_performance <- function(data, nimp, impvar, Outcome, predictors, cal.plot, 
   if(cal.plot){
     ID.mi <- rep(1:nimp, each=groups_cal)
     myX <- scale_x_continuous(limits = c(-0.1, 1.1),
-                              breaks=seq(0,1,0.1),
-                              name = "Predicted Probabilities")
+              breaks=seq(0,1,0.1),
+              name = "Predicted Probabilities")
     myY <- scale_y_continuous(limits = c(-0.1, 1.1),
-                              breaks=seq(0,1,0.1),
-                              name = "Observed Probabilities")
+              breaks=seq(0,1,0.1),
+              name = "Observed Probabilities")
     data.cal.plot <- data.frame(ID.mi, "Obs"=unlist(obs.group),
                                 "Pred"=unlist(pred.group))
     theme_set(theme_bw())
     if(plot.indiv){
       # Calibration plot in each imputed dataset
       g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred", y = "Obs",
-                                                    group = "ID.mi")) + geom_point() + theme(panel.grid.major = element_blank(),
-                                                                                             panel.grid.minor = element_blank())
+                group = "ID.mi")) + geom_point() + 
+                theme(panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank())
       g2 <- g1 + stat_smooth(method = "lm", se = FALSE,
                              formula = y ~ splines::bs(x, 3)) +
         facet_wrap(~ ID.mi) + myX + myY
@@ -155,7 +159,7 @@ pool_performance <- function(data, nimp, impvar, Outcome, predictors, cal.plot, 
     } else {
       # Overlaying Calibration plots
       g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred",
-                                                    y = "Obs", group = "ID.mi")) + geom_point() +
+        y = "Obs", group = "ID.mi")) + geom_point() +
         theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank()) + myX + myY
       g2 <- g1 + stat_smooth(method = "lm", se = FALSE,

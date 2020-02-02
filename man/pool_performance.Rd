@@ -17,22 +17,24 @@ pool_performance(
 }
 \arguments{
 \item{data}{Data frame with stacked multiple imputed datasets.
-The original dataset that contains missing values must be excluded from the dataset.}
+The original dataset that contains missing values must be excluded 
+from the dataset.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
-\item{impvar}{A character vector. Name of the variable that distinguishes the imputed datasets.}
+\item{impvar}{A character vector. Name of the variable that distinguishes 
+the imputed datasets.}
 
 \item{Outcome}{Character vector containing the name of the outcome variable.}
 
-\item{predictors}{Character vector with the names of the predictor variables as used in the
-formula part of an glm object.}
+\item{predictors}{Character vector with the names of the predictor 
+variables as used in the formula part of an glm object.}
 
-\item{cal.plot}{If TRUE a calibration plot is generated. Default is FALSE. Can be used in combination
-with int_val = FALSE.}
+\item{cal.plot}{If TRUE a calibration plot is generated. Default is FALSE. 
+Can be used in combination with int_val = FALSE.}
 
-\item{plot.indiv}{If TRUE calibration plots for each separate imputed dataset are generated, 
-otherwise all calibration plots are plotted in one figure.}
+\item{plot.indiv}{If TRUE calibration plots for each separate imputed dataset 
+are generated, otherwise all calibration plots are plotted in one figure.}
 
 \item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot. 
 Default is 10. If the range of predicted probabilities is too low 5 groups can be

@@ -2,15 +2,17 @@
 % Please edit documentation in R/D1_cox.R
 \name{D1_cox}
 \alias{D1_cox}
-\title{D1 method for Predictor selection called by psfmi_cox}
+\title{D1 method called by psfmi_cox}
 \usage{
 D1_cox(data, impvar, nimp, fm, names.var)
 }
 \arguments{
 \item{data}{Data frame with stacked multiple imputed datasets.
-The original dataset that contains missing values must be excluded from the dataset.}
+The original dataset that contains missing values must be 
+excluded from the dataset.}
 
-\item{impvar}{A character vector. Name of the variable that distinguishes the imputed datasets.}
+\item{impvar}{A character vector. Name of the variable that 
+distinguishes the imputed datasets.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 

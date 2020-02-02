@@ -48,9 +48,10 @@ function of the \code{lme4} package. See details for more information.}
 total model or used during predictor selection. This can be "D1", "D2", "D3" or "MPR".
 See details for more information.}
 
-\item{print.method}{logical vector. If TRUE full matrix with p-values of all variables according to
-chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
-to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
+\item{print.method}{logical vector. If TRUE full matrix with p-values of 
+all variables according to chosen method (under method) is shown. If FALSE (default) 
+p-value for categorical variables according to method are shown and for continuous 
+and dichotomous predictors Rubin’s Rules are used.}
 }
 \description{
 \code{psfmi_mm_multiparm} Function to pool according to D1, D2 and D3 methods

@@ -2,7 +2,8 @@
 % Please edit documentation in R/pool_intadj.R
 \name{pool_intadj}
 \alias{pool_intadj}
-\title{Provides adjusted intercept after shrinkage pooled coefficients in multiply imputed datasets}
+\title{Provides pooled adjusted intercept after shrinkage of pooled coefficients 
+ in multiply imputed datasets}
 \usage{
 pool_intadj(pobj, shrinkage_factor)
 }
@@ -20,7 +21,7 @@ A \code{pool_intadj} object from which the following objects can be extracted: \
   shrinkage and \code{nimp}, the number of imputed datasets.
 }
 \description{
-\code{pool_intadj} Provides pooled adjusted intercept after shrinkage pooled coefficients 
+\code{pool_intadj} Provides pooled adjusted intercept after shrinkage of the pooled coefficients 
  in multiply imputed datasets for models selected with the \code{psfmi_lr} function and 
  internally validated with the \code{psfmi_perform} function.
 }
@@ -36,11 +37,11 @@ The function provides the pooled adjusted intercept after shrinkage of pooled
  res_psfmi$RR_Model
 
  set.seed(100)
- res_val <- psfmi_perform(res_psfmi, method = "MI_boot", nboot=25, 
+ res_val <- psfmi_perform(res_psfmi, method = "MI_boot", nboot=10, 
    int_val = TRUE, p.crit=1, cal.plot=FALSE, plot.indiv=FALSE)
  res_val$intval
 
- res <- pool_intadj(res_psfmi, shrinkage_factor = 0.9150642)
+ res <- pool_intadj(res_psfmi, shrinkage_factor = 0.9774058)
  res$int_adj
  res$coef_shrink_pooled
   

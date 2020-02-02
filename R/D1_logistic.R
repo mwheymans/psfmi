@@ -1,11 +1,13 @@
-#' D1 method for Predictor selection called by psfmi_lr
+#' D1 method called by psfmi_lr
 #'
 #' \code{D1_logistic} D1 pooling method
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
-#'   The original dataset that contains missing values must be excluded from the dataset.
+#'   The original dataset that contains missing values must be excluded 
+#'   from the dataset.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
-#' @param impvar A character vector. Name of the variable that distinguishes the imputed datasets.
+#' @param impvar A character vector. Name of the variable that distinguishes 
+#'   the imputed datasets.
 #' @param fm regression formula from glm object
 #' @param names.var list of predictors included in pooled regression model
 #'

@@ -1,12 +1,13 @@
-#' External Validation of logistic prediction models in MI datasets
+#' External Validation of logistic prediction models in 
+#'  multiply imputed datasets
 #'
 #' \code{mivalext_lr} External validation of logistic prediction models
 #'
-#' @param data.val Data frame with stacked multiple imputed validation datasets.
+#' @param data.val Data frame with stacked multiply imputed validation datasets.
 #'  The original dataset that contains missing values must be excluded from the
 #'  dataset. The imputed datasets must be distinguished by an imputation variable,
 #'  specified under impvar, and starting by 1.
-#' @param data.orig A single data frame or data matrix containing the original dataset
+#' @param data.orig A single data frame containing the original dataset
 #'  that was used to develop the model. Used to estimate the original regression
 #'  coefficients in case lp.orig is not provided.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
@@ -28,14 +29,16 @@
 #'  Lemeshow test. Default is 10.
 #'
 #' @details The following information of the externally validated model is provided:
-#'  pooled ROC curve (median and backtransformed after pooling log transformed
-#'  ROC curves), pooled Nagelkerke R-Square value (median and backtransformed
-#'  after pooling Fisher transformed values), pooled Hosmer and Lemeshow Test (using
-#'  miceadds package), pooled coefficients when model is freely estimated in imputed
-#'  datasets and the pooled linear predictor (LP), after the externally validated LP
-#'  is estimated in each imputed dataset (provides information about miscalibration
-#'  in intercept and slope). When the external validation is very poor,
-#'  the R2 fixed can become negative due to the poor fit of the model in
+#'  \code{ROC} pooled ROC curve (median and backtransformed after pooling log transformed
+#'  ROC curves), \code{R2_fixed} and \code{R2_calibr} pooled Nagelkerke R-Square value 
+#'  (median and backtransformed after pooling Fisher transformed values), \code{HLtest} 
+#'  pooled Hosmer and Lemeshow Test (using miceadds package), \code{coef_pooled} pooled 
+#'  coefficients when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
+#'  the pooled linear predictor (LP), after the externally validated LP is estimated in 
+#'  each imputed dataset (provides information about miscalibration in intercept and slope). 
+#'  In addition information is provided about \code{nimp}, \code{impvar}, \code{Outcome},
+#'  \code{val_ckeck}, \code{g} and \code{coef_check}. When the external validation is 
+#'  very poor, the R2 fixed can become negative due to the poor fit of the model in
 #'  the external dataset (in that case you may report a R2 of zero).
 #'
 #'@return A \code{mivalext_lr} object from which the following objects 
@@ -288,10 +291,10 @@ mivalext_lr <-
     message("\n", "Pooled performance measures over m = ",
         nimp, " imputed external validation datasets correctly estimated", "\n\n")
     
-    res.perform <- list("ROC"=roc.res, "R2 (fixed)"=res.rsq,
-      "R2 (calibr)"=res.rsq.cal, "HL test"=res.hl, "coef_pooled"=coef.pool,
-      "LP_pooled ext"=lp.pool, "nimp"=nimp, "impvar"=impvar,
-      "Outcome"=Outcome, "val.check"=val.check, "g"=g, "coef.check"=coef.check)
+    res.perform <- list(ROC=roc.res, R2_fixed=res.rsq,
+      R2_calibr=res.rsq.cal, HLtest=res.hl, coef_pooled=coef.pool,
+      LP_pooled_ext=lp.pool, nimp=nimp, impvar=impvar,
+      Outcome=Outcome, val_check=val.check, g=g, coef_check=coef.check)
     
     if(cal.plot==TRUE) {
       ID.mi <- rep(1:nimp, each=10)
