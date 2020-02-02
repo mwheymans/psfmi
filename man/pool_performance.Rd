@@ -43,7 +43,8 @@ chosen.}
 }
 \examples{
  pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 
- Outcome = "Chronic", predictors = c("Gender", "Pain", "rcs(Tampascale, 3)", "Smoking", "Function", 
- "Radiation", "Age", "factor(Carrying)"), cal.plot=TRUE, plot.indiv=FALSE)
+ Outcome = "Chronic", predictors = c("Gender", "Pain", "rcs(Tampascale, 3)", 
+ "Smoking", "Function", "Radiation", "Age", "factor(Carrying)"), 
+ cal.plot=TRUE, plot.indiv=FALSE)
 
 }
