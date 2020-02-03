@@ -28,11 +28,14 @@
 #'   p-value for categorical variables according to method are shown and for continuous 
 #'   and dichotomous predictors Rubin’s Rules are used.
 #'
-#'@examples 
+#' @examples 
+#' 
+#' \dontrun{
 #'  psfmi_mm_multiparm(data=ipdna_md, nimp=5, impvar=".imp", family="linear",
 #'  P=c("gender", "bnp", "dbp", "lvef", "bmi_cat"),
 #'  random.eff="( 1 | centre)", Outcome="sbp",
 #'  p.crit=0.05, method="D1", print.method = FALSE)
+#' }
 #'
 #' @export
 psfmi_mm_multiparm <-

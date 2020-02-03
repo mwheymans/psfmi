@@ -44,10 +44,12 @@
 #'  pool_lr$RR_Model
 #'  pool_lr$multiparm
 #'
-#'  stab_res <- psfmi_stab(pool_lr, boot_method = "single", nboot=5) 
+#' \dontrun{
+#'  stab_res <- psfmi_stab(pool_lr, boot_method = "single", nboot=50) 
 #'  stab_res$bif
 #'  stab_res$bif_perc
 #'  stab_res$model_stab
+#'}
 #'
 #' @export
 psfmi_stab <- function(pobj, boot_method=NULL, nboot=20)
