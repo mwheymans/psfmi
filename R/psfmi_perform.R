@@ -76,13 +76,20 @@
 #' @references http://missingdatasolutions.rbind.io/
 #' 
 #' @examples
-#' res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
-#'   predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
-#'   "Age"), p.crit = 1, method="D1")
+#'  res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
+#'    predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
+#'    "Age"), p.crit = 1, method="D1")
 #'  
-#' res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
-#'   plot.indiv=FALSE)
-#'   res_val  
+#'  res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
+#'    plot.indiv=FALSE)
+#'    res_val  
+#'
+#'  \dontrun{  
+#'  set.seed(200)
+#'  res_val <- psfmi_perform(res_psfmi, int_val = TRUE, p.crit=0.05, nboot = 10, 
+#'   method = "MI_boot", cal.plot=FALSE, plot.indiv=FALSE)
+#'  res_val$intval
+#' }
 #'  
 #' @export
 psfmi_perform <- function(pobj, data_orig = NULL, nboot = 10, int_val = FALSE, method = NULL, 
