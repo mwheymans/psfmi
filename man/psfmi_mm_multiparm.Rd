@@ -57,9 +57,12 @@ and dichotomous predictors Rubin’s Rules are used.}
 \code{psfmi_mm_multiparm} Function to pool according to D1, D2 and D3 methods
 }
 \examples{
+
+\dontrun{
  psfmi_mm_multiparm(data=ipdna_md, nimp=5, impvar=".imp", family="linear",
  P=c("gender", "bnp", "dbp", "lvef", "bmi_cat"),
  random.eff="( 1 | centre)", Outcome="sbp",
  p.crit=0.05, method="D1", print.method = FALSE)
+}
 
 }

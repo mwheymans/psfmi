@@ -95,6 +95,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   pool_coxr$RR_Model
   pool_coxr$multiparm
   
+ \dontrun{ 
   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", 
   status="Status", predictors=c("Previous",  "Radiation", "Onset",
   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Expect_cat"), 
@@ -103,6 +104,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   pool_coxr$RR_Model
   pool_coxr$multiparm
   pool_coxr$predictors_in
+ } 
   
 }
 \references{

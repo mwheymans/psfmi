@@ -36,6 +36,7 @@ The function provides the pooled adjusted intercept after shrinkage of pooled
            "Radiation", "Age"), p.crit = 1, method="D1")
  res_psfmi$RR_Model
 
+\dontrun{
  set.seed(100)
  res_val <- psfmi_perform(res_psfmi, method = "MI_boot", nboot=10, 
    int_val = TRUE, p.crit=1, cal.plot=FALSE, plot.indiv=FALSE)
@@ -44,6 +45,7 @@ The function provides the pooled adjusted intercept after shrinkage of pooled
  res <- pool_intadj(res_psfmi, shrinkage_factor = 0.9774058)
  res$int_adj
  res$coef_shrink_pooled
+ } 
   
 }
 \references{

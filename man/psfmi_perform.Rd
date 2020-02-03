@@ -94,24 +94,20 @@ For internal validation two methods can be used, MI_boot and boot_MI. MI_boot dr
  boot_MI is more time consuming than MI_boot.
 }
 \examples{
-res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
-  predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
-  "Age"), p.crit = 1, method="D1")
+ res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
+   predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
+   "Age"), p.crit = 1, method="D1")
  
-res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
-  plot.indiv=FALSE)
-  res_val  
+ res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
+   plot.indiv=FALSE)
+   res_val  
 
-res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
-  predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
-  "Age"), cat.predictors = "Carrying", keep.predictors = "Function", 
-  p.crit = 0.157, method="D1")   
- 
-res_val <- psfmi_perform(res_psfmi, int_val = TRUE, method = "MI_boot", 
-  nboot = 10, p.crit=0.157,
-  cal.plot=FALSE, plot.indiv=FALSE)
-  res_val$res_boot
-  res_val$intval
+ \dontrun{  
+ set.seed(200)
+ res_val <- psfmi_perform(res_psfmi, int_val = TRUE, p.crit=0.05, nboot = 10, 
+  method = "MI_boot", cal.plot=FALSE, plot.indiv=FALSE)
+ res_val$intval
+}
  
 }
 \references{

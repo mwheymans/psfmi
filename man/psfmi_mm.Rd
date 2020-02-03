@@ -102,12 +102,15 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  restricted cubic splines of the rms package. A minimum number of 3 knots as defined under knots is required.
 }
 \examples{
+
+\dontrun{
   pool_mm <- psfmi_mm(data=ipdna_md, nimp=5, impvar=".imp", family="linear",
   predictors=c("gender", "afib", "sbp"), clusvar = "centre",
   random.eff="( 1 | centre)", Outcome="dbp", cat.predictors = "bmi_cat",
   p.crit=0.15, method="D1", print.method = FALSE)
   pool_mm$RR_Model
   pool_mm$multiparm
+}
 
 }
 \references{
