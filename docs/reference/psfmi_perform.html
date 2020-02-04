@@ -97,6 +97,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -230,9 +233,9 @@ chosen.</p></td>
     <p>A <code>psfmi_perform</code> object from which the following objects can be extracted: <code>res_boot</code>, 
  result of pooled performance (in multiply imputed datasets) at each bootstrap step of ROC app (pooled 
  ROC), ROC test (pooled ROC after bootstrap model is applied in original multiply imputed datasets), 
- same for R2 app (Nagelkerke's R2),  R2 test, Brier app and Brier test. Information is also provided 
- about testing the Calibration slope at each bootstrap step as interc test and 
- Slope test. The performance measures are pooled by a call to the function <code>pool_performance</code>. Another
+ same for R2 app (Nagelkerke's R2), R2 test, Brier app and Brier test. Information is also provided 
+ about testing the Calibration slope at each bootstrap step as interc test and Slope test. 
+ The performance measures are pooled by a call to the function <code>pool_performance</code>. Another
  object that can be extracted is <code>intval</code>, with information of the AUC, R2, Brier score and 
  Calibration slope averaged over the bootstrap samples, in terms of: Orig (original datasets), 
  Apparent (models applied in bootstrap samples), Test (bootstrap models are applied in original datasets),
@@ -267,14 +270,14 @@ chosen.</p></td>
 <p>http://missingdatasolutions.rbind.io/</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>res_psfmi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
-  <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>,<span class='st'>"Tampascale"</span>,<span class='st'>"Smoking"</span>,<span class='st'>"Function"</span>, <span class='st'>"Radiation"</span>,
-  <span class='st'>"Age"</span>), <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'> <span class='no'>res_psfmi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
+   <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>,<span class='st'>"Tampascale"</span>,<span class='st'>"Smoking"</span>,<span class='st'>"Function"</span>, <span class='st'>"Radiation"</span>,
+   <span class='st'>"Age"</span>), <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Pooled model correctly estimated</span>
 #&gt; <span class='message'>           using a p-value of 1</span></div><div class='input'>
-<span class='no'>res_val</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='no'>res_psfmi</span>, <span class='kw'>int_val</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-<span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Performance measures pooled in original multiply imputed datasets</span></div><div class='img'><img src='psfmi_perform-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>res_val</span></div><div class='output co'>#&gt; $ROC_pooled
+ <span class='no'>res_val</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='no'>res_psfmi</span>, <span class='kw'>int_val</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
+   <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Performance measures pooled in original multiply imputed datasets</span></div><div class='img'><img src='psfmi_perform-1.png' alt='' width='700' height='433' /></div><div class='input'>   <span class='no'>res_val</span></div><div class='output co'>#&gt; $ROC_pooled
 #&gt;               95% Low       ROC    95% Up
 #&gt; ROC (logit) 0.7006584 0.8631544 0.9444357
 #&gt; 
@@ -293,72 +296,12 @@ chosen.</p></td>
 #&gt; $nimp
 #&gt; [1] 5
 #&gt; </div><div class='input'>
-<span class='no'>res_psfmi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
-  <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>,<span class='st'>"Tampascale"</span>,<span class='st'>"Smoking"</span>,<span class='st'>"Function"</span>, <span class='st'>"Radiation"</span>,
-  <span class='st'>"Age"</span>), <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='st'>"Carrying"</span>, <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='st'>"Function"</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.157</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='input'>
-<span class='no'>res_val</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='no'>res_psfmi</span>, <span class='kw'>int_val</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"MI_boot"</span>,
-  <span class='kw'>nboot</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.157</span>,
-  <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Calibration plot not made, only when int.val = FALSE</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 1</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 2</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Gender</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 3</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - factor(Carrying)</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Gender</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 4</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - factor(Carrying)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 5</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 6</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - factor(Carrying)</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 7</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - Pain</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 6 is - factor(Carrying)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 8</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - factor(Carrying)</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 9</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - factor(Carrying)</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 10</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Gender</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - Radiation</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Age</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.157 and predictors to keep Function</span></div><div class='input'>  <span class='no'>res_val</span>$<span class='no'>res_boot</span></div><div class='output co'>#&gt;           ROC app  ROC test    R2 app   R2 test Brier app Brier test
-#&gt; Boot 1  0.9110758 0.8588052 0.6295428 0.4842564 0.1150500  0.1525721
-#&gt; Boot 2  0.8896238 0.8566058 0.5731491 0.4639132 0.1329147  0.1555725
-#&gt; Boot 3  0.8362113 0.8480742 0.4131334 0.4541672 0.1626138  0.1573909
-#&gt; Boot 4  0.9100894 0.8500621 0.6109021 0.4618677 0.1200092  0.1618180
-#&gt; Boot 5  0.8265091 0.8496770 0.4004790 0.4610198 0.1670022  0.1551066
-#&gt; Boot 6  0.8201598 0.8401271 0.3968899 0.4440040 0.1678898  0.1569114
-#&gt; Boot 7  0.9160906 0.8416973 0.6351294 0.4335982 0.1206571  0.1706967
-#&gt; Boot 8  0.8762975 0.8606930 0.5371567 0.4781799 0.1408292  0.1503402
-#&gt; Boot 9  0.8833321 0.8508829 0.5383597 0.4622218 0.1383179  0.1583681
-#&gt; Boot 10 0.8644897 0.8645406 0.4833872 0.4824141 0.1406172  0.1509797
-#&gt;         interc test Slope test
-#&gt; Boot 1  -0.11353908  0.7837105
-#&gt; Boot 2  -0.35407878  0.6987520
-#&gt; Boot 3   0.20399166  1.0969773
-#&gt; Boot 4  -0.26298061  0.6918186
-#&gt; Boot 5  -0.16922577  1.0869072
-#&gt; Boot 6   0.04768064  1.0589084
-#&gt; Boot 7  -0.26028944  0.6432410
-#&gt; Boot 8  -0.01101830  0.8189719
-#&gt; Boot 9  -0.38673738  0.8096453
-#&gt; Boot 10  0.30662713  0.9206403</div><div class='input'>  <span class='no'>res_val</span>$<span class='no'>intval</span></div><div class='output co'>#&gt;            Orig  Apparent      Test    Optimism Corrected
-#&gt; AUC   0.8659853 0.8733879 0.8521165  0.02127141 0.8447139
-#&gt; R2    0.4885571 0.5218129 0.4625642  0.05924871 0.4293083
-#&gt; Brier 0.1456551 0.1405901 0.1569756 -0.01638552 0.1620406
-#&gt; Slope 1.0000000 1.0000000 0.8609573  0.13904274 0.8609573</div><div class='input'> 
-</div></pre>
+ <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>200</span>)
+ <span class='no'>res_val</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='no'>res_psfmi</span>, <span class='kw'>int_val</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.05</span>, <span class='kw'>nboot</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"MI_boot"</span>, <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+ <span class='no'>res_val</span>$<span class='no'>intval</span>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

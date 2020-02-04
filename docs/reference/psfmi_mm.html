@@ -99,6 +99,9 @@ linear mixed models in multiply imputed datasets using different selection metho
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -275,49 +278,15 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 <p>http://missingdatasolutions.rbind.io/</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='no'>pool_mm</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_mm</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ipdna_md</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>".imp"</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"linear"</span>,
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+  <span class='no'>pool_mm</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_mm</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ipdna_md</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>".imp"</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"linear"</span>,
   <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"afib"</span>, <span class='st'>"sbp"</span>), <span class='kw'>clusvar</span> <span class='kw'>=</span> <span class='st'>"centre"</span>,
   <span class='kw'>random.eff</span><span class='kw'>=</span><span class='st'>"( 1 | centre)"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"dbp"</span>, <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='st'>"bmi_cat"</span>,
-  <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>, <span class='kw'>print.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - factor(bmi_cat)</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - afib</span></div><div class='input'>  <span class='no'>pool_mm</span>$<span class='no'>RR_Model</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;                       est  std.err  signif     lower    upper
-#&gt; (Intercept)      10.79644 30.25258 0.73903 -72.84317 94.43605
-#&gt; gender           -5.14246  2.50033 0.09215 -11.47883  1.19390
-#&gt; afib             -0.56527  1.53337 0.72013  -3.98486  2.85432
-#&gt; sbp               0.51562  0.22666 0.08487  -0.11219  1.14344
-#&gt; factor(bmi_cat)2 -0.52182  1.37603 0.70754  -3.34759  2.30395
-#&gt; factor(bmi_cat)3 -1.00875  1.73895 0.57409  -4.85853  2.84102
-#&gt; 
-#&gt; $`Step 2`
-#&gt;                  est  std.err  signif      lower     upper
-#&gt; (Intercept) -0.47359 38.10928 0.99068 -105.92326 104.97608
-#&gt; gender      -5.45709  2.43812 0.06573  -11.39742   0.48324
-#&gt; afib        -0.00563  1.65310 0.99733   -3.57475   3.56349
-#&gt; sbp          0.59205  0.27726 0.09921   -0.17600   1.36011
-#&gt; 
-#&gt; $`Step 3`
-#&gt;                  est  std.err  signif      lower     upper
-#&gt; (Intercept) -0.49572 37.42705 0.99006 -104.06903 103.07759
-#&gt; gender      -5.46118  2.42797 0.06456  -11.37141   0.44904
-#&gt; sbp          0.59229  0.27544 0.09755   -0.17073   1.35530
-#&gt; </div><div class='input'>  <span class='no'>pool_mm</span>$<span class='no'>multiparm</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;                 D1 and RR p-values D1 F-statistic
-#&gt; gender                     0.09215        4.23006
-#&gt; afib                       0.72013        0.13590
-#&gt; sbp                        0.08487        5.17486
-#&gt; factor(bmi_cat)            0.78856        0.24062
-#&gt; 
-#&gt; $`Step 2`
-#&gt;        D1 and RR p-values D1 F-statistic
-#&gt; gender            0.06573        5.00970
-#&gt; afib              0.99733        0.00001
-#&gt; sbp               0.09921        4.55991
-#&gt; 
-#&gt; $`Step 3`
-#&gt;        D1 and RR p-values D1 F-statistic
-#&gt; gender            0.06456        5.05928
-#&gt; sbp               0.09755        4.62402
-#&gt; </div><div class='input'>
-</div></pre>
+  <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>, <span class='kw'>print.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='no'>pool_mm</span>$<span class='no'>RR_Model</span>
+  <span class='no'>pool_mm</span>$<span class='no'>multiparm</span>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

@@ -58,7 +58,7 @@ LazyData:
 	true
 RoxygenNote: 7.0.2
 License: GPL (>= 2)
-URL: https://github.com/mwheymans/psfmi
+URL: https://mwheymans.github.io/psfmi/
 BugReports: https://github.com/mwheymans/psfmi/issues 
 Suggests: 
     knitr,

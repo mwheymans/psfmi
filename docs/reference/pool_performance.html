@@ -96,6 +96,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -143,7 +146,8 @@
     <tr>
       <th>data</th>
       <td><p>Data frame with stacked multiple imputed datasets.
-The original dataset that contains missing values must be excluded from the dataset.</p></td>
+The original dataset that contains missing values must be excluded 
+from the dataset.</p></td>
     </tr>
     <tr>
       <th>nimp</th>
@@ -151,7 +155,8 @@ The original dataset that contains missing values must be excluded from the data
     </tr>
     <tr>
       <th>impvar</th>
-      <td><p>A character vector. Name of the variable that distinguishes the imputed datasets.</p></td>
+      <td><p>A character vector. Name of the variable that distinguishes 
+the imputed datasets.</p></td>
     </tr>
     <tr>
       <th>Outcome</th>
@@ -159,18 +164,18 @@ The original dataset that contains missing values must be excluded from the data
     </tr>
     <tr>
       <th>predictors</th>
-      <td><p>Character vector with the names of the predictor variables as used in the
-formula part of an glm object.</p></td>
+      <td><p>Character vector with the names of the predictor 
+variables as used in the formula part of an glm object.</p></td>
     </tr>
     <tr>
       <th>cal.plot</th>
-      <td><p>If TRUE a calibration plot is generated. Default is FALSE. Can be used in combination
-with int_val = FALSE.</p></td>
+      <td><p>If TRUE a calibration plot is generated. Default is FALSE. 
+Can be used in combination with int_val = FALSE.</p></td>
     </tr>
     <tr>
       <th>plot.indiv</th>
-      <td><p>If TRUE calibration plots for each separate imputed dataset are generated, 
-otherwise all calibration plots are plotted in one figure.</p></td>
+      <td><p>If TRUE calibration plots for each separate imputed dataset 
+are generated, otherwise all calibration plots are plotted in one figure.</p></td>
     </tr>
     <tr>
       <th>groups_cal</th>
@@ -183,8 +188,9 @@ chosen.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'> <span class='fu'>pool_performance</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
- <span class='kw'>Outcome</span> <span class='kw'>=</span> <span class='st'>"Chronic"</span>, <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>, <span class='st'>"rcs(Tampascale, 3)"</span>, <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>,
- <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span>, <span class='st'>"factor(Carrying)"</span>), <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='pool_performance-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $ROC_pooled
+ <span class='kw'>Outcome</span> <span class='kw'>=</span> <span class='st'>"Chronic"</span>, <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>, <span class='st'>"rcs(Tampascale, 3)"</span>,
+ <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span>, <span class='st'>"factor(Carrying)"</span>),
+ <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='pool_performance-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $ROC_pooled
 #&gt;               95% Low       ROC    95% Up
 #&gt; ROC (logit) 0.7215633 0.8763023 0.9508982
 #&gt; 

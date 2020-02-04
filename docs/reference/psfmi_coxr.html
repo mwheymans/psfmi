@@ -99,6 +99,9 @@ models in multiply imputed datasets using different selection methods." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -276,115 +279,16 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 #&gt; Onset               0.373          0.5411
 #&gt; factor(Expect_cat)  0.420          0.6570
 #&gt; </div><div class='input'>
+ <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
   <span class='no'>pool_coxr</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_coxr</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmicox</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>time</span><span class='kw'>=</span><span class='st'>"Time"</span>,
   <span class='kw'>status</span><span class='kw'>=</span><span class='st'>"Status"</span>, <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Previous"</span>,  <span class='st'>"Radiation"</span>, <span class='st'>"Onset"</span>,
   <span class='st'>"Function"</span>, <span class='st'>"Tampascale"</span> ), <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.05</span>, <span class='kw'>cat.predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Expect_cat"</span>),
   <span class='kw'>int.predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Tampascale:Radiation"</span>,
-  <span class='st'>"Expect_cat:Tampascale"</span>), <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='st'>"Tampascale"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D2"</span>)</div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - Previous</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Onset</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>          using a p-value of 0.05 and predictors to keep Tampascale</span></div><div class='input'>  <span class='no'>pool_coxr</span>$<span class='no'>RR_Model</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;                                    est std.err signif   lower   upper     HR
-#&gt; Previous                       -0.1386  0.1951 0.4773 -0.5210  0.2438 0.8706
-#&gt; Radiation                      -1.6289  1.0685 0.1276 -3.7245  0.4668 0.1961
-#&gt; Onset                          -0.1440  0.1769 0.4159 -0.4908  0.2029 0.8659
-#&gt; Function                        0.0436  0.0176 0.0133  0.0091  0.0781 1.0446
-#&gt; Tampascale                     -0.0825  0.0371 0.0262 -0.1552 -0.0098 0.9208
-#&gt; factor(Expect_cat)2            -2.3433  1.5850 0.1394 -5.4514  0.7648 0.0960
-#&gt; factor(Expect_cat)3            -1.6527  1.4176 0.2437 -4.4312  1.1258 0.1915
-#&gt; Radiation:Tampascale            0.0378  0.0262 0.1504 -0.0137  0.0892 1.0385
-#&gt; Tampascale:factor(Expect_cat)2  0.0632  0.0396 0.1111 -0.0145  0.1409 1.0652
-#&gt; Tampascale:factor(Expect_cat)3  0.0467  0.0364 0.1995 -0.0246  0.1180 1.0478
-#&gt;                                  L.HR   U.HR
-#&gt; Previous                       0.5939 1.2761
-#&gt; Radiation                      0.0241 1.5949
-#&gt; Onset                          0.6121 1.2249
-#&gt; Function                       1.0091 1.0812
-#&gt; Tampascale                     0.8562 0.9902
-#&gt; factor(Expect_cat)2            0.0043 2.1486
-#&gt; factor(Expect_cat)3            0.0119 3.0827
-#&gt; Radiation:Tampascale           0.9864 1.0933
-#&gt; Tampascale:factor(Expect_cat)2 0.9856 1.1513
-#&gt; Tampascale:factor(Expect_cat)3 0.9757 1.1252
-#&gt; 
-#&gt; $`Step 2`
-#&gt;                                    est std.err signif   lower   upper     HR
-#&gt; Radiation                      -1.6501  1.0730 0.1243 -3.7545  0.4544 0.1920
-#&gt; Onset                          -0.1345  0.1764 0.4458 -0.4804  0.2113 0.8742
-#&gt; Function                        0.0435  0.0175 0.0132  0.0091  0.0779 1.0445
-#&gt; Tampascale                     -0.0826  0.0370 0.0257 -0.1551 -0.0100 0.9207
-#&gt; factor(Expect_cat)2            -2.3808  1.5765 0.1311 -5.4717  0.7102 0.0925
-#&gt; factor(Expect_cat)3            -1.6784  1.4177 0.2364 -4.4570  1.1002 0.1867
-#&gt; Radiation:Tampascale            0.0385  0.0263 0.1443 -0.0132  0.0902 1.0393
-#&gt; Tampascale:factor(Expect_cat)2  0.0640  0.0394 0.1043 -0.0132  0.1413 1.0661
-#&gt; Tampascale:factor(Expect_cat)3  0.0477  0.0364 0.1897 -0.0236  0.1189 1.0489
-#&gt;                                  L.HR   U.HR
-#&gt; Radiation                      0.0234 1.5752
-#&gt; Onset                          0.6185 1.2353
-#&gt; Function                       1.0091 1.0810
-#&gt; Tampascale                     0.8563 0.9900
-#&gt; factor(Expect_cat)2            0.0042 2.0344
-#&gt; factor(Expect_cat)3            0.0116 3.0048
-#&gt; Radiation:Tampascale           0.9869 1.0944
-#&gt; Tampascale:factor(Expect_cat)2 0.9869 1.1518
-#&gt; Tampascale:factor(Expect_cat)3 0.9767 1.1263
-#&gt; 
-#&gt; $`Step 3`
-#&gt;                                    est std.err signif   lower   upper     HR
-#&gt; Radiation                      -1.5369  1.0575 0.1463 -3.6109  0.5372 0.2150
-#&gt; Function                        0.0439  0.0176 0.0124  0.0095  0.0783 1.0449
-#&gt; Tampascale                     -0.0829  0.0369 0.0247 -0.1552 -0.0105 0.9204
-#&gt; factor(Expect_cat)2            -2.4364  1.5707 0.1210 -5.5161  0.6433 0.0875
-#&gt; factor(Expect_cat)3            -1.7333  1.4142 0.2203 -4.5050  1.0384 0.1767
-#&gt; Radiation:Tampascale            0.0357  0.0260 0.1690 -0.0152  0.0867 1.0363
-#&gt; Tampascale:factor(Expect_cat)2  0.0657  0.0393 0.0946 -0.0113  0.1427 1.0679
-#&gt; Tampascale:factor(Expect_cat)3  0.0492  0.0363 0.1751 -0.0219  0.1202 1.0504
-#&gt;                                  L.HR   U.HR
-#&gt; Radiation                      0.0270 1.7112
-#&gt; Function                       1.0095 1.0814
-#&gt; Tampascale                     0.8562 0.9896
-#&gt; factor(Expect_cat)2            0.0040 1.9027
-#&gt; factor(Expect_cat)3            0.0111 2.8247
-#&gt; Radiation:Tampascale           0.9849 1.0906
-#&gt; Tampascale:factor(Expect_cat)2 0.9888 1.1534
-#&gt; Tampascale:factor(Expect_cat)3 0.9783 1.1277
-#&gt; </div><div class='input'>  <span class='no'>pool_coxr</span>$<span class='no'>multiparm</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;                                   D2 p-value D2 &amp; RR
-#&gt; Previous                      0.4910          0.4773
-#&gt; Radiation                     0.4915          0.1276
-#&gt; Onset                         0.6449          0.4159
-#&gt; Function                      5.7739          0.0133
-#&gt; Tampascale                    1.4903          0.0262
-#&gt; factor(Expect_cat)            0.3761          0.6866
-#&gt; Radiation:Tampascale          2.0270          0.1504
-#&gt; Tampascale:factor(Expect_cat) 1.2615          0.2834
-#&gt; 
-#&gt; $`Step 2`
-#&gt;                                   D2 p-value D2 &amp; RR
-#&gt; Radiation                     0.4182          0.1243
-#&gt; Onset                         0.5670          0.4458
-#&gt; Function                      5.7778          0.0132
-#&gt; Tampascale                    1.3377          0.0257
-#&gt; factor(Expect_cat)            0.4344          0.6476
-#&gt; Radiation:Tampascale          2.0887          0.1443
-#&gt; Tampascale:factor(Expect_cat) 1.3182          0.2677
-#&gt; 
-#&gt; $`Step 3`
-#&gt;                                   D2 p-value D2 &amp; RR
-#&gt; Radiation                     0.4040          0.1463
-#&gt; Function                      5.8834          0.0124
-#&gt; Tampascale                    1.4184          0.0247
-#&gt; factor(Expect_cat)            0.4620          0.6300
-#&gt; Radiation:Tampascale          1.8456          0.1690
-#&gt; Tampascale:factor(Expect_cat) 1.3962          0.2476
-#&gt; </div><div class='input'>  <span class='no'>pool_coxr</span>$<span class='no'>predictors_in</span></div><div class='output co'>#&gt;        Previous Radiation Onset Function Tampascale factor(Expect_cat)
-#&gt; Step 1        1         1     1        1          1                  1
-#&gt; Step 2        0         1     1        1          1                  1
-#&gt; Step 3        0         1     0        1          1                  1
-#&gt;        Radiation:Tampascale Tampascale:factor(Expect_cat)
-#&gt; Step 1                    1                             1
-#&gt; Step 2                    1                             1
-#&gt; Step 3                    1                             1</div><div class='input'>  
-</div></pre>
+  <span class='st'>"Expect_cat:Tampascale"</span>), <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='st'>"Tampascale"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D2"</span>)
+  <span class='no'>pool_coxr</span>$<span class='no'>RR_Model</span>
+  <span class='no'>pool_coxr</span>$<span class='no'>multiparm</span>
+  <span class='no'>pool_coxr</span>$<span class='no'>predictors_in</span>
+ }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Provides adjusted intercept after shrinkage pooled coefficients in multiply imputed datasets — pool_intadj • psfmi</title>
+<title>Provides pooled adjusted intercept after shrinkage of pooled coefficients 
+ in multiply imputed datasets — pool_intadj • psfmi</title>
 
 
 <!-- jquery -->
@@ -35,8 +36,9 @@
 
 
 
-<meta property="og:title" content="Provides adjusted intercept after shrinkage pooled coefficients in multiply imputed datasets — pool_intadj" />
-<meta property="og:description" content="pool_intadj Provides pooled adjusted intercept after shrinkage pooled coefficients 
+<meta property="og:title" content="Provides pooled adjusted intercept after shrinkage of pooled coefficients 
+ in multiply imputed datasets — pool_intadj" />
+<meta property="og:description" content="pool_intadj Provides pooled adjusted intercept after shrinkage of the pooled coefficients 
  in multiply imputed datasets for models selected with the psfmi_lr function and 
  internally validated with the psfmi_perform function." />
 <meta name="twitter:card" content="summary" />
@@ -98,6 +100,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -119,13 +124,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Provides adjusted intercept after shrinkage pooled coefficients in multiply imputed datasets</h1>
+    <h1>Provides pooled adjusted intercept after shrinkage of pooled coefficients 
+ in multiply imputed datasets</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/pool_intadj.R'><code>R/pool_intadj.R</code></a></small>
     <div class="hidden name"><code>pool_intadj.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>pool_intadj</code> Provides pooled adjusted intercept after shrinkage pooled coefficients 
+    <p><code>pool_intadj</code> Provides pooled adjusted intercept after shrinkage of the pooled coefficients 
  in multiply imputed datasets for models selected with the <code>psfmi_lr</code> function and 
  internally validated with the <code>psfmi_perform</code> function.</p>
     </div>
@@ -188,170 +194,16 @@ with the <code>psfmi_perform</code> function.</p></td>
 #&gt; Radiation    0.2647  0.4685 0.5725  -0.6572 1.1866 1.3030 0.5183 3.2758
 #&gt; Age         -0.0158  0.0235 0.5015  -0.0618 0.0303 0.9843 0.9400 1.0307
 #&gt; </div><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
  <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>100</span>)
- <span class='no'>res_val</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_perform.html'>psfmi_perform</a></span>(<span class='no'>res_psfmi</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"MI_boot"</span>, <span class='kw'>nboot</span><span class='kw'>=</span><span class='fl'>50</span>,
-   <span class='kw'>int_val</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Calibration plot not made, only when int.val = FALSE</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 2</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 3</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 4</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 5</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 6</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 7</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 8</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 9</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 10</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 11</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 12</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 13</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 14</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 15</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 16</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 17</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 18</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 19</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 20</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 21</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 22</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 23</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 24</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 25</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 26</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 27</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 28</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 29</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 30</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 31</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 32</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 33</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 34</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 35</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 36</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 37</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 38</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 39</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 40</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 41</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 42</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 43</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 44</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 45</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 46</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 47</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 48</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 49</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Boot 50</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='input'> <span class='no'>res_val</span>$<span class='no'>intval</span></div><div class='output co'>#&gt;            Orig  Apparent      Test    Optimism Corrected
-#&gt; AUC   0.8631544 0.8722783 0.8493633  0.02291498 0.8402395
-#&gt; R2    0.4873082 0.5161438 0.4550536  0.06109022 0.4262179
-#&gt; Brier 0.1490050 0.1416810 0.1581931 -0.01651210 0.1655171
-#&gt; Slope 1.0000000 1.0000000 0.8730163  0.12698367 0.8730163</div><div class='input'>
- <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>pool_intadj</span>(<span class='no'>res_psfmi</span>, <span class='kw'>shrinkage_factor</span> <span class='kw'>=</span> <span class='fl'>0.8730036</span>)
- <span class='no'>res</span>$<span class='no'>int_adj</span></div><div class='output co'>#&gt; [1] -5.088459</div><div class='input'> <span class='no'>res</span>$<span class='no'>coef_shrink_pooled</span></div><div class='output co'>#&gt;      Gender        Pain  Tampascale     Smoking    Function   Radiation 
-#&gt; -0.23322412  0.45829093  0.09188597  0.14637976 -0.05770793  0.23107101 
-#&gt;         Age 
-#&gt; -0.01377269 </div><div class='input'>  
-</div></pre>
+ <span class='no'>res_val</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_perform.html'>psfmi_perform</a></span>(<span class='no'>res_psfmi</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"MI_boot"</span>, <span class='kw'>nboot</span><span class='kw'>=</span><span class='fl'>10</span>,
+   <span class='kw'>int_val</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+ <span class='no'>res_val</span>$<span class='no'>intval</span>
+
+ <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>pool_intadj</span>(<span class='no'>res_psfmi</span>, <span class='kw'>shrinkage_factor</span> <span class='kw'>=</span> <span class='fl'>0.9774058</span>)
+ <span class='no'>res</span>$<span class='no'>int_adj</span>
+ <span class='no'>res</span>$<span class='no'>coef_shrink_pooled</span>
+ }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

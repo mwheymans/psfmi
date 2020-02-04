@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>External Validation of logistic prediction models in MI datasets — mivalext_lr • psfmi</title>
+<title>External Validation of logistic prediction models in 
+ multiply imputed datasets — mivalext_lr • psfmi</title>
 
 
 <!-- jquery -->
@@ -35,7 +36,8 @@
 
 
 
-<meta property="og:title" content="External Validation of logistic prediction models in MI datasets — mivalext_lr" />
+<meta property="og:title" content="External Validation of logistic prediction models in 
+ multiply imputed datasets — mivalext_lr" />
 <meta property="og:description" content="mivalext_lr External validation of logistic prediction models" />
 <meta name="twitter:card" content="summary" />
 
@@ -96,6 +98,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -117,7 +122,8 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>External Validation of logistic prediction models in MI datasets</h1>
+    <h1>External Validation of logistic prediction models in 
+ multiply imputed datasets</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/mivalext_lr.R'><code>R/mivalext_lr.R</code></a></small>
     <div class="hidden name"><code>mivalext_lr.Rd</code></div>
     </div>
@@ -145,14 +151,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data.val</th>
-      <td><p>Data frame with stacked multiple imputed validation datasets.
+      <td><p>Data frame with stacked multiply imputed validation datasets.
 The original dataset that contains missing values must be excluded from the
 dataset. The imputed datasets must be distinguished by an imputation variable,
 specified under impvar, and starting by 1.</p></td>
     </tr>
     <tr>
       <th>data.orig</th>
-      <td><p>A single data frame or data matrix containing the original dataset
+      <td><p>A single data frame containing the original dataset
 that was used to develop the model. Used to estimate the original regression
 coefficients in case lp.orig is not provided.</p></td>
     </tr>
@@ -213,14 +219,16 @@ Lemeshow test. Default is 10.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following information of the externally validated model is provided:
- pooled ROC curve (median and backtransformed after pooling log transformed
- ROC curves), pooled Nagelkerke R-Square value (median and backtransformed
- after pooling Fisher transformed values), pooled Hosmer and Lemeshow Test (using
- miceadds package), pooled coefficients when model is freely estimated in imputed
- datasets and the pooled linear predictor (LP), after the externally validated LP
- is estimated in each imputed dataset (provides information about miscalibration
- in intercept and slope). When the external validation is very poor,
- the R2 fixed can become negative due to the poor fit of the model in
+ <code>ROC</code> pooled ROC curve (median and back transformed after pooling log transformed
+ ROC curves), <code>R2_fixed</code> and <code>R2_calibr</code> pooled Nagelkerke R-Square value 
+ (median and back transformed after pooling Fisher transformed values), <code>HLtest</code> 
+ pooled Hosmer and Lemeshow Test (using miceadds package), <code>coef_pooled</code> pooled 
+ coefficients when model is freely estimated in imputed datasets and <code>LP_pooled_ext</code> 
+ the pooled linear predictor (LP), after the externally validated LP is estimated in 
+ each imputed dataset (provides information about miscalibration in intercept and slope). 
+ In addition information is provided about <code>nimp</code>, <code>impvar</code>, <code>Outcome</code>,
+ <code>val_ckeck</code>, <code>g</code> and <code>coef_check</code>. When the external validation is 
+ very poor, the R2 fixed can become negative due to the poor fit of the model in
  the external dataset (in that case you may report a R2 of zero).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -255,25 +263,25 @@ Lemeshow test. Default is 10.</p></td>
 #&gt; 0.85378 0.85548 0.85652 
 #&gt; 
 #&gt; 
-#&gt; $`R2 (fixed)`
-#&gt; $`R2 (fixed)`$`Fisher Z (fixed)`
+#&gt; $R2_fixed
+#&gt; $R2_fixed$`Fisher Z (fixed)`
 #&gt; [1] 0.44618
 #&gt; 
-#&gt; $`R2 (fixed)`$`Median (fixed)`
+#&gt; $R2_fixed$`Median (fixed)`
 #&gt; 1st Qu.  Median 3rd Qu. 
 #&gt; 0.44666 0.45059 0.45683 
 #&gt; 
 #&gt; 
-#&gt; $`R2 (calibr)`
-#&gt; $`R2 (calibr)`$`Fisher Z (calibrated)`
+#&gt; $R2_calibr
+#&gt; $R2_calibr$`Fisher Z (calibrated)`
 #&gt; [1] 0.46395
 #&gt; 
-#&gt; $`R2 (calibr)`$`Median (calibrated)`
+#&gt; $R2_calibr$`Median (calibrated)`
 #&gt; 1st Qu.  Median 3rd Qu. 
 #&gt; 0.46143 0.46622 0.47500 
 #&gt; 
 #&gt; 
-#&gt; $`HL test`
+#&gt; $HLtest
 #&gt;         D         p        df       df2 
 #&gt;   1.98132   0.05310   8.00000 138.20496 
 #&gt; 
@@ -283,7 +291,7 @@ Lemeshow test. Default is 10.</p></td>
 #&gt;          Function        Tampascale               Age 
 #&gt;          -0.03579           0.25232          -0.01235 
 #&gt; 
-#&gt; $`LP_pooled ext`
+#&gt; $LP_pooled_ext
 #&gt; (Intercept)      lp.ext 
 #&gt;    -0.34666     0.94836 
 #&gt; 
@@ -296,13 +304,13 @@ Lemeshow test. Default is 10.</p></td>
 #&gt; $Outcome
 #&gt; [1] "Chronic"
 #&gt; 
-#&gt; $val.check
+#&gt; $val_check
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $g
 #&gt; [1] 10
 #&gt; 
-#&gt; $coef.check
+#&gt; $coef_check
 #&gt; [1] "(Intercept)"       "Gender"            "factor(Carrying)2"
 #&gt; [4] "factor(Carrying)3" "Function"          "Tampascale"       
 #&gt; [7] "Age"              
