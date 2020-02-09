@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Welcome to the psfmi package • psfmi</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -16,7 +16,13 @@
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-127301719-2"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127301719-2');
+</script>
 </head>
 <body>
     <div class="container template-article">
@@ -62,14 +68,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/mwheymans/psfmi">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -85,9 +84,9 @@
       <h1>Welcome to the psfmi package</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-02-04</h4>
+            <h4 class="date">2020-02-09</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi-vignette.Rmd"><code>vignettes/psfmi-vignette.Rmd</code></a></small>
+      
       <div class="hidden name"><code>psfmi-vignette.Rmd</code></div>
 
     </div>
@@ -1493,287 +1492,307 @@ is also available where two methods can be used to combine bootstrapping and mul
 <a class="sourceLine" id="cb10-16" title="16">  stab_res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/psfmi_stab.html">psfmi_stab</a></span>(psfmi_res, <span class="dt">boot_method =</span> <span class="st">"single"</span>, <span class="dt">nboot=</span><span class="dv">20</span>)</a>
 <a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-18" title="18"><span class="co">#&gt; Boot 1</span></a>
-<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt; Variable excluded at Step 1 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt; Variable excluded at Step 4 is - Duration</span></a>
-<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt; Variable excluded at Step 5 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-24" title="24"><span class="co">#&gt; Variable excluded at Step 6 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-25" title="25"><span class="co">#&gt; Variable excluded at Step 7 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-26" title="26"><span class="co">#&gt; Variable excluded at Step 8 is - Age</span></a>
+<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt; Variable excluded at Step 1 is - Age</span></a>
+<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
+<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt; Variable excluded at Step 3 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-24" title="24"><span class="co">#&gt; Variable excluded at Step 6 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-25" title="25"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-26" title="26"><span class="co">#&gt; Variable excluded at Step 8 is - SocialSupport</span></a>
 <a class="sourceLine" id="cb10-27" title="27"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-28" title="28"><span class="co">#&gt; Boot 2</span></a>
-<a class="sourceLine" id="cb10-29" title="29"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
-<a class="sourceLine" id="cb10-30" title="30"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-31" title="31"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-32" title="32"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-33" title="33"><span class="co">#&gt; Variable excluded at Step 5 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-34" title="34"><span class="co">#&gt; Variable excluded at Step 6 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-35" title="35"><span class="co">#&gt; Variable excluded at Step 7 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-36" title="36"><span class="co">#&gt; Variable excluded at Step 8 is - Age</span></a>
-<a class="sourceLine" id="cb10-37" title="37"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-38" title="38"><span class="co">#&gt; Boot 3</span></a>
-<a class="sourceLine" id="cb10-39" title="39"><span class="co">#&gt; Variable excluded at Step 1 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-40" title="40"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
-<a class="sourceLine" id="cb10-41" title="41"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-42" title="42"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-43" title="43"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-44" title="44"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-45" title="45"><span class="co">#&gt; Variable excluded at Step 7 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-46" title="46"><span class="co">#&gt; Variable excluded at Step 8 is - Gender</span></a>
-<a class="sourceLine" id="cb10-47" title="47"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-48" title="48"><span class="co">#&gt; Boot 4</span></a>
-<a class="sourceLine" id="cb10-49" title="49"><span class="co">#&gt; Variable excluded at Step 1 is - Age</span></a>
-<a class="sourceLine" id="cb10-50" title="50"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
-<a class="sourceLine" id="cb10-51" title="51"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-52" title="52"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-53" title="53"><span class="co">#&gt; Variable excluded at Step 5 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-54" title="54"><span class="co">#&gt; Variable excluded at Step 6 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-55" title="55"><span class="co">#&gt; Variable excluded at Step 7 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-56" title="56"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-57" title="57"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-58" title="58"><span class="co">#&gt; Boot 5</span></a>
-<a class="sourceLine" id="cb10-59" title="59"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-60" title="60"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
-<a class="sourceLine" id="cb10-61" title="61"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-62" title="62"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-63" title="63"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-64" title="64"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-65" title="65"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
-<a class="sourceLine" id="cb10-66" title="66"><span class="co">#&gt; Variable excluded at Step 8 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-67" title="67"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-68" title="68"><span class="co">#&gt; Boot 6</span></a>
-<a class="sourceLine" id="cb10-69" title="69"><span class="co">#&gt; Variable excluded at Step 1 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-70" title="70"><span class="co">#&gt; Variable excluded at Step 2 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-71" title="71"><span class="co">#&gt; Variable excluded at Step 3 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-72" title="72"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-73" title="73"><span class="co">#&gt; Variable excluded at Step 5 is - Duration</span></a>
-<a class="sourceLine" id="cb10-74" title="74"><span class="co">#&gt; Variable excluded at Step 6 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-75" title="75"><span class="co">#&gt; Variable excluded at Step 7 is - Gender</span></a>
-<a class="sourceLine" id="cb10-76" title="76"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-77" title="77"><span class="co">#&gt; Variable excluded at Step 9 is - Age</span></a>
-<a class="sourceLine" id="cb10-78" title="78"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-79" title="79"><span class="co">#&gt; Selection correctly terminated, </span></a>
-<a class="sourceLine" id="cb10-80" title="80"><span class="co">#&gt; Model is empty after last step</span></a>
-<a class="sourceLine" id="cb10-81" title="81"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-82" title="82"><span class="co">#&gt; Boot 7</span></a>
-<a class="sourceLine" id="cb10-83" title="83"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-84" title="84"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-85" title="85"><span class="co">#&gt; Variable excluded at Step 3 is - Duration</span></a>
-<a class="sourceLine" id="cb10-86" title="86"><span class="co">#&gt; Variable excluded at Step 4 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-87" title="87"><span class="co">#&gt; Variable excluded at Step 5 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-88" title="88"><span class="co">#&gt; Variable excluded at Step 6 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-89" title="89"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
-<a class="sourceLine" id="cb10-90" title="90"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-91" title="91"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-92" title="92"><span class="co">#&gt; Boot 8</span></a>
-<a class="sourceLine" id="cb10-93" title="93"><span class="co">#&gt; Variable excluded at Step 1 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-94" title="94"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-95" title="95"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-96" title="96"><span class="co">#&gt; Variable excluded at Step 4 is - Gender</span></a>
-<a class="sourceLine" id="cb10-97" title="97"><span class="co">#&gt; Variable excluded at Step 5 is - Duration</span></a>
-<a class="sourceLine" id="cb10-98" title="98"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-99" title="99"><span class="co">#&gt; Variable excluded at Step 7 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-100" title="100"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-101" title="101"><span class="co">#&gt; Boot 9</span></a>
-<a class="sourceLine" id="cb10-102" title="102"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-103" title="103"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-104" title="104"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-105" title="105"><span class="co">#&gt; Variable excluded at Step 4 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-106" title="106"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-107" title="107"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
-<a class="sourceLine" id="cb10-108" title="108"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-109" title="109"><span class="co">#&gt; Variable excluded at Step 8 is - Age</span></a>
-<a class="sourceLine" id="cb10-110" title="110"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-111" title="111"><span class="co">#&gt; Boot 10</span></a>
-<a class="sourceLine" id="cb10-112" title="112"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-113" title="113"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
-<a class="sourceLine" id="cb10-114" title="114"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-115" title="115"><span class="co">#&gt; Variable excluded at Step 4 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-116" title="116"><span class="co">#&gt; Variable excluded at Step 5 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-117" title="117"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-118" title="118"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-119" title="119"><span class="co">#&gt; Variable excluded at Step 8 is - Gender</span></a>
-<a class="sourceLine" id="cb10-120" title="120"><span class="co">#&gt; Variable excluded at Step 9 is - Age</span></a>
-<a class="sourceLine" id="cb10-121" title="121"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-122" title="122"><span class="co">#&gt; Selection correctly terminated, </span></a>
-<a class="sourceLine" id="cb10-123" title="123"><span class="co">#&gt; Model is empty after last step</span></a>
-<a class="sourceLine" id="cb10-124" title="124"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-125" title="125"><span class="co">#&gt; Boot 11</span></a>
-<a class="sourceLine" id="cb10-126" title="126"><span class="co">#&gt; Variable excluded at Step 1 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-127" title="127"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-128" title="128"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-129" title="129"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-130" title="130"><span class="co">#&gt; Variable excluded at Step 5 is - Duration</span></a>
-<a class="sourceLine" id="cb10-131" title="131"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-132" title="132"><span class="co">#&gt; Variable excluded at Step 7 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-133" title="133"><span class="co">#&gt; Variable excluded at Step 8 is - Age</span></a>
-<a class="sourceLine" id="cb10-134" title="134"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-135" title="135"><span class="co">#&gt; Boot 12</span></a>
-<a class="sourceLine" id="cb10-136" title="136"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-137" title="137"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-138" title="138"><span class="co">#&gt; Variable excluded at Step 3 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-139" title="139"><span class="co">#&gt; Variable excluded at Step 4 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-140" title="140"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-141" title="141"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
-<a class="sourceLine" id="cb10-142" title="142"><span class="co">#&gt; Variable excluded at Step 7 is - Gender</span></a>
-<a class="sourceLine" id="cb10-143" title="143"><span class="co">#&gt; Variable excluded at Step 8 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-144" title="144"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-145" title="145"><span class="co">#&gt; Boot 13</span></a>
-<a class="sourceLine" id="cb10-146" title="146"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
-<a class="sourceLine" id="cb10-147" title="147"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-148" title="148"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-149" title="149"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-150" title="150"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-151" title="151"><span class="co">#&gt; Variable excluded at Step 6 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-152" title="152"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
-<a class="sourceLine" id="cb10-153" title="153"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-154" title="154"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-155" title="155"><span class="co">#&gt; Boot 14</span></a>
-<a class="sourceLine" id="cb10-156" title="156"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-157" title="157"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-158" title="158"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-159" title="159"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-160" title="160"><span class="co">#&gt; Variable excluded at Step 5 is - Duration</span></a>
-<a class="sourceLine" id="cb10-161" title="161"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-162" title="162"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
-<a class="sourceLine" id="cb10-163" title="163"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-164" title="164"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-165" title="165"><span class="co">#&gt; Boot 15</span></a>
-<a class="sourceLine" id="cb10-166" title="166"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-167" title="167"><span class="co">#&gt; Variable excluded at Step 2 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-168" title="168"><span class="co">#&gt; Variable excluded at Step 3 is - Duration</span></a>
-<a class="sourceLine" id="cb10-169" title="169"><span class="co">#&gt; Variable excluded at Step 4 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-170" title="170"><span class="co">#&gt; Variable excluded at Step 5 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-171" title="171"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-172" title="172"><span class="co">#&gt; Variable excluded at Step 7 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-173" title="173"><span class="co">#&gt; Variable excluded at Step 8 is - Age</span></a>
+<a class="sourceLine" id="cb10-29" title="29"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-30" title="30"><span class="co">#&gt; Variable excluded at Step 2 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-31" title="31"><span class="co">#&gt; Variable excluded at Step 3 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-32" title="32"><span class="co">#&gt; Variable excluded at Step 4 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-33" title="33"><span class="co">#&gt; Variable excluded at Step 5 is - Duration</span></a>
+<a class="sourceLine" id="cb10-34" title="34"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-35" title="35"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
+<a class="sourceLine" id="cb10-36" title="36"><span class="co">#&gt; Variable excluded at Step 8 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-37" title="37"><span class="co">#&gt; Variable excluded at Step 9 is - Gender</span></a>
+<a class="sourceLine" id="cb10-38" title="38"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-39" title="39"><span class="co">#&gt; Selection correctly terminated, </span></a>
+<a class="sourceLine" id="cb10-40" title="40"><span class="co">#&gt; Model is empty after last step</span></a>
+<a class="sourceLine" id="cb10-41" title="41"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-42" title="42"><span class="co">#&gt; Boot 3</span></a>
+<a class="sourceLine" id="cb10-43" title="43"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-44" title="44"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
+<a class="sourceLine" id="cb10-45" title="45"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-46" title="46"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-47" title="47"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-48" title="48"><span class="co">#&gt; Variable excluded at Step 6 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-49" title="49"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-50" title="50"><span class="co">#&gt; Variable excluded at Step 8 is - Gender</span></a>
+<a class="sourceLine" id="cb10-51" title="51"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-52" title="52"><span class="co">#&gt; Boot 4</span></a>
+<a class="sourceLine" id="cb10-53" title="53"><span class="co">#&gt; Variable excluded at Step 1 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-54" title="54"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
+<a class="sourceLine" id="cb10-55" title="55"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-56" title="56"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-57" title="57"><span class="co">#&gt; Variable excluded at Step 5 is - Gender</span></a>
+<a class="sourceLine" id="cb10-58" title="58"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-59" title="59"><span class="co">#&gt; Variable excluded at Step 7 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-60" title="60"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-61" title="61"><span class="co">#&gt; Variable excluded at Step 9 is - Age</span></a>
+<a class="sourceLine" id="cb10-62" title="62"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-63" title="63"><span class="co">#&gt; Selection correctly terminated, </span></a>
+<a class="sourceLine" id="cb10-64" title="64"><span class="co">#&gt; Model is empty after last step</span></a>
+<a class="sourceLine" id="cb10-65" title="65"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-66" title="66"><span class="co">#&gt; Boot 5</span></a>
+<a class="sourceLine" id="cb10-67" title="67"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-68" title="68"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-69" title="69"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-70" title="70"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-71" title="71"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-72" title="72"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
+<a class="sourceLine" id="cb10-73" title="73"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
+<a class="sourceLine" id="cb10-74" title="74"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-75" title="75"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-76" title="76"><span class="co">#&gt; Boot 6</span></a>
+<a class="sourceLine" id="cb10-77" title="77"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
+<a class="sourceLine" id="cb10-78" title="78"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-79" title="79"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-80" title="80"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-81" title="81"><span class="co">#&gt; Variable excluded at Step 5 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-82" title="82"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-83" title="83"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
+<a class="sourceLine" id="cb10-84" title="84"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-85" title="85"><span class="co">#&gt; Variable excluded at Step 9 is - Gender</span></a>
+<a class="sourceLine" id="cb10-86" title="86"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-87" title="87"><span class="co">#&gt; Selection correctly terminated, </span></a>
+<a class="sourceLine" id="cb10-88" title="88"><span class="co">#&gt; Model is empty after last step</span></a>
+<a class="sourceLine" id="cb10-89" title="89"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-90" title="90"><span class="co">#&gt; Boot 7</span></a>
+<a class="sourceLine" id="cb10-91" title="91"><span class="co">#&gt; Variable excluded at Step 1 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-92" title="92"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-93" title="93"><span class="co">#&gt; Variable excluded at Step 3 is - Age</span></a>
+<a class="sourceLine" id="cb10-94" title="94"><span class="co">#&gt; Variable excluded at Step 4 is - Duration</span></a>
+<a class="sourceLine" id="cb10-95" title="95"><span class="co">#&gt; Variable excluded at Step 5 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-96" title="96"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-97" title="97"><span class="co">#&gt; Variable excluded at Step 7 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-98" title="98"><span class="co">#&gt; Variable excluded at Step 8 is - Gender</span></a>
+<a class="sourceLine" id="cb10-99" title="99"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-100" title="100"><span class="co">#&gt; Boot 8</span></a>
+<a class="sourceLine" id="cb10-101" title="101"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-102" title="102"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-103" title="103"><span class="co">#&gt; Variable excluded at Step 3 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-104" title="104"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-105" title="105"><span class="co">#&gt; Variable excluded at Step 5 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-106" title="106"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
+<a class="sourceLine" id="cb10-107" title="107"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-108" title="108"><span class="co">#&gt; Variable excluded at Step 8 is - Gender</span></a>
+<a class="sourceLine" id="cb10-109" title="109"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-110" title="110"><span class="co">#&gt; Boot 9</span></a>
+<a class="sourceLine" id="cb10-111" title="111"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-112" title="112"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
+<a class="sourceLine" id="cb10-113" title="113"><span class="co">#&gt; Variable excluded at Step 3 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-114" title="114"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-115" title="115"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-116" title="116"><span class="co">#&gt; Variable excluded at Step 6 is - Age</span></a>
+<a class="sourceLine" id="cb10-117" title="117"><span class="co">#&gt; Variable excluded at Step 7 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-118" title="118"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-119" title="119"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-120" title="120"><span class="co">#&gt; Boot 10</span></a>
+<a class="sourceLine" id="cb10-121" title="121"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-122" title="122"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-123" title="123"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-124" title="124"><span class="co">#&gt; Variable excluded at Step 4 is - Age</span></a>
+<a class="sourceLine" id="cb10-125" title="125"><span class="co">#&gt; Variable excluded at Step 5 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-126" title="126"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
+<a class="sourceLine" id="cb10-127" title="127"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-128" title="128"><span class="co">#&gt; Variable excluded at Step 8 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-129" title="129"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-130" title="130"><span class="co">#&gt; Boot 11</span></a>
+<a class="sourceLine" id="cb10-131" title="131"><span class="co">#&gt; Variable excluded at Step 1 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-132" title="132"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-133" title="133"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-134" title="134"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-135" title="135"><span class="co">#&gt; Variable excluded at Step 5 is - Duration</span></a>
+<a class="sourceLine" id="cb10-136" title="136"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-137" title="137"><span class="co">#&gt; Variable excluded at Step 7 is - Gender</span></a>
+<a class="sourceLine" id="cb10-138" title="138"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-139" title="139"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-140" title="140"><span class="co">#&gt; Boot 12</span></a>
+<a class="sourceLine" id="cb10-141" title="141"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
+<a class="sourceLine" id="cb10-142" title="142"><span class="co">#&gt; Variable excluded at Step 2 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-143" title="143"><span class="co">#&gt; Variable excluded at Step 3 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-144" title="144"><span class="co">#&gt; Variable excluded at Step 4 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-145" title="145"><span class="co">#&gt; Variable excluded at Step 5 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-146" title="146"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-147" title="147"><span class="co">#&gt; Variable excluded at Step 7 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-148" title="148"><span class="co">#&gt; Variable excluded at Step 8 is - Age</span></a>
+<a class="sourceLine" id="cb10-149" title="149"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-150" title="150"><span class="co">#&gt; Boot 13</span></a>
+<a class="sourceLine" id="cb10-151" title="151"><span class="co">#&gt; Variable excluded at Step 1 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-152" title="152"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-153" title="153"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-154" title="154"><span class="co">#&gt; Variable excluded at Step 4 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-155" title="155"><span class="co">#&gt; Variable excluded at Step 5 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-156" title="156"><span class="co">#&gt; Variable excluded at Step 6 is - Gender</span></a>
+<a class="sourceLine" id="cb10-157" title="157"><span class="co">#&gt; Variable excluded at Step 7 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-158" title="158"><span class="co">#&gt; Variable excluded at Step 8 is - Duration</span></a>
+<a class="sourceLine" id="cb10-159" title="159"><span class="co">#&gt; Variable excluded at Step 9 is - Age</span></a>
+<a class="sourceLine" id="cb10-160" title="160"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-161" title="161"><span class="co">#&gt; Selection correctly terminated, </span></a>
+<a class="sourceLine" id="cb10-162" title="162"><span class="co">#&gt; Model is empty after last step</span></a>
+<a class="sourceLine" id="cb10-163" title="163"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-164" title="164"><span class="co">#&gt; Boot 14</span></a>
+<a class="sourceLine" id="cb10-165" title="165"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-166" title="166"><span class="co">#&gt; Variable excluded at Step 2 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-167" title="167"><span class="co">#&gt; Variable excluded at Step 3 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-168" title="168"><span class="co">#&gt; Variable excluded at Step 4 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-169" title="169"><span class="co">#&gt; Variable excluded at Step 5 is - Gender</span></a>
+<a class="sourceLine" id="cb10-170" title="170"><span class="co">#&gt; Variable excluded at Step 6 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-171" title="171"><span class="co">#&gt; Variable excluded at Step 7 is - Duration</span></a>
+<a class="sourceLine" id="cb10-172" title="172"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-173" title="173"><span class="co">#&gt; Variable excluded at Step 9 is - Age</span></a>
 <a class="sourceLine" id="cb10-174" title="174"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-175" title="175"><span class="co">#&gt; Boot 16</span></a>
-<a class="sourceLine" id="cb10-176" title="176"><span class="co">#&gt; Variable excluded at Step 1 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-177" title="177"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-178" title="178"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-179" title="179"><span class="co">#&gt; Variable excluded at Step 4 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-180" title="180"><span class="co">#&gt; Variable excluded at Step 5 is - Age</span></a>
-<a class="sourceLine" id="cb10-181" title="181"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-182" title="182"><span class="co">#&gt; Variable excluded at Step 7 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-183" title="183"><span class="co">#&gt; Variable excluded at Step 8 is - Duration</span></a>
-<a class="sourceLine" id="cb10-184" title="184"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-185" title="185"><span class="co">#&gt; Boot 17</span></a>
-<a class="sourceLine" id="cb10-186" title="186"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-187" title="187"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-188" title="188"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-189" title="189"><span class="co">#&gt; Variable excluded at Step 4 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-190" title="190"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-191" title="191"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
-<a class="sourceLine" id="cb10-192" title="192"><span class="co">#&gt; Variable excluded at Step 7 is - Gender</span></a>
-<a class="sourceLine" id="cb10-193" title="193"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-194" title="194"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-195" title="195"><span class="co">#&gt; Boot 18</span></a>
-<a class="sourceLine" id="cb10-196" title="196"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-197" title="197"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-198" title="198"><span class="co">#&gt; Variable excluded at Step 3 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-199" title="199"><span class="co">#&gt; Variable excluded at Step 4 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-200" title="200"><span class="co">#&gt; Variable excluded at Step 5 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-201" title="201"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
-<a class="sourceLine" id="cb10-202" title="202"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
-<a class="sourceLine" id="cb10-203" title="203"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-204" title="204"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-205" title="205"><span class="co">#&gt; Boot 19</span></a>
-<a class="sourceLine" id="cb10-206" title="206"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
-<a class="sourceLine" id="cb10-207" title="207"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-208" title="208"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-209" title="209"><span class="co">#&gt; Variable excluded at Step 4 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-210" title="210"><span class="co">#&gt; Variable excluded at Step 5 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-211" title="211"><span class="co">#&gt; Variable excluded at Step 6 is - Gender</span></a>
-<a class="sourceLine" id="cb10-212" title="212"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
-<a class="sourceLine" id="cb10-213" title="213"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-214" title="214"><span class="co">#&gt; Boot 20</span></a>
-<a class="sourceLine" id="cb10-215" title="215"><span class="co">#&gt; Variable excluded at Step 1 is - Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-216" title="216"><span class="co">#&gt; Variable excluded at Step 2 is - JobControl</span></a>
-<a class="sourceLine" id="cb10-217" title="217"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
-<a class="sourceLine" id="cb10-218" title="218"><span class="co">#&gt; Variable excluded at Step 4 is - Duration</span></a>
-<a class="sourceLine" id="cb10-219" title="219"><span class="co">#&gt; Variable excluded at Step 5 is - JobDemands</span></a>
-<a class="sourceLine" id="cb10-220" title="220"><span class="co">#&gt; Variable excluded at Step 6 is - SocialSupport</span></a>
-<a class="sourceLine" id="cb10-221" title="221"><span class="co">#&gt; Variable excluded at Step 7 is - Age</span></a>
-<a class="sourceLine" id="cb10-222" title="222"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
-<a class="sourceLine" id="cb10-223" title="223">  stab_res</a>
-<a class="sourceLine" id="cb10-224" title="224"><span class="co">#&gt; $bif</span></a>
-<a class="sourceLine" id="cb10-225" title="225"><span class="co">#&gt;         Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></a>
-<a class="sourceLine" id="cb10-226" title="226"><span class="co">#&gt; boot 1       1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-227" title="227"><span class="co">#&gt; boot 2       1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-228" title="228"><span class="co">#&gt; boot 3       0       0          0   1        0          0             0</span></a>
-<a class="sourceLine" id="cb10-229" title="229"><span class="co">#&gt; boot 4       1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-230" title="230"><span class="co">#&gt; boot 5       1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-231" title="231"><span class="co">#&gt; boot 6       0       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-232" title="232"><span class="co">#&gt; boot 7       1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-233" title="233"><span class="co">#&gt; boot 8       0       0          0   1        0          0             0</span></a>
-<a class="sourceLine" id="cb10-234" title="234"><span class="co">#&gt; boot 9       1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-235" title="235"><span class="co">#&gt; boot 10      0       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-236" title="236"><span class="co">#&gt; boot 11      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-237" title="237"><span class="co">#&gt; boot 12      0       0          0   1        0          0             0</span></a>
-<a class="sourceLine" id="cb10-238" title="238"><span class="co">#&gt; boot 13      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-239" title="239"><span class="co">#&gt; boot 14      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-240" title="240"><span class="co">#&gt; boot 15      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-241" title="241"><span class="co">#&gt; boot 16      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-242" title="242"><span class="co">#&gt; boot 17      0       0          0   1        0          0             0</span></a>
-<a class="sourceLine" id="cb10-243" title="243"><span class="co">#&gt; boot 18      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-244" title="244"><span class="co">#&gt; boot 19      0       0          0   0        0          0             1</span></a>
-<a class="sourceLine" id="cb10-245" title="245"><span class="co">#&gt; boot 20      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-246" title="246"><span class="co">#&gt;         factor(Satisfaction) Gender:JobControl</span></a>
-<a class="sourceLine" id="cb10-247" title="247"><span class="co">#&gt; boot 1                     0                 0</span></a>
-<a class="sourceLine" id="cb10-248" title="248"><span class="co">#&gt; boot 2                     0                 0</span></a>
-<a class="sourceLine" id="cb10-249" title="249"><span class="co">#&gt; boot 3                     0                 0</span></a>
-<a class="sourceLine" id="cb10-250" title="250"><span class="co">#&gt; boot 4                     0                 0</span></a>
-<a class="sourceLine" id="cb10-251" title="251"><span class="co">#&gt; boot 5                     0                 0</span></a>
-<a class="sourceLine" id="cb10-252" title="252"><span class="co">#&gt; boot 6                     0                 0</span></a>
-<a class="sourceLine" id="cb10-253" title="253"><span class="co">#&gt; boot 7                     0                 0</span></a>
-<a class="sourceLine" id="cb10-254" title="254"><span class="co">#&gt; boot 8                     1                 0</span></a>
-<a class="sourceLine" id="cb10-255" title="255"><span class="co">#&gt; boot 9                     0                 0</span></a>
-<a class="sourceLine" id="cb10-256" title="256"><span class="co">#&gt; boot 10                    0                 0</span></a>
-<a class="sourceLine" id="cb10-257" title="257"><span class="co">#&gt; boot 11                    0                 0</span></a>
-<a class="sourceLine" id="cb10-258" title="258"><span class="co">#&gt; boot 12                    0                 0</span></a>
-<a class="sourceLine" id="cb10-259" title="259"><span class="co">#&gt; boot 13                    0                 0</span></a>
-<a class="sourceLine" id="cb10-260" title="260"><span class="co">#&gt; boot 14                    0                 0</span></a>
-<a class="sourceLine" id="cb10-261" title="261"><span class="co">#&gt; boot 15                    0                 0</span></a>
-<a class="sourceLine" id="cb10-262" title="262"><span class="co">#&gt; boot 16                    0                 0</span></a>
-<a class="sourceLine" id="cb10-263" title="263"><span class="co">#&gt; boot 17                    0                 0</span></a>
-<a class="sourceLine" id="cb10-264" title="264"><span class="co">#&gt; boot 18                    0                 0</span></a>
-<a class="sourceLine" id="cb10-265" title="265"><span class="co">#&gt; boot 19                    1                 0</span></a>
-<a class="sourceLine" id="cb10-266" title="266"><span class="co">#&gt; boot 20                    0                 0</span></a>
-<a class="sourceLine" id="cb10-267" title="267"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-268" title="268"><span class="co">#&gt; $bif_total</span></a>
-<a class="sourceLine" id="cb10-269" title="269"><span class="co">#&gt;               Gender              Smoking           JobControl </span></a>
-<a class="sourceLine" id="cb10-270" title="270"><span class="co">#&gt;                   13                    0                    0 </span></a>
-<a class="sourceLine" id="cb10-271" title="271"><span class="co">#&gt;                  Age             Duration           JobDemands </span></a>
-<a class="sourceLine" id="cb10-272" title="272"><span class="co">#&gt;                    4                    0                    0 </span></a>
-<a class="sourceLine" id="cb10-273" title="273"><span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender:JobControl </span></a>
-<a class="sourceLine" id="cb10-274" title="274"><span class="co">#&gt;                    1                    2                    0 </span></a>
-<a class="sourceLine" id="cb10-275" title="275"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-276" title="276"><span class="co">#&gt; $bif_perc</span></a>
-<a class="sourceLine" id="cb10-277" title="277"><span class="co">#&gt;               Gender              Smoking           JobControl </span></a>
-<a class="sourceLine" id="cb10-278" title="278"><span class="co">#&gt;                   65                    0                    0 </span></a>
-<a class="sourceLine" id="cb10-279" title="279"><span class="co">#&gt;                  Age             Duration           JobDemands </span></a>
-<a class="sourceLine" id="cb10-280" title="280"><span class="co">#&gt;                   20                    0                    0 </span></a>
-<a class="sourceLine" id="cb10-281" title="281"><span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender:JobControl </span></a>
-<a class="sourceLine" id="cb10-282" title="282"><span class="co">#&gt;                    5                   10                    0 </span></a>
-<a class="sourceLine" id="cb10-283" title="283"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-284" title="284"><span class="co">#&gt; $model_stab</span></a>
-<a class="sourceLine" id="cb10-285" title="285"><span class="co">#&gt;   Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></a>
-<a class="sourceLine" id="cb10-286" title="286"><span class="co">#&gt; 1      1       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-287" title="287"><span class="co">#&gt; 2      0       0          0   1        0          0             0</span></a>
-<a class="sourceLine" id="cb10-288" title="288"><span class="co">#&gt; 3      0       0          0   0        0          0             0</span></a>
-<a class="sourceLine" id="cb10-289" title="289"><span class="co">#&gt; 4      0       0          0   0        0          0             1</span></a>
-<a class="sourceLine" id="cb10-290" title="290"><span class="co">#&gt; 5      0       0          0   1        0          0             0</span></a>
-<a class="sourceLine" id="cb10-291" title="291"><span class="co">#&gt;   factor(Satisfaction) Gender:JobControl freq bif_pat_perc</span></a>
-<a class="sourceLine" id="cb10-292" title="292"><span class="co">#&gt; 1                    0                 0   13           65</span></a>
-<a class="sourceLine" id="cb10-293" title="293"><span class="co">#&gt; 2                    0                 0    3           15</span></a>
-<a class="sourceLine" id="cb10-294" title="294"><span class="co">#&gt; 3                    0                 0    2           10</span></a>
-<a class="sourceLine" id="cb10-295" title="295"><span class="co">#&gt; 4                    1                 0    1            5</span></a>
-<a class="sourceLine" id="cb10-296" title="296"><span class="co">#&gt; 5                    1                 0    1            5</span></a>
+<a class="sourceLine" id="cb10-175" title="175"><span class="co">#&gt; Selection correctly terminated, </span></a>
+<a class="sourceLine" id="cb10-176" title="176"><span class="co">#&gt; Model is empty after last step</span></a>
+<a class="sourceLine" id="cb10-177" title="177"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-178" title="178"><span class="co">#&gt; Boot 15</span></a>
+<a class="sourceLine" id="cb10-179" title="179"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
+<a class="sourceLine" id="cb10-180" title="180"><span class="co">#&gt; Variable excluded at Step 2 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-181" title="181"><span class="co">#&gt; Variable excluded at Step 3 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-182" title="182"><span class="co">#&gt; Variable excluded at Step 4 is - Age</span></a>
+<a class="sourceLine" id="cb10-183" title="183"><span class="co">#&gt; Variable excluded at Step 5 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-184" title="184"><span class="co">#&gt; Variable excluded at Step 6 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-185" title="185"><span class="co">#&gt; Variable excluded at Step 7 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-186" title="186"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-187" title="187"><span class="co">#&gt; Variable excluded at Step 9 is - Gender</span></a>
+<a class="sourceLine" id="cb10-188" title="188"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-189" title="189"><span class="co">#&gt; Selection correctly terminated, </span></a>
+<a class="sourceLine" id="cb10-190" title="190"><span class="co">#&gt; Model is empty after last step</span></a>
+<a class="sourceLine" id="cb10-191" title="191"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-192" title="192"><span class="co">#&gt; Boot 16</span></a>
+<a class="sourceLine" id="cb10-193" title="193"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-194" title="194"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-195" title="195"><span class="co">#&gt; Variable excluded at Step 3 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-196" title="196"><span class="co">#&gt; Variable excluded at Step 4 is - Duration</span></a>
+<a class="sourceLine" id="cb10-197" title="197"><span class="co">#&gt; Variable excluded at Step 5 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-198" title="198"><span class="co">#&gt; Variable excluded at Step 6 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-199" title="199"><span class="co">#&gt; Variable excluded at Step 7 is - Gender</span></a>
+<a class="sourceLine" id="cb10-200" title="200"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-201" title="201"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-202" title="202"><span class="co">#&gt; Boot 17</span></a>
+<a class="sourceLine" id="cb10-203" title="203"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
+<a class="sourceLine" id="cb10-204" title="204"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-205" title="205"><span class="co">#&gt; Variable excluded at Step 3 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-206" title="206"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-207" title="207"><span class="co">#&gt; Variable excluded at Step 5 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-208" title="208"><span class="co">#&gt; Variable excluded at Step 6 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-209" title="209"><span class="co">#&gt; Variable excluded at Step 7 is - Gender</span></a>
+<a class="sourceLine" id="cb10-210" title="210"><span class="co">#&gt; Variable excluded at Step 8 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-211" title="211"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-212" title="212"><span class="co">#&gt; Boot 18</span></a>
+<a class="sourceLine" id="cb10-213" title="213"><span class="co">#&gt; Variable excluded at Step 1 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-214" title="214"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-215" title="215"><span class="co">#&gt; Variable excluded at Step 3 is - Duration</span></a>
+<a class="sourceLine" id="cb10-216" title="216"><span class="co">#&gt; Variable excluded at Step 4 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-217" title="217"><span class="co">#&gt; Variable excluded at Step 5 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-218" title="218"><span class="co">#&gt; Variable excluded at Step 6 is - Age</span></a>
+<a class="sourceLine" id="cb10-219" title="219"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-220" title="220"><span class="co">#&gt; Variable excluded at Step 8 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-221" title="221"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-222" title="222"><span class="co">#&gt; Boot 19</span></a>
+<a class="sourceLine" id="cb10-223" title="223"><span class="co">#&gt; Variable excluded at Step 1 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-224" title="224"><span class="co">#&gt; Variable excluded at Step 2 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-225" title="225"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-226" title="226"><span class="co">#&gt; Variable excluded at Step 4 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-227" title="227"><span class="co">#&gt; Variable excluded at Step 5 is - Age</span></a>
+<a class="sourceLine" id="cb10-228" title="228"><span class="co">#&gt; Variable excluded at Step 6 is - Duration</span></a>
+<a class="sourceLine" id="cb10-229" title="229"><span class="co">#&gt; Variable excluded at Step 7 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-230" title="230"><span class="co">#&gt; Variable excluded at Step 8 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-231" title="231"><span class="co">#&gt; Variable excluded at Step 9 is - Gender</span></a>
+<a class="sourceLine" id="cb10-232" title="232"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-233" title="233"><span class="co">#&gt; Selection correctly terminated, </span></a>
+<a class="sourceLine" id="cb10-234" title="234"><span class="co">#&gt; Model is empty after last step</span></a>
+<a class="sourceLine" id="cb10-235" title="235"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-236" title="236"><span class="co">#&gt; Boot 20</span></a>
+<a class="sourceLine" id="cb10-237" title="237"><span class="co">#&gt; Variable excluded at Step 1 is - Duration</span></a>
+<a class="sourceLine" id="cb10-238" title="238"><span class="co">#&gt; Variable excluded at Step 2 is - JobDemands</span></a>
+<a class="sourceLine" id="cb10-239" title="239"><span class="co">#&gt; Variable excluded at Step 3 is - Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-240" title="240"><span class="co">#&gt; Variable excluded at Step 4 is - JobControl</span></a>
+<a class="sourceLine" id="cb10-241" title="241"><span class="co">#&gt; Variable excluded at Step 5 is - SocialSupport</span></a>
+<a class="sourceLine" id="cb10-242" title="242"><span class="co">#&gt; Variable excluded at Step 6 is - Smoking</span></a>
+<a class="sourceLine" id="cb10-243" title="243"><span class="co">#&gt; Variable excluded at Step 7 is - factor(Satisfaction)</span></a>
+<a class="sourceLine" id="cb10-244" title="244"><span class="co">#&gt; Variable excluded at Step 8 is - Gender</span></a>
+<a class="sourceLine" id="cb10-245" title="245">  stab_res</a>
+<a class="sourceLine" id="cb10-246" title="246"><span class="co">#&gt; $bif</span></a>
+<a class="sourceLine" id="cb10-247" title="247"><span class="co">#&gt;         Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></a>
+<a class="sourceLine" id="cb10-248" title="248"><span class="co">#&gt; boot 1       1       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-249" title="249"><span class="co">#&gt; boot 2       0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-250" title="250"><span class="co">#&gt; boot 3       0       0          0   1        0          0             0</span></a>
+<a class="sourceLine" id="cb10-251" title="251"><span class="co">#&gt; boot 4       0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-252" title="252"><span class="co">#&gt; boot 5       1       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-253" title="253"><span class="co">#&gt; boot 6       0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-254" title="254"><span class="co">#&gt; boot 7       0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-255" title="255"><span class="co">#&gt; boot 8       0       0          0   1        0          0             0</span></a>
+<a class="sourceLine" id="cb10-256" title="256"><span class="co">#&gt; boot 9       1       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-257" title="257"><span class="co">#&gt; boot 10      1       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-258" title="258"><span class="co">#&gt; boot 11      0       0          0   1        0          0             0</span></a>
+<a class="sourceLine" id="cb10-259" title="259"><span class="co">#&gt; boot 12      1       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-260" title="260"><span class="co">#&gt; boot 13      0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-261" title="261"><span class="co">#&gt; boot 14      0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-262" title="262"><span class="co">#&gt; boot 15      0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-263" title="263"><span class="co">#&gt; boot 16      0       0          0   1        0          0             0</span></a>
+<a class="sourceLine" id="cb10-264" title="264"><span class="co">#&gt; boot 17      0       0          0   1        0          0             0</span></a>
+<a class="sourceLine" id="cb10-265" title="265"><span class="co">#&gt; boot 18      1       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-266" title="266"><span class="co">#&gt; boot 19      0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-267" title="267"><span class="co">#&gt; boot 20      0       0          0   1        0          0             0</span></a>
+<a class="sourceLine" id="cb10-268" title="268"><span class="co">#&gt;         factor(Satisfaction) Gender:JobControl</span></a>
+<a class="sourceLine" id="cb10-269" title="269"><span class="co">#&gt; boot 1                     0                 0</span></a>
+<a class="sourceLine" id="cb10-270" title="270"><span class="co">#&gt; boot 2                     0                 0</span></a>
+<a class="sourceLine" id="cb10-271" title="271"><span class="co">#&gt; boot 3                     0                 0</span></a>
+<a class="sourceLine" id="cb10-272" title="272"><span class="co">#&gt; boot 4                     0                 0</span></a>
+<a class="sourceLine" id="cb10-273" title="273"><span class="co">#&gt; boot 5                     0                 0</span></a>
+<a class="sourceLine" id="cb10-274" title="274"><span class="co">#&gt; boot 6                     0                 0</span></a>
+<a class="sourceLine" id="cb10-275" title="275"><span class="co">#&gt; boot 7                     1                 0</span></a>
+<a class="sourceLine" id="cb10-276" title="276"><span class="co">#&gt; boot 8                     0                 0</span></a>
+<a class="sourceLine" id="cb10-277" title="277"><span class="co">#&gt; boot 9                     0                 0</span></a>
+<a class="sourceLine" id="cb10-278" title="278"><span class="co">#&gt; boot 10                    0                 0</span></a>
+<a class="sourceLine" id="cb10-279" title="279"><span class="co">#&gt; boot 11                    0                 0</span></a>
+<a class="sourceLine" id="cb10-280" title="280"><span class="co">#&gt; boot 12                    0                 0</span></a>
+<a class="sourceLine" id="cb10-281" title="281"><span class="co">#&gt; boot 13                    0                 0</span></a>
+<a class="sourceLine" id="cb10-282" title="282"><span class="co">#&gt; boot 14                    0                 0</span></a>
+<a class="sourceLine" id="cb10-283" title="283"><span class="co">#&gt; boot 15                    0                 0</span></a>
+<a class="sourceLine" id="cb10-284" title="284"><span class="co">#&gt; boot 16                    0                 0</span></a>
+<a class="sourceLine" id="cb10-285" title="285"><span class="co">#&gt; boot 17                    0                 0</span></a>
+<a class="sourceLine" id="cb10-286" title="286"><span class="co">#&gt; boot 18                    0                 0</span></a>
+<a class="sourceLine" id="cb10-287" title="287"><span class="co">#&gt; boot 19                    0                 0</span></a>
+<a class="sourceLine" id="cb10-288" title="288"><span class="co">#&gt; boot 20                    0                 0</span></a>
+<a class="sourceLine" id="cb10-289" title="289"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-290" title="290"><span class="co">#&gt; $bif_total</span></a>
+<a class="sourceLine" id="cb10-291" title="291"><span class="co">#&gt;               Gender              Smoking           JobControl </span></a>
+<a class="sourceLine" id="cb10-292" title="292"><span class="co">#&gt;                    6                    0                    0 </span></a>
+<a class="sourceLine" id="cb10-293" title="293"><span class="co">#&gt;                  Age             Duration           JobDemands </span></a>
+<a class="sourceLine" id="cb10-294" title="294"><span class="co">#&gt;                    6                    0                    0 </span></a>
+<a class="sourceLine" id="cb10-295" title="295"><span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender:JobControl </span></a>
+<a class="sourceLine" id="cb10-296" title="296"><span class="co">#&gt;                    0                    1                    0 </span></a>
 <a class="sourceLine" id="cb10-297" title="297"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-298" title="298"><span class="co">#&gt; $call</span></a>
-<a class="sourceLine" id="cb10-299" title="299"><span class="co">#&gt; psfmi_stab(pobj = psfmi_res, boot_method = "single", nboot = 20)</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-298" title="298"><span class="co">#&gt; $bif_perc</span></a>
+<a class="sourceLine" id="cb10-299" title="299"><span class="co">#&gt;               Gender              Smoking           JobControl </span></a>
+<a class="sourceLine" id="cb10-300" title="300"><span class="co">#&gt;                   30                    0                    0 </span></a>
+<a class="sourceLine" id="cb10-301" title="301"><span class="co">#&gt;                  Age             Duration           JobDemands </span></a>
+<a class="sourceLine" id="cb10-302" title="302"><span class="co">#&gt;                   30                    0                    0 </span></a>
+<a class="sourceLine" id="cb10-303" title="303"><span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender:JobControl </span></a>
+<a class="sourceLine" id="cb10-304" title="304"><span class="co">#&gt;                    0                    5                    0 </span></a>
+<a class="sourceLine" id="cb10-305" title="305"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-306" title="306"><span class="co">#&gt; $model_stab</span></a>
+<a class="sourceLine" id="cb10-307" title="307"><span class="co">#&gt;   Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></a>
+<a class="sourceLine" id="cb10-308" title="308"><span class="co">#&gt; 1      0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-309" title="309"><span class="co">#&gt; 2      0       0          0   1        0          0             0</span></a>
+<a class="sourceLine" id="cb10-310" title="310"><span class="co">#&gt; 3      1       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-311" title="311"><span class="co">#&gt; 4      0       0          0   0        0          0             0</span></a>
+<a class="sourceLine" id="cb10-312" title="312"><span class="co">#&gt;   factor(Satisfaction) Gender:JobControl freq bif_pat_perc</span></a>
+<a class="sourceLine" id="cb10-313" title="313"><span class="co">#&gt; 1                    0                 0    7           35</span></a>
+<a class="sourceLine" id="cb10-314" title="314"><span class="co">#&gt; 2                    0                 0    6           30</span></a>
+<a class="sourceLine" id="cb10-315" title="315"><span class="co">#&gt; 3                    0                 0    6           30</span></a>
+<a class="sourceLine" id="cb10-316" title="316"><span class="co">#&gt; 4                    1                 0    1            5</span></a>
+<a class="sourceLine" id="cb10-317" title="317"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-318" title="318"><span class="co">#&gt; $call</span></a>
+<a class="sourceLine" id="cb10-319" title="319"><span class="co">#&gt; psfmi_stab(pobj = psfmi_res, boot_method = "single", nboot = 20)</span></a></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="stability-analysis-of-cox-regression-model" class="section level3">
@@ -1795,140 +1814,144 @@ is also available where two methods can be used to combine bootstrapping and mul
 <a class="sourceLine" id="cb11-14" title="14"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
 <a class="sourceLine" id="cb11-15" title="15"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb11-16" title="16"><span class="co">#&gt; Boot 2</span></a>
-<a class="sourceLine" id="cb11-17" title="17"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-18" title="18"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-19" title="19"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-20" title="20"><span class="co">#&gt; Boot 3</span></a>
-<a class="sourceLine" id="cb11-21" title="21"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
-<a class="sourceLine" id="cb11-22" title="22"><span class="co">#&gt; Variable excluded at Step 2 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-23" title="23"><span class="co">#&gt; Variable excluded at Step 3 is - Onset</span></a>
-<a class="sourceLine" id="cb11-24" title="24"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-25" title="25"><span class="co">#&gt; Boot 4</span></a>
-<a class="sourceLine" id="cb11-26" title="26"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-27" title="27"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-28" title="28"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-17" title="17"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-18" title="18"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
+<a class="sourceLine" id="cb11-19" title="19"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-20" title="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-21" title="21"><span class="co">#&gt; Boot 3</span></a>
+<a class="sourceLine" id="cb11-22" title="22"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-23" title="23"><span class="co">#&gt; Variable excluded at Step 2 is - Duration</span></a>
+<a class="sourceLine" id="cb11-24" title="24"><span class="co">#&gt; Variable excluded at Step 3 is - Onset</span></a>
+<a class="sourceLine" id="cb11-25" title="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-26" title="26"><span class="co">#&gt; Boot 4</span></a>
+<a class="sourceLine" id="cb11-27" title="27"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-28" title="28"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
 <a class="sourceLine" id="cb11-29" title="29"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb11-30" title="30"><span class="co">#&gt; Boot 5</span></a>
-<a class="sourceLine" id="cb11-31" title="31"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-32" title="32"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-33" title="33"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-34" title="34"><span class="co">#&gt; Boot 6</span></a>
-<a class="sourceLine" id="cb11-35" title="35"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-36" title="36"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-37" title="37"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-38" title="38"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-39" title="39"><span class="co">#&gt; Boot 7</span></a>
-<a class="sourceLine" id="cb11-40" title="40"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
-<a class="sourceLine" id="cb11-41" title="41"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
-<a class="sourceLine" id="cb11-42" title="42"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-43" title="43"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-44" title="44"><span class="co">#&gt; Boot 8</span></a>
-<a class="sourceLine" id="cb11-45" title="45"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
-<a class="sourceLine" id="cb11-46" title="46"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
-<a class="sourceLine" id="cb11-47" title="47"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-31" title="31"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-32" title="32"><span class="co">#&gt; Variable excluded at Step 2 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-33" title="33"><span class="co">#&gt; Variable excluded at Step 3 is - Onset</span></a>
+<a class="sourceLine" id="cb11-34" title="34"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-35" title="35"><span class="co">#&gt; Boot 6</span></a>
+<a class="sourceLine" id="cb11-36" title="36"><span class="co">#&gt; Variable excluded at Step 1 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-37" title="37"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
+<a class="sourceLine" id="cb11-38" title="38"><span class="co">#&gt; Variable excluded at Step 3 is - Previous</span></a>
+<a class="sourceLine" id="cb11-39" title="39"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-40" title="40"><span class="co">#&gt; Boot 7</span></a>
+<a class="sourceLine" id="cb11-41" title="41"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-42" title="42"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-43" title="43"><span class="co">#&gt; Variable excluded at Step 3 is - Duration</span></a>
+<a class="sourceLine" id="cb11-44" title="44"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-45" title="45"><span class="co">#&gt; Boot 8</span></a>
+<a class="sourceLine" id="cb11-46" title="46"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-47" title="47"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
 <a class="sourceLine" id="cb11-48" title="48"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb11-49" title="49"><span class="co">#&gt; Boot 9</span></a>
-<a class="sourceLine" id="cb11-50" title="50"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-51" title="51"><span class="co">#&gt; Variable excluded at Step 2 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-52" title="52"><span class="co">#&gt; Variable excluded at Step 3 is - Previous</span></a>
+<a class="sourceLine" id="cb11-50" title="50"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-51" title="51"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
+<a class="sourceLine" id="cb11-52" title="52"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
 <a class="sourceLine" id="cb11-53" title="53"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb11-54" title="54"><span class="co">#&gt; Boot 10</span></a>
-<a class="sourceLine" id="cb11-55" title="55"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
-<a class="sourceLine" id="cb11-56" title="56"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
-<a class="sourceLine" id="cb11-57" title="57"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-58" title="58"><span class="co">#&gt; Boot 11</span></a>
-<a class="sourceLine" id="cb11-59" title="59"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-60" title="60"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-61" title="61"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-62" title="62"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-63" title="63"><span class="co">#&gt; Boot 12</span></a>
-<a class="sourceLine" id="cb11-64" title="64"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-65" title="65"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-66" title="66"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-67" title="67"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-68" title="68"><span class="co">#&gt; Boot 13</span></a>
-<a class="sourceLine" id="cb11-69" title="69"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-70" title="70"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-71" title="71"><span class="co">#&gt; Variable excluded at Step 3 is - Duration</span></a>
-<a class="sourceLine" id="cb11-72" title="72"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-73" title="73"><span class="co">#&gt; Boot 14</span></a>
-<a class="sourceLine" id="cb11-74" title="74"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
-<a class="sourceLine" id="cb11-75" title="75"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
-<a class="sourceLine" id="cb11-76" title="76"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-77" title="77"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-78" title="78"><span class="co">#&gt; Boot 15</span></a>
-<a class="sourceLine" id="cb11-79" title="79"><span class="co">#&gt; Variable excluded at Step 1 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-80" title="80"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-81" title="81"><span class="co">#&gt; Variable excluded at Step 3 is - Onset</span></a>
-<a class="sourceLine" id="cb11-82" title="82"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-83" title="83"><span class="co">#&gt; Boot 16</span></a>
-<a class="sourceLine" id="cb11-84" title="84"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-85" title="85"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-86" title="86"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-87" title="87"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-88" title="88"><span class="co">#&gt; Boot 17</span></a>
-<a class="sourceLine" id="cb11-89" title="89"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-90" title="90"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
-<a class="sourceLine" id="cb11-91" title="91"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-92" title="92"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-93" title="93"><span class="co">#&gt; Boot 18</span></a>
-<a class="sourceLine" id="cb11-94" title="94"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-95" title="95"><span class="co">#&gt; Variable excluded at Step 2 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-96" title="96"><span class="co">#&gt; Variable excluded at Step 3 is - Previous</span></a>
-<a class="sourceLine" id="cb11-97" title="97"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-98" title="98"><span class="co">#&gt; Boot 19</span></a>
-<a class="sourceLine" id="cb11-99" title="99"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
-<a class="sourceLine" id="cb11-100" title="100"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
-<a class="sourceLine" id="cb11-101" title="101"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-102" title="102"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-103" title="103"><span class="co">#&gt; Boot 20</span></a>
-<a class="sourceLine" id="cb11-104" title="104"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
-<a class="sourceLine" id="cb11-105" title="105"><span class="co">#&gt; Variable excluded at Step 2 is - Radiation</span></a>
-<a class="sourceLine" id="cb11-106" title="106"><span class="co">#&gt; Variable excluded at Step 3 is - Previous</span></a>
-<a class="sourceLine" id="cb11-107" title="107">  stab_res</a>
-<a class="sourceLine" id="cb11-108" title="108"><span class="co">#&gt; $bif</span></a>
-<a class="sourceLine" id="cb11-109" title="109"><span class="co">#&gt;         Duration Previous Radiation Onset rcs(Tampascale,3)</span></a>
-<a class="sourceLine" id="cb11-110" title="110"><span class="co">#&gt; boot 1         1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-111" title="111"><span class="co">#&gt; boot 2         1        0         1     0                 1</span></a>
-<a class="sourceLine" id="cb11-112" title="112"><span class="co">#&gt; boot 3         1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-113" title="113"><span class="co">#&gt; boot 4         1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-114" title="114"><span class="co">#&gt; boot 5         1        0         1     0                 1</span></a>
-<a class="sourceLine" id="cb11-115" title="115"><span class="co">#&gt; boot 6         1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-116" title="116"><span class="co">#&gt; boot 7         1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-117" title="117"><span class="co">#&gt; boot 8         1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-118" title="118"><span class="co">#&gt; boot 9         1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-119" title="119"><span class="co">#&gt; boot 10        1        0         1     0                 1</span></a>
-<a class="sourceLine" id="cb11-120" title="120"><span class="co">#&gt; boot 11        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-121" title="121"><span class="co">#&gt; boot 12        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-122" title="122"><span class="co">#&gt; boot 13        0        0         1     0                 1</span></a>
-<a class="sourceLine" id="cb11-123" title="123"><span class="co">#&gt; boot 14        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-124" title="124"><span class="co">#&gt; boot 15        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-125" title="125"><span class="co">#&gt; boot 16        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-126" title="126"><span class="co">#&gt; boot 17        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-127" title="127"><span class="co">#&gt; boot 18        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-128" title="128"><span class="co">#&gt; boot 19        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-129" title="129"><span class="co">#&gt; boot 20        1        0         0     0                 1</span></a>
-<a class="sourceLine" id="cb11-130" title="130"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-131" title="131"><span class="co">#&gt; $bif_total</span></a>
-<a class="sourceLine" id="cb11-132" title="132"><span class="co">#&gt;          Duration          Previous         Radiation             Onset </span></a>
-<a class="sourceLine" id="cb11-133" title="133"><span class="co">#&gt;                19                 0                 4                 0 </span></a>
-<a class="sourceLine" id="cb11-134" title="134"><span class="co">#&gt; rcs(Tampascale,3) </span></a>
-<a class="sourceLine" id="cb11-135" title="135"><span class="co">#&gt;                20 </span></a>
-<a class="sourceLine" id="cb11-136" title="136"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-137" title="137"><span class="co">#&gt; $bif_perc</span></a>
-<a class="sourceLine" id="cb11-138" title="138"><span class="co">#&gt;          Duration          Previous         Radiation             Onset </span></a>
-<a class="sourceLine" id="cb11-139" title="139"><span class="co">#&gt;                95                 0                20                 0 </span></a>
-<a class="sourceLine" id="cb11-140" title="140"><span class="co">#&gt; rcs(Tampascale,3) </span></a>
-<a class="sourceLine" id="cb11-141" title="141"><span class="co">#&gt;               100 </span></a>
-<a class="sourceLine" id="cb11-142" title="142"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-143" title="143"><span class="co">#&gt; $model_stab</span></a>
-<a class="sourceLine" id="cb11-144" title="144"><span class="co">#&gt;   Duration Previous Radiation Onset rcs(Tampascale,3) freq bif_pat_perc</span></a>
-<a class="sourceLine" id="cb11-145" title="145"><span class="co">#&gt; 1        1        0         0     0                 1   16           80</span></a>
-<a class="sourceLine" id="cb11-146" title="146"><span class="co">#&gt; 2        1        0         1     0                 1    3           15</span></a>
-<a class="sourceLine" id="cb11-147" title="147"><span class="co">#&gt; 3        0        0         1     0                 1    1            5</span></a>
-<a class="sourceLine" id="cb11-148" title="148"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb11-149" title="149"><span class="co">#&gt; $call</span></a>
-<a class="sourceLine" id="cb11-150" title="150"><span class="co">#&gt; psfmi_stab(pobj = psfmi_res, boot_method = "single", nboot = 20)</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-55" title="55"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-56" title="56"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-57" title="57"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-58" title="58"><span class="co">#&gt; Variable excluded at Step 4 is - rcs(Tampascale,3)</span></a>
+<a class="sourceLine" id="cb11-59" title="59"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-60" title="60"><span class="co">#&gt; Boot 11</span></a>
+<a class="sourceLine" id="cb11-61" title="61"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-62" title="62"><span class="co">#&gt; Variable excluded at Step 2 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-63" title="63"><span class="co">#&gt; Variable excluded at Step 3 is - Onset</span></a>
+<a class="sourceLine" id="cb11-64" title="64"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-65" title="65"><span class="co">#&gt; Boot 12</span></a>
+<a class="sourceLine" id="cb11-66" title="66"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-67" title="67"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
+<a class="sourceLine" id="cb11-68" title="68"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-69" title="69"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-70" title="70"><span class="co">#&gt; Boot 13</span></a>
+<a class="sourceLine" id="cb11-71" title="71"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-72" title="72"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-73" title="73"><span class="co">#&gt; Variable excluded at Step 3 is - Duration</span></a>
+<a class="sourceLine" id="cb11-74" title="74"><span class="co">#&gt; Variable excluded at Step 4 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-75" title="75"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-76" title="76"><span class="co">#&gt; Boot 14</span></a>
+<a class="sourceLine" id="cb11-77" title="77"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-78" title="78"><span class="co">#&gt; Variable excluded at Step 2 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-79" title="79"><span class="co">#&gt; Variable excluded at Step 3 is - Duration</span></a>
+<a class="sourceLine" id="cb11-80" title="80"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-81" title="81"><span class="co">#&gt; Boot 15</span></a>
+<a class="sourceLine" id="cb11-82" title="82"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-83" title="83"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-84" title="84"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-85" title="85"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-86" title="86"><span class="co">#&gt; Boot 16</span></a>
+<a class="sourceLine" id="cb11-87" title="87"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-88" title="88"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-89" title="89"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-90" title="90"><span class="co">#&gt; Boot 17</span></a>
+<a class="sourceLine" id="cb11-91" title="91"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-92" title="92"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-93" title="93"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-94" title="94"><span class="co">#&gt; Boot 18</span></a>
+<a class="sourceLine" id="cb11-95" title="95"><span class="co">#&gt; Variable excluded at Step 1 is - Previous</span></a>
+<a class="sourceLine" id="cb11-96" title="96"><span class="co">#&gt; Variable excluded at Step 2 is - Onset</span></a>
+<a class="sourceLine" id="cb11-97" title="97"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-98" title="98"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-99" title="99"><span class="co">#&gt; Boot 19</span></a>
+<a class="sourceLine" id="cb11-100" title="100"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-101" title="101"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-102" title="102"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-103" title="103"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-104" title="104"><span class="co">#&gt; Boot 20</span></a>
+<a class="sourceLine" id="cb11-105" title="105"><span class="co">#&gt; Variable excluded at Step 1 is - Onset</span></a>
+<a class="sourceLine" id="cb11-106" title="106"><span class="co">#&gt; Variable excluded at Step 2 is - Previous</span></a>
+<a class="sourceLine" id="cb11-107" title="107"><span class="co">#&gt; Variable excluded at Step 3 is - Radiation</span></a>
+<a class="sourceLine" id="cb11-108" title="108">  stab_res</a>
+<a class="sourceLine" id="cb11-109" title="109"><span class="co">#&gt; $bif</span></a>
+<a class="sourceLine" id="cb11-110" title="110"><span class="co">#&gt;         Duration Previous Radiation Onset rcs(Tampascale,3)</span></a>
+<a class="sourceLine" id="cb11-111" title="111"><span class="co">#&gt; boot 1         1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-112" title="112"><span class="co">#&gt; boot 2         1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-113" title="113"><span class="co">#&gt; boot 3         0        0         1     0                 1</span></a>
+<a class="sourceLine" id="cb11-114" title="114"><span class="co">#&gt; boot 4         1        0         1     0                 1</span></a>
+<a class="sourceLine" id="cb11-115" title="115"><span class="co">#&gt; boot 5         1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-116" title="116"><span class="co">#&gt; boot 6         1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-117" title="117"><span class="co">#&gt; boot 7         0        0         1     0                 1</span></a>
+<a class="sourceLine" id="cb11-118" title="118"><span class="co">#&gt; boot 8         1        0         1     0                 1</span></a>
+<a class="sourceLine" id="cb11-119" title="119"><span class="co">#&gt; boot 9         1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-120" title="120"><span class="co">#&gt; boot 10        1        0         0     0                 0</span></a>
+<a class="sourceLine" id="cb11-121" title="121"><span class="co">#&gt; boot 11        1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-122" title="122"><span class="co">#&gt; boot 12        1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-123" title="123"><span class="co">#&gt; boot 13        0        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-124" title="124"><span class="co">#&gt; boot 14        0        0         0     1                 1</span></a>
+<a class="sourceLine" id="cb11-125" title="125"><span class="co">#&gt; boot 15        1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-126" title="126"><span class="co">#&gt; boot 16        1        0         1     0                 1</span></a>
+<a class="sourceLine" id="cb11-127" title="127"><span class="co">#&gt; boot 17        1        0         1     0                 1</span></a>
+<a class="sourceLine" id="cb11-128" title="128"><span class="co">#&gt; boot 18        1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-129" title="129"><span class="co">#&gt; boot 19        1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-130" title="130"><span class="co">#&gt; boot 20        1        0         0     0                 1</span></a>
+<a class="sourceLine" id="cb11-131" title="131"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-132" title="132"><span class="co">#&gt; $bif_total</span></a>
+<a class="sourceLine" id="cb11-133" title="133"><span class="co">#&gt;          Duration          Previous         Radiation             Onset </span></a>
+<a class="sourceLine" id="cb11-134" title="134"><span class="co">#&gt;                16                 0                 6                 1 </span></a>
+<a class="sourceLine" id="cb11-135" title="135"><span class="co">#&gt; rcs(Tampascale,3) </span></a>
+<a class="sourceLine" id="cb11-136" title="136"><span class="co">#&gt;                19 </span></a>
+<a class="sourceLine" id="cb11-137" title="137"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-138" title="138"><span class="co">#&gt; $bif_perc</span></a>
+<a class="sourceLine" id="cb11-139" title="139"><span class="co">#&gt;          Duration          Previous         Radiation             Onset </span></a>
+<a class="sourceLine" id="cb11-140" title="140"><span class="co">#&gt;                80                 0                30                 5 </span></a>
+<a class="sourceLine" id="cb11-141" title="141"><span class="co">#&gt; rcs(Tampascale,3) </span></a>
+<a class="sourceLine" id="cb11-142" title="142"><span class="co">#&gt;                95 </span></a>
+<a class="sourceLine" id="cb11-143" title="143"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-144" title="144"><span class="co">#&gt; $model_stab</span></a>
+<a class="sourceLine" id="cb11-145" title="145"><span class="co">#&gt;   Duration Previous Radiation Onset rcs(Tampascale,3) freq bif_pat_perc</span></a>
+<a class="sourceLine" id="cb11-146" title="146"><span class="co">#&gt; 1        1        0         0     0                 1   11           55</span></a>
+<a class="sourceLine" id="cb11-147" title="147"><span class="co">#&gt; 2        1        0         1     0                 1    4           20</span></a>
+<a class="sourceLine" id="cb11-148" title="148"><span class="co">#&gt; 3        0        0         1     0                 1    2           10</span></a>
+<a class="sourceLine" id="cb11-149" title="149"><span class="co">#&gt; 4        0        0         0     0                 1    1            5</span></a>
+<a class="sourceLine" id="cb11-150" title="150"><span class="co">#&gt; 5        0        0         0     1                 1    1            5</span></a>
+<a class="sourceLine" id="cb11-151" title="151"><span class="co">#&gt; 6        1        0         0     0                 0    1            5</span></a>
+<a class="sourceLine" id="cb11-152" title="152"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb11-153" title="153"><span class="co">#&gt; $call</span></a>
+<a class="sourceLine" id="cb11-154" title="154"><span class="co">#&gt; psfmi_stab(pobj = psfmi_res, boot_method = "single", nboot = 20)</span></a></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>

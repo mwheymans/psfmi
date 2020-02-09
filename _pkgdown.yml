@@ -1,1 +1,10 @@
-destination: docs
+pandoc: 2.7.1
+pkgdown: 1.4.1.9000
+pkgdown_sha: ~
+title: psfmi
+url: https://mwheymans.github.io/psfmi/
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: UA-127301719-2
+

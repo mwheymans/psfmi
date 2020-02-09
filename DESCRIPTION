@@ -25,7 +25,8 @@ Imports:
 Title: Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets
 Version: 0.2.0
 Authors@R: c(
-  person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut")),
+  person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut"),
+  comment = c(ORCID = "0000-0002-3889-0921")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
 Description:
 	Provides functions to apply pooling or backward selection 
