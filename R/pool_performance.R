@@ -16,8 +16,8 @@
 #' @param plot.indiv If TRUE calibration plots for each separate imputed dataset 
 #'   are generated, otherwise all calibration plots are plotted in one figure.       
 #' @param groups_cal A numerical scalar. Number of groups used on the calibration plot. 
-#'  Default is 10. If the range of predicted probabilities is too low 5 groups can be
-#'  chosen. 
+#'  Default is 10. If the range of predicted probabilities is low, less than 10 groups 
+#'  can be chosen. 
 #'
 #'@examples 
 #'  pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 
@@ -47,10 +47,10 @@ pool_performance <- function(data, nimp, impvar, Outcome, predictors,
 
     if(cal.plot){
     # Group predicted probabilities
-    if(groups_cal == 10) group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
-            c(seq(0, 1, 0.1))))
-    if(groups_cal == 5) group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
-            c(seq(0, 1, 0.2))))
+    if(groups_cal ==0) stop("\n", "Number of groups on calibration curve too low", "\n")
+    
+      group.dec <- cut(pred.i[[i]], quantile(pred.i[[i]],
+                                         c(seq(0, 1, 1 / groups_cal))))
 
     pred.group[[i]] <- tapply(pred.i[[i]], group.dec, mean)
     # Observed probabilities
