@@ -37,8 +37,8 @@ Can be used in combination with int_val = FALSE.}
 are generated, otherwise all calibration plots are plotted in one figure.}
 
 \item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot. 
-Default is 10. If the range of predicted probabilities is too low 5 groups can be
-chosen.}
+Default is 10. If the range of predicted probabilities is low, less than 10 groups 
+can be chosen.}
 }
 \description{
 \code{pool_performance} Pooling performance measures
