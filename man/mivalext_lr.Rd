@@ -16,7 +16,8 @@ mivalext_lr(
   cal.plot = FALSE,
   plot.indiv = FALSE,
   val.check = FALSE,
-  g = 10
+  g = 10,
+  groups_cal = 10
 )
 }
 \arguments{
@@ -54,6 +55,10 @@ with coefficient values fitted in the order as used under lp.orig.}
 
 \item{g}{A numerical scalar. Number of groups for the Hosmer and
 Lemeshow test. Default is 10.}
+
+\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot. 
+Default is 10. If the range of predicted probabilities is low, less than 10 groups 
+can be chosen.}
 }
 \value{
 A \code{mivalext_lr} object from which the following objects 
@@ -61,7 +66,7 @@ A \code{mivalext_lr} object from which the following objects
  as \code{R2 (fixed)} and \code{R2 (calibr)}, Hosmer and Lemeshow test as \code{HL_test}, 
  coefficients pooled as \code{coef_pooled}, linear predictor pooled as \code{LP_pooled ext}, 
  and \code{Outcome}, \code{nimp}, \code{impvar}, \code{val.check}, 
- \code{g} and \code{coef.check}.
+ \code{g}, \code{coef.check} and \code{groups_cal}.
 }
 \description{
 \code{mivalext_lr} External validation of logistic prediction models
@@ -81,21 +86,17 @@ The following information of the externally validated model is provided:
  the external dataset (in that case you may report a R2 of zero).
 }
 \examples{
-mivalext_lr(data.val=lbpmilr, nimp=10, impvar="Impnr", Outcome="Chronic",
-predictors=c("Gender", "factor(Carrying)", "Function", "Tampascale",  "Age"),
-lp.orig=c(-9.2, -0.34, 0.92, 1.5, 0.5, 0.26, -0.02),
-cal.plot=TRUE, plot.indiv=TRUE, val.check = TRUE)
 
 mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
 predictors=c("Gender", "factor(Carrying)", "Function", "Tampascale", "Age"),
-lp.orig=c(-9.2, -0.34, 0.92, 1.1, -0.05, 0.26, -0.02),
+lp.orig=c(-10, -0.35, 1.00, 1.00, -0.04, 0.26, -0.01),
 cal.plot=TRUE, plot.indiv=TRUE, val.check = FALSE)
 
 }
 \references{
 F. Harrell. Regression Modeling Strategies. With Applications to
- Linear Models, Logistic and Ordinal Regression, and Survival Analysis. Springer,
- New York, NY, 2015.
+ Linear Models, Logistic and Ordinal Regression, and Survival Analysis. 2nd Edition.
+ Springer, New York, NY, 2015.
 
 Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman &
  Hall/CRC Interdisciplinary Statistics. Boca Raton.
