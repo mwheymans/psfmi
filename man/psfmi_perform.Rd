@@ -2,116 +2,140 @@
 % Please edit documentation in R/psfmi_perform.R
 \name{psfmi_perform}
 \alias{psfmi_perform}
-\title{Evaluate performance of logistic regression models in Multiply Imputed datasets}
+\title{Evaluate model performance of logistic prediction models in Multiply Imputed datasets}
 \usage{
 psfmi_perform(
   pobj,
+  val_method = NULL,
   data_orig = NULL,
+  int_val = TRUE,
   nboot = 10,
-  int_val = FALSE,
-  method = NULL,
-  nimp_boot_MI = NULL,
+  folds = 3,
+  nimp_cv = 5,
+  nimp_mice = 5,
   p.crit = 1,
-  mice_method = NULL,
-  mice_niter = 10,
-  mice_seed = NA,
-  predictorMatrix = NULL,
+  BW = FALSE,
+  direction = NULL,
+  anova_test = "LRT",
+  cv_naive_appt = FALSE,
   cal.plot = FALSE,
   plot.indiv = FALSE,
-  groups_cal = 10
+  groups_cal = 10,
+  miceImp,
+  ...
 )
 }
 \arguments{
-\item{pobj}{An object of class \code{smodsmi} (selected models in multiply imputed datasets), 
-produced by a previous call to \code{psfmi_lr}.}
+\item{pobj}{An object of class \code{pmods} (pooled models), produced by a previous
+call to \code{psfmi_lr}.}
 
-\item{data_orig}{dataframe of original dataset that contains missing data for method boot_MI}
+\item{val_method}{Method for internal validation. MI_boot for first Multiple Imputation and
+than bootstrapping in each imputed dataset and boot_MI for first bootstrapping and than
+multiple imputation in each bootstrap sample, and cv_MI, cv_MI_RR and
+MI_cv_naive for the combinations of cross-validation and multiple imputation.
+To use cv_MI, cv_MI_RR and boot_MI, data_orig has to be specified. See details for more information.}
 
-\item{nboot}{The number of bootstrap resamples, default is 10.}
+\item{data_orig}{dataframe of original dataset that contains missing data for methods
+cv_MI, cv_MI_RR and boot_MI.}
 
-\item{int_val}{If TRUE internal validation is conducted in multiply imputed datasets. 
-See \code{method} for methods that can be used.}
+\item{int_val}{If TRUE internal validation is conducted using bootstrapping or cross-validation.
+Default is TRUE. If FALSE only apparent performance measures are calculated.}
 
-\item{method}{Methods for internal validation in multiply imputed datasets.
-Choose MI_boot for bootstrapping in each imputed dataset and boot_MI for multiple 
-imputation in each bootstrap sample. To use the second method data_orig has to be specified.
-The first method is faster. See details for more information.}
+\item{nboot}{The number of bootstrap resamples, default is 10. Used for methods boot_MI and MI_boot.}
 
-\item{nimp_boot_MI}{Numerical scalar. Number of imputed datasets for method boot_MI.
-When not defined, the number of multiply imputed datasets is used of the  
+\item{folds}{The number of folds, default is 3. Used for methods cv_MI, cv_MI_RR and MI_cv_naive.}
+
+\item{nimp_cv}{Numerical scalar. Number of (multiple) imputation runs for method cv_MI.}
+
+\item{nimp_mice}{Numerical scalar. Number of imputed datasets for method cv_MI_RR and boot_MI.
+When not defined, the number of multiply imputed datasets is used of the
 previous call to the function \code{psfmi_lr}.}
 
-\item{p.crit}{A numerical scalar. P-value selection criterium used for backward selection
-during internal validation. When set at 1, pooling and internal validation is done without 
+\item{p.crit}{A numerical scalar. P-value selection criterium used for backward or forward
+selection during validation. When set at 1, pooling and internal validation is done without
 backward selection.}
 
-\item{mice_method}{The Multiple Imputation method used for each predictor with missing values. 
-For Multiple Imputation the \code{mice} package is used. See that package for more information.}
+\item{BW}{Only used for methods cv_MI, cv_MI_RR and MI_cv_naive. If TRUE backward selection is
+conducted within cross-validation. Default is FALSE.}
 
-\item{mice_niter}{Numerical scalar. Default is 10. The number of iterations in Multiple Imputation. 
-See the \code{mice} package for more information.}
+\item{direction}{Can be used together with val_methods boot_MI and MI_boot. The direction of
+predictor selection, "BW" is for backward selection and "FW" for forward selection.}
 
-\item{mice_seed}{Numerical scalar. Default is random number generator initializeb by computer 
-via set.seed().}
+\item{anova_test}{Test statistic used for backward selection with method cv_MI and MI_cv_naive.
+Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible.}
 
-\item{predictorMatrix}{A numeric matrix of nrow(data) rows and ncol(data) columns, containing 0/1 
-data specifying the imputation models used to impute the predictors with missing data. Default 
-is that each variable is used to impute other variables. See the \code{mice} package 
-for more information.}
+\item{cv_naive_appt}{Can be used in combination with val_method MI_cv_naive. Default is TRUE for
+showing the cross-validation apparent (train) and test results. Set to FALSE to only give test results.}
 
 \item{cal.plot}{If TRUE a calibration plot is generated. Default is FALSE. Can be used in combination
 with int_val = FALSE.}
 
-\item{plot.indiv}{If TRUE calibration plots for each separate imputed dataset are generated, 
+\item{plot.indiv}{If TRUE calibration plots for each separate imputed dataset are generated,
 otherwise all calibration plots are plotted in one figure.}
 
-\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot. 
-Default is 10. If the range of predicted probabilities is too low 5 groups can be
+\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot.
+Default is 10. If the range of predicted probabilities is too low, less groups can be
 chosen.}
+
+\item{miceImp}{Wrapper function around the \code{mice} function.}
+
+\item{...}{Arguments as predictorMatrix, seed, maxit, etc that can be adjusted for
+the \code{mice} function. To be used in combination with validation methods cv_MI,
+cv_MI_RR and MI_boot. For method cv_MI the number of imputed datasets is fixed at 1 and cannot
+be changed.}
 }
 \value{
-A \code{psfmi_perform} object from which the following objects can be extracted: \code{res_boot}, 
- result of pooled performance (in multiply imputed datasets) at each bootstrap step of ROC app (pooled 
- ROC), ROC test (pooled ROC after bootstrap model is applied in original multiply imputed datasets), 
- same for R2 app (Nagelkerke's R2), R2 test, Brier app and Brier test. Information is also provided 
- about testing the Calibration slope at each bootstrap step as interc test and Slope test. 
+A \code{psfmi_perform} object from which the following objects can be extracted: \code{res_boot},
+ result of pooled performance (in multiply imputed datasets) at each bootstrap step of ROC app (pooled
+ ROC), ROC test (pooled ROC after bootstrap model is applied in original multiply imputed datasets),
+ same for R2 app (Nagelkerke's R2), R2 test, Scaled Brier app and Scaled Brier test. Information is also provided
+ about testing the Calibration slope at each bootstrap step as interc test and Slope test.
  The performance measures are pooled by a call to the function \code{pool_performance}. Another
- object that can be extracted is \code{intval}, with information of the AUC, R2, Brier score and 
- Calibration slope averaged over the bootstrap samples, in terms of: Orig (original datasets), 
+ object that can be extracted is \code{intval}, with information of the AUC, R2, Scaled Brier score and
+ Calibration slope averaged over the bootstrap samples, in terms of: Orig (original datasets),
  Apparent (models applied in bootstrap samples), Test (bootstrap models are applied in original datasets),
  Optimism (difference between apparent and test) and Corrected (original corrected for optimism).
 }
 \description{
 \code{psfmi_perform} Evaluate Performance of logistic regression models selected with
- the \code{psfmi_lr} function of the \code{psfmi} package.
+ the \code{psfmi_lr} function of the \code{psfmi} package by using cross-validation
+ or bootstrapping.
 }
 \details{
-For internal validation two methods can be used, MI_boot and boot_MI. MI_boot draws
- for each bootstrap step the same cases in all imputed datasets. With boot_MI first bootstrap samples
- are drawn from the original dataset with missing values and than multiple imputation is
- applied. For multiple imputation the \code{mice} function from the \code{mice} package is used. 
- It is recommended to use a minumum of 100 bootstrap samples, which may take some time. The method
- boot_MI is more time consuming than MI_boot.
+For internal validation five methods can be used, cv_MI, cv_MI_RR, MI_cv_naive,
+ MI_boot and boot_MI. Method cv_MI uses imputation within each cross-validation fold definition.
+ By repeating this in several imputation runs, multiply imputed datasets are generated. Method
+ cv_MI_RR uses multiple imputation within the cross-validation definition. MI_cv_naive, applies
+ cross-validation within each imputed dataset. MI_boot draws for each bootstrap step the same
+ cases in all imputed datasets. With boot_MI first bootstrap samples are drawn from the original
+ dataset with missing values and than multiple imputation is applied. For multiple imputation
+ the \code{mice} function from the \code{mice} package is used. It is recommended to use a minumum
+ of 100 imputation runs for method cv_MI or 100 bootstrap samples for method boot_MI or MI_boot.
+ Methods cv_MI, cv_MI_RR and MI_cv_naive can be combined with backward selection during
+ cross-validation and with methods boot_MI and MI_boot, backward and forward selection can
+ be used. For methods cv_MI and cv_MI_RR the outcome in the original dataset has to be complete.
 }
 \examples{
- res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic", 
-   predictors=c("Gender", "Pain","Tampascale","Smoking","Function", "Radiation", 
-   "Age"), p.crit = 1, method="D1")
- 
- res_val <- psfmi_perform(res_psfmi, int_val = FALSE, p.crit=1, cal.plot=TRUE, 
-   plot.indiv=FALSE)
-   res_val  
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+           factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+           nimp=5, impvar="Impnr", method="D1")
+pool_lr$RR_model
 
- \dontrun{  
+res_perf <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds=3,
+            nimp_cv = 2, p.crit=0.05, BW=TRUE, anova_test = "LRT",
+            miceImp = miceImp, printFlag = FALSE)
+res_perf
+
+\dontrun{
  set.seed(200)
- res_val <- psfmi_perform(res_psfmi, int_val = TRUE, p.crit=0.05, nboot = 10, 
-  method = "MI_boot", cal.plot=FALSE, plot.indiv=FALSE)
- res_val$intval
+  res_val <- psfmi_perform(pobj, val_method = "boot_MI", data_orig = lbp_orig, nboot = 5,
+  p.crit=0.05, BW=TRUE, miceImp = miceImp, nimp_mice = 5, printFlag = FALSE, direction = "FW")
+  res_val$stats_val
 }
- 
+
 }
 \references{
-Heymans MW, van Buuren S, Knol DL, van Mechelen W, de Vet HC. Variable selection under 
+Heymans MW, van Buuren S, Knol DL, van Mechelen W, de Vet HC. Variable selection under
  multiple imputation using the bootstrap in a prognostic study. BMC Med Res Methodol. 2007(13);7:33.
 
 F. Harrell. Regression Modeling Strategies. With Applications to
@@ -125,15 +149,18 @@ Harel, O. (2009). The estimation of R2 and adjusted R2 in
  incomplete data sets using multiple imputation. Journal of Applied Statistics,
  36(10), 1109-1118.
 
-Musoro JZ, Zwinderman AH, Puhan MA, ter Riet G, Geskus RB. Validation of prediction 
+Musoro JZ, Zwinderman AH, Puhan MA, ter Riet G, Geskus RB. Validation of prediction
  models based on lasso regression with multiply imputed data. BMC Med Res Methodol. 2014;14:116.
 
-Wahl S, Boulesteix AL, Zierer A, Thorand B, van de Wiel MA. Assessment of 
- predictive performance in incomplete data by combining internal validation and multiple 
+Wahl S, Boulesteix AL, Zierer A, Thorand B, van de Wiel MA. Assessment of
+ predictive performance in incomplete data by combining internal validation and multiple
  imputation. BMC Med Res Methodol. 2016;16(1):144.
 
-EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach 
+EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.
 
 http://missingdatasolutions.rbind.io/
+}
+\author{
+Martijn Heymans, 2020
 }

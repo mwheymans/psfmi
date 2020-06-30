@@ -4,16 +4,32 @@
 \alias{psfmi_stab}
 \title{Function to evaluate bootstrap predictor and model stability in multiply imputed datasets.}
 \usage{
-psfmi_stab(pobj, boot_method = NULL, nboot = 20)
+psfmi_stab(
+  pobj,
+  boot_method = NULL,
+  nboot = 20,
+  p.crit = 0.05,
+  start_model = TRUE,
+  direction = NULL
+)
 }
 \arguments{
-\item{pobj}{An object of class \code{smodsmi} (selected models in multiply imputed datasets), 
-produced by a previous call to \code{psfmi_lr}, \code{psfmi_coxr} or \code{psfmi_mm}.}
+\item{pobj}{An object of class \code{pmods} (pooled models), produced by a previous call to
+\code{psfmi_lr}, \code{psfmi_coxr} or \code{psfmi_mm}.}
 
-\item{boot_method}{A single string to define the bootstrap method. Use "single" after a call to 
+\item{boot_method}{A single string to define the bootstrap method. Use "single" after a call to
 \code{psfmi_lr} and \code{psfmi_coxr} and "cluster" after a call to \code{psfmi_mm}.}
 
 \item{nboot}{A numerical scalar. Number of bootstrap samples to evaluate the stability. Default is 20.}
+
+\item{p.crit}{A numerical scalar. Used as P-value selection criterium during bootstrap model selection.}
+
+\item{start_model}{If TRUE the bootstrap evaluation takes place from the start model of object pobj, if
+FALSE the final model is used for the evaluation.}
+
+\item{direction}{The direction of predictor selection, "BW" for backward selection and "FW"
+  for forward selection.
+#'}
 }
 \value{
 A \code{psfmi_stab} object from which the following objects can be extracted: bootstrap
@@ -28,21 +44,24 @@ A \code{psfmi_stab} object from which the following objects can be extracted: bo
 }
 \details{
 The function evaluates predictor selection frequency in stratified or cluster bootstrap samples.
- The stratification factor is the variable that separates the imputed datasets. It uses as input
- an object of class \code{smodsmi} as a result of a previous call to the \code{psfmi_lr}, 
- \code{psfmi_coxr} or \code{psfmi_mm} functions. In combination with the \code{psfmi_mm} function
- a cluster bootstrap method is used where bootstrapping is used on the level of the clusters only.
+ The stratification factor is the variable that separates the imputed datasets. The same bootstrap cases
+ are drawn in each bootstrap sample. It uses as input an object of class \code{pmods} as a result of a
+ previous call to the \code{psfmi_lr}, \code{psfmi_coxr} or \code{psfmi_mm} functions.
+ In combination with the \code{psfmi_mm} function a cluster bootstrap method is used where bootstrapping
+ is used on the level of the clusters only (and not also within the clusters).
 }
 \examples{
- pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-                   predictors=c("Gender", "Smoking",  "JobControl", "JobDemands",
-                   "Age", "Radiation", "SocialSupport", "Function"),
-                   cat.predictors = c("Carrying"), p.crit =0.157, method="D1")
+ pool_lr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + factor(Satisfaction) + 
+   rcs(Tampascale,3) + Radiation + Radiation*factor(Satisfaction) + Age + Duration + 
+   Previous + Radiation*rcs(Tampascale, 3), data=lbpmicox, p.crit = 0.157, direction="FW",
+   nimp=5, impvar="Impnr", keep.predictors = NULL, method="D1")
+
  pool_lr$RR_Model
  pool_lr$multiparm
 
 \dontrun{
- stab_res <- psfmi_stab(pool_lr, boot_method = "single", nboot=50) 
+ stab_res <- psfmi_stab(pool_lr, direction="FW", start_model = TRUE,
+     boot_method = "single", nboot=20, p.crit=0.05)
  stab_res$bif
  stab_res$bif_perc
  stab_res$model_stab

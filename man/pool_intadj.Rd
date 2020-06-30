@@ -33,7 +33,7 @@ The function provides the pooled adjusted intercept after shrinkage of pooled
 \examples{
  res_psfmi <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
            predictors=c("Gender", "Pain","Tampascale","Smoking","Function", 
-           "Radiation", "Age"), p.crit = 1, method="D1")
+           "Radiation", "Age"), p.crit = 1, method="D1", direction="BW")
  res_psfmi$RR_Model
 
 \dontrun{
