@@ -19,7 +19,7 @@ psfmi_mm(
   spline.predictors = NULL,
   int.predictors = NULL,
   keep.predictors = NULL,
-  knots = NULL,
+  nknots = NULL,
   method = "RR",
   print.method = FALSE
 )
@@ -66,7 +66,7 @@ variables that form an interaction pair, separated by a “:” symbol.}
 \item{keep.predictors}{A single string or a vector of strings including the variables that are forced
 in the model during predictor selection. Categorical and interaction variables are allowed.}
 
-\item{knots}{A numerical vector that defines the number of knots for each spline predictor separately.}
+\item{nknots}{A numerical vector that defines the number of knots for each spline predictor separately.}
 
 \item{method}{A character vector to indicate the pooling method for p-values to pool the
 total model or used during predictor selection. This can be "D1", "D2", "D3" or "MPR".

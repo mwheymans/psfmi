@@ -2,23 +2,24 @@
 % Please edit documentation in R/psfmi_lr.R
 \name{psfmi_lr}
 \alias{psfmi_lr}
-\title{Pooling and Predictor selection function for Logistic regression
-models in multiply imputed datasets}
+\title{Pooling and Predictor selection function for backward or forward selection of
+Logistic regression models in multiply imputed data.}
 \usage{
 psfmi_lr(
   data,
+  formula = NULL,
   nimp = 5,
   impvar = NULL,
-  Outcome,
+  Outcome = NULL,
   predictors = NULL,
-  p.crit = 1,
   cat.predictors = NULL,
   spline.predictors = NULL,
   int.predictors = NULL,
   keep.predictors = NULL,
-  knots = NULL,
+  nknots = NULL,
+  p.crit = 1,
   method = "RR",
-  print.method = FALSE
+  direction = NULL
 )
 }
 \arguments{
@@ -26,6 +27,9 @@ psfmi_lr(
 The original dataset that contains missing values must be excluded from the
 dataset. The imputed datasets must be distinguished by an imputation variable,
 specified under impvar, and starting by 1.}
+
+\item{formula}{A formula object to specify the model as normally used by glm.
+See under "Details" and "Examples" how these can be specified.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
@@ -35,10 +39,8 @@ imputed datasets.}
 \item{Outcome}{Character vector containing the name of the outcome variable.}
 
 \item{predictors}{Character vector with the names of the predictor variables.
-At least one predictor variable has to be defined.}
-
-\item{p.crit}{A numerical scalar. P-value selection criterium. A value of 1 
-provides the pooled model without selection.}
+At least one predictor variable has to be defined. Give predictors unique names
+and do not use predictor name combinations with numbers as, age2, gnder10, etc.}
 
 \item{cat.predictors}{A single string or a vector of strings to define the
 categorical variables. Default is NULL categorical predictors.}
@@ -50,57 +52,63 @@ categorical variables. Default is NULL categorical predictors.}
 an interaction pair, separated by a “:” symbol.}
 
 \item{keep.predictors}{A single string or a vector of strings including the variables that are forced
-in the model during predictor selection. Categorical and interaction variables are allowed.}
+in the model during predictor selection. All type of variables are allowed.}
 
-\item{knots}{A numerical vector that defines the number of knots for each spline predictor separately.}
+\item{nknots}{A numerical vector that defines the number of knots for each spline predictor separately.}
+
+\item{p.crit}{A numerical scalar. P-value selection criterium. A value of 1
+provides the pooled model without selection.}
 
 \item{method}{A character vector to indicate the pooling method for p-values to pool the
-total model or used during predictor selection. This can be "D1", "D2", "D3" or "MPR".
-See details for more information.}
+total model or used during predictor selection. This can be "RR", D1", "D2", "D3" or "MPR".
+See details for more information. Default is "RR".}
 
-\item{print.method}{logical vector. If TRUE full matrix with p-values of all variables according to
-chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
-to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.}
+\item{direction}{The direction of predictor selection, "BW" means backward selection and "FW"
+means forward selection.}
 }
 \value{
-An object of class \code{smodsmi} (selected models in multiply imputed datasets) from 
- which the following objects can be extracted: imputed datasets as \code{data}, selected 
- pooled model as \code{RR_model}, pooled p-values according to pooling method as \code{multiparm}, 
- predictors included at each selection step as \code{predictors_in}, predictors excluded at each step 
- as \code{predictors_out}, and \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, 
- \code{predictors}, \code{cat.predictors}, \code{keep.predictors}, \code{int.predictors}, 
- \code{spline.predictors}, \code{knots}, \code{print.method}, \code{call}, \code{model_type},
- \code{predictors_final} for names of predictors in final selection step, \code{fit.formula} is the 
- regression formula of start model and \code{predictors_initial} for names of predictors in start
- model.
+An object of class \code{pmods} (multiply imputed models) from
+ which the following objects can be extracted: imputed datasets as \code{data}, final selected
+ pooled model as \code{RR_model_final}, pooled model at each selection step \code{RR_model},
+ pooled p-values at final step according to pooling method as \code{multiparm_final}, and
+ at each step as \code{multiparm}, or \code{multiparm_out} (only when direction = "FW"),
+ formula object at final step as \code{fm_step_final}, and at each step as \code{fm_step},
+ predictors included at each selection step as \code{predictors_in}, predictors excluded
+ at each step as \code{predictors_out}, and name of variable to distinguish imputed datasets
+ as \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{call},
+ \code{model_type}, direction of selection as \code{direction}, \code{predictors_final} for
+ names of predictors in final selection step and \code{predictors_initial} for names of
+ predictors in start model.
 }
 \description{
-\code{psfmi_lr} Pooling and backward selection for Logistic regression
-prediction models in multiply imputed datasets using different selection methods.
+\code{psfmi_lr} Pooling and backward or forward selection of Logistic regression
+prediction models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.
 }
 \details{
 The basic pooling procedure to derive pooled coefficients, standard errors, 95
- confidence intervals and p-values is Rubin's Rules (RR). Specific procedures are
- available to derive pooled p-values for categorical (> 2 categories) and spline variables.
- print.method allows to choose between the pooling methods: “D1” is pooling of the total 
- covariance matrix, ”D2” is pooling of Chi-square values, “D3” is pooling Likelihood ratio 
- statistics (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule). 
- Spline regression coefficients are defined by using the rcs function for restricted cubic 
+ confidence intervals and p-values is Rubin's Rules (RR). However, RR is only possible when
+ the model included continuous or dichotomous variables. Specific procedures are
+ available when the model also included categorical (> 2 categories) or restricted cubic spline
+ variables. These pooling methods are: “D1” is pooling of the total covariance matrix,
+ ”D2” is pooling of Chi-square values, “D3” is pooling Likelihood ratio statistics
+ (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule).
+ Spline regression coefficients are defined by using the rcs function for restricted cubic
  splines of the rms package. A minimum number of 3 knots as defined under knots is required.
+
+ A typical formula object has the form \code{Outcome ~ terms}. Categorical variables has to
+ be defined as \code{Outcome ~ factor(variable)}, restricted cubic spline variables as
+ \code{Outcome ~ rcs(variable, 3)}. Interaction terms can be defined as
+ \code{Outcome ~ variable1*variable2} or \code{Outcome ~ variable1 + variable2 + variable1:variable2}.
+ All variables in the terms part have to be separated by a "+".
 }
 \examples{
-  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-  predictors=c("Gender", "Smoking", "Function", "JobControl",
-  "JobDemands", "SocialSupport"), method="D1")
-  pool_lr$RR_Model
-  pool_lr$multiparm
-
-  pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-  predictors=c("Gender", "Smoking", "Function", "JobControl",
-  "JobDemands", "SocialSupport"), p.crit = 0.05, method="D1")
-  pool_lr$RR_Model
-  pool_lr$multiparm
-  pool_lr$predictors_in
+  pool_lr <- psfmi_lr( data=lbpmilr, formula = Chronic ~ Pain + 
+  factor(Satisfaction) + rcs(Tampascale,3) + Radiation + 
+  Radiation*factor(Satisfaction) + Age + Duration + BMI,
+  p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr", 
+  keep.predictors = c("Radiation*factor(Satisfaction)", "Age"), method="D1")
+  
+  pool_lr$RR_model_final
 
 }
 \references{
@@ -123,8 +131,11 @@ Marshall A, Altman DG, Holder RL, Royston P. Combining estimates of interest in 
 Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman & Hall/CRC
   Interdisciplinary Statistics. Boca Raton.
 
-EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach 
+EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.
 
 http://missingdatasolutions.rbind.io/
+}
+\author{
+Martijn Heymans, 2020
 }

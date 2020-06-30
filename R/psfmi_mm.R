@@ -32,7 +32,7 @@
 #' variables that form an interaction pair, separated by a “:” symbol.
 #' @param keep.predictors A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. Categorical and interaction variables are allowed.
-#' @param knots A numerical vector that defines the number of knots for each spline predictor separately.
+#' @param nknots A numerical vector that defines the number of knots for each spline predictor separately.
 #' @param method A character vector to indicate the pooling method for p-values to pool the
 #'   total model or used during predictor selection. This can be "D1", "D2", "D3" or "MPR".
 #'   See details for more information.
@@ -87,7 +87,7 @@
 psfmi_mm <- function(data, nimp=5, impvar=NULL, clusvar = NULL, Outcome, predictors=NULL, 
                      random.eff=NULL, family="linear", p.crit=1, cat.predictors=NULL, 
                      spline.predictors=NULL, int.predictors=NULL, keep.predictors=NULL, 
-                     knots=NULL, method="RR", print.method=FALSE)
+                     nknots=NULL, method="RR", print.method=FALSE)
 {
 call <- match.call()
 
@@ -124,9 +124,9 @@ if (nimp < 2) {
 }
 if (p.crit > 1)
   stop("\n", "P-value criterium > 1", "\n")
-if (any(knots < 3))
+if (any(nknots < 3))
   stop("\n", "Number of knots must be > 2", "\n")
-if (length(knots) != length(s.P))
+if (length(nknots) != length(s.P))
   stop("\n", "Number of knots not specified for every spline variable", "\n")
 if (!is.null(cat.P)) {
   if(any(cat.P %in% P)){
@@ -210,18 +210,18 @@ if (!is.null(cat.P)) {
 if (!is.null(s.P)) {
   if(length(s.P)==1){
     P <- gsub(s.P,
-              replacement=paste0("rcs(", s.P, ",", knots, ")"), P)
+              replacement=paste0("rcs(", s.P, ",", nknots, ")"), P)
     if(!is.null(keep.P)){
       keep.P <- gsub(s.P,
-                     replacement=paste0("rcs(", s.P, ",", knots, ")"), keep.P)
+                     replacement=paste0("rcs(", s.P, ",", nknots, ")"), keep.P)
     }
   } else {
     for(i in 1:length(s.P)) {
       P <- gsub(s.P[i],
-                replacement=paste0("rcs(", s.P[i], ",", knots[i], ")"), P)
+                replacement=paste0("rcs(", s.P[i], ",", nknots[i], ")"), P)
       if(!is.null(keep.P)){
         keep.P <- gsub(s.P[i],
-                       replacement=paste0("rcs(", s.P[i], ",", knots[i], ")"), keep.P)
+                       replacement=paste0("rcs(", s.P[i], ",", nknots[i], ")"), keep.P)
       }
     }
   }
@@ -540,7 +540,7 @@ pobj <- list(data = data, RR_Model = RR.model, multiparm = multiparm, random.eff
                   impvar = impvar, clusvar = clusvar, nimp = nimp, Outcome = Outcome, method = method, p.crit = p.crit,
                   predictors = predictors, cat.predictors = cat.predictors, 
                   keep.predictors = keep.predictors, int.predictors = int.predictors, model_type = family,
-                  spline.predictors = spline.predictors, knots = knots, print.method = print.method, call = call,
+                  spline.predictors = spline.predictors, nknots = nknots, print.method = print.method, call = call,
                   fit.formula = fit.formula, predictors_final = predictors_final,
                   predictors_initial = P_in_step[[1]])
 class(pobj) <- "smodsmi"
