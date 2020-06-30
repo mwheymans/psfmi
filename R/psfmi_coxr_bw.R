@@ -408,16 +408,3 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
          predictors_final = predictors_final, predictors_initial = P_orig, keep.predictors = keep.P)
   return(bw)
 }
-
-clean_P <-
-  function(variable){
-    variable <-
-      variable %>% stringr::str_remove("factor") %>%
-      str_remove_all("[()]") %>% stringr::str_remove("rcs") %>%
-      stringr::str_remove(",") %>% stringr::str_remove_all(.,
-                                                           paste(c(3:7), collapse = "|")) %>% stringr::str_squish()
-    variable <-
-      gsub(" ", "", variable)
-    return(variable)
-  }
-

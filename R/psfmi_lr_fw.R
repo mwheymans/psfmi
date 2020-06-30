@@ -353,7 +353,7 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
       if(is_empty(P_each_step)){
         fm_step <- as.formula(paste(Y, 1))
         if(!is_empty(keep.P)){
-          fm_step <- as.formula(paste(Y, keep.P))
+          fm_step <- as.formula(paste(Y, paste(keep.P, collapse = "+")))
           P_each_step <- c(keep.P)
         }
         fit <- list()
@@ -479,15 +479,3 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
              predictors_final = predictors_final, predictors_initial = P_orig, keep.predictors = keep.P)
   return(fw)
 }
-
-clean_P <-
-  function(var){
-    var <-
-      var %>% stringr::str_remove("factor") %>%
-      str_remove_all("[()]") %>% stringr::str_remove("rcs") %>%
-      stringr::str_remove(",") %>% stringr::str_remove_all(.,
-                                                           paste(c(3:7), collapse = "|")) %>% stringr::str_squish()
-    var <-
-      gsub(" ", "", var)
-    return(var)
-  }

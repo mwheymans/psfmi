@@ -4,7 +4,7 @@
 \alias{clean_P}
 \title{Function to clean variables}
 \usage{
-clean_P(var)
+clean_P(variable)
 }
 \arguments{
 \item{variable}{Character vector of variable names}

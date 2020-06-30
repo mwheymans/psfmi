@@ -366,15 +366,3 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
 
   return(fw)
 }
-
-clean_P <-
-  function(variable){
-    variable <-
-      variable %>% stringr::str_remove("factor") %>%
-      str_remove_all("[()]") %>% stringr::str_remove("rcs") %>%
-      stringr::str_remove(",") %>% stringr::str_remove_all(.,
-                                                           paste(c(3:7), collapse = "|")) %>% stringr::str_squish()
-    variable <-
-      gsub(" ", "", variable)
-    return(variable)
-  }
