@@ -1,0 +1,106 @@
+---
+title: "Introduction of psfmi package"
+author: "Martijn W Heymans"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{psfmi_Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+On this page you will find information of the psfmi package. 
+psfmi stands for Pooling / Predictor Selection Functions 
+after Multiple Imputation. The package aims to develop functions
+for prediction after Multiple Imputation.
+
+## Pooling and Selection
+
+The	package contains functions to apply pooling or 
+backward (BW) and forward (FW) selection for logistic and Cox regression 
+models in multiply imputed datasets. Also restricted cubic spline 
+coefficients can be used during selection. Two-way interaction terms 
+between continuous, dichotomous, categorical and spline variables are also 
+possible in the model. All these type of predictors, interaction terms 
+or a combination, can be forced in the model during BS or FS. 
+Also functions to apply BW for Multilevel (Mixed models) prediction models 
+are available. 
+
+## Pooling methods
+
+The basic pooling method is Rubin's Rules (RR). For categorical predictors, 
+different methods to derive pooled p-values are available as: 
+the D1, D2, D3 and MPR (Median P Rule) method.  
+
+## Internal validation
+
+The package contains a function to generate pooled model performance 
+measures over imputed datasets as ROC/AUC, Nagelkerke R-squares, 
+scaled Brier score and calibration plots. Internal validation in the 
+multiply imputed datasets can be done in combination with 
+cross-validation or bootstrapping.
+
+## Multiple Imputation and Cross-validation
+
+Internal validation can be performed with cross-validation by three
+methods: cross-validation in each single imputed dataset but than multiple 
+times (method cv_MI), cross-validation of the pooled model after MI 
+(method cv_MI_RR) and cross-validation in multiply imputed datasets
+(method MI_cv_naive). Backward selection as part of cross-validation is possible. 
+
+## Multiple Imputation and Bootstrapping
+
+A function to apply Bootstrap internal validation is also available.
+For this two methods can be used to combine bootstrapping and
+multiple imputation. One method, boot_MI, first draws bootstrap samples 
+in the original dataset that contains missing values and	subsequently 
+performs multiple imputation and with the other method, MI_boot, first 
+bootstrap samples are drawn from each imputed dataset before results 
+are combined. Backward or forward selection	as part of internal 
+validation is possible. 
+
+## Intercept adjustment
+
+When shrinkage is determined after internal validation a function to 
+adjust the intercept using an offset procedure in multiply imputed
+datasets is available.
+
+## External validation
+
+A function is also available to externally validate prediction models 
+when the validation sample contains missing data and multiple imputation
+has been applied in the validation dataset. The following information of 
+the externally validated model is provided: pooled ROC/AUC, (Nagelkerke) 
+R-Square value, Hosmer and Lemeshow Test, pooled coefficients when the model 
+is freely estimated in the imputed datasets and the pooled linear 
+predictor (LP), with information about miscalibration in intercept and slope.
+
+## Model Stability
+
+Furthermore, the stability of models selected and the bootstrap inclusion 
+frequency can be evaluated. For logistic and Cox regression models bootstrapping 
+is used and for Multilevel models cluster bootstrapping.
+
+## Installing the psfmi package
+
+The package can be installed from CRAN and the development version from Github 
+by running the following code in the R console window:
+ 
+ install.packages("devtools")
+ 
+ library(devtools)
+ 
+ devtools::install_github("mwheymans/psfmi")
+ 
+ library(psfmi)
+
