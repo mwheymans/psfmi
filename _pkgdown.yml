@@ -1,7 +1,5 @@
 pandoc: 2.7.3
 pkgdown: 1.5.1
-pkgdown_sha: ~
-title: psfmi
 bootswatch: flatly
 ganalytics: UA-127301719-2
 
