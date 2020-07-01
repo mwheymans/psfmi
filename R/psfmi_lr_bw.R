@@ -21,7 +21,10 @@
 #'   See details for more information. Default is "RR".
 #' @param keep.P A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. All type of variables are allowed.
-#' 
+#'   
+#' @author Martijn Heymans, 2020
+#' @keywords internal
+#'  
 #' @export
 psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
 {
@@ -438,16 +441,3 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
          predictors_initial = P_orig, keep.predictors = keep.P)
   return(bw)
 }
-
-clean_P <-
-  function(variable){
-    variable <-
-      variable %>% stringr::str_remove("factor") %>%
-      str_remove_all("[()]") %>% stringr::str_remove("rcs") %>%
-      stringr::str_remove(",") %>% stringr::str_remove_all(.,
-                                                           paste(c(3:7), collapse = "|")) %>% stringr::str_squish()
-    variable <-
-      gsub(" ", "", variable)
-    return(variable)
-  }
-

@@ -6,28 +6,32 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pooling and Predictor selection function for Logistic regression
-models in multiply imputed datasets — psfmi_lr • psfmi</title>
+<title>Pooling and Predictor selection function for backward or forward selection of
+Logistic regression models in multiply imputed data. — psfmi_lr • psfmi</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,11 +40,10 @@ models in multiply imputed datasets — psfmi_lr • psfmi</title>
 
 
 
-<meta property="og:title" content="Pooling and Predictor selection function for Logistic regression
-models in multiply imputed datasets — psfmi_lr" />
-<meta property="og:description" content="psfmi_lr Pooling and backward selection for Logistic regression
-prediction models in multiply imputed datasets using different selection methods." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Pooling and Predictor selection function for backward or forward selection of
+Logistic regression models in multiply imputed data. — psfmi_lr" />
+<meta property="og:description" content="psfmi_lr Pooling and backward or forward selection of Logistic regression
+prediction models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR." />
 
 
 
@@ -55,20 +58,10 @@ prediction models in multiply imputed datasets using different selection methods
 <![endif]-->
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127301719-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-127301719-2');
-</script>
-
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -99,13 +92,37 @@ prediction models in multiply imputed datasets using different selection methods
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Vignettes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/psfmi-vignette.html">Welcome to the psfmi package</a>
+      <a href="../articles/psfmi_LogisticModels.html">Pooling and selection of logistic regression models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_CoxModels.html">Pooling and selection of Cox regression models</a>
+    </li>
+    <li>
+      <a href="../articles/boot_MI.html">MI and Bootstrapping - Method boot_MI</a>
+    </li>
+    <li>
+      <a href="../articles/MI_boot.html">MI and Bootstrapping - Method MI_boot</a>
+    </li>
+    <li>
+      <a href="../articles/cv_MI.html">MI and Cross-validation - Method cv_MI</a>
+    </li>
+    <li>
+      <a href="../articles/cv_MI_RR.html">MI and Cross-validation - Method cv_MI_RR</a>
+    </li>
+    <li>
+      <a href="../articles/MI_cv_naive.html">MI and Cross-validation - Method MI_cv_naive</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_mice.html">Package psfmi and mice</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after MI</a>
     </li>
   </ul>
 </li>
@@ -114,7 +131,12 @@ prediction models in multiply imputed datasets using different selection methods
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/mwheymans/psfmi/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,31 +150,32 @@ prediction models in multiply imputed datasets using different selection methods
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pooling and Predictor selection function for Logistic regression
-models in multiply imputed datasets</h1>
-    
+    <h1>Pooling and Predictor selection function for backward or forward selection of
+Logistic regression models in multiply imputed data.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/psfmi_lr.R'><code>R/psfmi_lr.R</code></a></small>
     <div class="hidden name"><code>psfmi_lr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>psfmi_lr</code> Pooling and backward selection for Logistic regression
-prediction models in multiply imputed datasets using different selection methods.</p>
+    <p><code>psfmi_lr</code> Pooling and backward or forward selection of Logistic regression
+prediction models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.</p>
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_lr</span>(
   <span class='no'>data</span>,
+  <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>nimp</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>impvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>Outcome</span>,
+  <span class='kw'>Outcome</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>spline.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>int.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>knots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>nknots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"RR"</span>,
-  <span class='kw'>print.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -164,6 +187,11 @@ prediction models in multiply imputed datasets using different selection methods
 The original dataset that contains missing values must be excluded from the
 dataset. The imputed datasets must be distinguished by an imputation variable,
 specified under impvar, and starting by 1.</p></td>
+    </tr>
+    <tr>
+      <th>formula</th>
+      <td><p>A formula object to specify the model as normally used by glm.
+See under "Details" and "Examples" how these can be specified.</p></td>
     </tr>
     <tr>
       <th>nimp</th>
@@ -181,12 +209,8 @@ imputed datasets.</p></td>
     <tr>
       <th>predictors</th>
       <td><p>Character vector with the names of the predictor variables.
-At least one predictor variable has to be defined.</p></td>
-    </tr>
-    <tr>
-      <th>p.crit</th>
-      <td><p>A numerical scalar. P-value selection criterium. A value of 1 
-provides the pooled model without selection.</p></td>
+At least one predictor variable has to be defined. Give predictors unique names
+and do not use predictor name combinations with numbers as, age2, gnder10, etc.</p></td>
     </tr>
     <tr>
       <th>cat.predictors</th>
@@ -206,48 +230,60 @@ an interaction pair, separated by a “:” symbol.</p></td>
     <tr>
       <th>keep.predictors</th>
       <td><p>A single string or a vector of strings including the variables that are forced
-in the model during predictor selection. Categorical and interaction variables are allowed.</p></td>
+in the model during predictor selection. All type of variables are allowed.</p></td>
     </tr>
     <tr>
-      <th>knots</th>
+      <th>nknots</th>
       <td><p>A numerical vector that defines the number of knots for each spline predictor separately.</p></td>
+    </tr>
+    <tr>
+      <th>p.crit</th>
+      <td><p>A numerical scalar. P-value selection criterium. A value of 1
+provides the pooled model without selection.</p></td>
     </tr>
     <tr>
       <th>method</th>
       <td><p>A character vector to indicate the pooling method for p-values to pool the
-total model or used during predictor selection. This can be "D1", "D2", "D3" or "MPR".
-See details for more information.</p></td>
+total model or used during predictor selection. This can be "RR", D1", "D2", "D3" or "MPR".
+See details for more information. Default is "RR".</p></td>
     </tr>
     <tr>
-      <th>print.method</th>
-      <td><p>logical vector. If TRUE full matrix with p-values of all variables according to
-chosen method (under method) is shown. If FALSE (default) p-value for categorical variables according
-to method are shown and for continuous and dichotomous predictors Rubin’s Rules are used.</p></td>
+      <th>direction</th>
+      <td><p>The direction of predictor selection, "BW" means backward selection and "FW"
+means forward selection.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>smodsmi</code> (selected models in multiply imputed datasets) from 
- which the following objects can be extracted: imputed datasets as <code>data</code>, selected 
- pooled model as <code>RR_model</code>, pooled p-values according to pooling method as <code>multiparm</code>, 
- predictors included at each selection step as <code>predictors_in</code>, predictors excluded at each step 
- as <code>predictors_out</code>, and <code>impvar</code>, <code>nimp</code>, <code>Outcome</code>, <code>method</code>, <code>p.crit</code>, 
- <code>predictors</code>, <code>cat.predictors</code>, <code>keep.predictors</code>, <code>int.predictors</code>, 
- <code>spline.predictors</code>, <code>knots</code>, <code>print.method</code>, <code>call</code>, <code>model_type</code>,
- <code>predictors_final</code> for names of predictors in final selection step, <code>fit.formula</code> is the 
- regression formula of start model and <code>predictors_initial</code> for names of predictors in start
- model.</p>
+    <p>An object of class <code>pmods</code> (multiply imputed models) from
+ which the following objects can be extracted: imputed datasets as <code>data</code>, final selected
+ pooled model as <code>RR_model_final</code>, pooled model at each selection step <code>RR_model</code>,
+ pooled p-values at final step according to pooling method as <code>multiparm_final</code>, and
+ at each step as <code>multiparm</code>, or <code>multiparm_out</code> (only when direction = "FW"),
+ formula object at final step as <code>fm_step_final</code>, and at each step as <code>fm_step</code>,
+ predictors included at each selection step as <code>predictors_in</code>, predictors excluded
+ at each step as <code>predictors_out</code>, and name of variable to distinguish imputed datasets
+ as <code>impvar</code>, <code>nimp</code>, <code>Outcome</code>, <code>method</code>, <code>p.crit</code>, <code>call</code>,
+ <code>model_type</code>, direction of selection as <code>direction</code>, <code>predictors_final</code> for
+ names of predictors in final selection step and <code>predictors_initial</code> for names of
+ predictors in start model.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The basic pooling procedure to derive pooled coefficients, standard errors, 95
- confidence intervals and p-values is Rubin's Rules (RR). Specific procedures are
- available to derive pooled p-values for categorical (&gt; 2 categories) and spline variables.
- print.method allows to choose between the pooling methods: “D1” is pooling of the total 
- covariance matrix, ”D2” is pooling of Chi-square values, “D3” is pooling Likelihood ratio 
- statistics (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule). 
- Spline regression coefficients are defined by using the rcs function for restricted cubic 
+ confidence intervals and p-values is Rubin's Rules (RR). However, RR is only possible when
+ the model included continuous or dichotomous variables. Specific procedures are
+ available when the model also included categorical (&gt; 2 categories) or restricted cubic spline
+ variables. These pooling methods are: “D1” is pooling of the total covariance matrix,
+ ”D2” is pooling of Chi-square values, “D3” is pooling Likelihood ratio statistics
+ (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule).
+ Spline regression coefficients are defined by using the rcs function for restricted cubic
  splines of the rms package. A minimum number of 3 knots as defined under knots is required.</p>
+<p>A typical formula object has the form <code>Outcome ~ terms</code>. Categorical variables has to
+ be defined as <code>Outcome ~ factor(variable)</code>, restricted cubic spline variables as
+ <code>Outcome ~ rcs(variable, 3)</code>. Interaction terms can be defined as
+ <code>Outcome ~ variable1*variable2</code> or <code>Outcome ~ variable1 + variable2 + variable1:variable2</code>.
+ All variables in the terms part have to be separated by a "+".</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
@@ -263,136 +299,44 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
   2009;9:57.</p>
 <p>Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman &amp; Hall/CRC
   Interdisciplinary Statistics. Boca Raton.</p>
-<p>EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach 
+<p>EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.</p>
 <p>http://missingdatasolutions.rbind.io/</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_lr</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
-  <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"JobControl"</span>,
-  <span class='st'>"JobDemands"</span>, <span class='st'>"SocialSupport"</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled model correctly estimated</span>
-#&gt; <span class='message'>           using a p-value of 1</span></div><div class='input'>  <span class='no'>pool_lr</span>$<span class='no'>RR_Model</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;                   est std.err signif   lower   upper     OR   L.OR     U.OR
-#&gt; (Intercept)   -0.0215  2.4949 0.9931 -4.9246  4.8817 0.9788 0.0073 131.8530
-#&gt; Gender        -0.3545  0.4181 0.3966 -1.1741  0.4652 0.7016 0.3091   1.5923
-#&gt; Smoking        0.0757  0.3408 0.8244 -0.5924  0.7437 1.0786 0.5530   2.1037
-#&gt; Function      -0.1419  0.0434 0.0011 -0.2270 -0.0568 0.8677 0.7969   0.9448
-#&gt; JobControl     0.0069  0.0205 0.7370 -0.0335  0.0473 1.0069 0.9670   1.0485
-#&gt; JobDemands     0.0023  0.0387 0.9532 -0.0738  0.0784 1.0023 0.9288   1.0815
-#&gt; SocialSupport  0.0443  0.0575 0.4408 -0.0685  0.1572 1.0453 0.9338   1.1702
-#&gt; </div><div class='input'>  <span class='no'>pool_lr</span>$<span class='no'>multiparm</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;               Chi_sq p-value D1 &amp; RR
-#&gt; Gender         0.719          0.3966
-#&gt; Smoking        0.049          0.8244
-#&gt; Function      10.698          0.0011
-#&gt; JobControl     0.113          0.7370
-#&gt; JobDemands     0.003          0.9532
-#&gt; SocialSupport  0.594          0.4408
+    <pre class="examples"><div class='input'>  <span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_lr</span>( <span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Chronic</span> ~ <span class='no'>Pain</span> +
+  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) + <span class='fu'>rcs</span>(<span class='no'>Tampascale</span>,<span class='fl'>3</span>) + <span class='no'>Radiation</span> +
+  <span class='no'>Radiation</span>*<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) + <span class='no'>Age</span> + <span class='no'>Duration</span> + <span class='no'>BMI</span>,
+  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"FW"</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
+  <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Radiation*factor(Satisfaction)"</span>, <span class='st'>"Age"</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'>Entered at Step 1 is - Pain</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Selection correctly terminated, </span>
+#&gt; <span class='message'>No new variables entered the model</span></div><div class='input'>
+  <span class='no'>pool_lr</span>$<span class='no'>RR_model_final</span></div><div class='output co'>#&gt; $`Final model`
+#&gt;                              term     estimate  std.error    statistic
+#&gt; 1                     (Intercept) -4.709498778 1.43056951 -3.292044710
+#&gt; 2                            Pain  1.000998071 0.17550142  5.703646588
+#&gt; 3                       Radiation  1.290636824 1.09101880  1.182964787
+#&gt; 4                             Age -0.015400069 0.02511643 -0.613147208
+#&gt; 5           factor(Satisfaction)2  0.006745828 0.72630877  0.009287825
+#&gt; 6           factor(Satisfaction)3 -2.245109289 1.28811308 -1.742944248
+#&gt; 7 Radiation:factor(Satisfaction)2 -1.112425071 1.29072002 -0.861863964
+#&gt; 8 Radiation:factor(Satisfaction)3 -0.328027439 1.69820886 -0.193160834
+#&gt;          df      p.value          OR    lower.EXP upper.EXP
+#&gt; 1 121.39346 1.302896e-03 0.009009292 0.0005457143  0.148736
+#&gt; 2  86.27941 1.612718e-07 2.720996221 1.9290261484  3.838113
+#&gt; 3  30.54412 2.459495e-01 3.635100740 0.4283734029 30.846820
+#&gt; 4 102.60849 5.411357e-01 0.984717906 0.9374158634  1.034407
+#&gt; 5  94.66955 9.926090e-01 1.006768633 0.2424840468  4.179999
+#&gt; 6  23.29136 9.453270e-02 0.105915964 0.0084819837  1.322591
+#&gt; 7  40.99328 3.937762e-01 0.328760726 0.0261937013  4.126321
+#&gt; 8  19.52844 8.488278e-01 0.720343254 0.0258223004 20.094817
 #&gt; </div><div class='input'>
-  <span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_lr</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
-  <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"JobControl"</span>,
-  <span class='st'>"JobDemands"</span>, <span class='st'>"SocialSupport"</span>), <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 1 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 2 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 3 is - JobControl</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 4 is - SocialSupport</span></div><div class='output co'>#&gt; <span class='message'>Variable excluded at Step 5 is - Gender</span></div><div class='input'>  <span class='no'>pool_lr</span>$<span class='no'>RR_Model</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;                   est std.err signif   lower   upper     OR   L.OR     U.OR
-#&gt; (Intercept)   -0.0215  2.4949 0.9931 -4.9246  4.8817 0.9788 0.0073 131.8530
-#&gt; Gender        -0.3545  0.4181 0.3966 -1.1741  0.4652 0.7016 0.3091   1.5923
-#&gt; Smoking        0.0757  0.3408 0.8244 -0.5924  0.7437 1.0786 0.5530   2.1037
-#&gt; Function      -0.1419  0.0434 0.0011 -0.2270 -0.0568 0.8677 0.7969   0.9448
-#&gt; JobControl     0.0069  0.0205 0.7370 -0.0335  0.0473 1.0069 0.9670   1.0485
-#&gt; JobDemands     0.0023  0.0387 0.9532 -0.0738  0.0784 1.0023 0.9288   1.0815
-#&gt; SocialSupport  0.0443  0.0575 0.4408 -0.0685  0.1572 1.0453 0.9338   1.1702
-#&gt; 
-#&gt; $`Step 2`
-#&gt;                   est std.err signif   lower   upper     OR   L.OR    U.OR
-#&gt; (Intercept)    0.0664  1.9997 0.9735 -3.8606  3.9935 1.0687 0.0211 54.2427
-#&gt; Gender        -0.3568  0.4099 0.3841 -1.1602  0.4467 0.6999 0.3134  1.5631
-#&gt; Smoking        0.0746  0.3407 0.8266 -0.5931  0.7424 1.0775 0.5526  2.1009
-#&gt; Function      -0.1420  0.0434 0.0011 -0.2271 -0.0569 0.8676 0.7969  0.9447
-#&gt; JobControl     0.0068  0.0205 0.7397 -0.0336  0.0472 1.0068 0.9670  1.0483
-#&gt; SocialSupport  0.0442  0.0574 0.4410 -0.0684  0.1569 1.0452 0.9339  1.1699
-#&gt; 
-#&gt; $`Step 3`
-#&gt;                   est std.err signif   lower   upper     OR   L.OR    U.OR
-#&gt; (Intercept)    0.0933  1.9957 0.9627 -3.8259  4.0125 1.0978 0.0218 55.2826
-#&gt; Gender        -0.3554  0.4098 0.3858 -1.1587  0.4478 0.7009 0.3139  1.5649
-#&gt; Function      -0.1412  0.0431 0.0011 -0.2257 -0.0567 0.8683 0.7980  0.9449
-#&gt; JobControl     0.0069  0.0205 0.7358 -0.0334  0.0473 1.0069 0.9671  1.0484
-#&gt; SocialSupport  0.0439  0.0574 0.4442 -0.0686  0.1565 1.0449 0.9337  1.1694
-#&gt; 
-#&gt; $`Step 4`
-#&gt;                   est std.err signif   lower   upper     OR   L.OR    U.OR
-#&gt; (Intercept)    0.5793  1.3846 0.6757 -2.1359  3.2945 1.7848 0.1181 26.9638
-#&gt; Gender        -0.3903  0.3991 0.3281 -1.1726  0.3920 0.6769 0.3096  1.4800
-#&gt; Function      -0.1378  0.0423 0.0012 -0.2209 -0.0547 0.8713 0.8018  0.9467
-#&gt; SocialSupport  0.0398  0.0561 0.4781 -0.0702  0.1498 1.0406 0.9322  1.1616
-#&gt; 
-#&gt; $`Step 5`
-#&gt;                 est std.err signif   lower   upper     OR   L.OR    U.OR
-#&gt; (Intercept)  1.4947  0.5340 0.0051  0.4480  2.5414 4.4579 1.5651 12.6974
-#&gt; Gender      -0.4112  0.3965 0.2997 -1.1884  0.3660 0.6629 0.3047  1.4420
-#&gt; Function    -0.1354  0.0421 0.0013 -0.2181 -0.0528 0.8733 0.8041  0.9486
-#&gt; 
-#&gt; $`Step 6`
-#&gt;                 est std.err signif   lower   upper     OR   L.OR   U.OR
-#&gt; (Intercept)  1.2290  0.4696  9e-03  0.3079  2.1501 3.4178 1.3605 8.5858
-#&gt; Function    -0.1399  0.0420  9e-04 -0.2222 -0.0575 0.8695 0.8007 0.9441
-#&gt; </div><div class='input'>  <span class='no'>pool_lr</span>$<span class='no'>multiparm</span></div><div class='output co'>#&gt; $`Step 1`
-#&gt;               Chi_sq p-value D1 &amp; RR
-#&gt; Gender         0.719          0.3966
-#&gt; Smoking        0.049          0.8244
-#&gt; Function      10.698          0.0011
-#&gt; JobControl     0.113          0.7370
-#&gt; JobDemands     0.003          0.9532
-#&gt; SocialSupport  0.594          0.4408
-#&gt; 
-#&gt; $`Step 2`
-#&gt;               Chi_sq p-value D1 &amp; RR
-#&gt; Gender         0.758          0.3841
-#&gt; Smoking        0.048          0.8266
-#&gt; Function      10.706          0.0011
-#&gt; JobControl     0.111          0.7397
-#&gt; SocialSupport  0.594          0.4410
-#&gt; 
-#&gt; $`Step 3`
-#&gt;               Chi_sq p-value D1 &amp; RR
-#&gt; Gender         0.752          0.3858
-#&gt; Function      10.737          0.0011
-#&gt; JobControl     0.114          0.7358
-#&gt; SocialSupport  0.586          0.4442
-#&gt; 
-#&gt; $`Step 4`
-#&gt;               Chi_sq p-value D1 &amp; RR
-#&gt; Gender         0.956          0.3281
-#&gt; Function      10.591          0.0012
-#&gt; SocialSupport  0.503          0.4781
-#&gt; 
-#&gt; $`Step 5`
-#&gt;          Chi_sq p-value D1 &amp; RR
-#&gt; Gender    1.075          0.2997
-#&gt; Function 10.338          0.0013
-#&gt; 
-#&gt; $`Step 6`
-#&gt;          Chi_sq p-value D1 &amp; RR
-#&gt; Function 11.115           9e-04
-#&gt; </div><div class='input'>  <span class='no'>pool_lr</span>$<span class='no'>predictors_in</span></div><div class='output co'>#&gt;        Gender Smoking Function JobControl JobDemands SocialSupport
-#&gt; Step 1      1       1        1          1          1             1
-#&gt; Step 2      1       1        1          1          0             1
-#&gt; Step 3      1       0        1          1          0             1
-#&gt; Step 4      1       0        1          0          0             1
-#&gt; Step 5      1       0        1          0          0             0
-#&gt; Step 6      0       0        1          0          0             0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -403,7 +347,7 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

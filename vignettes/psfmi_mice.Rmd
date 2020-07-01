@@ -1,0 +1,95 @@
+---
+title: "Working together: mice and psfmi"
+author: "Martijn W Heymans"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2
+vignette: >
+  %\VignetteIndexEntry{psfmi_mice}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+The `mice` function is one of the most used functions to apply 
+multiple imputation. This page shows how functions in the `psfmi` 
+package can be easily used in combination with `mice`. In this way 
+multivariable models can easily be developed in combination with mice.
+
+# Installing the psfmi and mice packages
+
+The `psfmi` package can be installed from [CRAN](https://cran.r-project.org/web/packages/psfmi/index.html) and the newer development version from Github by running the following 
+code in the R console window:
+ 
+ install.packages("devtools")
+ 
+ library(devtools)
+ 
+ devtools::install_github("mwheymans/psfmi")
+ 
+ library(psfmi)
+
+To install the `mice` package use:
+
+ install.packages("mice")
+ 
+ library(mice)
+ 
+# Examples 
+
++ [mice and psfmi for pooling logistic regression models] 
++ [mice and psfmi for selecting logistic regression models]
+
+## mice and psfmi for pooling logistic regression models
+
+```{r}
+
+  library(psfmi)
+  library(mice)
+
+  imp <- mice(lbp_orig, m=5, maxit=5) 
+  
+  data_comp <- complete(imp, action = "long", include = FALSE)
+  
+  library(psfmi)
+  pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "Function", "JobControl",
+  "JobDemands", "SocialSupport"), method="D1")
+  
+  pool_lr$RR_model
+  
+ 
+```
+
+Back to [Examples]
+
+## mice and psfmi for selecting logistic regression models
+
+```{r}
+
+  library(psfmi)
+  library(mice)
+
+  imp <- mice(lbp_orig, m=5, maxit=5) 
+  
+  data_comp <- complete(imp, action = "long", include = FALSE)
+  
+  library(psfmi)
+  pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", Outcome="Chronic",
+  predictors=c("Gender", "Smoking", "Function", "JobControl",
+  "JobDemands", "SocialSupport"), p.crit = 0.157, method="D1",
+  direction = "FW")
+  
+  pool_lr$RR_model_final
+ 
+```
+
+Back to [Examples]

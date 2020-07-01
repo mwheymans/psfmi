@@ -6,9 +6,6 @@
 \usage{
 clean_P(variable)
 }
-\arguments{
-\item{variable}{Character vector of variable names}
-}
 \description{
 Function to clean variables
 }

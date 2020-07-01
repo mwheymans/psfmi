@@ -36,11 +36,10 @@ The same cases are drawn in each imputed dataset. The pooled model is analyzed
 in the each bootstrap training data and subsequently tested in original multiply imputed data. 
 The method can be performed in combination with backward or forward selection.
 
-How these steps work is visualized in figure (Figure \@ref(fig:miboot)) 
+How these steps work is visualized in the Figure below. 
 
-```{r miboot, echo = FALSE, fig.cap="\\label{fig:miboot} Schematic overview of the boot_MI method", out.width='100%', fig.align='center'}
+```{r, echo = FALSE, fig.cap="Schematic overview of the boot_MI method", out.width='100%', fig.align='center'}
 knitr::include_graphics("MI_boot.png")
-
 
 ```
 

@@ -14,8 +14,7 @@
 #' 
 #' @seealso \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
 #' @author Martijn Heymans, 2020
-#' @keywords internal  
-#' 
+#'  
 #' @export   
 pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
   

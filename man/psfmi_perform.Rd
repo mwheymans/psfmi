@@ -119,17 +119,20 @@ For internal validation five methods can be used, cv_MI, cv_MI_RR, MI_cv_naive,
 pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
            factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
            nimp=5, impvar="Impnr", method="D1")
+           
 pool_lr$RR_model
 
 res_perf <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds=3,
             nimp_cv = 2, p.crit=0.05, BW=TRUE, anova_test = "LRT",
             miceImp = miceImp, printFlag = FALSE)
+            
 res_perf
 
 \dontrun{
  set.seed(200)
   res_val <- psfmi_perform(pobj, val_method = "boot_MI", data_orig = lbp_orig, nboot = 5,
   p.crit=0.05, BW=TRUE, miceImp = miceImp, nimp_mice = 5, printFlag = FALSE, direction = "FW")
+  
   res_val$stats_val
 }
 

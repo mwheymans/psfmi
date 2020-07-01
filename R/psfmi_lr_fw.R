@@ -21,6 +21,10 @@
 #'   See details for more information. Default is "RR".
 #' @param keep.P A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. Categorical and interaction variables are allowed.
+#'   
+#' @author Martijn Heymans, 2020
+#' @keywords internal
+#'    
 #' @export
 psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
 {
@@ -363,10 +367,10 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
         }
         # Rubin's Rules
         out.res <- summary(pool(fit))
-        Odds <- exp(out.res$estimate)
+        OR <- exp(out.res$estimate)
         lower.EXP <- exp(out.res$estimate - (1.96*out.res$std.error))
         upper.EXP <- exp(out.res$estimate + (1.96*out.res$std.error))
-        model.res <- data.frame(cbind(out.res, Odds, lower.EXP, upper.EXP))
+        model.res <- data.frame(cbind(out.res, OR, lower.EXP, upper.EXP))
         RR_model_select <- list(model.res)
         names(RR_model_select)[[1]] <- paste("Step", 0, " - no variables entered - ")
 

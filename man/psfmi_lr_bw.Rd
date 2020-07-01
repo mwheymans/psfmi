@@ -37,3 +37,7 @@ in the model during predictor selection. All type of variables are allowed.}
 \code{psfmi_lr_bw} Backward selection of Logistic regression
 models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.
 }
+\author{
+Martijn Heymans, 2020
+}
+\keyword{internal}

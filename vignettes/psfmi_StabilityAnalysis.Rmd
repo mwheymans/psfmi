@@ -42,9 +42,13 @@ is than used and for Multilevel models cluster bootstrapping.
 
    stab_res <- psfmi_stab(psfmi_res, direction="FW", start_model = TRUE,
       boot_method = "single", nboot=20, p.crit=0.05)
-  stab_res$bif
+  
+   stab_res$bif
+   
   stab_res$bif_perc
+  
   stab_res$model_stab
+  
 
 ```  
 
@@ -64,10 +68,14 @@ Back to [Examples]
 
   stab_res <- psfmi_stab(pool_lr, direction="FW", start_model = TRUE,
       boot_method = "single", nboot=20, p.crit=0.05)
+  
   stab_res$bif
+  
   stab_res$bif_perc
+  
   stab_res$model_stab
 
 ```  
 
 Back to [Examples]
+

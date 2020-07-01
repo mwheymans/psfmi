@@ -1,11 +1,11 @@
 #' Nagelkerke's R-square calculation for logistic regression / glm models
 #'
-#'@param fitobj a logistic regression model object of "glm"   
+#' @param fitobj a logistic regression model object of "glm"   
 #' 
-#'@return The value for the scaled Brier score.
-#'@seealso \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
-#'@author Martijn Heymans, 2020
-#'@keywords internal  
+#' @return The value for the scaled Brier score.
+#' @seealso \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
+#' @author Martijn Heymans, 2020
+#'   
 #' @export   
 rsq_nagel <- function(fitobj){
   f.full <-

@@ -34,9 +34,9 @@ An explanation and examples of how to use the method can be found below.
 This method applies cross-validation after Multiple Imputation. The same folds
 are used in each multiply imputed dataset. Is is possible to do backward 
 selection during cross-validation. How this method works is visualized 
-in the figure (Figure \@ref(fig:micvnaive)) 
+in the Figure below. 
 
-```{r micvnaive, echo = FALSE, fig.cap="\\label{fig:micvnaive} Schematic overview of the MI_cv_naive method", out.width='100%', fig.align='center'}
+```{r , echo = FALSE, fig.cap="Schematic overview of the MI_cv_naive method", out.width='100%', fig.align='center'}
 knitr::include_graphics("MI_cv_naive.png")
 
 ```

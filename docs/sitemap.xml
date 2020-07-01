@@ -4,10 +4,19 @@
     <loc>https://mwheymans.github.io/psfmi//index.html</loc>
   </url>
   <url>
-    <loc>https://mwheymans.github.io/psfmi//reference/D1_cox.html</loc>
+    <loc>https://mwheymans.github.io/psfmi//reference/boot_MI.html</loc>
   </url>
   <url>
-    <loc>https://mwheymans.github.io/psfmi//reference/D1_logistic.html</loc>
+    <loc>https://mwheymans.github.io/psfmi//reference/bw_single.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/clean_P.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/cv_MI.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/cv_MI_RR.html</loc>
   </url>
   <url>
     <loc>https://mwheymans.github.io/psfmi//reference/ipdna_md.html</loc>
@@ -25,7 +34,22 @@
     <loc>https://mwheymans.github.io/psfmi//reference/lbp_orig.html</loc>
   </url>
   <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/mean_auc_log.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/miceImp.html</loc>
+  </url>
+  <url>
     <loc>https://mwheymans.github.io/psfmi//reference/mivalext_lr.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/MI_boot.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/MI_cv_naive.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/pool_auc.html</loc>
   </url>
   <url>
     <loc>https://mwheymans.github.io/psfmi//reference/pool_intadj.html</loc>
@@ -37,10 +61,19 @@
     <loc>https://mwheymans.github.io/psfmi//reference/psfmi_coxr.html</loc>
   </url>
   <url>
-    <loc>https://mwheymans.github.io/psfmi//reference/psfmi_D3.html</loc>
+    <loc>https://mwheymans.github.io/psfmi//reference/psfmi_coxr_bw.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/psfmi_coxr_fw.html</loc>
   </url>
   <url>
     <loc>https://mwheymans.github.io/psfmi//reference/psfmi_lr.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/psfmi_lr_bw.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/psfmi_lr_fw.html</loc>
   </url>
   <url>
     <loc>https://mwheymans.github.io/psfmi//reference/psfmi_mm.html</loc>
@@ -55,6 +88,36 @@
     <loc>https://mwheymans.github.io/psfmi//reference/psfmi_stab.html</loc>
   </url>
   <url>
-    <loc>https://mwheymans.github.io/psfmi//articles/psfmi-vignette.html</loc>
+    <loc>https://mwheymans.github.io/psfmi//reference/rsq_nagel.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//reference/scaled_brier.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/boot_MI.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/cv_MI.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/cv_MI_RR.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/MI_boot.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/MI_cv_naive.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/psfmi_CoxModels.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/psfmi_LogisticModels.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/psfmi_mice.html</loc>
+  </url>
+  <url>
+    <loc>https://mwheymans.github.io/psfmi//articles/psfmi_StabilityAnalysis.html</loc>
   </url>
 </urlset>

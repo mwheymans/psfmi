@@ -23,4 +23,3 @@ Calculated the scaled Brier score
 \author{
 Martijn Heymans, 2020
 }
-\keyword{internal}

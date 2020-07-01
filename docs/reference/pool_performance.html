@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Pooling performance measures over multiply imputed datasets — pool_performance" />
 <meta property="og:description" content="pool_performance Pooling performance measures" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -52,20 +55,10 @@
 <![endif]-->
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127301719-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-127301719-2');
-</script>
-
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -96,13 +89,37 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Vignettes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/psfmi-vignette.html">Welcome to the psfmi package</a>
+      <a href="../articles/psfmi_LogisticModels.html">Pooling and selection of logistic regression models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_CoxModels.html">Pooling and selection of Cox regression models</a>
+    </li>
+    <li>
+      <a href="../articles/boot_MI.html">MI and Bootstrapping - Method boot_MI</a>
+    </li>
+    <li>
+      <a href="../articles/MI_boot.html">MI and Bootstrapping - Method MI_boot</a>
+    </li>
+    <li>
+      <a href="../articles/cv_MI.html">MI and Cross-validation - Method cv_MI</a>
+    </li>
+    <li>
+      <a href="../articles/cv_MI_RR.html">MI and Cross-validation - Method cv_MI_RR</a>
+    </li>
+    <li>
+      <a href="../articles/MI_cv_naive.html">MI and Cross-validation - Method MI_cv_naive</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_mice.html">Package psfmi and mice</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after MI</a>
     </li>
   </ul>
 </li>
@@ -111,7 +128,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/mwheymans/psfmi/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -126,7 +148,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pooling performance measures over multiply imputed datasets</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/pool_performance.R'><code>R/pool_performance.R</code></a></small>
     <div class="hidden name"><code>pool_performance.Rd</code></div>
     </div>
 
@@ -185,52 +207,25 @@ are generated, otherwise all calibration plots are plotted in one figure.</p></t
     <tr>
       <th>groups_cal</th>
       <td><p>A numerical scalar. Number of groups used on the calibration plot. 
-Default is 10. If the range of predicted probabilities is too low 5 groups can be
-chosen.</p></td>
+Default is 10. If the range of predicted probabilities is low, less than 10 groups 
+can be chosen.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='fu'>pool_performance</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
+    <pre class="examples"><div class='input'> <span class='no'>perf</span> <span class='kw'>&lt;-</span> <span class='fu'>pool_performance</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
  <span class='kw'>Outcome</span> <span class='kw'>=</span> <span class='st'>"Chronic"</span>, <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>, <span class='st'>"rcs(Tampascale, 3)"</span>,
  <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span>, <span class='st'>"factor(Carrying)"</span>),
- <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='pool_performance-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $ROC_pooled
-#&gt;               95% Low       ROC    95% Up
-#&gt; ROC (logit) 0.7215633 0.8763023 0.9508982
-#&gt; 
-#&gt; $coef_pooled
-#&gt;                   (Intercept)                        Gender 
-#&gt;                  -16.11926408                    0.04856963 
-#&gt;                          Pain  rcs(Tampascale, 3)Tampascale 
-#&gt;                    0.59288225                    0.37551651 
-#&gt; rcs(Tampascale, 3)Tampascale'                       Smoking 
-#&gt;                   -0.40200341                    0.10798609 
-#&gt;                      Function                     Radiation 
-#&gt;                   -0.05245742                    0.24642908 
-#&gt;                           Age             factor(Carrying)2 
-#&gt;                   -0.02814208                    1.04089245 
-#&gt;             factor(Carrying)3 
-#&gt;                    1.25873721 
-#&gt; 
-#&gt; $R2_pooled
-#&gt; [1] 0.5290033
-#&gt; 
-#&gt; $Brier_pooled
-#&gt; [1] 0.1430828
-#&gt; 
-#&gt; $nimp
-#&gt; [1] 5
-#&gt; </div><div class='input'>
+ <span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='pool_performance-1.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='no'>perf</span>$<span class='no'>ROC_pooled</span></div><div class='output co'>#&gt;             95% Low    AUC 95% Up
+#&gt; AUC (logit)  0.8348 0.8763 0.9085</div><div class='input'> 
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -241,7 +236,7 @@ chosen.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

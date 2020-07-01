@@ -235,17 +235,29 @@ psfmi_stab <- function(pobj, boot_method=NULL, nboot=20,
     
     
     bif <- data.frame(do.call("rbind", boot_pred_pat))
-    colnames(bif) <- names(pobj$predictors_in)
     
+    if(!start_model)
+      colnames(bif) <- pobj$predictors_final
+    if(start_model)
+      colnames(bif) <- pobj$predictors_initial
+    
+    names_temp <- colnames(bif)
     # Group selected models
     bif_pat <- bif %>%
-      group_by_all %>%
-      count
+      group_by_all() #%>%
+    n <- count(bif_pat)$n
+    bif_pat <- count(bif_pat)
+    bif_pat <- data.frame(bif_pat, n)[, -length(colnames(bif_pat))]
+    colnames(bif_pat) <- c(names_temp, "n")
+    #names_temp <- names(bif_pat)
     
-    # desc order of selected models
-    bif_pat_sort <- data.frame(bif_pat %>%
-                                 arrange(desc(n)) %>%
-                                 select(1:ncol(bif_pat)))
+    bif_pat_sort <- arrange(bif_pat, desc(n))
+    #bif_pat_sort <- data.frame(bif_pat %>%
+    #                             arrange(desc(n)) %>%
+    #                             select(1:ncol(bif_pat)))
+    bif_pat_perc <- round((bif_pat_sort$n / nboot) * 100, 0)
+    bif_pat_sort <- data.frame(bif_pat_sort, bif_pat_perc)
+    
     bif_pat_perc <- round((bif_pat_sort$n / nboot) * 100, 0)
     bif_pat_sort <- data.frame(bif_pat_sort, bif_pat_perc)
     colnames(bif_pat_sort) <- c(names(pobj$predictors_in), "freq", "bif_pat_perc")

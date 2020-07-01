@@ -1,9 +1,9 @@
 ---
-title: "psfmi Cox Models"
+title: "Pooling and Selection of Cox Regression Models"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  rmarkdown::html_vignette
+  bookdown::html_document2
 vignette: >
   %\VignetteIndexEntry{psfmi_CoxModels}
   %\VignetteEngine{knitr::rmarkdown}
@@ -28,12 +28,13 @@ procedures.
 # Examples 
 
 * [Cox regression]
-    + [Pooling without BW and method D1] 
-    + [Pooling with BW and method MPR] 
-    + [Pooling with BW including interaction terms and method D2]
-    + [Pooling with BW including spline coefficient and method D1]
+    + [Pooling without BS and method D1] 
+    + [Pooling with FS and method MPR] 
+    + [Pooling with FS including interaction terms and method D1]
+    + [Pooling with BS including spline coefficients and method D1]
+    + [Pooling with FS including spline coefficients and method MPR]
 
-## Pooling without BWS and method D1
+## Pooling without BS and method D1
 
 If you set p.crit at 1 than no selection of variables takes place. 
 Either using direction = "FW" or direction = "BW" will produce the same
@@ -53,24 +54,25 @@ result.
 
 Back to [Examples]
 
-### Pooling with BWS and method MPR
+## Pooling with FS and method MPR
 
-```{r}
+```{r, eval=TRUE}
 
   library(psfmi)
   pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
   predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
   "Previous", "Tampascale"), p.crit=0.05,
-  cat.predictors=c("Expect_cat"), method="MPR", direction = "BW")
+  cat.predictors=c("Expect_cat"), method="MPR", direction = "FW")
   
-  pool_coxr$RR_Model
+  pool_coxr$RR_model_final
+  
   pool_coxr$predictors_in
   
 ```  
 
 Back to [Examples]
 
-### Pooling with BWS including interaction terms and method D2
+## Pooling with FS including interaction terms and method D1
 
 Pooling Cox regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and as method D2 including interaction terms with 
@@ -84,16 +86,17 @@ during backward selection.
   predictors=c("Duration", "Previous",  "Radiation", "Onset",
   "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
   "Expect_cat"), int.predictors=c("Tampascale:Radiation",
-  "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D2", direction = "BW")
+  "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D1", direction = "FW")
   
-  pool_coxr$RR_Model
+  pool_coxr$RR_model_final
+  
   pool_coxr$predictors_in
   
 ```  
 
 Back to [Examples]
 
-### Pooling with BWS including spline coefficients and method D1
+## Pooling with BS including spline coefficients and method D1
 
 Pooling Cox regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and as method D1 including a restricted cubic spline 
@@ -108,54 +111,33 @@ predictor and forcing Tampascale in the models during backward selection.
   int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
   nknots=3, method="D1", direction = "BW")
   
-  pool_coxr$RR_Model
-  pool_coxr$predictors_in
+  pool_coxr$RR_model_final
+  
+  pool_coxr$predictors_out
   
 ```  
 
 Back to [Examples]
 
-## Stability analysis
+## Pooling with FS including spline coefficients and method MPR
 
-### Stability analysis of Logistic regression model
-
-```{r}
-
-  library(psfmi)
-  psfmi_res <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-                      predictors=c("Gender", "Smoking", "JobControl", "Age", "Duration",
-                         "JobDemands", "SocialSupport"), p.crit =0.157, method="MPR",
-                      cat.predictors = "Satisfaction", int.predictors = c("Gender:JobControl"),
-                      direction = "BW")
-
-   stab_res <- psfmi_stab(psfmi_res, direction="FW", start_model = TRUE,
-      boot_method = "single", nboot=20, p.crit=0.05)
-  stab_res$bif
-  stab_res$bif_perc
-  stab_res$model_stab
-
-```  
-
-Back to [Examples]
-
-### Stability analysis of Cox regression model
+Pooling Cox regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and as method D1 including a restricted cubic spline 
+predictor and forcing Tampascale in the models during backward selection.
 
 ```{r}
 
   library(psfmi)
-  pool_lr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + factor(Satisfaction) + rcs(Tampascale,3) +
-                        Radiation + Radiation*factor(Satisfaction) + Age + Duration + Previous +
-                        Radiation*rcs(Tampascale, 3), data=lbpmicox, p.crit = 0.157, direction="FW",
-                        nimp=5, impvar="Impnr", keep.predictors = NULL, method="D1")
-  pool_lr$RR_Model
-  pool_lr$multiparm
-
-  stab_res <- psfmi_stab(pool_lr, direction="FW", start_model = TRUE,
-      boot_method = "single", nboot=20, p.crit=0.05)
-  stab_res$bif
-  stab_res$bif_perc
-  stab_res$model_stab
-
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
+  predictors=c("Duration", "Previous",  "Radiation", "Onset", "Function"), 
+  p.crit=0.05, cat.predictors=c("Satisfaction"), spline.predictors=c("Tampascale"),
+  int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
+  nknots=3, method="D1", direction = "MPR")
+  
+  pool_coxr$RR_model_final
+  
+  pool_coxr$predictors_in
+  
 ```  
 
 Back to [Examples]

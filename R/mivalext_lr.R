@@ -67,20 +67,32 @@
 #'
 #' @export
 mivalext_lr <-
-  function(data.val=NULL, data.orig=NULL, nimp=5, impvar=NULL, Outcome,
-           predictors=NULL, lp.orig=NULL, cal.plot=FALSE, plot.indiv=FALSE,
-           val.check=FALSE, g=10, groups_cal=10)
+  function(data.val=NULL, 
+           data.orig=NULL, 
+           nimp=5, 
+           impvar=NULL, 
+           Outcome,
+           predictors=NULL, 
+           lp.orig=NULL, 
+           cal.plot=FALSE, 
+           plot.indiv=FALSE,
+           val.check=FALSE, 
+           g=10, 
+           groups_cal=10)
  {
     
     if(is.null(predictors))
       stop("No predictors defined, cannot fit model")
-    P <- predictors
+    P <- 
+      predictors
     
     # Check data input
     if (!(is.data.frame(data.val)))
       stop("Data should be a data frame")
-    data.val <- data.frame(as_tibble(data.val))
-    data.val <- mutate_if(data.val, is.factor, ~ as.numeric(as.character(.x)))
+    data.val <- 
+      data.frame(as_tibble(data.val))
+    data.val <- 
+      mutate_if(data.val, is.factor, ~ as.numeric(as.character(.x)))
     
     if(!is.null(data.orig)) {
       if (ncol(data.orig) < 2)
@@ -110,27 +122,38 @@ mivalext_lr <-
     }
     
     # Determine original (fixed) coefficients
-    coef.orig <- lp.orig
+    coef.orig <- 
+      lp.orig
     # Determine original coefficients from
     # original dataset
     if(!is.null(data.orig))
     {
-      lp.orig <- NULL
-      Y <- c(paste(Outcome, paste("~")))
-      fm.orig <- as.formula(paste(Y, paste(P, collapse = "+")))
-      fit.orig <- glm(fm.orig, x=TRUE, y=TRUE, data=data.orig, family = binomial)
-      coef.orig <- coef(fit.orig)
+      lp.orig <- 
+        NULL
+      Y <- 
+        c(paste(Outcome, paste("~")))
+      fm.orig <- 
+        as.formula(paste(Y, paste(P, collapse = "+")))
+      fit.orig <- 
+        glm(fm.orig, x=TRUE, y=TRUE, data=data.orig, family = binomial)
+      coef.orig <- 
+        coef(fit.orig)
     }
     
-    Y <- c(paste(Outcome, paste("~")))
-    fm.val <- as.formula(paste(Y, paste(P, collapse = "+")))
-    fit.check <- glm(fm.val, x=TRUE, y=TRUE,
+    Y <- 
+      c(paste(Outcome, paste("~")))
+    fm.val <- 
+      as.formula(paste(Y, paste(P, collapse = "+")))
+    fit.check <- 
+      glm(fm.val, x=TRUE, y=TRUE,
                      data=data.val[data.val[impvar] == 1, ], family = binomial)
-    coef.check <- names(coef(fit.check))
+    coef.check <- 
+      names(coef(fit.check))
     # Determine regression formula for correct
     # order of coefficients
     if(val.check==TRUE) {
-      res.perform <- list("coef.check"=coef.check)
+      res.perform <- 
+        list("coef.check"=coef.check)
       return(res.perform)
     }
     if (!is.null(lp.orig)){

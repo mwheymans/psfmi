@@ -30,4 +30,3 @@ The pooled AUC value and the 95% CI.
 \author{
 Martijn Heymans, 2020
 }
-\keyword{internal}

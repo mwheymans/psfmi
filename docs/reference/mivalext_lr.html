@@ -11,23 +11,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 <meta property="og:title" content="External Validation of logistic prediction models in 
  multiply imputed datasets — mivalext_lr" />
 <meta property="og:description" content="mivalext_lr External validation of logistic prediction models" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,20 +57,10 @@
 <![endif]-->
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127301719-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-127301719-2');
-</script>
-
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -98,13 +91,37 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Vignettes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/psfmi-vignette.html">Welcome to the psfmi package</a>
+      <a href="../articles/psfmi_LogisticModels.html">Pooling and selection of logistic regression models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_CoxModels.html">Pooling and selection of Cox regression models</a>
+    </li>
+    <li>
+      <a href="../articles/boot_MI.html">MI and Bootstrapping - Method boot_MI</a>
+    </li>
+    <li>
+      <a href="../articles/MI_boot.html">MI and Bootstrapping - Method MI_boot</a>
+    </li>
+    <li>
+      <a href="../articles/cv_MI.html">MI and Cross-validation - Method cv_MI</a>
+    </li>
+    <li>
+      <a href="../articles/cv_MI_RR.html">MI and Cross-validation - Method cv_MI_RR</a>
+    </li>
+    <li>
+      <a href="../articles/MI_cv_naive.html">MI and Cross-validation - Method MI_cv_naive</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_mice.html">Package psfmi and mice</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after MI</a>
     </li>
   </ul>
 </li>
@@ -113,7 +130,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/mwheymans/psfmi/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -129,7 +151,7 @@
     <div class="page-header">
     <h1>External Validation of logistic prediction models in 
  multiply imputed datasets</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/mivalext_lr.R'><code>R/mivalext_lr.R</code></a></small>
     <div class="hidden name"><code>mivalext_lr.Rd</code></div>
     </div>
 
@@ -148,7 +170,8 @@
   <span class='kw'>cal.plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>plot.indiv</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>val.check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>g</span> <span class='kw'>=</span> <span class='fl'>10</span>
+  <span class='kw'>g</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>groups_cal</span> <span class='kw'>=</span> <span class='fl'>10</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -211,6 +234,12 @@ with coefficient values fitted in the order as used under lp.orig.</p></td>
       <td><p>A numerical scalar. Number of groups for the Hosmer and
 Lemeshow test. Default is 10.</p></td>
     </tr>
+    <tr>
+      <th>groups_cal</th>
+      <td><p>A numerical scalar. Number of groups used on the calibration plot. 
+Default is 10. If the range of predicted probabilities is low, less than 10 groups 
+can be chosen.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -220,7 +249,7 @@ Lemeshow test. Default is 10.</p></td>
  as <code>R2 (fixed)</code> and <code>R2 (calibr)</code>, Hosmer and Lemeshow test as <code>HL_test</code>, 
  coefficients pooled as <code>coef_pooled</code>, linear predictor pooled as <code>LP_pooled ext</code>, 
  and <code>Outcome</code>, <code>nimp</code>, <code>impvar</code>, <code>val.check</code>, 
- <code>g</code> and <code>coef.check</code>.</p>
+ <code>g</code>, <code>coef.check</code> and <code>groups_cal</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following information of the externally validated model is provided:
@@ -238,57 +267,50 @@ Lemeshow test. Default is 10.</p></td>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>F. Harrell. Regression Modeling Strategies. With Applications to
- Linear Models, Logistic and Ordinal Regression, and Survival Analysis. Springer,
- New York, NY, 2015.</p>
+ Linear Models, Logistic and Ordinal Regression, and Survival Analysis. 2nd Edition.
+ Springer, New York, NY, 2015.</p>
 <p>Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman &amp;
  Hall/CRC Interdisciplinary Statistics. Boca Raton.</p>
 <p>http://missingdatasolutions.rbind.io/</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>mivalext_lr</span>(<span class='kw'>data.val</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
-<span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"factor(Carrying)"</span>, <span class='st'>"Function"</span>, <span class='st'>"Tampascale"</span>,  <span class='st'>"Age"</span>),
-<span class='kw'>lp.orig</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>9.2</span>, -<span class='fl'>0.34</span>, <span class='fl'>0.92</span>, <span class='fl'>1.5</span>, <span class='fl'>0.5</span>, <span class='fl'>0.26</span>, -<span class='fl'>0.02</span>),
-<span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>val.check</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $coef.check
-#&gt; [1] "(Intercept)"       "Gender"            "factor(Carrying)2"
-#&gt; [4] "factor(Carrying)3" "Function"          "Tampascale"       
-#&gt; [7] "Age"              
-#&gt; </div><div class='input'>
+    <pre class="examples"><div class='input'>
 <span class='fu'>mivalext_lr</span>(<span class='kw'>data.val</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
 <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"factor(Carrying)"</span>, <span class='st'>"Function"</span>, <span class='st'>"Tampascale"</span>, <span class='st'>"Age"</span>),
-<span class='kw'>lp.orig</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>9.2</span>, -<span class='fl'>0.34</span>, <span class='fl'>0.92</span>, <span class='fl'>1.1</span>, -<span class='fl'>0.05</span>, <span class='fl'>0.26</span>, -<span class='fl'>0.02</span>),
-<span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>val.check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Setting levels: control = 0, case = 1</span></div><div class='output co'>#&gt; <span class='message'>Setting direction: controls &lt; cases</span></div><div class='output co'>#&gt; <span class='message'>Setting levels: control = 0, case = 1</span></div><div class='output co'>#&gt; <span class='message'>Setting direction: controls &lt; cases</span></div><div class='output co'>#&gt; <span class='message'>Setting levels: control = 0, case = 1</span></div><div class='output co'>#&gt; <span class='message'>Setting direction: controls &lt; cases</span></div><div class='output co'>#&gt; <span class='message'>Setting levels: control = 0, case = 1</span></div><div class='output co'>#&gt; <span class='message'>Setting direction: controls &lt; cases</span></div><div class='output co'>#&gt; <span class='message'>Setting levels: control = 0, case = 1</span></div><div class='output co'>#&gt; <span class='message'>Setting direction: controls &lt; cases</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='kw'>lp.orig</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, -<span class='fl'>0.35</span>, <span class='fl'>1.00</span>, <span class='fl'>1.00</span>, -<span class='fl'>0.04</span>, <span class='fl'>0.26</span>, -<span class='fl'>0.01</span>),
+<span class='kw'>cal.plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>plot.indiv</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>val.check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Pooled performance measures over m = 5 imputed external validation datasets correctly estimated</span>
 #&gt; <span class='message'></span></div><div class='img'><img src='mivalext_lr-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $ROC
 #&gt; $ROC$`ROC (logit)`
 #&gt;             95% Low     ROC  95% Up
-#&gt; ROC (logit) 0.69275 0.85407 0.93824
+#&gt; ROC (logit) 0.69344 0.85507 0.93898
 #&gt; 
 #&gt; $ROC$`ROC (median)`
 #&gt; 1st Qu.  Median 3rd Qu. 
-#&gt; 0.85378 0.85548 0.85652 
+#&gt; 0.85491 0.85620 0.85789 
 #&gt; 
 #&gt; 
 #&gt; $R2_fixed
 #&gt; $R2_fixed$`Fisher Z (fixed)`
-#&gt; [1] 0.44618
+#&gt; [1] 0.46333
 #&gt; 
 #&gt; $R2_fixed$`Median (fixed)`
 #&gt; 1st Qu.  Median 3rd Qu. 
-#&gt; 0.44666 0.45059 0.45683 
+#&gt; 0.46254 0.46506 0.47510 
 #&gt; 
 #&gt; 
 #&gt; $R2_calibr
 #&gt; $R2_calibr$`Fisher Z (calibrated)`
-#&gt; [1] 0.46395
+#&gt; [1] 0.46465
 #&gt; 
 #&gt; $R2_calibr$`Median (calibrated)`
 #&gt; 1st Qu.  Median 3rd Qu. 
-#&gt; 0.46143 0.46622 0.47500 
+#&gt; 0.46309 0.46562 0.47609 
 #&gt; 
 #&gt; 
 #&gt; $HLtest
-#&gt;         D         p        df       df2 
-#&gt;   1.98132   0.05310   8.00000 138.20496 
+#&gt;        D        p       df      df2 
+#&gt;  1.11778  0.37425  8.00000 36.86064 
 #&gt; 
 #&gt; $coef_pooled
 #&gt;       (Intercept)            Gender factor(Carrying)2 factor(Carrying)3 
@@ -298,7 +320,7 @@ Lemeshow test. Default is 10.</p></td>
 #&gt; 
 #&gt; $LP_pooled_ext
 #&gt; (Intercept)      lp.ext 
-#&gt;    -0.34666     0.94836 
+#&gt;    -0.07881     0.98183 
 #&gt; 
 #&gt; $nimp
 #&gt; [1] 5
@@ -319,19 +341,16 @@ Lemeshow test. Default is 10.</p></td>
 #&gt; [1] "(Intercept)"       "Gender"            "factor(Carrying)2"
 #&gt; [4] "factor(Carrying)3" "Function"          "Tampascale"       
 #&gt; [7] "Age"              
+#&gt; 
+#&gt; $groups_cal
+#&gt; [1] 10
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -342,7 +361,7 @@ Lemeshow test. Default is 10.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

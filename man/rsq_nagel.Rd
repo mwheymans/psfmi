@@ -21,4 +21,3 @@ Nagelkerke's R-square calculation for logistic regression / glm models
 \author{
 Martijn Heymans, 2020
 }
-\keyword{internal}

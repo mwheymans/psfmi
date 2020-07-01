@@ -23,6 +23,9 @@
 #' @param keep.P A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. All type of variables are allowed.
 #'   
+#' @author Martijn Heymans, 2020
+#' @keywords internal
+#'   
 #' @export
 psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, keep.P)
 {
