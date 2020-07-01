@@ -38,28 +38,4 @@ reference:
   - lbpmilr
   - lbpmilr_dev
 
-navbar:
-  components:
-    articles:
-      text: Vignettes
-      menu:
-      - text: Pooling and selection of logistic regression models
-        href: articles/psfmi_LogisticModels.html
-      - text: Pooling and selection of Cox regression models
-        href: articles/psfmi_CoxModels.html
-      - text: MI and Bootstrapping - Method boot_MI
-        href: articles/boot_MI.html
-      - text: MI and Bootstrapping - Method MI_boot
-        href: articles/MI_boot.html
-      - text: MI and Cross-validation - Method cv_MI
-        href: articles/cv_MI.html
-      - text: MI and Cross-validation - Method cv_MI_RR
-        href: articles/cv_MI_RR.html
-      - text: MI and Cross-validation - Method MI_cv_naive
-        href: articles/MI_cv_naive.html
-      - text: Package psfmi and mice
-        href: articles/psfmi_mice.html
-      - text: Stability analysis after MI
-        href: articles/psfmi_StabilityAnalysis.html
-
 last_built: 2020-06-30T19:46Z
