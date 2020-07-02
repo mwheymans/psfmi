@@ -91,9 +91,13 @@
 #'
 #' @section Vignettes:
 #'  https://mwheymans.github.io/psfmi/articles/cv_MI.html
+#'  
 #'  https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html
+#'  
 #'  https://mwheymans.github.io/psfmi/articles/MI_cv_naive.html
+#'  
 #'  https://mwheymans.github.io/psfmi/articles/boot_MI.html
+#'  
 #'  https://mwheymans.github.io/psfmi/articles/MI_boot.html
 #'
 #' @author Martijn Heymans, 2020
