@@ -42,6 +42,9 @@
 #'
 #' @references http://missingdatasolutions.rbind.io/
 #'
+#' @section Vignettes:
+#'  https://mwheymans.github.io/psfmi/articles/psfmi_StabilityAnalysis.html
+#'
 #' @examples
 #'  pool_lr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + factor(Satisfaction) + 
 #'    rcs(Tampascale,3) + Radiation + Radiation*factor(Satisfaction) + Age + Duration + 

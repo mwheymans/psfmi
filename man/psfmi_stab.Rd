@@ -50,6 +50,11 @@ The function evaluates predictor selection frequency in stratified or cluster bo
  In combination with the \code{psfmi_mm} function a cluster bootstrap method is used where bootstrapping
  is used on the level of the clusters only (and not also within the clusters).
 }
+\section{Vignettes}{
+
+ https://mwheymans.github.io/psfmi/articles/psfmi_StabilityAnalysis.html
+}
+
 \examples{
  pool_lr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + factor(Satisfaction) + 
    rcs(Tampascale,3) + Radiation + Radiation*factor(Satisfaction) + Age + Duration + 

@@ -115,6 +115,15 @@ For internal validation five methods can be used, cv_MI, cv_MI_RR, MI_cv_naive,
  cross-validation and with methods boot_MI and MI_boot, backward and forward selection can
  be used. For methods cv_MI and cv_MI_RR the outcome in the original dataset has to be complete.
 }
+\section{Vignettes}{
+
+ https://mwheymans.github.io/psfmi/articles/cv_MI.html
+ https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html
+ https://mwheymans.github.io/psfmi/articles/MI_cv_naive.html
+ https://mwheymans.github.io/psfmi/articles/boot_MI.html
+ https://mwheymans.github.io/psfmi/articles/MI_boot.html
+}
+
 \examples{
 pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
            factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
