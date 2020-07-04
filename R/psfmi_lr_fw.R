@@ -457,13 +457,15 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
       names(RR_model_final) <- "Final model"
       multiparm_final <- multiparm[j]
       fm_step_final <- fm_total[j]
-    } else {
+    if(!is_empty(P)){
       RR_model_final <- RR_model[j-1]
-      if(!is_empty(keep.P))
-        RR_model_final <- RR_model
       multiparm_final <- multiparm[j-1]
-      names(RR_model_final) <- "Final model"
       fm_step_final <- fm_total[j-1]
+       if(j==1 & !is_empty(keep.P)) {
+          RR_model_final <- RR_model
+          fm_step_final <- fm_total
+       }
+      names(RR_model_final) <- "Final model"
       multiparm_out <- multiparm_end[j]
       names(multiparm_out) <- "Predictors removed"
     }
