@@ -117,11 +117,7 @@ For internal validation five methods can be used, cv_MI, cv_MI_RR, MI_cv_naive,
 }
 \section{Vignettes}{
 
- https://mwheymans.github.io/psfmi/articles/cv_MI.html
- https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html
- https://mwheymans.github.io/psfmi/articles/MI_cv_naive.html
- https://mwheymans.github.io/psfmi/articles/boot_MI.html
- https://mwheymans.github.io/psfmi/articles/MI_boot.html
+  https://mwheymans.github.io/psfmi/articles/
 }
 
 \examples{

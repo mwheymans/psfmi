@@ -457,6 +457,7 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
       names(RR_model_final) <- "Final model"
       multiparm_final <- multiparm[j]
       fm_step_final <- fm_total[j]
+    }  
     if(!is_empty(P)){
       RR_model_final <- RR_model[j-1]
       multiparm_final <- multiparm[j-1]

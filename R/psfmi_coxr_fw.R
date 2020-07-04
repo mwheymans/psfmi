@@ -340,6 +340,7 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
       names(RR_model_final) <- "Final model"
       multiparm_final <- multiparm[j]
       fm_step_final <- fm_total[j]
+    }  
     if(!is_empty(P)){
       RR_model_final <- RR_model[j-1]
       multiparm_final <- multiparm[j-1]
@@ -347,12 +348,12 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
       if(j==1 & !is_empty(keep.P)) {
           RR_model_final <- RR_model
           fm_step_final <- fm_total
-      }
+    }
     names(RR_model_final) <- "Final model"
     multiparm_out <- multiparm_end[j]
     names(multiparm_out) <- "Predictors removed"
-   }
   }
+}
 
   Y_initial <-
     c(paste0("Surv(", time, ",", status, ")~"))
