@@ -189,7 +189,7 @@ MI_boot <- function(pobj, p.crit, nboot, direction)
   predictors_selected <-
     data.frame(do.call("rbind", lapply(opt_boot, function(x) x[[2]])))
   colnames(predictors_selected) <-
-    pobj$predictors_initial
+    pobj$predictors_final
   row.names(predictors_selected) <-
     paste("Boot", 1:nboot)
 
