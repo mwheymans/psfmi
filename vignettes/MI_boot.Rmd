@@ -15,7 +15,8 @@ vignette: >
 This page contains information of the `MI_boot` method that is implemented 
 in the [`psfmi`](https://github.com/mwheymans/psfmi) package and that combines 
 Multiple Imputation with bootstrapping for the validation of 
-logistic regression / prediction models. Currently the method is only available 
+logistic regression / prediction models. Internal validation is always done of the last model that is 
+selected by the function `psfmi_lr`. Currently the method is only available 
 via downloading the `psfmi` package via Github. Do this:
 
  install.packages("devtools")
@@ -51,7 +52,10 @@ knitr::include_graphics("MI_boot.png")
 
 ## Method MI_boot 
 
-To run the MI_boot method use:
+internal validation is done of the last model that is selected by the function `psfmi_lr`. 
+In the example below, `psfmi_lr` is used with `p.crit` set at 1. This setting is also
+used in the `psfmi_perform` function. This means that first the full model is pooled and
+subsequently interval validation is done of the full model.  
 
 ```{r}
 
@@ -71,7 +75,11 @@ Back to [Examples]
 
 ## Method MI_boot including BW selection
 
-To run the MI_boot method including backward selection:
+Internal validation is done of the last model that is selected by the function `psfmi_lr`. 
+In the example below, `psfmi_lr` is used with `p.crit` set at 1, and pooling is than done 
+without variable selection, i.e. the full model is pooled. When subsequently interval 
+validation is done with the `psfmi_perform` function including BW, BW is applied in 
+each bootstrap sample from the full model.  
 
 ```{r}
 
@@ -90,8 +98,11 @@ Back to [Examples]
 
 ## Method MI_boot including FW selection
 
-To run the MI_boot method including forward selection:
-
+Internal validation is done of the last model that is selected by the function `psfmi_lr`. 
+In the example below, `psfmi_lr` is used with `p.crit` set at 1, and pooling is than done 
+without variable selection, i.e. the full model is pooled. When subsequently interval 
+validation is done with the `psfmi_perform` function including FW, FW is applied in 
+each bootstrap sample from the full model.  
 
 ```{r}
 

@@ -109,7 +109,7 @@
       <h1 data-toc-skip>Working together: mice and psfmi</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-07-02</h4>
+            <h4 class="date">2020-07-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_mice.Rmd"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
@@ -186,28 +186,28 @@
   <span class="no">data_comp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="http://stefvanbuuren.github.io/mice/reference/complete.mids.html">complete</a></span>(<span class="no">imp</span>, <span class="kw">action</span> <span class="kw">=</span> <span class="st">"long"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">data_comp</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">".imp"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">data_comp</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">".imp"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
   <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span>), <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
 
   <span class="no">pool_lr</span>$<span class="no">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term     estimate  std.error   statistic       df     p.value</span>
-<span class="co">#&gt; 1   (Intercept)  0.038771141 2.37858973  0.01630005 144.3129 0.987017528</span>
-<span class="co">#&gt; 2        Gender -0.374756968 0.40958243 -0.91497325 149.8711 0.361675446</span>
-<span class="co">#&gt; 3       Smoking  0.068785358 0.33745586  0.20383513 149.8691 0.838758863</span>
-<span class="co">#&gt; 4      Function -0.135287138 0.04261776 -3.17443066 148.4603 0.001825574</span>
-<span class="co">#&gt; 5    JobControl  0.006636304 0.01967617  0.33727624 137.4767 0.736423059</span>
-<span class="co">#&gt; 6    JobDemands  0.001460507 0.03634507  0.04018445 146.9342 0.968000623</span>
-<span class="co">#&gt; 7 SocialSupport  0.041357507 0.05542501  0.74618856 148.7025 0.456731537</span>
-<span class="co">#&gt;          OR   lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 1.0395326 0.009820682 110.0359362</span>
-<span class="co">#&gt; 2 0.6874563 0.308036027   1.5342238</span>
-<span class="co">#&gt; 3 1.0712063 0.552872353   2.0754933</span>
-<span class="co">#&gt; 4 0.8734651 0.803467971   0.9495602</span>
-<span class="co">#&gt; 5 1.0066584 0.968575361   1.0462388</span>
-<span class="co">#&gt; 6 1.0014616 0.932602858   1.0754045</span>
-<span class="co">#&gt; 7 1.0422246 0.934937582   1.1618232</span></pre></body></html></div>
+<span class="co">#&gt;            term     estimate  std.error   statistic        df    p.value</span>
+<span class="co">#&gt; 1   (Intercept)  0.194619539 2.38565463  0.08157909 147.32745 0.93509215</span>
+<span class="co">#&gt; 2        Gender -0.371182329 0.41884301 -0.88620873 138.80185 0.37703788</span>
+<span class="co">#&gt; 3       Smoking  0.086936303 0.33950586  0.25606716 149.58931 0.79825077</span>
+<span class="co">#&gt; 4      Function -0.141052494 0.04489118 -3.14209807  96.29903 0.00222919</span>
+<span class="co">#&gt; 5    JobControl  0.005850423 0.01990867  0.29386304 132.50988 0.76932235</span>
+<span class="co">#&gt; 6    JobDemands  0.001429759 0.03743646  0.03819161 134.55580 0.96959151</span>
+<span class="co">#&gt; 7 SocialSupport  0.038645344 0.05876861  0.65758481  98.90776 0.51233243</span>
+<span class="co">#&gt;          OR lower.EXP   upper.EXP</span>
+<span class="co">#&gt; 1 1.2148487 0.0113191 130.3864338</span>
+<span class="co">#&gt; 2 0.6899181 0.3035786   1.5679201</span>
+<span class="co">#&gt; 3 1.0908272 0.5607415   2.1220186</span>
+<span class="co">#&gt; 4 0.8684437 0.7952973   0.9483176</span>
+<span class="co">#&gt; 5 1.0058676 0.9673735   1.0458934</span>
+<span class="co">#&gt; 6 1.0014308 0.9305814   1.0776742</span>
+<span class="co">#&gt; 7 1.0394018 0.9263148   1.1662947</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="mice-and-psfmi-for-selecting-logistic-regression-models" class="section level2">
@@ -249,7 +249,7 @@
   <span class="no">data_comp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="http://stefvanbuuren.github.io/mice/reference/complete.mids.html">complete</a></span>(<span class="no">imp</span>, <span class="kw">action</span> <span class="kw">=</span> <span class="st">"long"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">data_comp</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">".imp"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">data_comp</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">".imp"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
   <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span>), <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.157</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>,
   <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"FW"</span>)
@@ -260,12 +260,12 @@
 
   <span class="no">pool_lr</span>$<span class="no">RR_model_final</span>
 <span class="co">#&gt; $`Final model`</span>
-<span class="co">#&gt;          term   estimate  std.error statistic       df     p.value        OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.1473849 0.45539281  2.519550 151.7090 0.012785749 3.1499447</span>
-<span class="co">#&gt; 2    Function -0.1327104 0.04048205 -3.278253 151.6117 0.001295343 0.8757187</span>
+<span class="co">#&gt;          term  estimate  std.error statistic       df     p.value        OR</span>
+<span class="co">#&gt; 1 (Intercept)  1.188522 0.47811810  2.485834 110.7922 0.014417878 3.2822272</span>
+<span class="co">#&gt; 2    Function -0.136434 0.04273042 -3.192901 104.7974 0.001860023 0.8724639</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1  1.290223 7.6902615</span>
-<span class="co">#&gt; 2  0.808920 0.9480334</span></pre></body></html></div>
+<span class="co">#&gt; 1 1.2858381 8.3782050</span>
+<span class="co">#&gt; 2 0.8023699 0.9486813</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
