@@ -81,6 +81,9 @@
 #'
 #' @references http://missingdatasolutions.rbind.io/
 #' 
+#' @section Vignettes:
+#'   https://mwheymans.github.io/psfmi/articles/psfmi_LogisticModels.html
+#' 
 #' @author Martijn Heymans, 2020
 #'
 #' @examples

@@ -117,7 +117,14 @@ For internal validation five methods can be used, cv_MI, cv_MI_RR, MI_cv_naive,
 }
 \section{Vignettes}{
 
-  https://mwheymans.github.io/psfmi/articles/
+
+\itemize{
+\item  \href{https://mwheymans.github.io/psfmi/articles/cv_MI.html}{MI and Cross-validation - Method cv_MI}
+\item  \href{https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html}{MI and Cross-validation - Method cv_MI_RR}
+\item  \href{https://mwheymans.github.io/psfmi/articles/MI_cv_naive.html}{MI and Cross-validation - Method MI_cv_naive} 
+\item  \href{https://mwheymans.github.io/psfmi/articles/boot_MI.html}{MI and Bootstrapping - Method boot_MI}
+\item  \href{https://mwheymans.github.io/psfmi/articles/MI_boot.html}{MI and Bootstrapping - Method MI_boot}
+}
 }
 
 \examples{

@@ -48,9 +48,11 @@
 #'  res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
 #'          predictors=c("Tampascale", "Smoking"),
 #'          cat.predictors = c("Satisfaction"), anova_test = "Chisq")
+#'          
 #' res_single$RR_model_final
 #'
 #' @seealso \code{\link{psfmi_perform}}
+#' 
 #' @author Martijn Heymans, 2020
 #' 
 #' @export

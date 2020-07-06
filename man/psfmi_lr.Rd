@@ -101,6 +101,11 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  \code{Outcome ~ variable1*variable2} or \code{Outcome ~ variable1 + variable2 + variable1:variable2}.
  All variables in the terms part have to be separated by a "+".
 }
+\section{Vignettes}{
+
+  https://mwheymans.github.io/psfmi/articles/psfmi_LogisticModels.html
+}
+
 \examples{
   pool_lr <- psfmi_lr( data=lbpmilr, formula = Chronic ~ Pain + 
   factor(Satisfaction) + rcs(Tampascale,3) + Radiation + 

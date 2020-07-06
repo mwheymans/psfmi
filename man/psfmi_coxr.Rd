@@ -103,11 +103,17 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  \code{Outcome ~ variable1*variable2} or \code{Outcome ~ variable1 + variable2 + variable1:variable2}.
  All variables in the terms part have to be separated by a "+".
 }
+\section{Vignettes}{
+
+  https://mwheymans.github.io/psfmi/articles/psfmi_CoxModels.html
+}
+
 \examples{
  pool_lr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + Tampascale +
                        Radiation + Radiation*Pain + Age + Duration + Previous,
                      data=lbpmicox, p.crit = 0.05, direction="BW", nimp=5, impvar="Impnr",
                      keep.predictors = "Radiation*Pain", method="D1")
+                     
  pool_lr$RR_model_final
  
 }
@@ -132,4 +138,7 @@ EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.
 
 http://missingdatasolutions.rbind.io/
+}
+\author{
+Martijn Heymans, 2020
 }
