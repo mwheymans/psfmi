@@ -115,6 +115,9 @@
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
+      <a href="../articles/psfmi_DevVal.html">Complete Workflow to Multiply Impute, Develop and Validate a Prediction model with `mice` and `psfmi`</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -310,7 +313,15 @@ be changed.</p></td>
 
     
 
-<p>https://mwheymans.github.io/psfmi/articles/</p>
+
+<ul>
+<li><p><a href='https://mwheymans.github.io/psfmi/articles/cv_MI.html'>MI and Cross-validation - Method cv_MI</a></p></li>
+<li><p><a href='https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html'>MI and Cross-validation - Method cv_MI_RR</a></p></li>
+<li><p><a href='https://mwheymans.github.io/psfmi/articles/MI_cv_naive.html'>MI and Cross-validation - Method MI_cv_naive</a></p></li>
+<li><p><a href='https://mwheymans.github.io/psfmi/articles/boot_MI.html'>MI and Bootstrapping - Method boot_MI</a></p></li>
+<li><p><a href='https://mwheymans.github.io/psfmi/articles/MI_boot.html'>MI and Bootstrapping - Method MI_boot</a></p></li>
+</ul>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Heymans MW, van Buuren S, Knol DL, van Mechelen W, de Vet HC. Variable selection under
@@ -333,7 +344,7 @@ be changed.</p></td>
 <p>http://missingdatasolutions.rbind.io/</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_lr</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Chronic</span> ~ <span class='no'>Pain</span> + <span class='no'>JobDemands</span> + <span class='fu'>rcs</span>(<span class='no'>Tampascale</span>, <span class='fl'>3</span>) +
+    <pre class="examples"><div class='input'><span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Chronic</span> ~ <span class='no'>Pain</span> + <span class='no'>JobDemands</span> + <span class='fu'>rcs</span>(<span class='no'>Tampascale</span>, <span class='fl'>3</span>) +
            <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) + <span class='no'>Smoking</span>, <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"FW"</span>,
            <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)
 

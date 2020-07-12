@@ -1,6 +1,16 @@
 pandoc: 2.7.3
 pkgdown: 1.5.1
 pkgdown_sha: ~
-articles: []
-last_built: 2020-07-05T15:09Z
+articles:
+  boot_MI: boot_MI.html
+  cv_MI: cv_MI.html
+  cv_MI_RR: cv_MI_RR.html
+  MI_boot: MI_boot.html
+  MI_cv_naive: MI_cv_naive.html
+  psfmi_CoxModels: psfmi_CoxModels.html
+  psfmi_DevVal: psfmi_DevVal.html
+  psfmi_LogisticModels: psfmi_LogisticModels.html
+  psfmi_mice: psfmi_mice.html
+  psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
+last_built: 2020-07-12T20:37Z
 

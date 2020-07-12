@@ -72,6 +72,9 @@
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
+      <a href="../articles/psfmi_DevVal.html">Complete Workflow to Multiply Impute, Develop and Validate a Prediction model with `mice` and `psfmi`</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -109,7 +112,7 @@
       <h1 data-toc-skip>Multiple Imputation and Cross-validation - The MI_cv_naive method</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-07-05</h4>
+            <h4 class="date">2020-07-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/MI_cv_naive.Rmd"><code>vignettes/MI_cv_naive.Rmd</code></a></small>
       <div class="hidden name"><code>MI_cv_naive.Rmd</code></div>
@@ -150,12 +153,12 @@ Schematic overview of the MI_cv_naive method
 <a href="#method-mi_cv_naive-1" class="anchor"></a>Method MI_cv_naive</h2>
 <p>To run the MI_cv_naive method use:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
+<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
                    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span>, <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"BW"</span>,
                    <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">100</span>)
-<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_cv_naive"</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
+<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_cv_naive"</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
                      <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">BW</span><span class="kw">=</span><span class="fl">FALSE</span>)</pre></body></html></div>
 <pre><code>## 
 ## Imputation 1</code></pre>
@@ -188,12 +191,12 @@ Schematic overview of the MI_cv_naive method
 <a href="#method-mi_cv_naive-including-bw-selection" class="anchor"></a>Method MI_cv_naive including BW selection</h2>
 <p>To run the MI_cv_naive method by implementing backward variable selection during cross-validation use:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
+<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
                    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span>, <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"BW"</span>,
                    <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">100</span>)
-<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_cv_naive"</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
+<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_cv_naive"</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
                      <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">0.05</span>, <span class="kw">BW</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
 <pre><code>## 
 ## Imputation 1</code></pre>

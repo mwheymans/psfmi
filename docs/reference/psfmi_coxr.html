@@ -116,6 +116,9 @@ prediction models in multiply imputed data using selection methods D1, D2 and MP
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
+      <a href="../articles/psfmi_DevVal.html">Complete Workflow to Multiply Impute, Develop and Validate a Prediction model with `mice` and `psfmi`</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -288,6 +291,11 @@ means forward selection.</p></td>
  <code>Outcome ~ rcs(variable, 3)</code>. Interaction terms can be defined as
  <code>Outcome ~ variable1*variable2</code> or <code>Outcome ~ variable1 + variable2 + variable1:variable2</code>.
  All variables in the terms part have to be separated by a "+".</p>
+    <h2 class="hasAnchor" id="vignettes"><a class="anchor" href="#vignettes"></a>Vignettes</h2>
+
+    
+
+<p>https://mwheymans.github.io/psfmi/articles/psfmi_CoxModels.html</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
@@ -311,7 +319,8 @@ means forward selection.</p></td>
                      <span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmicox</span>, <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"BW"</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
                      <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='st'>"Radiation*Pain"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Previous</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'> <span class='no'>pool_lr</span>$<span class='no'>RR_model_final</span></div><div class='output co'>#&gt; $`Step 4`
+#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>
+ <span class='no'>pool_lr</span>$<span class='no'>RR_model_final</span></div><div class='output co'>#&gt; $`Step 4`
 #&gt;             term     estimate   std.error   statistic         df    p.value
 #&gt; 1           Pain -0.106402350 0.053609346 -1.98477238   363.4861 0.04792121
 #&gt; 2      Radiation  0.034402970 0.614625339  0.05597389   261.0595 0.95540542

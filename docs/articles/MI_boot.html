@@ -72,6 +72,9 @@
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
+      <a href="../articles/psfmi_DevVal.html">Complete Workflow to Multiply Impute, Develop and Validate a Prediction model with `mice` and `psfmi`</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -109,7 +112,7 @@
       <h1 data-toc-skip>Multiple Imputation and Bootstrapping - Method MI_boot</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-07-05</h4>
+            <h4 class="date">2020-07-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/MI_boot.Rmd"><code>vignettes/MI_boot.Rmd</code></a></small>
       <div class="hidden name"><code>MI_boot.Rmd</code></div>
@@ -152,12 +155,12 @@ Schematic overview of the boot_MI method
 <a href="#method-mi_boot-1" class="anchor"></a>Method MI_boot</h2>
 <p>internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1. This setting is also used in the <code>psfmi_perform</code> function. This means that first the full model is pooled and subsequently interval validation is done of the full model.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
+<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
                    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span>, <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"FW"</span>,
                  <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">200</span>)
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_boot"</span>, <span class="kw">nboot</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_boot"</span>, <span class="kw">nboot</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
 <pre><code>## 
 ## Boot 1</code></pre>
 <pre><code>## 
@@ -202,12 +205,12 @@ Schematic overview of the boot_MI method
 <a href="#method-mi_boot-including-bw-selection" class="anchor"></a>Method MI_boot including BW selection</h2>
 <p>Internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1, and pooling is than done without variable selection, i.e. the full model is pooled. When subsequently interval validation is done with the <code>psfmi_perform</code> function including BW, BW is applied in each bootstrap sample from the full model.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
+<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
                    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span>, <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"FW"</span>,
                  <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">200</span>)
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_boot"</span>, <span class="kw">nboot</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">0.05</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"BW"</span>)</pre></body></html></div>
+<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_boot"</span>, <span class="kw">nboot</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">0.05</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"BW"</span>)</pre></body></html></div>
 <pre><code>## 
 ## Boot 1</code></pre>
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
@@ -279,12 +282,12 @@ Schematic overview of the boot_MI method
 <a href="#method-mi_boot-including-fw-selection" class="anchor"></a>Method MI_boot including FW selection</h2>
 <p>Internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1, and pooling is than done without variable selection, i.e. the full model is pooled. When subsequently interval validation is done with the <code>psfmi_perform</code> function including FW, FW is applied in each bootstrap sample from the full model.</p>
 <div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
+<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
                    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span>, <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"FW"</span>,
                  <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">200</span>)
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_boot"</span>, <span class="kw">nboot</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">0.05</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"FW"</span>)</pre></body></html></div>
+<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"MI_boot"</span>, <span class="kw">nboot</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">0.05</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"FW"</span>)</pre></body></html></div>
 <pre><code>## 
 ## Boot 1</code></pre>
 <pre><code>## Entered at Step 1 is - Pain</code></pre>

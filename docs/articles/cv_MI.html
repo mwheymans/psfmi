@@ -72,6 +72,9 @@
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
+      <a href="../articles/psfmi_DevVal.html">Complete Workflow to Multiply Impute, Develop and Validate a Prediction model with `mice` and `psfmi`</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -109,7 +112,7 @@
       <h1 data-toc-skip>Multiple Imputation and Cross-validation - method cv_MI</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-07-05</h4>
+            <h4 class="date">2020-07-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/cv_MI.Rmd"><code>vignettes/cv_MI.Rmd</code></a></small>
       <div class="hidden name"><code>cv_MI.Rmd</code></div>
@@ -152,7 +155,7 @@ Schematic overview of the cv_MI method
 <a href="#method-cv_mi-1" class="anchor"></a>Method cv_MI</h2>
 <p>To run the cv_MI method use:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="fu">rcs</span>(<span class="no">Pain</span>, <span class="fl">3</span>) + <span class="no">JobDemands</span> + <span class="no">Tampascale</span> +
+<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="fu">rcs</span>(<span class="no">Pain</span>, <span class="fl">3</span>) + <span class="no">JobDemands</span> + <span class="no">Tampascale</span> +
              <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span> + <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>)*<span class="fu">rcs</span>(<span class="no">Pain</span>, <span class="fl">3</span>) ,
              <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"BW"</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>,
              <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)</pre></body></html></div>
@@ -164,7 +167,7 @@ Schematic overview of the cv_MI method
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">200</span>)
-<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"cv_MI"</span>, <span class="kw">data_orig</span> <span class="kw">=</span> <span class="no">lbp_orig</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
+<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"cv_MI"</span>, <span class="kw">data_orig</span> <span class="kw">=</span> <span class="no">lbp_orig</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
                      <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">BW</span><span class="kw">=</span><span class="fl">FALSE</span>,  <span class="kw">nimp_cv</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">miceImp</span> <span class="kw">=</span> <span class="no">miceImp</span>, <span class="kw">printFlag</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <pre><code>## 
 ## Imp run 1</code></pre>
@@ -223,7 +226,7 @@ Schematic overview of the cv_MI method
 <a href="#method-cv_mi-including-bw-selection" class="anchor"></a>Method cv_MI including BW selection</h2>
 <p>To run the cv_MI method including BW selection use:</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="fu">rcs</span>(<span class="no">Pain</span>, <span class="fl">3</span>) + <span class="no">JobDemands</span> + <span class="no">Tampascale</span> +
+<span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="fu">rcs</span>(<span class="no">Pain</span>, <span class="fl">3</span>) + <span class="no">JobDemands</span> + <span class="no">Tampascale</span> +
              <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span> + <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>)*<span class="fu">rcs</span>(<span class="no">Pain</span>, <span class="fl">3</span>) ,
              <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"BW"</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>,
              <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)</pre></body></html></div>
@@ -235,7 +238,7 @@ Schematic overview of the cv_MI method
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">200</span>)
-<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"cv_MI"</span>, <span class="kw">data_orig</span> <span class="kw">=</span> <span class="no">lbp_orig</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
+<span class="no">res_cv</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="no">pool_lr</span>, <span class="kw">val_method</span> <span class="kw">=</span> <span class="st">"cv_MI"</span>, <span class="kw">data_orig</span> <span class="kw">=</span> <span class="no">lbp_orig</span>, <span class="kw">folds</span> <span class="kw">=</span> <span class="fl">5</span>,
                      <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">0.05</span>, <span class="kw">BW</span><span class="kw">=</span><span class="fl">TRUE</span>,  <span class="kw">nimp_cv</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">miceImp</span> <span class="kw">=</span> <span class="no">miceImp</span>, <span class="kw">printFlag</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <pre><code>## 
 ## Imp run 1</code></pre>

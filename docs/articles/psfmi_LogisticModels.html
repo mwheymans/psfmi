@@ -72,6 +72,9 @@
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
+      <a href="../articles/psfmi_DevVal.html">Complete Workflow to Multiply Impute, Develop and Validate a Prediction model with `mice` and `psfmi`</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -109,7 +112,7 @@
       <h1 data-toc-skip>Pooling and Selection of Logistic Regression Models</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-07-05</h4>
+            <h4 class="date">2020-07-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_LogisticModels.Rmd"><code>vignettes/psfmi_LogisticModels.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_LogisticModels.Rmd</code></div>
@@ -155,7 +158,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <a href="#pooling-without-bs-and-method-d1" class="anchor"></a>Pooling without BS and method D1</h2>
 <div class="sourceCode" id="cb1"><html><body><pre class="r">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
   <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span>), <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
 
@@ -185,7 +188,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 and forcing the predictor “Smoking” in the models during backward selection.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
   <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span>), <span class="kw">keep.predictors</span> <span class="kw">=</span> <span class="st">"Smoking"</span>,
   <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"BW"</span>)
@@ -223,7 +226,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 and forcing the predictor “Smoking” in the models during backward selection.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
   <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span>), <span class="kw">keep.predictors</span> <span class="kw">=</span> <span class="st">"Smoking"</span>,
   <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"MPR"</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"BW"</span>)
@@ -267,7 +270,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <p>Pooling Logistic regression models over 5 imputed datasets with BS using a p-value of 0.05 and as method D2. Several interaction terms, including a categorical predictor, are part of the selection procedure.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>),
   <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">cat.predictors</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Carrying"</span>, <span class="st">"Satisfaction"</span>),
   <span class="kw">int.predictors</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Carrying:Smoking"</span>, <span class="st">"Gender:Smoking"</span>), <span class="kw">method</span><span class="kw">=</span><span class="st">"D2"</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"BW"</span>)
@@ -320,7 +323,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <p>Same as above but now forcing several predictors, including interaction terms, in the model during BS.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>),
   <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.157</span>, <span class="kw">cat.predictors</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Carrying"</span>, <span class="st">"Satisfaction"</span>),
   <span class="kw">int.predictors</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Carrying*Smoking"</span>, <span class="st">"Gender*Smoking"</span>),
@@ -369,7 +372,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <p>Pooling Logistic regression models over 5 imputed datasets with BS using a p-value of 0.05 and as method D1. A spline predictor and interaction term are part of the selection procedure.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
-  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psfmi/man/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
+  <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
   <span class="kw">predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"JobControl"</span>),
   <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">0.157</span>, <span class="kw">cat.predictors</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Carrying"</span>, <span class="st">"Satisfaction"</span>),
   <span class="kw">spline.predictors</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Function"</span>), <span class="kw">int.predictors</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Carrying:Smoking"</span>),
