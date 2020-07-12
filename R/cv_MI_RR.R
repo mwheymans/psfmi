@@ -103,7 +103,6 @@ cv_MI_RR <- function(pobj, data_orig, folds, nimp_mice, p.crit, BW, miceImp, ...
     }
 
     for (m in 1:nimp_mice) {
-      message("\n", "Imputation ", m)
       data_compl <-
         complete(imp_data, m)  # Select the completed data
 

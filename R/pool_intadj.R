@@ -46,8 +46,8 @@
 #'   
 #' @export   
 pool_intadj <- function(pobj, shrinkage_factor){
-  if(class(pobj)!="smodsmi")
-    stop("\n", "Object should be of type smodsmi", "\n")
+  if(class(pobj)!="pmods")
+    stop("\n", "Object should be of type pmods", "\n")
   if(pobj$model_type=="survival")
     stop("\n", "Pooling of intercepts only available for models of type binomial", "\n")
   if(!is.null(pobj$random.eff))

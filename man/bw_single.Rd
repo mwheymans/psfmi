@@ -77,6 +77,7 @@ A typical formula object has the form \code{Outcome ~ terms}. Categorical variab
  res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
          predictors=c("Tampascale", "Smoking"),
          cat.predictors = c("Satisfaction"), anova_test = "Chisq")
+         
 res_single$RR_model_final
 
 }
