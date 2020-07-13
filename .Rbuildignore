@@ -1,11 +1,3 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.travis\.yml$
-^cran-comments\.md$
-^CRAN-RELEASE$
-^_pkgdown\.yml$
-^docs$
-^pkgdown$
-^doc$
-^Meta$
-^data-raw$
+
