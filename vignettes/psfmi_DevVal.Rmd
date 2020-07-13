@@ -1,5 +1,5 @@
 ---
-title: "Complete Workflow to Multiply Impute, Develop and Validate a Prediction model with `mice` and `psfmi`"
+title: "Workflow to Develop and Validate a Prediction model with `mice` and `psfmi`"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
@@ -9,13 +9,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 # Introduction {-}
 
