@@ -72,9 +72,6 @@
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
-      <a href="../articles/psfmi_DevVal.html">Workflow to Develop and Validate a Prediction model with `mice` and `psfmi`</a>
-    </li>
-    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -165,6 +162,7 @@
       <span class="kw">boot_method</span> <span class="kw">=</span> <span class="st">"single"</span>, <span class="kw">nboot</span><span class="kw">=</span><span class="fl">20</span>, <span class="kw">p.crit</span><span class="kw">=</span><span class="fl">0.05</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 1</span>
+<span class="co">#&gt; Entered at Step 1 is - Gender</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -201,6 +199,7 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 8</span>
+<span class="co">#&gt; Entered at Step 1 is - Age</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -221,12 +220,12 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 12</span>
-<span class="co">#&gt; Entered at Step 1 is - Age</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 13</span>
+<span class="co">#&gt; Entered at Step 1 is - Gender</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -237,11 +236,13 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 15</span>
+<span class="co">#&gt; Entered at Step 1 is - SocialSupport</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 16</span>
+<span class="co">#&gt; Entered at Step 1 is - Gender</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -252,6 +253,7 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 18</span>
+<span class="co">#&gt; Entered at Step 1 is - Gender</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -262,32 +264,33 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 20</span>
+<span class="co">#&gt; Entered at Step 1 is - Gender</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 
    <span class="no">stab_res</span>$<span class="no">bif</span>
 <span class="co">#&gt;         Gender Smoking JobControl Age Duration JobDemands SocialSupport</span>
-<span class="co">#&gt; boot 1       0       0          0   0        0          0             0</span>
+<span class="co">#&gt; boot 1       1       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 2       0       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 3       1       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 4       0       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 5       0       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 6       0       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 7       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 8       0       0          0   0        0          0             0</span>
+<span class="co">#&gt; boot 8       0       0          0   1        0          0             0</span>
 <span class="co">#&gt; boot 9       0       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 10      0       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 11      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 12      0       0          0   1        0          0             0</span>
-<span class="co">#&gt; boot 13      0       0          0   0        0          0             0</span>
+<span class="co">#&gt; boot 12      0       0          0   0        0          0             0</span>
+<span class="co">#&gt; boot 13      1       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 14      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 15      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 16      0       0          0   0        0          0             0</span>
+<span class="co">#&gt; boot 15      0       0          0   0        0          0             1</span>
+<span class="co">#&gt; boot 16      1       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 17      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 18      0       0          0   0        0          0             0</span>
+<span class="co">#&gt; boot 18      1       0          0   0        0          0             0</span>
 <span class="co">#&gt; boot 19      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 20      0       0          0   0        0          0             0</span>
+<span class="co">#&gt; boot 20      1       0          0   0        0          0             0</span>
 <span class="co">#&gt;         factor(Satisfaction) Gender*JobControl</span>
 <span class="co">#&gt; boot 1                     0                 0</span>
 <span class="co">#&gt; boot 2                     0                 0</span>
@@ -312,21 +315,23 @@
 
   <span class="no">stab_res</span>$<span class="no">bif_perc</span>
 <span class="co">#&gt;               Gender              Smoking           JobControl </span>
-<span class="co">#&gt;                    5                    0                    0 </span>
+<span class="co">#&gt;                   30                    0                    0 </span>
 <span class="co">#&gt;                  Age             Duration           JobDemands </span>
 <span class="co">#&gt;                    5                    0                    0 </span>
 <span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender*JobControl </span>
-<span class="co">#&gt;                    0                    0                    0</span>
+<span class="co">#&gt;                    5                    0                    0</span>
 
   <span class="no">stab_res</span>$<span class="no">model_stab</span>
 <span class="co">#&gt;   Gender Smoking JobControl Age Duration JobDemands SocialSupport</span>
 <span class="co">#&gt; 1      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; 2      0       0          0   1        0          0             0</span>
-<span class="co">#&gt; 3      1       0          0   0        0          0             0</span>
+<span class="co">#&gt; 2      1       0          0   0        0          0             0</span>
+<span class="co">#&gt; 3      0       0          0   0        0          0             1</span>
+<span class="co">#&gt; 4      0       0          0   1        0          0             0</span>
 <span class="co">#&gt;   factor(Satisfaction) Gender*JobControl freq bif_pat_perc</span>
-<span class="co">#&gt; 1                    0                 0   18           90</span>
-<span class="co">#&gt; 2                    0                 0    1            5</span>
-<span class="co">#&gt; 3                    0                 0    1            5</span></pre></body></html></div>
+<span class="co">#&gt; 1                    0                 0   12           60</span>
+<span class="co">#&gt; 2                    0                 0    6           30</span>
+<span class="co">#&gt; 3                    0                 0    1            5</span>
+<span class="co">#&gt; 4                    0                 0    1            5</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 <div id="stability-analysis-of-cox-regression-model" class="section level3">
 <h3 class="hasAnchor">
@@ -389,13 +394,11 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 2</span>
-<span class="co">#&gt; Entered at Step 1 is - Duration</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 3</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -417,23 +420,23 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 7</span>
+<span class="co">#&gt; Entered at Step 1 is - rcs(Tampascale,3)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 8</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 9</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 10</span>
+<span class="co">#&gt; Entered at Step 1 is - Duration</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -449,17 +452,18 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 13</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 14</span>
+<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 15</span>
+<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -471,11 +475,13 @@
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 17</span>
+<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Boot 18</span>
+<span class="co">#&gt; Entered at Step 1 is - Pain</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
 <span class="co">#&gt; No new variables entered the model</span>
@@ -494,23 +500,23 @@
   <span class="no">stab_res</span>$<span class="no">bif</span>
 <span class="co">#&gt;         Pain Radiation Age Duration Previous factor(Satisfaction)</span>
 <span class="co">#&gt; boot 1     1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 2     0         0   0        1        0                    0</span>
-<span class="co">#&gt; boot 3     1         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 2     0         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 3     0         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 4     1         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 5     0         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 6     0         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 7     0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 8     1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 9     1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 10    0         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 8     0         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 9     0         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 10    0         0   0        1        0                    0</span>
 <span class="co">#&gt; boot 11    0         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 12    0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 13    1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 14    0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 15    0         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 13    0         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 14    1         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 15    1         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 16    1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 17    0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 18    0         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 17    1         0   0        0        0                    0</span>
+<span class="co">#&gt; boot 18    1         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 19    0         0   0        0        0                    0</span>
 <span class="co">#&gt; boot 20    1         0   0        0        0                    0</span>
 <span class="co">#&gt;         rcs(Tampascale,3) factor(Satisfaction)*Radiation</span>
@@ -520,7 +526,7 @@
 <span class="co">#&gt; boot 4                  0                              0</span>
 <span class="co">#&gt; boot 5                  0                              0</span>
 <span class="co">#&gt; boot 6                  0                              0</span>
-<span class="co">#&gt; boot 7                  0                              0</span>
+<span class="co">#&gt; boot 7                  1                              0</span>
 <span class="co">#&gt; boot 8                  0                              0</span>
 <span class="co">#&gt; boot 9                  0                              0</span>
 <span class="co">#&gt; boot 10                 0                              0</span>
@@ -564,7 +570,7 @@
 <span class="co">#&gt;                       Previous           factor(Satisfaction) </span>
 <span class="co">#&gt;                              0                              0 </span>
 <span class="co">#&gt;              rcs(Tampascale,3) factor(Satisfaction)*Radiation </span>
-<span class="co">#&gt;                              0                              0 </span>
+<span class="co">#&gt;                              5                              0 </span>
 <span class="co">#&gt;    rcs(Tampascale,3)*Radiation </span>
 <span class="co">#&gt;                              0</span>
 
@@ -572,11 +578,13 @@
 <span class="co">#&gt;   Pain Radiation Age Duration Previous factor(Satisfaction) rcs(Tampascale,3)</span>
 <span class="co">#&gt; 1    0         0   0        0        0                    0                 0</span>
 <span class="co">#&gt; 2    1         0   0        0        0                    0                 0</span>
-<span class="co">#&gt; 3    0         0   0        1        0                    0                 0</span>
+<span class="co">#&gt; 3    0         0   0        0        0                    0                 1</span>
+<span class="co">#&gt; 4    0         0   0        1        0                    0                 0</span>
 <span class="co">#&gt;   factor(Satisfaction)*Radiation rcs(Tampascale,3)*Radiation freq bif_pat_perc</span>
-<span class="co">#&gt; 1                              0                           0   11           55</span>
+<span class="co">#&gt; 1                              0                           0   10           50</span>
 <span class="co">#&gt; 2                              0                           0    8           40</span>
-<span class="co">#&gt; 3                              0                           0    1            5</span></pre></body></html></div>
+<span class="co">#&gt; 3                              0                           0    1            5</span>
+<span class="co">#&gt; 4                              0                           0    1            5</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>

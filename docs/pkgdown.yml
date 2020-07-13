@@ -8,9 +8,8 @@ articles:
   MI_boot: MI_boot.html
   MI_cv_naive: MI_cv_naive.html
   psfmi_CoxModels: psfmi_CoxModels.html
-  psfmi_DevVal: psfmi_DevVal.html
   psfmi_LogisticModels: psfmi_LogisticModels.html
   psfmi_mice: psfmi_mice.html
   psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
-last_built: 2020-07-13T04:20Z
+last_built: 2020-07-13T05:39Z
 

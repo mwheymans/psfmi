@@ -72,9 +72,6 @@
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
-      <a href="../articles/psfmi_DevVal.html">Workflow to Develop and Validate a Prediction model with `mice` and `psfmi`</a>
-    </li>
-    <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
     </li>
     <li>
@@ -195,22 +192,22 @@
 
   <span class="no">pool_lr</span>$<span class="no">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term     estimate  std.error  statistic        df     p.value</span>
-<span class="co">#&gt; 1   (Intercept)  0.350250428 2.41692491  0.1449157 137.78625 0.884989174</span>
-<span class="co">#&gt; 2        Gender -0.387613013 0.41464515 -0.9348066 144.01215 0.351452806</span>
-<span class="co">#&gt; 3       Smoking  0.094469072 0.34002586  0.2778291 147.83091 0.781531742</span>
-<span class="co">#&gt; 4      Function -0.132959915 0.04691225 -2.8342260  50.11690 0.006604506</span>
-<span class="co">#&gt; 5    JobControl  0.004575037 0.01979503  0.2311205 127.50441 0.817591647</span>
-<span class="co">#&gt; 6    JobDemands  0.001104258 0.03852947  0.0286601  95.47761 0.977195504</span>
-<span class="co">#&gt; 7 SocialSupport  0.032194950 0.05626444  0.5722078 143.08403 0.568079174</span>
-<span class="co">#&gt;          OR  lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 1.4194230 0.01243895 161.9719619</span>
-<span class="co">#&gt; 2 0.6786749 0.30109860   1.5297304</span>
-<span class="co">#&gt; 3 1.0990752 0.56440590   2.1402438</span>
-<span class="co">#&gt; 4 0.8755002 0.79858975   0.9598177</span>
-<span class="co">#&gt; 5 1.0045855 0.96635577   1.0443277</span>
-<span class="co">#&gt; 6 1.0011049 0.92828776   1.0796339</span>
-<span class="co">#&gt; 7 1.0327188 0.92488733   1.1531222</span></pre></body></html></div>
+<span class="co">#&gt;            term     estimate  std.error   statistic       df     p.value</span>
+<span class="co">#&gt; 1   (Intercept)  0.055046332 2.43731705  0.02258481 123.4486 0.982017929</span>
+<span class="co">#&gt; 2        Gender -0.345571610 0.41582287 -0.83105484 147.5169 0.407285751</span>
+<span class="co">#&gt; 3       Smoking  0.078036026 0.34017602  0.22939896 148.6790 0.818874116</span>
+<span class="co">#&gt; 4      Function -0.143230375 0.04358656 -3.28611357 142.1246 0.001279655</span>
+<span class="co">#&gt; 5    JobControl  0.007433131 0.02007660  0.37023845 127.6105 0.711818623</span>
+<span class="co">#&gt; 6    JobDemands -0.002079635 0.03790888 -0.05485878 117.6482 0.956344025</span>
+<span class="co">#&gt; 7 SocialSupport  0.046131304 0.05625775  0.81999915 143.6145 0.413575449</span>
+<span class="co">#&gt;          OR  lower.EXP  upper.EXP</span>
+<span class="co">#&gt; 1 1.0565896 0.00889652 125.485191</span>
+<span class="co">#&gt; 2 0.7078156 0.31330302   1.599100</span>
+<span class="co">#&gt; 3 1.0811616 0.55504340   2.105980</span>
+<span class="co">#&gt; 4 0.8665544 0.79559897   0.943838</span>
+<span class="co">#&gt; 5 1.0074608 0.96858696   1.047895</span>
+<span class="co">#&gt; 6 0.9979225 0.92646313   1.074894</span>
+<span class="co">#&gt; 7 1.0472119 0.93787943   1.169290</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="mice-and-psfmi-for-selecting-logistic-regression-models" class="section level2">
@@ -263,12 +260,12 @@
 
   <span class="no">pool_lr</span>$<span class="no">RR_model_final</span>
 <span class="co">#&gt; $`Final model`</span>
-<span class="co">#&gt;          term   estimate  std.error statistic       df    p.value        OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.1684531 0.48350341  2.416639 87.86421 0.01773302 3.2170123</span>
-<span class="co">#&gt; 2    Function -0.1337347 0.04296446 -3.112682 81.27751 0.00255911 0.8748221</span>
+<span class="co">#&gt;          term   estimate  std.error statistic       df     p.value        OR</span>
+<span class="co">#&gt; 1 (Intercept)  1.2082244 0.46995401  2.570942 133.6325 0.011236809 3.3475354</span>
+<span class="co">#&gt; 2    Function -0.1378792 0.04186136 -3.293710 127.7310 0.001279438 0.8712039</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.2470570  8.298873</span>
-<span class="co">#&gt; 2 0.8041696  0.951682</span></pre></body></html></div>
+<span class="co">#&gt; 1  1.332577  8.409266</span>
+<span class="co">#&gt; 2  0.802577  0.945699</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
