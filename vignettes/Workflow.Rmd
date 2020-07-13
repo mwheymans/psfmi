@@ -1,0 +1,216 @@
+---
+title: "Workflow to Develop and Validate a Prediction model with `mice` and `psfmi`"
+author: "Martijn W Heymans"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2
+vignette: >
+  %\VignetteIndexEntry{Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Introduction {-}
+
+This vignette shows how to develop, internally and externally validate
+a (logistic) regression prediction model with `mice` and `psfmi`.
+
+# Steps {-}
+
+   + [Step `r emo::ji("one")` - Install the mice and psfmi package  `r emo::ji("white_check_mark")`]
+   + [Step `r emo::ji("two")` - Impute the missing data with mice  `r emo::ji("white_check_mark")`]
+   + [Step `r emo::ji("three")` - Develop the model  `r emo::ji("white_check_mark")`] 
+   + [Step `r emo::ji("four")` - Internally validate the model  `r emo::ji("white_check_mark")`]
+   + [Step `r emo::ji("five")` - Shrink pooled coefficients and determine new intercept  `r emo::ji("white_check_mark")`]
+   + [Step `r emo::ji("six")` - Externally validate the model  `r emo::ji("white_check_mark")`]
+   
+
+## Step `r emo::ji("one")` - Install the mice and psfmi package  `r emo::ji("white_check_mark")` {-}
+
+For this vignette I used the development version of `psfmi` from Github 
+by running the following code in the R console window:
+ 
+ install.packages("devtools")
+ 
+ library(devtools)
+ 
+ devtools::install_github("mwheymans/psfmi")
+ 
+ library(psfmi)
+
+The package `mice` can be installed by using:
+ 
+ install.packages("mice")
+
+ library(mice) 
+
+Back to [Steps]
+
+## Step `r emo::ji("two")` - Impute the missing data with mice  `r emo::ji("white_check_mark")` {-}
+
+I generated 5 imputed datasets to handle the missing values in the lbp_orig dataset that is
+included in the `psfmi` package. Depending on the amount of missing data, the number of imputed 
+datasets may be increased (see on-line book: 
+[Applied Missing Data analysis](https://bookdown.org/mwheymans/bookmi/multiple-imputation.html#number-of-imputed-datasets-and-iterations)). 
+
+```{r}
+
+  library(mice)
+  library(psfmi)
+
+  imp <- mice(lbp_orig, m=5, maxit=10) 
+  
+```
+
+Use the `complete` function of the `mice` package to extract the completed datasets. By 
+setting `action = "long"` and `include = FALSE`, the imputed datasets are stacked under
+each other to form one long dataset and the original dataset (that included missing 
+values) is not included in that long dataset.
+
+```{r}
+
+  library(mice)
+  
+  data_comp <- complete(imp, action = "long", include = FALSE)
+  
+```
+
+Back to [Steps]
+
+## Step `r emo::ji("three")` - Develop the model  `r emo::ji("white_check_mark")` {-}
+
+Use the `psfmi_lr` function in the `psfmi` package to perform backward selection over
+the 5 multiply imputed datasets with a p-value of 0.05 and as selection method D1.  
+**Note** that with this function it is possible to include cubic spline coefficients in case
+of non-linear relationships during backward selection and that predictors may be forced 
+in the model during backward selection by including them at the setting `keep.predictors`.
+When the setting `direction` is changed to FW, forward selection is done.
+
+```{r}
+
+  library(psfmi)
+
+  pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", Outcome="Chronic",
+  predictors=c("Gender", "Age", "JobControl", "Tampascale", "Pain", "Radiation",
+  "JobDemands", "SocialSupport", "Smoking"), cat.predictors = c("Satisfaction", "Carrying"), 
+  spline.predictors = "Function", nknots = 3,  
+  keep.predictors = "Radiation", p.crit = 0.157, method="D1", direction = "BW")
+  
+  pool_lr$RR_model_final
+  
+  pool_lr$multiparm_final
+
+```
+
+The same result can be obtained by using the `formula` setting in the `psfmi_lr` function 
+
+```{r}
+
+  library(psfmi)
+
+  pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", 
+  formula = Chronic ~ Gender + Age + JobControl + Tampascale + Pain + Radiation +
+    JobDemands + SocialSupport + Smoking + factor(Satisfaction) + factor(Carrying) + 
+  rcs(Function, 3), keep.predictors = "Radiation", 
+  p.crit = 0.157, method="D1", direction = "BW")
+  
+  pool_lr$RR_model_final
+  
+  pool_lr$multiparm_final
+
+```
+
+Back to [Steps]
+
+## Step `r emo::ji("four")` - Internally validate the model  `r emo::ji("white_check_mark")` {-}
+
+To internally validate the model we use the `psfmi_perform` function. With this function five different
+methods can be used to internally validate models in MI data [see these Vignettes](https://mwheymans.github.io/psfmi/articles/),
+Three methods use cross-validation and two bootstrapping in combination with MI.
+
+We will use cross-validation and more specific the method [cv_MI_RR](https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html). With this method it is possible
+to integrate backward selection into the cross-validation procedure. The last model that is selected 
+by the psfmi_lr function is internally validated. So, if we want to apply backward selection during 
+cross-validation from the full model we first have to apply the psfmi_lr function without variable 
+selection. That is the example that we want to use here, because we know that variable selection 
+is one of the main reasons that prediction models are over-fitted.
+
+```{r}
+
+library(psfmi)
+
+pool_val <- psfmi_lr(data=data_comp, formula = Chronic ~ Gender + Age + JobControl + Tampascale + 
+                      Pain + Radiation + JobDemands + SocialSupport + Smoking + factor(Satisfaction) + 
+                      factor(Carrying) + rcs(Function, 3), p.crit = 1, direction="BW",
+                      nimp=5, impvar=".imp", method="D1")
+
+set.seed(200)
+res_cv <- psfmi_perform(pool_val, val_method = "cv_MI_RR", data_orig = lbp_orig, folds = 3,
+                     p.crit=0.05, BW=TRUE, nimp_mice = 10, miceImp = miceImp, printFlag = FALSE)
+
+res_cv
+
+  
+```
+
+Back to [Steps]
+
+## Step `r emo::ji("five")` - Shrink pooled coefficients and determine new intercept  `r emo::ji("white_check_mark")` {-}
+
+We can use the slope value of 0.864415077 that was estimated at the previous step as a 
+shrinkage factor to prevent our model from being overfitted in new data. 
+We do this by multiplying the pooled coefficients with the shrinkage factor and 
+also to determine a new intercept value that is aligned with the shrunken coefficients.
+
+We use the `pool_intadj` function for this that will provide the adjusted coefficients and 
+new intercept value.
+
+```{r}
+
+library(psfmi)
+
+res <- pool_intadj(pool_lr, shrinkage_factor = 0.864415077)
+
+res$int_adj
+res$coef_shrink_pooled
+
+```
+
+The last step is to externally validate this adjusted model.
+
+Back to [Steps]
+
+## Step `r emo::ji("six")` - Externally validate the model  `r emo::ji("white_check_mark")` {-}
+
+We validate the model in an external dataset that is imputed five times
+due to missing data. 
+
+```{r}
+
+library(psfmi)
+
+ res_extval <- mivalext_lr(data.val = lbpmi_extval, nimp = 5, impvar = "Impnr",
+  Outcome = "Chronic", predictors = pool_lr$predictors_final,
+  lp.orig = c(res$int_adj, res$coef_shrink_pooled),
+  cal.plot = TRUE)
+ 
+ res_extval$ROC
+ 
+ res_extval$R2_fixed
+ 
+ res_extval$HLtest
+ 
+ res_extval$LP_pooled_ext
+ 
+```
+
+In the external dataset the AUC is 0.84772 and the R-squared 0.45. The
+Hosmer and Lemeshow test has a p-value of 0.63168, which means that
+the fit is satisfactory. This is also confirmed on the calibration plot
+where the calibration curves in each imputed dataset are near the optimal (dashed)
+line. The slope (regression coefficients) is has a value of 0.86526 and slightly 
+deviates from the value of 1, which means that the coefficients values differ 
+between the development and external dataset.
+
+Back to [Steps]
+
