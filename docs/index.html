@@ -128,14 +128,13 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="psfmi" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#psfmi" class="anchor"></a>psfmi</h1></div>
+
+<hr>
+<p>title: “psfmi” author: “Martijn W Heymans” output: bookdown::html_document2 —</p>
 <p>The psfmi package</p>
 <p>The package provides functions to apply pooling, backward and forward selection of logistic, Cox regression and Multilevel (mixed models) prediction models in multiply imputed datasets. Backward and forward selection can be done from the pooled model using Rubin’s Rules (RR), the D1, D2, D3 and the median p-values method. The model can contain continuous, dichotomous, categorical predictors and interaction terms between all these type of predictors. Continuous predictors can also be introduced as restricted cubic spline coefficients.</p>
 <p>The package includes a function to evaluate the stability of the models using bootstrapping and cluster bootstrapping. The package further contains functions to generate pooled model performance measures in multiply imputed datasets as AUC value, R-squares, scaled Brier score, fit test values and calibration plots for logistic regression models.</p>
-<p>Internal validation of the developed model can be performed with cross-validation or bootstrapping. The adjusted intercept after shrinkage of the pooled regression coefficients can be subsequently obtained. Backward and forward selection as part of internal validation is possible. Also a function to externally validate logistic<br>
-prediction models in multiple imputed datasets is available.</p>
+<p>Internal validation of the developed model can be performed with cross-validation or bootstrapping over multiply imputed datasets. The adjusted intercept after shrinkage of the pooled regression coefficients can be subsequently obtained. Backward and forward selection as part of internal validation is possible. Also a function to externally validate logistic prediction models in multiple imputed datasets is available.</p>
 <p>The package needs R 3.5.0 or higher. You can use the functions, after you have installed the package from CRAN or the Github website (development version). For Github you first have to install and activate the devtools package. Use the following code to install and activate the package from Github:</p>
 <blockquote>
 <p>install.packages(“devtools”)</p>
@@ -149,7 +148,8 @@ prediction models in multiple imputed datasets is available.</p>
 <blockquote>
 <p>library(psfmi)</p>
 </blockquote>
-</div>
+<p>Have fun!</p>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

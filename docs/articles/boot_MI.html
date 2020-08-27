@@ -112,7 +112,7 @@
       <h1 data-toc-skip>Multiple Imputation and Bootstrapping - Method boot_MI</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-07-13</h4>
+            <h4 class="date">2020-08-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/boot_MI.Rmd"><code>vignettes/boot_MI.Rmd</code></a></small>
       <div class="hidden name"><code>boot_MI.Rmd</code></div>
@@ -177,28 +177,28 @@ Schematic overview of the boot_MI method
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">res_MI_boot</span></pre></body></html></div>
 <pre><code>## $stats_val
 ##                   Orig  Apparent      Test   Optimism Corrected
-## AUC          0.8871000 0.9041600 0.8695200 0.03464000 0.8524600
-## R2           0.5605521 0.6079108 0.5105271 0.09738374 0.4631684
-## Brier Scaled 0.4514569 0.4861279 0.3710304 0.11509743 0.3363595
-## Slope        1.0000000 1.0000000 0.7738246 0.22617543 0.7738246
+## AUC          0.8871000 0.8947200 0.8751600 0.01956000 0.8675400
+## R2           0.5605521 0.5831350 0.5242970 0.05883801 0.5017141
+## Brier Scaled 0.4514569 0.4713283 0.4045784 0.06674996 0.3847070
+## Slope        1.0000000 1.0000000 0.8974683 0.10253171 0.8974683
 ## 
 ## $intercept_test
-##   intercept 
-## -0.06617247 
+##  intercept 
+## -0.1164665 
 ## 
 ## $res_boot
 ##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test
-## Boot 1  0.8743   0.8710 0.5429075 0.5097788    0.4213036     0.3898232
-## Boot 2  0.9128   0.8793 0.6195130 0.5279676    0.4839751     0.3815355
-## Boot 3  0.9055   0.8777 0.6091605 0.5248934    0.5034007     0.3960965
-## Boot 4  0.9446   0.8368 0.7180243 0.4458641    0.5891560     0.2679911
-## Boot 5  0.8836   0.8828 0.5499488 0.5441317    0.4328041     0.4197059
-##         intercept     Slope
-## Boot 1 -0.1959372 0.8511452
-## Boot 2 -0.2154461 0.7318259
-## Boot 3  0.1586839 0.8264131
-## Boot 4  0.1191267 0.5420391
-## Boot 5 -0.1972896 0.9176995</code></pre>
+## Boot 1  0.9392   0.8640 0.7027252 0.4967538    0.6110517     0.3659716
+## Boot 2  0.8704   0.8820 0.5078894 0.5421780    0.3935113     0.4261073
+## Boot 3  0.9109   0.8743 0.6390048 0.5220518    0.5145284     0.4004858
+## Boot 4  0.8768   0.8743 0.5354307 0.5190492    0.4181295     0.4019708
+## Boot 5  0.8763   0.8812 0.5306249 0.5414521    0.4194206     0.4283563
+##           intercept     Slope
+## Boot 1 -0.139017104 0.5750974
+## Boot 2  0.002306719 1.1544511
+## Boot 3 -0.005944519 0.8079486
+## Boot 4 -0.165807647 0.9839576
+## Boot 5 -0.273869763 0.9658868</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="method-boot_mi-including-bw-selection" class="section level2">
@@ -224,64 +224,66 @@ Schematic overview of the boot_MI method
 <pre><code>## 
 ## Boot 2</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Boot 3</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 4</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 5</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">res_MI_boot</span></pre></body></html></div>
+<pre><code>## 
+## Boot 4</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre><code>## 
+## Boot 5</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">res_MI_boot</span></pre></body></html></div>
 <pre><code>## $stats_val
-##                   Orig  Apparent      Test   Optimism Corrected
-## AUC          0.8871000 0.8961800 0.8601000 0.03608000 0.8510200
-## R2           0.5605521 0.5919629 0.5021285 0.08983434 0.4707178
-## Brier Scaled 0.4514569 0.4920566 0.3974757 0.09458087 0.3568760
-## Slope        1.0000000 1.0000000 0.8237494 0.17625063 0.8237494
+##                   Orig Apparent      Test   Optimism Corrected
+## AUC          0.8871000 0.901520 0.8719600 0.02956000 0.8575400
+## R2           0.5605521 0.612831 0.5240550 0.08877603 0.4717761
+## Brier Scaled 0.4514569 0.522109 0.4222874 0.09982151 0.3516354
+## Slope        1.0000000 1.000000 0.8442512 0.15574881 0.8442512
 ## 
 ## $intercept_test
 ##  intercept 
-## 0.05281346 
+## -0.0986542 
 ## 
 ## $res_boot
 ##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test
-## Boot 1  0.8622   0.8669 0.4979709 0.5214225    0.3988794     0.4295866
-## Boot 2  0.9213   0.8545 0.6616218 0.5087749    0.5618770     0.4025836
-## Boot 3  0.9118   0.8622 0.6335261 0.4877320    0.5189215     0.3746829
-## Boot 4  0.8722   0.8624 0.5304078 0.4935554    0.4490372     0.3769809
-## Boot 5  0.9134   0.8545 0.6362879 0.4991579    0.5315680     0.4035445
-##          intercept     Slope
-## Boot 1  0.08287312 1.0153494
-## Boot 2 -0.04526444 0.6221419
-## Boot 3 -0.22657464 0.7497083
-## Boot 4  0.36335602 0.9502588
-## Boot 5  0.08967726 0.7812884</code></pre>
+## Boot 1  0.8839   0.8722 0.5668007 0.5230620    0.4761920     0.4271702
+## Boot 2  0.9302   0.8669 0.6917827 0.5190947    0.6055299     0.4170052
+## Boot 3  0.9100   0.8722 0.6315259 0.5211180    0.5500155     0.4353528
+## Boot 4  0.8574   0.8677 0.5211544 0.5163503    0.4384708     0.4243148
+## Boot 5  0.9261   0.8808 0.6528915 0.5406500    0.5403366     0.4075942
+##         intercept     Slope
+## Boot 1 -0.2515044 0.9164987
+## Boot 2 -0.1260236 0.8097249
+## Boot 3 -0.1989237 0.7764598
+## Boot 4 -0.1819963 0.9170061
+## Boot 5  0.2651770 0.8015664</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="method-boot_mi-including-fw-selection" class="section level2">
 <h2 class="hasAnchor">
 <a href="#method-boot_mi-including-fw-selection" class="anchor"></a>Method boot_MI including FW selection</h2>
 <p>Internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1, and pooling is than done without variable selection, i.e. first the full model is pooled. When subsequently interval validation is done with the <code>psfmi_perform</code> function including FW, FW is applied in each bootstrap sample from the full model.</p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
+<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
 <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">lbpmilr</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="no">Chronic</span> ~ <span class="no">Pain</span> + <span class="no">JobDemands</span> + <span class="fu">rcs</span>(<span class="no">Tampascale</span>, <span class="fl">3</span>) +
                    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">Satisfaction</span>) + <span class="no">Smoking</span>, <span class="kw">p.crit</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">direction</span><span class="kw">=</span><span class="st">"FW"</span>,
                  <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">"Impnr"</span>, <span class="kw">method</span><span class="kw">=</span><span class="st">"D1"</span>)
@@ -292,60 +294,66 @@ Schematic overview of the boot_MI method
 <pre><code>## 
 ## Boot 1</code></pre>
 <pre><code>## Entered at Step 1 is - Pain</code></pre>
-<pre><code>## Entered at Step 2 is - factor(Satisfaction)</code></pre>
+<pre><code>## Entered at Step 2 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Entered at Step 3 is - factor(Satisfaction)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No new variables entered the model</code></pre>
 <pre><code>## 
 ## Boot 2</code></pre>
-<pre><code>## Entered at Step 1 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Entered at Step 1 is - Pain</code></pre>
+<pre><code>## Entered at Step 2 is - factor(Satisfaction)</code></pre>
+<pre><code>## Entered at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Entered at Step 4 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No new variables entered the model</code></pre>
 <pre><code>## 
 ## Boot 3</code></pre>
 <pre><code>## Entered at Step 1 is - Pain</code></pre>
+<pre><code>## Entered at Step 2 is - factor(Satisfaction)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No new variables entered the model</code></pre>
 <pre><code>## 
 ## Boot 4</code></pre>
 <pre><code>## Entered at Step 1 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## Entered at Step 2 is - factor(Satisfaction)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No new variables entered the model</code></pre>
 <pre><code>## 
 ## Boot 5</code></pre>
-<pre><code>## Entered at Step 1 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Entered at Step 1 is - Pain</code></pre>
+<pre><code>## Entered at Step 2 is - factor(Satisfaction)</code></pre>
+<pre><code>## Entered at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No new variables entered the model</code></pre>
-<div class="sourceCode" id="cb53"><html><body><pre class="r"><span class="no">res_MI_boot</span></pre></body></html></div>
+<div class="sourceCode" id="cb61"><html><body><pre class="r"><span class="no">res_MI_boot</span></pre></body></html></div>
 <pre><code>## $stats_val
-##                   Orig  Apparent      Test   Optimism Corrected
-## AUC          0.8871000 0.8727800 0.8331400 0.03964000 0.8474600
-## R2           0.5605521 0.5186139 0.4304577 0.08815618 0.4723960
-## Brier Scaled 0.4514569 0.4312342 0.1141454 0.31708886 0.1343681
-## Slope        1.0000000 1.0000000 0.5696503 0.43034966 0.5696503
+##                   Orig  Apparent       Test  Optimism  Corrected
+## AUC          0.8871000 0.8582200  0.6720600 0.1861600  0.7009400
+## R2           0.5605521 0.4901954  0.1608637 0.3293317  0.2312205
+## Brier Scaled 0.4514569 0.3825965 -0.5421353 0.9247318 -0.4732748
+## Slope        1.0000000 1.0000000  0.1117067 0.8882933  0.1117067
 ## 
 ## $intercept_test
 ## intercept 
-## -1.537004 
+## -1.979649 
 ## 
 ## $res_boot
-##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test
-## Boot 1  0.8978   0.7940 0.5807872 0.3871163    0.5136423    -0.7666323
-## Boot 2  0.8757   0.8362 0.5274759 0.4276388    0.4289656     0.3080781
-## Boot 3  0.8691   0.8450 0.5182489 0.4501806    0.4464989     0.3759538
-## Boot 4  0.8925   0.8543 0.5634039 0.4627180    0.4513165     0.3354822
-## Boot 5  0.8288   0.8362 0.4031534 0.4246347    0.3157478     0.3178450
-##          intercept      Slope
-## Boot 1 -7.71628273 -0.6274516
-## Boot 2  0.09597337  0.7218677
-## Boot 3 -0.06193741  0.9476303
-## Boot 4 -0.29711461  0.7384087
-## Boot 5  0.29434141  1.0677965</code></pre>
+##        ROC_app ROC_test    R2_app      R2_test Brier_sc_app Brier_sc_test
+## Boot 1  0.8414   0.5285 0.4488903 0.0098653190    0.3285142    -0.7558589
+## Boot 2  0.8929   0.5265 0.5770296 0.0152385914    0.4667316    -0.7588085
+## Boot 3  0.8563   0.6408 0.4756182 0.0005373353    0.3989454    -0.7466826
+## Boot 4  0.8465   0.8362 0.4700141 0.4068780136    0.3610301     0.3173404
+## Boot 5  0.8540   0.8283 0.4794247 0.3717992126    0.3577612    -0.7666667
+##          intercept       Slope
+## Boot 1 -0.96504107 -0.10770252
+## Boot 2 -1.02559958 -0.09397425
+## Boot 3 -0.08507490  0.03139597
+## Boot 4  0.03464348  0.85253749
+## Boot 5 -7.85717535 -0.12372314</code></pre>
 </div>
 </div>
   </div>

@@ -112,7 +112,7 @@
       <h1 data-toc-skip>Working together: mice and psfmi</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-07-13</h4>
+            <h4 class="date">2020-08-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_mice.Rmd"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
@@ -157,7 +157,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     cbind, rbind</span>
 
-  <span class="no">imp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="http://stefvanbuuren.github.io/mice/reference/mice.html">mice</a></span>(<span class="no">lbp_orig</span>, <span class="kw">m</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">maxit</span><span class="kw">=</span><span class="fl">5</span>)
+  <span class="no">imp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mice/man/mice.html">mice</a></span>(<span class="no">lbp_orig</span>, <span class="kw">m</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">maxit</span><span class="kw">=</span><span class="fl">5</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  iter imp variable</span>
 <span class="co">#&gt;   1   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
@@ -186,7 +186,7 @@
 <span class="co">#&gt;   5   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
 <span class="co">#&gt;   5   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
 
-  <span class="no">data_comp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="http://stefvanbuuren.github.io/mice/reference/complete.mids.html">complete</a></span>(<span class="no">imp</span>, <span class="kw">action</span> <span class="kw">=</span> <span class="st">"long"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+  <span class="no">data_comp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mice/man/complete.mids.html">complete</a></span>(<span class="no">imp</span>, <span class="kw">action</span> <span class="kw">=</span> <span class="st">"long"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
   <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">data_comp</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">".imp"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
@@ -195,22 +195,22 @@
 
   <span class="no">pool_lr</span>$<span class="no">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term     estimate  std.error   statistic        df     p.value</span>
-<span class="co">#&gt; 1   (Intercept) -0.103976160 2.42652543 -0.04284981 124.12425 0.965890110</span>
-<span class="co">#&gt; 2        Gender -0.353585849 0.41417999 -0.85370094 147.97051 0.394650609</span>
-<span class="co">#&gt; 3       Smoking  0.096192285 0.34119644  0.28192640 147.86389 0.778394143</span>
-<span class="co">#&gt; 4      Function -0.141181222 0.04584171 -3.07975481  77.91469 0.002861371</span>
-<span class="co">#&gt; 5    JobControl  0.006856624 0.02030921  0.33761159 106.28994 0.736321744</span>
-<span class="co">#&gt; 6    JobDemands  0.002734790 0.03832116  0.07136501 105.10894 0.943242866</span>
-<span class="co">#&gt; 7 SocialSupport  0.046487560 0.05527242  0.84106243 147.85816 0.401671092</span>
-<span class="co">#&gt;          OR   lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 0.9012468 0.007750747 104.7957996</span>
-<span class="co">#&gt; 2 0.7021657 0.311804579   1.5812362</span>
-<span class="co">#&gt; 3 1.1009707 0.564083642   2.1488597</span>
-<span class="co">#&gt; 4 0.8683319 0.793714884   0.9499637</span>
-<span class="co">#&gt; 5 1.0068802 0.967587494   1.0477685</span>
-<span class="co">#&gt; 6 1.0027385 0.930182314   1.0809543</span>
-<span class="co">#&gt; 7 1.0475850 0.940027271   1.1674496</span></pre></body></html></div>
+<span class="co">#&gt;            term     estimate  std.error   statistic       df      p.value</span>
+<span class="co">#&gt; 1   (Intercept)  0.242680646 2.43756182  0.09955877 126.5847 0.9208521287</span>
+<span class="co">#&gt; 2        Gender -0.356000016 0.41366702 -0.86059560 148.8426 0.3908449505</span>
+<span class="co">#&gt; 3       Smoking  0.086375855 0.33999534  0.25405012 149.3744 0.7998062110</span>
+<span class="co">#&gt; 4      Function -0.144092150 0.04277021 -3.36898358 149.3841 0.0009599806</span>
+<span class="co">#&gt; 5    JobControl  0.005817437 0.02028701  0.28675676 109.0589 0.7748426532</span>
+<span class="co">#&gt; 6    JobDemands -0.003100169 0.03820857 -0.08113806 122.4468 0.9354646298</span>
+<span class="co">#&gt; 7 SocialSupport  0.044274710 0.05660665  0.78214683 139.2356 0.4354563821</span>
+<span class="co">#&gt;          OR  lower.EXP   upper.EXP</span>
+<span class="co">#&gt; 1 1.2746615 0.01072755 151.4570092</span>
+<span class="co">#&gt; 2 0.7004726 0.31136564   1.5758382</span>
+<span class="co">#&gt; 3 1.0902160 0.55988996   2.1228653</span>
+<span class="co">#&gt; 4 0.8658080 0.79618654   0.9415173</span>
+<span class="co">#&gt; 5 1.0058344 0.96662457   1.0466347</span>
+<span class="co">#&gt; 6 0.9969046 0.92497463   1.0744282</span>
+<span class="co">#&gt; 7 1.0452695 0.93549983   1.1679192</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="mice-and-psfmi-for-selecting-logistic-regression-models" class="section level2">
@@ -220,7 +220,7 @@
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mice</span>)
 
-  <span class="no">imp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="http://stefvanbuuren.github.io/mice/reference/mice.html">mice</a></span>(<span class="no">lbp_orig</span>, <span class="kw">m</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">maxit</span><span class="kw">=</span><span class="fl">5</span>)
+  <span class="no">imp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mice/man/mice.html">mice</a></span>(<span class="no">lbp_orig</span>, <span class="kw">m</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">maxit</span><span class="kw">=</span><span class="fl">5</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  iter imp variable</span>
 <span class="co">#&gt;   1   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
@@ -249,7 +249,7 @@
 <span class="co">#&gt;   5   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
 <span class="co">#&gt;   5   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
 
-  <span class="no">data_comp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="http://stefvanbuuren.github.io/mice/reference/complete.mids.html">complete</a></span>(<span class="no">imp</span>, <span class="kw">action</span> <span class="kw">=</span> <span class="st">"long"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+  <span class="no">data_comp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mice/man/complete.mids.html">complete</a></span>(<span class="no">imp</span>, <span class="kw">action</span> <span class="kw">=</span> <span class="st">"long"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">psfmi</span>)
   <span class="no">pool_lr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(<span class="kw">data</span><span class="kw">=</span><span class="no">data_comp</span>, <span class="kw">nimp</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">impvar</span><span class="kw">=</span><span class="st">".imp"</span>, <span class="kw">Outcome</span><span class="kw">=</span><span class="st">"Chronic"</span>,
@@ -264,11 +264,11 @@
   <span class="no">pool_lr</span>$<span class="no">RR_model_final</span>
 <span class="co">#&gt; $`Final model`</span>
 <span class="co">#&gt;          term   estimate  std.error statistic       df      p.value        OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.2452628 0.46528120  2.676366 141.5088 0.0083212530 3.4738474</span>
-<span class="co">#&gt; 2    Function -0.1422692 0.04172933 -3.409334 135.8961 0.0008575126 0.8673877</span>
+<span class="co">#&gt; 1 (Intercept)  1.2392853 0.46154350  2.685089 148.6507 0.0080749693 3.4531448</span>
+<span class="co">#&gt; 2    Function -0.1410128 0.04102933 -3.436877 147.5671 0.0007647128 0.8684782</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.3955821 8.6470127</span>
-<span class="co">#&gt; 2 0.7992682 0.9413128</span></pre></body></html></div>
+<span class="co">#&gt; 1 1.3974653 8.5327407</span>
+<span class="co">#&gt; 2 0.8013718 0.9412041</span></pre></body></html></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>

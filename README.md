@@ -1,4 +1,9 @@
-# psfmi
+---
+title: "psfmi"
+author: "Martijn W Heymans"
+output:
+  bookdown::html_document2
+---
 
 The psfmi package 
 
@@ -17,10 +22,11 @@ imputed datasets as AUC value, R-squares, scaled Brier score, fit test values an
 calibration	plots for logistic regression models. 
 
 Internal validation of the developed model can be performed with cross-validation or 
-bootstrapping. The adjusted intercept after shrinkage of the pooled regression 
-coefficients can be subsequently obtained. Backward and forward selection as part of 
-internal validation is possible. Also a function to externally validate logistic	
-prediction models in multiple imputed datasets is available.
+bootstrapping over multiply imputed datasets. The adjusted intercept after shrinkage 
+of the pooled regression coefficients can be subsequently obtained. 
+Backward and forward selection as part of internal validation is possible. 
+Also a function to externally validate logistic	prediction models in 
+multiple imputed datasets is available.
 
 The package needs R 3.5.0 or higher. You can use the functions, 
 after you have installed the package from CRAN or the Github website 
@@ -35,4 +41,10 @@ the package from Github:
 > devtools::install_github("mwheymans/psfmi")
 
 > library(psfmi)
+
+Have fun! 
+
+
+
+
 

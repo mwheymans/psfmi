@@ -17,15 +17,15 @@ a (logistic) regression prediction model with `mice` and `psfmi`.
 
 # Steps {-}
 
-   + [Step `r emo::ji("one")` - Install the mice and psfmi package  `r emo::ji("white_check_mark")`]
-   + [Step `r emo::ji("two")` - Impute the missing data with mice  `r emo::ji("white_check_mark")`]
-   + [Step `r emo::ji("three")` - Develop the model  `r emo::ji("white_check_mark")`] 
-   + [Step `r emo::ji("four")` - Internally validate the model  `r emo::ji("white_check_mark")`]
-   + [Step `r emo::ji("five")` - Shrink pooled coefficients and determine new intercept  `r emo::ji("white_check_mark")`]
-   + [Step `r emo::ji("six")` - Externally validate the model  `r emo::ji("white_check_mark")`]
+   + [Step 1 - Install the mice and psfmi package]
+   + [Step 2 - Impute the missing data with mice]
+   + [Step 3 - Develop the model] 
+   + [Step 4 - Internally validate the model]
+   + [Step 5 - Shrink pooled coefficients and determine new intercept]
+   + [Step 6 - Externally validate the model]
    
 
-## Step `r emo::ji("one")` - Install the mice and psfmi package  `r emo::ji("white_check_mark")` {-}
+## Step 1 - Install the mice and psfmi package {-}
 
 For this vignette I used the development version of `psfmi` from Github 
 by running the following code in the R console window:
@@ -46,7 +46,7 @@ The package `mice` can be installed by using:
 
 Back to [Steps]
 
-## Step `r emo::ji("two")` - Impute the missing data with mice  `r emo::ji("white_check_mark")` {-}
+## Step 2 - Impute the missing data with mice {-}
 
 I generated 5 imputed datasets to handle the missing values in the lbp_orig dataset that is
 included in the `psfmi` package. Depending on the amount of missing data, the number of imputed 
@@ -77,7 +77,7 @@ values) is not included in that long dataset.
 
 Back to [Steps]
 
-## Step `r emo::ji("three")` - Develop the model  `r emo::ji("white_check_mark")` {-}
+## Step 3 - Develop the model {-}
 
 Use the `psfmi_lr` function in the `psfmi` package to perform backward selection over
 the 5 multiply imputed datasets with a p-value of 0.05 and as selection method D1.  
@@ -122,7 +122,7 @@ The same result can be obtained by using the `formula` setting in the `psfmi_lr`
 
 Back to [Steps]
 
-## Step `r emo::ji("four")` - Internally validate the model  `r emo::ji("white_check_mark")` {-}
+## Step 4 - Internally validate the model {-}
 
 To internally validate the model we use the `psfmi_perform` function. With this function five different
 methods can be used to internally validate models in MI data [see these Vignettes](https://mwheymans.github.io/psfmi/articles/),
@@ -155,7 +155,7 @@ res_cv
 
 Back to [Steps]
 
-## Step `r emo::ji("five")` - Shrink pooled coefficients and determine new intercept  `r emo::ji("white_check_mark")` {-}
+## Step 5 - Shrink pooled coefficients and determine new intercept {-}
 
 We can use the slope value of 0.864415077 that was estimated at the previous step as a 
 shrinkage factor to prevent our model from being overfitted in new data. 
@@ -180,7 +180,7 @@ The last step is to externally validate this adjusted model.
 
 Back to [Steps]
 
-## Step `r emo::ji("six")` - Externally validate the model  `r emo::ji("white_check_mark")` {-}
+## Step 6 - Externally validate the model {-}
 
 We validate the model in an external dataset that is imputed five times
 due to missing data. 
