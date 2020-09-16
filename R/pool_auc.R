@@ -29,7 +29,7 @@ pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
   }
   
   # within variance
-  w_auc <- mean(est_auc_se)
+  w_auc <- mean(est_auc_se^2)
   # between variance
   b_auc <- var(est_auc)
   # total variance
