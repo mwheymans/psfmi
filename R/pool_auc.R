@@ -18,45 +18,62 @@
 #' @export   
 pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
   
-  est_auc <- unlist(est_auc)
-  est_auc_se <- unlist(est_se)
+  RR_se <- function(est, se){
+    w_auc <-
+      mean(se^2) # within variance
+    b_auc <-
+      var(est) # between variance
+    tv_auc <-
+      w_auc + (1 + (1/nimp)) * b_auc # total variance
+    se_total <-
+      sqrt(tv_auc)
+    return(se_total)
+  }
+  
+  est_auc <-
+    unlist(est_auc)
+  est_auc_se <-
+    unlist(est_se)
   if(length(est_auc) != nimp)
     stop("Include auc value for each imputed dataset")
   
   if(log_auc){
-    est_auc <- log(est_auc/(1-est_auc))
-    est_auc_se <- est_auc_se / (est_auc * (1-est_auc_se))
-  }
-  
-  # within variance
-  w_auc <- mean(est_auc_se^2)
-  # between variance
-  b_auc <- var(est_auc)
-  # total variance
-  tv_auc <- w_auc + (1 + (1/nimp)) * b_auc
-  se_total <- sqrt(tv_auc)
-  
-  if(log_auc){
-    # Backtransform
-    inv.auc <- exp(mean(est_auc)) /
-      (1 + exp(mean(est_auc)))
-    inv.auc.u <- exp(mean(est_auc) + (1.96*se_total)) /
-      (1 + exp(mean(est_auc) + (1.96*se_total)))
-    inv.auc.l <- exp(mean(est_auc) - (1.96*se_total)) /
-      (1 + exp(mean(est_auc) - (1.96*se_total)))
+    est_auc_log <-
+      log(est_auc/(1-est_auc))
+    est_auc_se_log <-
+      est_auc_se / (est_auc * (1-est_auc))
     
+    se_total <-
+      RR_se(est_auc_log, est_auc_se_log) # pooled se
+    
+    # Backtransform
+    inv.auc <- exp(mean(est_auc_log)) /
+      (1 + exp(mean(est_auc_log)))
+    inv.auc.u <- exp(mean(est_auc_log) + (1.96*se_total)) /
+      (1 + exp(mean(est_auc_log) + (1.96*se_total)))
+    if(inv.auc.u > 1) inv.auc.u <- 1.00
+    inv.auc.l <- exp(mean(est_auc_log) - (1.96*se_total)) /
+      (1 + exp(mean(est_auc_log) - (1.96*se_total)))
+    if(inv.auc.u < 0) inv.auc.u <- 0.00
     auc_res <- round(matrix(c(inv.auc.l, inv.auc, inv.auc.u),
                             1, 3, byrow = T), 4)
     dimnames(auc_res) <- list(c("AUC (logit)"),
                               c("95% Low", "AUC", "95% Up"))
   } else {
-    mean_auc <- mean(est_auc)
-    auc_u <- mean(est_auc) + (1.96*se_total)
-    if(auc_u > 1) auc_u <- 1
+    mean_auc <-
+      mean(est_auc)
+    se_total <-
+      RR_se(est_auc, est_auc_se)
+    auc_u <-
+      mean(est_auc) + (1.96*se_total)
+    if(auc_u > 1) auc_u <- 1.00
     auc_l <- mean(est_auc) - (1.96*se_total)
-    auc_res <- round(matrix(c(auc_l, mean_auc, auc_u),
-                            1, 3, byrow = T), 4)
-    dimnames(auc_res) <- list(c("AUC"), c("95% Low", "AUC", "95% Up"))
+    if(auc_u < 0) auc_u <- 0.00
+    auc_res <-
+      round(matrix(c(auc_l, mean_auc, auc_u),
+                   1, 3, byrow = T), 4)
+    dimnames(auc_res) <-
+      list(c("AUC"), c("95% Low", "AUC", "95% Up"))
   }
   return(auc_res)
 }
