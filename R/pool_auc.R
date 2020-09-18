@@ -51,10 +51,8 @@ pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
       (1 + exp(mean(est_auc_log)))
     inv.auc.u <- exp(mean(est_auc_log) + (1.96*se_total)) /
       (1 + exp(mean(est_auc_log) + (1.96*se_total)))
-    if(inv.auc.u > 1) inv.auc.u <- 1.00
     inv.auc.l <- exp(mean(est_auc_log) - (1.96*se_total)) /
       (1 + exp(mean(est_auc_log) - (1.96*se_total)))
-    if(inv.auc.u < 0) inv.auc.u <- 0.00
     auc_res <- round(matrix(c(inv.auc.l, inv.auc, inv.auc.u),
                             1, 3, byrow = T), 4)
     dimnames(auc_res) <- list(c("AUC (logit)"),
@@ -68,7 +66,7 @@ pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
       mean(est_auc) + (1.96*se_total)
     if(auc_u > 1) auc_u <- 1.00
     auc_l <- mean(est_auc) - (1.96*se_total)
-    if(auc_u < 0) auc_u <- 0.00
+    if(auc_l < 0) auc_l <- 0.00
     auc_res <-
       round(matrix(c(auc_l, mean_auc, auc_u),
                    1, 3, byrow = T), 4)
