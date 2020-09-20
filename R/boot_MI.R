@@ -171,7 +171,7 @@ boot_MI <- function(pobj, data_orig, nboot = 10, nimp_mice, p.crit, direction, m
         mean(perform_test[, 4])
 
       lp_test_pooled <-
-        colMeans(do.call("rbind", coef_slope_test), na.rm = TRUE)
+        colMeans(do.call("rbind", coef_slope_test))
 
       ROC_app <-
         perform_app$ROC_pooled[2]
@@ -220,7 +220,7 @@ boot_MI <- function(pobj, data_orig, nboot = 10, nimp_mice, p.crit, direction, m
 
   res_boot_m <-
     colMeans(data.frame(res_boot,
-                        roc_optimism, r2_optimism, sc_brier_optimism), na.rm=TRUE)
+                        roc_optimism, r2_optimism, sc_brier_optimism))
 
   # Perform original model in multiply imputed original data
   Y_orig <- c(paste(pobj$Outcome, paste("~")))

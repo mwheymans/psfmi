@@ -183,7 +183,7 @@ cv_MI_RR <- function(pobj, data_orig, folds, nimp_mice, p.crit, BW, miceImp, ...
 
     lp_test_RR[[f]] <-
       colMeans(t(apply(LP_test, 2, function(x)
-        coef(glm(Obs_test_outcome ~ x, family=binomial)))), na.rm = TRUE)
+        coef(glm(Obs_test_outcome ~ x, family=binomial)))))
 
     auc_test_f[[f]] <-
       apply(Pred_test_outcome, 2, function(x){
@@ -209,21 +209,21 @@ cv_MI_RR <- function(pobj, data_orig, folds, nimp_mice, p.crit, BW, miceImp, ...
   }
 
   avg_sc_brier_train <-
-    mean(unlist(sc_brier_train_RR), na.rm = TRUE)
+    mean(unlist(sc_brier_train_RR))
   avg_sc_brier_test <-
-    mean(unlist(sc_brier_test_RR), na.rm = TRUE)
+    mean(unlist(sc_brier_test_RR))
 
   avg_auc_train <-
     mean_auc_log(unlist(auc_train_RR))
   avg_auc_test <-
     mean_auc_log(unlist(auc_test_RR))
   avg_rsq_train <-
-    mean(unlist(rsq_train_RR), na.rm = TRUE)
+    mean(unlist(rsq_train_RR))
   avg_rsq_test <-
-    mean(unlist(rsq_test_RR), na.rm = TRUE)
+    mean(unlist(rsq_test_RR))
 
   avg_LP_test <-
-    colMeans(do.call("rbind", lp_test_RR), na.rm = TRUE)
+    colMeans(do.call("rbind", lp_test_RR))
   names(avg_LP_test) <-
     c("Intercept", "Slope")
 

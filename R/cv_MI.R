@@ -161,7 +161,7 @@ cv_MI <- function(pobj, data_orig, folds, nimp_cv, BW, p.crit, anova_test, miceI
     list(c("AUC", "Scaled Brier", "R2"), c("Train", "Test"))
 
   coef_pool <-
-    colMeans(do.call("rbind", coef_test_cv), na.rm = TRUE)
+    colMeans(do.call("rbind", coef_test_cv))
 
   objcv <- list(pool_stats=pool_stats_cv, LP_val=coef_pool, auc_test=auc_test_pooled)
   return(objcv)
