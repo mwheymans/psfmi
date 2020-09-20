@@ -5,6 +5,11 @@ output:
   bookdown::html_document2
 ---
 
+[![CRAN_Release_Badge](https://www.r-pkg.org/badges/version-ago/psfmi)](https://CRAN.R-project.org/package=psfmi)
+[![Monthly downloads badge](https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue)](https://CRAN.R-project.org/package=psfmi)
+[![Travis Build Status](https://travis-ci.com/mwheymans/psfmi.svg?branch=master)](https://travis-ci.org/mwheymans/psfmi) 
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-6666ff.svg)](https://cran.r-project.org/)
+
 The psfmi package 
 
 The package provides functions to apply pooling, backward and forward selection 
