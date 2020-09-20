@@ -164,24 +164,24 @@
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_perform</span>(
-  <span class='no'>pobj</span>,
-  <span class='kw'>val_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data_orig</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>int_val</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>nboot</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>folds</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>nimp_cv</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>nimp_mice</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>BW</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>anova_test</span> <span class='kw'>=</span> <span class='st'>"LRT"</span>,
-  <span class='kw'>cv_naive_appt</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cal.plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>plot.indiv</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>groups_cal</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='no'>miceImp</span>,
-  <span class='no'>...</span>
+  <span class='kw'>pobj</span>,
+  val_method = <span class='kw'>NULL</span>,
+  data_orig = <span class='kw'>NULL</span>,
+  int_val = <span class='fl'>TRUE</span>,
+  nboot = <span class='fl'>10</span>,
+  folds = <span class='fl'>3</span>,
+  nimp_cv = <span class='fl'>5</span>,
+  nimp_mice = <span class='fl'>5</span>,
+  p.crit = <span class='fl'>1</span>,
+  BW = <span class='fl'>FALSE</span>,
+  direction = <span class='kw'>NULL</span>,
+  anova_test = <span class='st'>"LRT"</span>,
+  cv_naive_appt = <span class='fl'>FALSE</span>,
+  cal.plot = <span class='fl'>FALSE</span>,
+  plot.indiv = <span class='fl'>FALSE</span>,
+  groups_cal = <span class='fl'>10</span>,
+  <span class='kw'>miceImp</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -342,13 +342,17 @@ be changed.</p></td>
 <p>EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.</p>
 <p>http://missingdatasolutions.rbind.io/</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Martijn Heymans, 2020</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Chronic</span> ~ <span class='no'>Pain</span> + <span class='no'>JobDemands</span> + <span class='fu'>rcs</span>(<span class='no'>Tampascale</span>, <span class='fl'>3</span>) +
-           <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) + <span class='no'>Smoking</span>, <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"FW"</span>,
-           <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)
-
-<span class='no'>pool_lr</span>$<span class='no'>RR_model</span></div><div class='output co'>#&gt; $`Step 1 - no variables removed -`
+    <pre class="examples"><div class='input'><span class='kw'>pool_lr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span>(data=<span class='kw'>lbpmilr</span>, formula = <span class='kw'>Chronic</span> <span class='op'>~</span> <span class='kw'>Pain</span> <span class='op'>+</span> <span class='kw'>JobDemands</span> <span class='op'>+</span> <span class='fu'>rcs</span>(<span class='kw'>Tampascale</span>, <span class='fl'>3</span>) <span class='op'>+</span>
+           <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>Satisfaction</span>) <span class='op'>+</span> <span class='kw'>Smoking</span>, p.crit = <span class='fl'>1</span>, direction=<span class='st'>"FW"</span>,
+           nimp=<span class='fl'>5</span>, impvar=<span class='st'>"Impnr"</span>, method=<span class='st'>"D1"</span>)
+           
+<span class='kw'>pool_lr</span><span class='op'>$</span><span class='kw'>RR_model</span>
+</div><div class='output co'>#&gt; $`Step 1 - no variables removed -`
 #&gt;                            term      estimate  std.error  statistic        df
 #&gt; 1                   (Intercept) -18.194984918 7.46386123 -2.4377443  66.86346
 #&gt; 2                          Pain   0.787297519 0.28791031  2.7345236  23.89602
@@ -368,9 +372,10 @@ be changed.</p></td>
 #&gt; 7 0.042741589 1.498230e+00 1.018565e+00 2.20378006
 #&gt; 8 0.184099209 7.148853e-01 4.408532e-01 1.15925410
 #&gt; </div><div class='input'>
-<span class='no'>res_perf</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='no'>pool_lr</span>, <span class='kw'>val_method</span> <span class='kw'>=</span> <span class='st'>"cv_MI"</span>, <span class='kw'>data_orig</span> <span class='kw'>=</span> <span class='no'>lbp_orig</span>, <span class='kw'>folds</span><span class='kw'>=</span><span class='fl'>3</span>,
-            <span class='kw'>nimp_cv</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.05</span>, <span class='kw'>BW</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>anova_test</span> <span class='kw'>=</span> <span class='st'>"LRT"</span>,
-            <span class='kw'>miceImp</span> <span class='kw'>=</span> <span class='no'>miceImp</span>, <span class='kw'>printFlag</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='kw'>res_perf</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='kw'>pool_lr</span>, val_method = <span class='st'>"cv_MI"</span>, data_orig = <span class='kw'>lbp_orig</span>, folds=<span class='fl'>3</span>,
+            nimp_cv = <span class='fl'>2</span>, p.crit=<span class='fl'>0.05</span>, BW=<span class='fl'>TRUE</span>, anova_test = <span class='st'>"LRT"</span>,
+            miceImp = <span class='kw'>miceImp</span>, printFlag = <span class='fl'>FALSE</span>)
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Imp run 1</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>fold 1</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
@@ -390,8 +395,9 @@ be changed.</p></td>
 #&gt; <span class='message'>No more variables removed from the model</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>fold 3</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>
-<span class='no'>res_perf</span></div><div class='output co'>#&gt; $pool_stats
+#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>            
+<span class='kw'>res_perf</span>
+</div><div class='output co'>#&gt; $pool_stats
 #&gt;                  Train      Test
 #&gt; AUC          0.8935466 0.8367000
 #&gt; Scaled Brier 0.4767861 0.3299335
@@ -403,15 +409,17 @@ be changed.</p></td>
 #&gt; 
 #&gt; $auc_test
 #&gt;             95% Low    AUC 95% Up
-#&gt; AUC (logit)  0.7903 0.8367 0.8745
+#&gt; AUC (logit)  0.7608 0.8367  0.892
 #&gt; </div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
  <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>200</span>)
-  <span class='no'>res_val</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='no'>pobj</span>, <span class='kw'>val_method</span> <span class='kw'>=</span> <span class='st'>"boot_MI"</span>, <span class='kw'>data_orig</span> <span class='kw'>=</span> <span class='no'>lbp_orig</span>, <span class='kw'>nboot</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.05</span>, <span class='kw'>BW</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>miceImp</span> <span class='kw'>=</span> <span class='no'>miceImp</span>, <span class='kw'>nimp_mice</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>printFlag</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"FW"</span>)
+  <span class='kw'>res_val</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_perform</span>(<span class='kw'>pobj</span>, val_method = <span class='st'>"boot_MI"</span>, data_orig = <span class='kw'>lbp_orig</span>, nboot = <span class='fl'>5</span>,
+  p.crit=<span class='fl'>0.05</span>, BW=<span class='fl'>TRUE</span>, miceImp = <span class='kw'>miceImp</span>, nimp_mice = <span class='fl'>5</span>, printFlag = <span class='fl'>FALSE</span>, direction = <span class='st'>"FW"</span>)
+  
+  <span class='kw'>res_val</span><span class='op'>$</span><span class='kw'>stats_val</span>
+}
 
-  <span class='no'>res_val</span>$<span class='no'>stats_val</span>
-}</div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -427,7 +435,7 @@ be changed.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

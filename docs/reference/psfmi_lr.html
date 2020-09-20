@@ -165,20 +165,20 @@ prediction models in multiply imputed data using selection methods RR, D1, D2, D
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_lr</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nimp</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>impvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Outcome</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spline.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>int.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nknots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"RR"</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>data</span>,
+  formula = <span class='kw'>NULL</span>,
+  nimp = <span class='fl'>5</span>,
+  impvar = <span class='kw'>NULL</span>,
+  Outcome = <span class='kw'>NULL</span>,
+  predictors = <span class='kw'>NULL</span>,
+  cat.predictors = <span class='kw'>NULL</span>,
+  spline.predictors = <span class='kw'>NULL</span>,
+  int.predictors = <span class='kw'>NULL</span>,
+  keep.predictors = <span class='kw'>NULL</span>,
+  nknots = <span class='kw'>NULL</span>,
+  p.crit = <span class='fl'>1</span>,
+  method = <span class='st'>"RR"</span>,
+  direction = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -310,16 +310,21 @@ means forward selection.</p></td>
 <p>EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.</p>
 <p>http://missingdatasolutions.rbind.io/</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Martijn Heymans, 2020</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_lr</span>( <span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>Chronic</span> ~ <span class='no'>Pain</span> +
-  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) + <span class='fu'>rcs</span>(<span class='no'>Tampascale</span>,<span class='fl'>3</span>) + <span class='no'>Radiation</span> +
-  <span class='no'>Radiation</span>*<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) + <span class='no'>Age</span> + <span class='no'>Duration</span> + <span class='no'>BMI</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"FW"</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
-  <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Radiation*factor(Satisfaction)"</span>, <span class='st'>"Age"</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'>Entered at Step 1 is - Pain</span></div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'>  <span class='kw'>pool_lr</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_lr</span>( data=<span class='kw'>lbpmilr</span>, formula = <span class='kw'>Chronic</span> <span class='op'>~</span> <span class='kw'>Pain</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>Satisfaction</span>) <span class='op'>+</span> <span class='fu'>rcs</span>(<span class='kw'>Tampascale</span>,<span class='fl'>3</span>) <span class='op'>+</span> <span class='kw'>Radiation</span> <span class='op'>+</span> 
+  <span class='kw'>Radiation</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>Satisfaction</span>) <span class='op'>+</span> <span class='kw'>Age</span> <span class='op'>+</span> <span class='kw'>Duration</span> <span class='op'>+</span> <span class='kw'>BMI</span>,
+  p.crit = <span class='fl'>0.05</span>, direction=<span class='st'>"FW"</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>"Impnr"</span>, 
+  keep.predictors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Radiation*factor(Satisfaction)"</span>, <span class='st'>"Age"</span>), method=<span class='st'>"D1"</span>)
+</div><div class='output co'>#&gt; <span class='message'>Entered at Step 1 is - Pain</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No new variables entered the model</span></div><div class='input'>
-  <span class='no'>pool_lr</span>$<span class='no'>RR_model_final</span></div><div class='output co'>#&gt; $`Final model`
+#&gt; <span class='message'>No new variables entered the model</span></div><div class='input'>  
+  <span class='kw'>pool_lr</span><span class='op'>$</span><span class='kw'>RR_model_final</span>
+</div><div class='output co'>#&gt; $`Final model`
 #&gt;                              term     estimate  std.error    statistic
 #&gt; 1                     (Intercept) -4.709498778 1.43056951 -3.292044710
 #&gt; 2                            Pain  1.000998071 0.17550142  5.703646588
@@ -355,7 +360,7 @@ means forward selection.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

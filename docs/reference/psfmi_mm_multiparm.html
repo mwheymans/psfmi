@@ -160,16 +160,16 @@
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_mm_multiparm</span>(
-  <span class='no'>data</span>,
-  <span class='no'>nimp</span>,
-  <span class='no'>impvar</span>,
-  <span class='no'>Outcome</span>,
-  <span class='no'>P</span>,
-  <span class='no'>p.crit</span>,
-  <span class='no'>family</span>,
-  <span class='no'>random.eff</span>,
-  <span class='no'>method</span>,
-  <span class='no'>print.method</span>
+  <span class='kw'>data</span>,
+  <span class='kw'>nimp</span>,
+  <span class='kw'>impvar</span>,
+  <span class='kw'>Outcome</span>,
+  <span class='kw'>P</span>,
+  <span class='kw'>p.crit</span>,
+  <span class='kw'>family</span>,
+  <span class='kw'>random.eff</span>,
+  <span class='kw'>method</span>,
+  <span class='kw'>print.method</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -235,12 +235,14 @@ and dichotomous predictors Rubin’s Rules are used.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='fu'>psfmi_mm_multiparm</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ipdna_md</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>".imp"</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"linear"</span>,
- <span class='kw'>P</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"bnp"</span>, <span class='st'>"dbp"</span>, <span class='st'>"lvef"</span>, <span class='st'>"bmi_cat"</span>),
- <span class='kw'>random.eff</span><span class='kw'>=</span><span class='st'>"( 1 | centre)"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"sbp"</span>,
- <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.05</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>, <span class='kw'>print.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div></pre>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='fu'>psfmi_mm_multiparm</span>(data=<span class='kw'>ipdna_md</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>".imp"</span>, family=<span class='st'>"linear"</span>,
+ P=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"bnp"</span>, <span class='st'>"dbp"</span>, <span class='st'>"lvef"</span>, <span class='st'>"bmi_cat"</span>),
+ random.eff=<span class='st'>"( 1 | centre)"</span>, Outcome=<span class='st'>"sbp"</span>,
+ p.crit=<span class='fl'>0.05</span>, method=<span class='st'>"D1"</span>, print.method = <span class='fl'>FALSE</span>)
+}
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -256,7 +258,7 @@ and dichotomous predictors Rubin’s Rules are used.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -165,22 +165,22 @@ linear mixed models in multiply imputed datasets using different selection metho
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_mm</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>nimp</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>impvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>clusvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>Outcome</span>,
-  <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>random.eff</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"linear"</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spline.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>int.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nknots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"RR"</span>,
-  <span class='kw'>print.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>data</span>,
+  nimp = <span class='fl'>5</span>,
+  impvar = <span class='kw'>NULL</span>,
+  clusvar = <span class='kw'>NULL</span>,
+  <span class='kw'>Outcome</span>,
+  predictors = <span class='kw'>NULL</span>,
+  random.eff = <span class='kw'>NULL</span>,
+  family = <span class='st'>"linear"</span>,
+  p.crit = <span class='fl'>1</span>,
+  cat.predictors = <span class='kw'>NULL</span>,
+  spline.predictors = <span class='kw'>NULL</span>,
+  int.predictors = <span class='kw'>NULL</span>,
+  keep.predictors = <span class='kw'>NULL</span>,
+  nknots = <span class='kw'>NULL</span>,
+  method = <span class='st'>"RR"</span>,
+  print.method = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -309,14 +309,16 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='no'>pool_mm</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_mm</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ipdna_md</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>".imp"</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"linear"</span>,
-  <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"afib"</span>, <span class='st'>"sbp"</span>), <span class='kw'>clusvar</span> <span class='kw'>=</span> <span class='st'>"centre"</span>,
-  <span class='kw'>random.eff</span><span class='kw'>=</span><span class='st'>"( 1 | centre)"</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"dbp"</span>, <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='st'>"bmi_cat"</span>,
-  <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>, <span class='kw'>print.method</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-  <span class='no'>pool_mm</span>$<span class='no'>RR_Model</span>
-  <span class='no'>pool_mm</span>$<span class='no'>multiparm</span>
-}</div></pre>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+  <span class='kw'>pool_mm</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_mm</span>(data=<span class='kw'>ipdna_md</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>".imp"</span>, family=<span class='st'>"linear"</span>,
+  predictors=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"afib"</span>, <span class='st'>"sbp"</span>), clusvar = <span class='st'>"centre"</span>,
+  random.eff=<span class='st'>"( 1 | centre)"</span>, Outcome=<span class='st'>"dbp"</span>, cat.predictors = <span class='st'>"bmi_cat"</span>,
+  p.crit=<span class='fl'>0.15</span>, method=<span class='st'>"D1"</span>, print.method = <span class='fl'>FALSE</span>)
+  <span class='kw'>pool_mm</span><span class='op'>$</span><span class='kw'>RR_Model</span>
+  <span class='kw'>pool_mm</span><span class='op'>$</span><span class='kw'>multiparm</span>
+}
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -332,7 +334,7 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

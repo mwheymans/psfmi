@@ -165,17 +165,17 @@ prediction models using selection methods LRT or Chisq.</p>
     </div>
 
     <pre class="usage"><span class='fu'>bw_single</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Outcome</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spline.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>int.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nknots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>anova_test</span> <span class='kw'>=</span> <span class='st'>"Chisq"</span>
+  <span class='kw'>data</span>,
+  formula = <span class='kw'>NULL</span>,
+  Outcome = <span class='kw'>NULL</span>,
+  predictors = <span class='kw'>NULL</span>,
+  p.crit = <span class='fl'>1</span>,
+  cat.predictors = <span class='kw'>NULL</span>,
+  spline.predictors = <span class='kw'>NULL</span>,
+  int.predictors = <span class='kw'>NULL</span>,
+  keep.predictors = <span class='kw'>NULL</span>,
+  nknots = <span class='kw'>NULL</span>,
+  anova_test = <span class='st'>"Chisq"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -260,14 +260,19 @@ in the model during predictor selection. All type of variables are allowed.</p><
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='psfmi_perform.html'>psfmi_perform</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Martijn Heymans, 2020</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='no'>res_single</span> <span class='kw'>&lt;-</span> <span class='fu'>bw_single</span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmilr</span>, <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>Outcome</span><span class='kw'>=</span><span class='st'>"Chronic"</span>,
-         <span class='kw'>predictors</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Tampascale"</span>, <span class='st'>"Smoking"</span>),
-         <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Satisfaction"</span>), <span class='kw'>anova_test</span> <span class='kw'>=</span> <span class='st'>"Chisq"</span>)</div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'> <span class='kw'>res_single</span> <span class='op'>&lt;-</span> <span class='fu'>bw_single</span>(data=<span class='kw'>lbpmilr</span>, p.crit = <span class='fl'>0.05</span>, Outcome=<span class='st'>"Chronic"</span>,
+         predictors=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Tampascale"</span>, <span class='st'>"Smoking"</span>),
+         cat.predictors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Satisfaction"</span>), anova_test = <span class='st'>"Chisq"</span>)
+</div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>
-<span class='no'>res_single</span>$<span class='no'>RR_model_final</span></div><div class='output co'>#&gt; $`Step 2`
+#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>         
+<span class='kw'>res_single</span><span class='op'>$</span><span class='kw'>RR_model_final</span>
+</div><div class='output co'>#&gt; $`Step 2`
 #&gt;                          Estimate  Std Error    Z value      P-value
 #&gt; (Intercept)           -13.0922408 0.65283752 -20.054363 1.848950e-89
 #&gt; Tampascale              0.3413733 0.01685617  20.252126 3.402375e-91
@@ -295,7 +300,7 @@ in the model during predictor selection. All type of variables are allowed.</p><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

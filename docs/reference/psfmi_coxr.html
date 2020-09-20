@@ -165,21 +165,21 @@ prediction models in multiply imputed data using selection methods D1, D2 and MP
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_coxr</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nimp</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>impvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cat.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spline.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>int.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nknots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"RR"</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>data</span>,
+  formula = <span class='kw'>NULL</span>,
+  nimp = <span class='fl'>5</span>,
+  impvar = <span class='kw'>NULL</span>,
+  status = <span class='kw'>NULL</span>,
+  time = <span class='kw'>NULL</span>,
+  predictors = <span class='kw'>NULL</span>,
+  cat.predictors = <span class='kw'>NULL</span>,
+  spline.predictors = <span class='kw'>NULL</span>,
+  int.predictors = <span class='kw'>NULL</span>,
+  keep.predictors = <span class='kw'>NULL</span>,
+  nknots = <span class='kw'>NULL</span>,
+  p.crit = <span class='fl'>1</span>,
+  method = <span class='st'>"RR"</span>,
+  direction = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -312,20 +312,25 @@ means forward selection.</p></td>
 <p>EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
  to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.</p>
 <p>http://missingdatasolutions.rbind.io/</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Martijn Heymans, 2020</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_coxr</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>Surv</span>(<span class='no'>Time</span>, <span class='no'>Status</span>) ~ <span class='no'>Pain</span> + <span class='no'>Tampascale</span> +
-                       <span class='no'>Radiation</span> + <span class='no'>Radiation</span>*<span class='no'>Pain</span> + <span class='no'>Age</span> + <span class='no'>Duration</span> + <span class='no'>Previous</span>,
-                     <span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmicox</span>, <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"BW"</span>, <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>,
-                     <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='st'>"Radiation*Pain"</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Previous</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'> <span class='kw'>pool_lr</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_coxr</span>(formula = <span class='fu'>Surv</span>(<span class='kw'>Time</span>, <span class='kw'>Status</span>) <span class='op'>~</span> <span class='kw'>Pain</span> <span class='op'>+</span> <span class='kw'>Tampascale</span> <span class='op'>+</span>
+                       <span class='kw'>Radiation</span> <span class='op'>+</span> <span class='kw'>Radiation</span><span class='op'>*</span><span class='kw'>Pain</span> <span class='op'>+</span> <span class='kw'>Age</span> <span class='op'>+</span> <span class='kw'>Duration</span> <span class='op'>+</span> <span class='kw'>Previous</span>,
+                     data=<span class='kw'>lbpmicox</span>, p.crit = <span class='fl'>0.05</span>, direction=<span class='st'>"BW"</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>"Impnr"</span>,
+                     keep.predictors = <span class='st'>"Radiation*Pain"</span>, method=<span class='st'>"D1"</span>)
+</div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Previous</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>
- <span class='no'>pool_lr</span>$<span class='no'>RR_model_final</span></div><div class='output co'>#&gt; $`Step 4`
-#&gt;             term     estimate   std.error   statistic         df    p.value
-#&gt; 1           Pain -0.106402350 0.053609346 -1.98477238   363.4861 0.04792121
-#&gt; 2      Radiation  0.034402970 0.614625339  0.05597389   261.0595 0.95540542
-#&gt; 3       Duration -0.007502183 0.003758976 -1.99580506 37479.8708 0.04596237
-#&gt; 4 Pain:Radiation -0.026253904 0.088245839 -0.29750869   245.8356 0.76632943
+#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>                     
+ <span class='kw'>pool_lr</span><span class='op'>$</span><span class='kw'>RR_model_final</span>
+</div><div class='output co'>#&gt; $`Step 4`
+#&gt;             term     estimate   std.error   statistic       df    p.value
+#&gt; 1           Pain -0.106402350 0.053609346 -1.98477238 114.6369 0.04955832
+#&gt; 2      Radiation  0.034402970 0.614625339  0.05597389 100.6917 0.95547353
+#&gt; 3       Duration -0.007502183 0.003758976 -1.99580506 184.2603 0.04742814
+#&gt; 4 Pain:Radiation -0.026253904 0.088245839 -0.29750869  98.0881 0.76670736
 #&gt;          HR lower.EXP upper.EXP
 #&gt; 1 0.8990628 0.8093882 0.9986729
 #&gt; 2 1.0350016 0.3102854 3.4523965
@@ -348,7 +353,7 @@ means forward selection.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

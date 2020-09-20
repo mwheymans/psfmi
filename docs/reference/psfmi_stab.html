@@ -162,12 +162,12 @@
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_stab</span>(
-  <span class='no'>pobj</span>,
-  <span class='kw'>boot_method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nboot</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>start_model</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>pobj</span>,
+  boot_method = <span class='kw'>NULL</span>,
+  nboot = <span class='fl'>20</span>,
+  p.crit = <span class='fl'>0.05</span>,
+  start_model = <span class='fl'>TRUE</span>,
+  direction = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -241,13 +241,16 @@ FALSE the final model is used for the evaluation.</p></td>
 <p>http://missingdatasolutions.rbind.io/</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='no'>pool_lr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psfmi_coxr.html'>psfmi_coxr</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='fu'>Surv</span>(<span class='no'>Time</span>, <span class='no'>Status</span>) ~ <span class='no'>Pain</span> + <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) +
-   <span class='fu'>rcs</span>(<span class='no'>Tampascale</span>,<span class='fl'>3</span>) + <span class='no'>Radiation</span> + <span class='no'>Radiation</span>*<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Satisfaction</span>) + <span class='no'>Age</span> + <span class='no'>Duration</span> +
-   <span class='no'>Previous</span> + <span class='no'>Radiation</span>*<span class='fu'>rcs</span>(<span class='no'>Tampascale</span>, <span class='fl'>3</span>), <span class='kw'>data</span><span class='kw'>=</span><span class='no'>lbpmicox</span>, <span class='kw'>p.crit</span> <span class='kw'>=</span> <span class='fl'>0.157</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"FW"</span>,
-   <span class='kw'>nimp</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>impvar</span><span class='kw'>=</span><span class='st'>"Impnr"</span>, <span class='kw'>keep.predictors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"D1"</span>)</div><div class='output co'>#&gt; <span class='message'>Entered at Step 1 is - Pain</span></div><div class='output co'>#&gt; <span class='message'>Entered at Step 2 is - Duration</span></div><div class='output co'>#&gt; <span class='message'>Entered at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'> <span class='kw'>pool_lr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psfmi_coxr.html'>psfmi_coxr</a></span>(formula = <span class='fu'>Surv</span>(<span class='kw'>Time</span>, <span class='kw'>Status</span>) <span class='op'>~</span> <span class='kw'>Pain</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>Satisfaction</span>) <span class='op'>+</span> 
+   <span class='fu'>rcs</span>(<span class='kw'>Tampascale</span>,<span class='fl'>3</span>) <span class='op'>+</span> <span class='kw'>Radiation</span> <span class='op'>+</span> <span class='kw'>Radiation</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>Satisfaction</span>) <span class='op'>+</span> <span class='kw'>Age</span> <span class='op'>+</span> <span class='kw'>Duration</span> <span class='op'>+</span> 
+   <span class='kw'>Previous</span> <span class='op'>+</span> <span class='kw'>Radiation</span><span class='op'>*</span><span class='fu'>rcs</span>(<span class='kw'>Tampascale</span>, <span class='fl'>3</span>), data=<span class='kw'>lbpmicox</span>, p.crit = <span class='fl'>0.157</span>, direction=<span class='st'>"FW"</span>,
+   nimp=<span class='fl'>5</span>, impvar=<span class='st'>"Impnr"</span>, keep.predictors = <span class='kw'>NULL</span>, method=<span class='st'>"D1"</span>)
+</div><div class='output co'>#&gt; <span class='message'>Entered at Step 1 is - Pain</span></div><div class='output co'>#&gt; <span class='message'>Entered at Step 2 is - Duration</span></div><div class='output co'>#&gt; <span class='message'>Entered at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
 #&gt; <span class='message'>No new variables entered the model</span></div><div class='input'>
- <span class='no'>pool_lr</span>$<span class='no'>RR_Model</span></div><div class='output co'>#&gt; NULL</div><div class='input'> <span class='no'>pool_lr</span>$<span class='no'>multiparm</span></div><div class='output co'>#&gt; $`Step 0 - selected - Pain`
+ <span class='kw'>pool_lr</span><span class='op'>$</span><span class='kw'>RR_Model</span>
+</div><div class='output co'>#&gt; NULL</div><div class='input'> <span class='kw'>pool_lr</span><span class='op'>$</span><span class='kw'>multiparm</span>
+</div><div class='output co'>#&gt; $`Step 0 - selected - Pain`
 #&gt;                                 p-value D1
 #&gt; Pain                           0.002972173
 #&gt; Radiation                      0.181042842
@@ -280,13 +283,15 @@ FALSE the final model is used for the evaluation.</p></td>
 #&gt; factor(Satisfaction)*Radiation 0.70440131
 #&gt; rcs(Tampascale,3)*Radiation    0.35955920
 #&gt; </div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='no'>stab_res</span> <span class='kw'>&lt;-</span> <span class='fu'>psfmi_stab</span>(<span class='no'>pool_lr</span>, <span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"FW"</span>, <span class='kw'>start_model</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-     <span class='kw'>boot_method</span> <span class='kw'>=</span> <span class='st'>"single"</span>, <span class='kw'>nboot</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>p.crit</span><span class='kw'>=</span><span class='fl'>0.05</span>)
- <span class='no'>stab_res</span>$<span class='no'>bif</span>
- <span class='no'>stab_res</span>$<span class='no'>bif_perc</span>
- <span class='no'>stab_res</span>$<span class='no'>model_stab</span>
-}</div></pre>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='kw'>stab_res</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_stab</span>(<span class='kw'>pool_lr</span>, direction=<span class='st'>"FW"</span>, start_model = <span class='fl'>TRUE</span>,
+     boot_method = <span class='st'>"single"</span>, nboot=<span class='fl'>20</span>, p.crit=<span class='fl'>0.05</span>)
+ <span class='kw'>stab_res</span><span class='op'>$</span><span class='kw'>bif</span>
+ <span class='kw'>stab_res</span><span class='op'>$</span><span class='kw'>bif_perc</span>
+ <span class='kw'>stab_res</span><span class='op'>$</span><span class='kw'>model_stab</span>
+}
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -302,7 +307,7 @@ FALSE the final model is used for the evaluation.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   boot_MI: boot_MI.html
@@ -12,5 +12,5 @@ articles:
   psfmi_mice: psfmi_mice.html
   psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
   psfmi_valext: psfmi_valext.html
-last_built: 2020-08-27T05:42Z
+last_built: 2020-09-20T12:22Z
 
