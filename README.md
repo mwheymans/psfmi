@@ -1,8 +1,7 @@
 ---
 title: "psfmi"
 author: "Martijn W Heymans"
-output:
-  bookdown::html_document2
+output: github_document
 ---
 
 [![CRAN_Release_Badge](https://www.r-pkg.org/badges/version-ago/psfmi)](https://CRAN.R-project.org/package=psfmi)
