@@ -1,5 +1,5 @@
 ---
-title: "psfmi""
+title: "psfmi"
 author: "Martijn W Heymans"
 output:
   bookdown::html_document2
@@ -8,9 +8,7 @@ output:
 [![CRAN_Release_Badge](https://www.r-pkg.org/badges/version-ago/psfmi)](https://CRAN.R-project.org/package=psfmi)
 [![Monthly downloads badge](https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue)](https://CRAN.R-project.org/package=psfmi)
 [![Travis Build Status](https://travis-ci.com/mwheymans/psfmi.svg?branch=master)](https://travis-ci.org/mwheymans/psfmi) 
-[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-6666ff.svg)](https://cran.r-project.org/)
-
-The psfmi package 
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg)](https://cran.r-project.org/)
 
 The package provides functions to apply pooling, backward and forward selection 
 of logistic, Cox regression and Multilevel (mixed models) prediction 
@@ -33,7 +31,7 @@ Backward and forward selection as part of internal validation is possible.
 Also a function to externally validate logistic	prediction models in 
 multiple imputed datasets is available.
 
-The package needs R 3.5.0 or higher. You can use the functions, 
+The package needs R 3.6.0 or higher. You can use the functions, 
 after you have installed the package from CRAN or the Github website 
 (development version). For Github you first have to install and activate 
 the devtools package. Use the following code to install and activate 
