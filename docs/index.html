@@ -51,7 +51,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -128,28 +128,63 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+<div id="psfmi" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#psfmi" class="anchor"></a>psfmi</h1></div>
 
-<hr>
-<p>title: “psfmi” author: “Martijn W Heymans” output: github_document —</p>
-<p><a href="https://CRAN.R-project.org/package=psfmi"><img src="https://www.r-pkg.org/badges/version-ago/psfmi" alt="CRAN_Release_Badge"></a> <a href="https://CRAN.R-project.org/package=psfmi"><img src="https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue" alt="Monthly downloads badge"></a> <a href="https://travis-ci.org/mwheymans/psfmi"><img src="https://travis-ci.com/mwheymans/psfmi.svg?branch=master" alt="Travis Build Status"></a> <a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg" alt="minimal R version"></a></p>
-<p>The package provides functions to apply pooling, backward and forward selection of logistic, Cox regression and Multilevel (mixed models) prediction models in multiply imputed datasets. Backward and forward selection can be done from the pooled model using Rubin’s Rules (RR), the D1, D2, D3 and the median p-values method. The model can contain continuous, dichotomous, categorical predictors and interaction terms between all these type of predictors. Continuous predictors can also be introduced as restricted cubic spline coefficients.</p>
-<p>The package includes a function to evaluate the stability of the models using bootstrapping and cluster bootstrapping. The package further contains functions to generate pooled model performance measures in multiply imputed datasets as AUC value, R-squares, scaled Brier score, fit test values and calibration plots for logistic regression models.</p>
-<p>Internal validation of the developed model can be performed with cross-validation or bootstrapping over multiply imputed datasets. The adjusted intercept after shrinkage of the pooled regression coefficients can be subsequently obtained. Backward and forward selection as part of internal validation is possible. Also a function to externally validate logistic prediction models in multiple imputed datasets is available.</p>
-<p>The package needs R 3.6.0 or higher. You can use the functions, after you have installed the package from CRAN or the Github website (development version). For Github you first have to install and activate the devtools package. Use the following code to install and activate the package from Github:</p>
-<blockquote>
-<p>install.packages(“devtools”)</p>
-</blockquote>
-<blockquote>
-<p>library(devtools)</p>
-</blockquote>
-<blockquote>
-<p>devtools::install_github(“mwheymans/psfmi”)</p>
-</blockquote>
-<blockquote>
-<p>library(psfmi)</p>
-</blockquote>
-<p>Have fun!</p>
+<p>The package provides functions to apply pooling, backward and forward selection of logistic and Cox regression prediction models in multiply imputed data sets using Rubin’s Rules (RR), the D1, D2, D3 and the median p-values method. The model can contain continuous, dichotomous, categorical and restricted cubic spline predictors and interaction terms between all these type of predictors.</p>
+<p>Validation of the models can be performed with cross-validation or bootstrapping in multiply imputed data sets and pooled model performance measures as AUC value, R-square, scaled Brier score and calibration plots are generated. Also a function to externally validate logistic prediction models in multiple imputed data sets is available.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the released version of psfmi from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"psfmi"</span>)
+</pre></div>
+<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install.packages("devtools")</span>
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"mwheymans/psfmi"</span>)
+</pre></div>
+</div>
+<div id="package-website" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package-website" class="anchor"></a>Package Website</h2>
+<p>For more examples see <a href="https://mwheymans.github.io/psfmi/">the package website</a></p>
+</div>
+<div id="example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h2>
+<p>This example shows you how to apply forward selection with a model that includes a restricted cubic spline function and an interaction term.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
 
+<span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, formula = <span class="kw">Chronic</span> <span class="op">~</span> <span class="fu">rcs</span>(<span class="kw">Pain</span>, <span class="fl">3</span>) <span class="op">+</span> <span class="kw">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span>(<span class="kw">Tampascale</span>, <span class="fl">3</span>) <span class="op">+</span>
+                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">Satisfaction</span>) <span class="op">+</span> <span class="kw">Smoking</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">Satisfaction</span>)<span class="op">*</span><span class="fu">rcs</span>(<span class="kw">Pain</span>, <span class="fl">3</span>) ,
+                   p.crit = <span class="fl">0.05</span>, direction=<span class="st">"FW"</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>,
+                   method=<span class="st">"D1"</span>)
+<span class="co">#&gt; Entered at Step 1 is - rcs(Pain,3)</span>
+<span class="co">#&gt; Entered at Step 2 is - factor(Satisfaction)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Selection correctly terminated, </span>
+<span class="co">#&gt; No new variables entered the model</span>
+<span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model_final</span>
+<span class="co">#&gt; $`Final model`</span>
+<span class="co">#&gt;                    term   estimate std.error  statistic        df     p.value</span>
+<span class="co">#&gt; 1           (Intercept) -3.6027668 1.5427414 -2.3353018  60.25659 0.022875170</span>
+<span class="co">#&gt; 2 factor(Satisfaction)2 -0.4725289 0.5164342 -0.9149838 145.03888 0.361718841</span>
+<span class="co">#&gt; 3 factor(Satisfaction)3 -2.3328994 0.7317131 -3.1882707 122.95905 0.001815476</span>
+<span class="co">#&gt; 4      rcs(Pain, 3)Pain  0.6514983 0.4028728  1.6171315  51.09308 0.112008088</span>
+<span class="co">#&gt; 5     rcs(Pain, 3)Pain'  0.4703811 0.4596490  1.0233483  75.29317 0.309419924</span>
+<span class="co">#&gt;           OR   lower.EXP upper.EXP</span>
+<span class="co">#&gt; 1 0.02724823 0.001324739 0.5604621</span>
+<span class="co">#&gt; 2 0.62342367 0.226561226 1.7154616</span>
+<span class="co">#&gt; 3 0.09701406 0.023120005 0.4070815</span>
+<span class="co">#&gt; 4 1.91841309 0.870983375 4.2254639</span>
+<span class="co">#&gt; 5 1.60060402 0.650163744 3.9404431</span>
+</pre></div>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -178,7 +213,16 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=psfmi"><img src="https://www.r-pkg.org/badges/version-ago/psfmi" alt="CRAN_Release_Badge"></a></li>
+<li><a href="https://CRAN.R-project.org/package=psfmi"><img src="https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue" alt="Monthly downloads badge"></a></li>
+<li><a href="https://travis-ci.org/mwheymans/psfmi"><img src="https://travis-ci.com/mwheymans/psfmi.svg?branch=master" alt="Travis Build Status"></a></li>
+<li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg" alt="minimal R version"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

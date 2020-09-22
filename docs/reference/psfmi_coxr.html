@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data. — psfmi_coxr • psfmi</title>
+Cox regression models in multiply imputed data. — psfmi_coxr • psfmi</title>
 
 
 <!-- jquery -->
@@ -41,8 +41,8 @@ Logistic regression models in multiply imputed data. — psfmi_coxr • psfmi</t
 
 
 <meta property="og:title" content="Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data. — psfmi_coxr" />
-<meta property="og:description" content="psfmi_coxr Pooling and backward or forward selection of Logistic regression
+Cox regression models in multiply imputed data. — psfmi_coxr" />
+<meta property="og:description" content="psfmi_coxr Pooling and backward or forward selection of Cox regression
 prediction models in multiply imputed data using selection methods D1, D2 and MPR." />
 
 
@@ -75,7 +75,7 @@ prediction models in multiply imputed data using selection methods D1, D2 and MP
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -154,13 +154,13 @@ prediction models in multiply imputed data using selection methods D1, D2 and MP
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data.</h1>
+Cox regression models in multiply imputed data.</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/psfmi_coxr.R'><code>R/psfmi_coxr.R</code></a></small>
     <div class="hidden name"><code>psfmi_coxr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>psfmi_coxr</code> Pooling and backward or forward selection of Logistic regression
+    <p><code>psfmi_coxr</code> Pooling and backward or forward selection of Cox regression
 prediction models in multiply imputed data using selection methods D1, D2 and MPR.</p>
     </div>
 
@@ -195,7 +195,9 @@ specified under impvar, and starting by 1.</p></td>
     <tr>
       <th>formula</th>
       <td><p>A formula object to specify the model as normally used by glm.
-See under "Details" and "Examples" how these can be specified.</p></td>
+See under "Details" and "Examples" how these can be specified. If a formula
+object is used set predictors, cat.predictors, spline.predictors or int.predictors
+at the default value of NULL.</p></td>
     </tr>
     <tr>
       <th>nimp</th>
@@ -246,7 +248,7 @@ in the model during predictor selection. Categorical and interaction variables a
     </tr>
     <tr>
       <th>p.crit</th>
-      <td><p>A numerical scalar. P-value selection criterium. A value of 1
+      <td><p>A numerical scalar. P-value selection criterion. A value of 1
 provides the pooled model without selection.</p></td>
     </tr>
     <tr>
@@ -265,17 +267,32 @@ means forward selection.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <code>pmods</code> (multiply imputed models) from
- which the following objects can be extracted: imputed datasets as <code>data</code>, final selected
- pooled model as <code>RR_model_final</code>, pooled model at each selection step <code>RR_model</code>,
- pooled p-values at final step according to pooling method as <code>multiparm_final</code>, and
- at each step as <code>multiparm</code>, or <code>multiparm_out</code> (only when direction = "FW"),
- formula object at final step as <code>fm_step_final</code>, and at each step as <code>fm_step</code>,
- predictors included at each selection step as <code>predictors_in</code>, predictors excluded
- at each step as <code>predictors_out</code>, and name of variable to distinguish imputed datasets
- as <code>impvar</code>, <code>nimp</code>, <code>Outcome</code>, <code>method</code>, <code>p.crit</code>, <code>call</code>,
- <code>model_type</code>, direction of selection as <code>direction</code>, <code>predictors_final</code> for
- names of predictors in final selection step and <code>predictors_initial</code> for names of
- predictors in start model.</p>
+ which the following objects can be extracted:</p><ul>
+<li><p><code>data</code> imputed datasets</p></li>
+<li><p><code>RR_model</code> pooled model at each selection step</p></li>
+<li><p><code>RR_model_final</code> final selected pooled model</p></li>
+<li><p><code>multiparm</code> pooled p-values at each step according to pooling method</p></li>
+<li><p><code>multiparm_final</code> pooled p-values at final step according to pooling method</p></li>
+<li><p><code>multiparm_out</code> (only when direction = "FW") pooled p-values of removed predictors</p></li>
+<li><p><code>formula_step</code> formula object at each step</p></li>
+<li><p><code>formula_final</code> formula object at final step</p></li>
+<li><p><code>formula_initial</code> formula object at final step</p></li>
+<li><p><code>predictors_in</code> predictors included at each selection step</p></li>
+<li><p><code>predictors_out</code> predictors excluded at each step</p></li>
+<li><p><code>impvar</code> name of variable used to distinguish imputed datasets</p></li>
+<li><p><code>nimp</code> number of imputed datasets</p></li>
+<li><p><code>status</code> name of the status variable</p></li>
+<li><p><code>time</code> name of the time variable</p></li>
+<li><p><code>method</code> selection method</p></li>
+<li><p><code>p.crit</code> p-value selection criterium</p></li>
+<li><p><code>call</code> function call</p></li>
+<li><p><code>model_type</code> type of regression model used</p></li>
+<li><p><code>direction</code> direction of predictor selection</p></li>
+<li><p><code>predictors_final</code> names of predictors in final selection step</p></li>
+<li><p><code>predictors_initial</code> names of predictors in start model</p></li>
+<li><p><code>keep.predictors</code> names of predictors that were forced in the model</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The basic pooling procedure to derive pooled coefficients, standard errors, 95
@@ -290,7 +307,18 @@ means forward selection.</p></td>
  be defined as <code>Outcome ~ factor(variable)</code>, restricted cubic spline variables as
  <code>Outcome ~ rcs(variable, 3)</code>. Interaction terms can be defined as
  <code>Outcome ~ variable1*variable2</code> or <code>Outcome ~ variable1 + variable2 + variable1:variable2</code>.
- All variables in the terms part have to be separated by a "+".</p>
+ All variables in the terms part have to be separated by a "+". If a formula
+ object is used set predictors, cat.predictors, spline.predictors or int.predictors
+ at the default value of NULL.</p>
+<p>pooled p-values at final step according to pooling method as <code>multiparm_final</code>, and
+ at each step as <code>multiparm</code>, or <code>multiparm_out</code> (only when direction = "FW"),
+ formula object at final step as <code>fm_step_final</code>, and at each step as <code>fm_step</code>,
+ predictors included at each selection step as <code>predictors_in</code>, predictors excluded
+ at each step as <code>predictors_out</code>, and name of variable to distinguish imputed datasets
+ as <code>impvar</code>, <code>nimp</code>, <code>Outcome</code>, <code>method</code>, <code>p.crit</code>, <code>call</code>,
+ <code>model_type</code>, direction of selection as <code>direction</code>, <code>predictors_final</code> for
+ names of predictors in final selection step and <code>predictors_initial</code> for names of
+ predictors in start model.</p>
     <h2 class="hasAnchor" id="vignettes"><a class="anchor" href="#vignettes"></a>Vignettes</h2>
 
     
@@ -317,14 +345,14 @@ means forward selection.</p></td>
     <p>Martijn Heymans, 2020</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='kw'>pool_lr</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_coxr</span>(formula = <span class='fu'>Surv</span>(<span class='kw'>Time</span>, <span class='kw'>Status</span>) <span class='op'>~</span> <span class='kw'>Pain</span> <span class='op'>+</span> <span class='kw'>Tampascale</span> <span class='op'>+</span>
+    <pre class="examples"><div class='input'> <span class='kw'>pool_coxr</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_coxr</span>(formula = <span class='fu'>Surv</span>(<span class='kw'>Time</span>, <span class='kw'>Status</span>) <span class='op'>~</span> <span class='kw'>Pain</span> <span class='op'>+</span> <span class='kw'>Tampascale</span> <span class='op'>+</span>
                        <span class='kw'>Radiation</span> <span class='op'>+</span> <span class='kw'>Radiation</span><span class='op'>*</span><span class='kw'>Pain</span> <span class='op'>+</span> <span class='kw'>Age</span> <span class='op'>+</span> <span class='kw'>Duration</span> <span class='op'>+</span> <span class='kw'>Previous</span>,
                      data=<span class='kw'>lbpmicox</span>, p.crit = <span class='fl'>0.05</span>, direction=<span class='st'>"BW"</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>"Impnr"</span>,
                      keep.predictors = <span class='st'>"Radiation*Pain"</span>, method=<span class='st'>"D1"</span>)
 </div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Previous</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - Age</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - Tampascale</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
 #&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>                     
- <span class='kw'>pool_lr</span><span class='op'>$</span><span class='kw'>RR_model_final</span>
+ <span class='kw'>pool_coxr</span><span class='op'>$</span><span class='kw'>RR_model_final</span>
 </div><div class='output co'>#&gt; $`Step 4`
 #&gt;             term     estimate   std.error   statistic       df    p.value
 #&gt; 1           Pain -0.106402350 0.053609346 -1.98477238 114.6369 0.04955832
