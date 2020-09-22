@@ -38,6 +38,7 @@ in the model during predictor selection. All type of variables are allowed.}
 \description{
 \code{psfmi_coxr_bw} Backward selection of Cox regression
 models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+Function is called by \code{psfmi_coxr}.
 }
 \author{
 Martijn Heymans, 2020

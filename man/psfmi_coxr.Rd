@@ -3,7 +3,7 @@
 \name{psfmi_coxr}
 \alias{psfmi_coxr}
 \title{Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data.}
+Cox regression models in multiply imputed data.}
 \usage{
 psfmi_coxr(
   data,
@@ -30,7 +30,9 @@ dataset. The imputed datasets must be distinguished by an imputation variable,
 specified under impvar, and starting by 1.}
 
 \item{formula}{A formula object to specify the model as normally used by glm.
-See under "Details" and "Examples" how these can be specified.}
+See under "Details" and "Examples" how these can be specified. If a formula
+object is used set predictors, cat.predictors, spline.predictors or int.predictors
+at the default value of NULL.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
@@ -59,7 +61,7 @@ in the model during predictor selection. Categorical and interaction variables a
 
 \item{nknots}{A numerical vector that defines the number of knots for each spline predictor separately.}
 
-\item{p.crit}{A numerical scalar. P-value selection criterium. A value of 1
+\item{p.crit}{A numerical scalar. P-value selection criterion. A value of 1
 provides the pooled model without selection.}
 
 \item{method}{A character vector to indicate the pooling method for p-values to pool the
@@ -71,20 +73,35 @@ means forward selection.}
 }
 \value{
 An object of class \code{pmods} (multiply imputed models) from
- which the following objects can be extracted: imputed datasets as \code{data}, final selected
- pooled model as \code{RR_model_final}, pooled model at each selection step \code{RR_model},
- pooled p-values at final step according to pooling method as \code{multiparm_final}, and
- at each step as \code{multiparm}, or \code{multiparm_out} (only when direction = "FW"),
- formula object at final step as \code{fm_step_final}, and at each step as \code{fm_step},
- predictors included at each selection step as \code{predictors_in}, predictors excluded
- at each step as \code{predictors_out}, and name of variable to distinguish imputed datasets
- as \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{call},
- \code{model_type}, direction of selection as \code{direction}, \code{predictors_final} for
- names of predictors in final selection step and \code{predictors_initial} for names of
- predictors in start model.
+ which the following objects can be extracted: 
+ \itemize{
+ \item  \code{data} imputed datasets
+ \item  \code{RR_model} pooled model at each selection step
+ \item  \code{RR_model_final} final selected pooled model
+ \item  \code{multiparm} pooled p-values at each step according to pooling method
+ \item  \code{multiparm_final} pooled p-values at final step according to pooling method
+ \item  \code{multiparm_out} (only when direction = "FW") pooled p-values of removed predictors 
+ \item  \code{formula_step} formula object at each step
+ \item  \code{formula_final} formula object at final step
+ \item  \code{formula_initial} formula object at final step
+ \item  \code{predictors_in} predictors included at each selection step
+ \item  \code{predictors_out} predictors excluded at each step
+ \item  \code{impvar} name of variable used to distinguish imputed datasets
+ \item  \code{nimp} number of imputed datasets
+ \item  \code{status} name of the status variable
+ \item  \code{time} name of the time variable
+ \item  \code{method} selection method
+ \item  \code{p.crit} p-value selection criterium
+ \item  \code{call} function call
+ \item  \code{model_type} type of regression model used
+ \item  \code{direction} direction of predictor selection
+ \item  \code{predictors_final} names of predictors in final selection step
+ \item  \code{predictors_initial} names of predictors in start model
+ \item  \code{keep.predictors} names of predictors that were forced in the model    
+}
 }
 \description{
-\code{psfmi_coxr} Pooling and backward or forward selection of Logistic regression
+\code{psfmi_coxr} Pooling and backward or forward selection of Cox regression
 prediction models in multiply imputed data using selection methods D1, D2 and MPR.
 }
 \details{
@@ -101,7 +118,19 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  be defined as \code{Outcome ~ factor(variable)}, restricted cubic spline variables as
  \code{Outcome ~ rcs(variable, 3)}. Interaction terms can be defined as
  \code{Outcome ~ variable1*variable2} or \code{Outcome ~ variable1 + variable2 + variable1:variable2}.
- All variables in the terms part have to be separated by a "+".
+ All variables in the terms part have to be separated by a "+". If a formula
+ object is used set predictors, cat.predictors, spline.predictors or int.predictors
+ at the default value of NULL.
+
+ pooled p-values at final step according to pooling method as \code{multiparm_final}, and
+ at each step as \code{multiparm}, or \code{multiparm_out} (only when direction = "FW"),
+ formula object at final step as \code{fm_step_final}, and at each step as \code{fm_step},
+ predictors included at each selection step as \code{predictors_in}, predictors excluded
+ at each step as \code{predictors_out}, and name of variable to distinguish imputed datasets
+ as \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{call},
+ \code{model_type}, direction of selection as \code{direction}, \code{predictors_final} for
+ names of predictors in final selection step and \code{predictors_initial} for names of
+ predictors in start model.
 }
 \section{Vignettes}{
 
@@ -109,12 +138,12 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
 }
 
 \examples{
- pool_lr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + Tampascale +
+ pool_coxr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + Tampascale +
                        Radiation + Radiation*Pain + Age + Duration + Previous,
                      data=lbpmicox, p.crit = 0.05, direction="BW", nimp=5, impvar="Impnr",
                      keep.predictors = "Radiation*Pain", method="D1")
                      
- pool_lr$RR_model_final
+ pool_coxr$RR_model_final
  
 }
 \references{

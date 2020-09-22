@@ -36,6 +36,7 @@ in the model during predictor selection. Categorical and interaction variables a
 \description{
 \code{psfmi_lr_fw} Forward selection of Logistic regression
 models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.
+Function is called by \code{psfmi_lr}.
 }
 \author{
 Martijn Heymans, 2020

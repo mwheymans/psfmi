@@ -2,21 +2,23 @@
 #' Logistic regression models in multiply imputed data.
 #'
 #' \code{psfmi_lr} Pooling and backward or forward selection of Logistic regression
-#' prediction models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.
+#'  models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
 #'   specified under impvar, and starting by 1.
 #' @param formula A formula object to specify the model as normally used by glm.
-#'   See under "Details" and "Examples" how these can be specified.
+#'   See under "Details" and "Examples" how these can be specified. If a formula
+#'   object is used set predictors, cat.predictors, spline.predictors or int.predictors
+#'   at the default value of NULL.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the
 #' imputed datasets.
 #' @param Outcome Character vector containing the name of the outcome variable.
 #' @param predictors Character vector with the names of the predictor variables.
 #'   At least one predictor variable has to be defined. Give predictors unique names
-#'   and do not use predictor name combinations with numbers as, age2, gnder10, etc.
+#'   and do not use predictor name combinations with numbers as, age2, gender10, etc.
 #' @param cat.predictors A single string or a vector of strings to define the
 #' categorical variables. Default is NULL categorical predictors.
 #' @param spline.predictors A single string or a vector of strings to define the
@@ -48,20 +50,37 @@
 #'  be defined as \code{Outcome ~ factor(variable)}, restricted cubic spline variables as
 #'  \code{Outcome ~ rcs(variable, 3)}. Interaction terms can be defined as
 #'  \code{Outcome ~ variable1*variable2} or \code{Outcome ~ variable1 + variable2 + variable1:variable2}.
-#'  All variables in the terms part have to be separated by a "+".
+#'  All variables in the terms part have to be separated by a "+". If a formula
+#'  object is used set predictors, cat.predictors, spline.predictors or int.predictors
+#'  at the default value of NULL.
 #'
 #'@return An object of class \code{pmods} (multiply imputed models) from
-#'  which the following objects can be extracted: imputed datasets as \code{data}, final selected
-#'  pooled model as \code{RR_model_final}, pooled model at each selection step \code{RR_model},
-#'  pooled p-values at final step according to pooling method as \code{multiparm_final}, and
-#'  at each step as \code{multiparm}, or \code{multiparm_out} (only when direction = "FW"),
-#'  formula object at final step as \code{fm_step_final}, and at each step as \code{fm_step},
-#'  predictors included at each selection step as \code{predictors_in}, predictors excluded
-#'  at each step as \code{predictors_out}, and name of variable to distinguish imputed datasets
-#'  as \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{call},
-#'  \code{model_type}, direction of selection as \code{direction}, \code{predictors_final} for
-#'  names of predictors in final selection step and \code{predictors_initial} for names of
-#'  predictors in start model.
+#'  which the following objects can be extracted: 
+#'  \itemize{
+#'  \item  \code{data} imputed datasets
+#'  \item  \code{RR_model} pooled model at each selection step
+#'  \item  \code{RR_model_final} final selected pooled model
+#'  \item  \code{multiparm} pooled p-values at each step according to pooling method
+#'  \item  \code{multiparm_final} pooled p-values at final step according to pooling method
+#'  \item  \code{multiparm_out} (only when direction = "FW") pooled p-values of removed predictors 
+#'  \item  \code{formula_step} formula object at each step
+#'  \item  \code{formula_final} formula object at final step
+#'  \item  \code{formula_initial} formula object at final step
+#'  \item  \code{predictors_in} predictors included at each selection step
+#'  \item  \code{predictors_out} predictors excluded at each step
+#'  \item  \code{impvar} name of variable used to distinguish imputed datasets
+#'  \item  \code{nimp} number of imputed datasets
+#'  \item  \code{Outcome} name of the outcome variable
+#'  \item  \code{method} selection method
+#'  \item  \code{p.crit} p-value selection criterium
+#'  \item  \code{call} function call
+#'  \item  \code{model_type} type of regression model used
+#'  \item  \code{direction} direction of predictor selection
+#'  \item  \code{predictors_final} names of predictors in final selection step
+#'  \item  \code{predictors_initial} names of predictors in start model
+#'  \item  \code{keep.predictors} names of predictors that were forced in the model    
+#' }
+#'
 #'
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
 #'   covariates in logistic regression models after multiple imputation: power and applicability

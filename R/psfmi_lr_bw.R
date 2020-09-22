@@ -2,6 +2,7 @@
 #'
 #' \code{psfmi_lr_bw} Backward selection of Logistic regression
 #' models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.
+#' Function is called by \code{psfmi_lr}. 
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
@@ -431,13 +432,15 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
     as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
 
   bw <-
-    list(data = data, RR_model_final = RR_model_final, RR_model = RR_model_step,
-         multiparm_final = multiparm_final, multiparm = multiparm_step,
+    list(data = data, RR_model = RR_model_step, RR_model_final = RR_model_final, 
+         multiparm = multiparm_step, multiparm_final = multiparm_final, 
          formula_step = fm_step_total, formula_final = fm_step_final,
-         formula_initial = formula_initial, predictors_in = P_included, predictors_out = P_remove,
+         formula_initial = formula_initial, 
+         predictors_in = P_included, predictors_out = P_remove,
          impvar = impvar, nimp = nimp, Outcome = Outcome,
-         method = method, p.crit = p.crit, call = call, model_type = "binomial",
-         direction = "BW", predictors_final = predictors_final,
+         method = method, p.crit = p.crit, call = call, 
+         model_type = "binomial", direction = "BW", 
+         predictors_final = predictors_final,
          predictors_initial = P_orig, keep.predictors = keep.P)
   return(bw)
 }

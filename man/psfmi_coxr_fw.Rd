@@ -38,6 +38,7 @@ See details for more information. Default is "RR".}
 \description{
 \code{psfmi_coxr_fw} Forward selection of Cox regression
 models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+Function is called by \code{psfmi_coxr}.
 }
 \author{
 Martijn Heymans, 2020

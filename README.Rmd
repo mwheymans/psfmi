@@ -1,0 +1,68 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# psfmi
+
+[![CRAN_Release_Badge](https://www.r-pkg.org/badges/version-ago/psfmi)](https://CRAN.R-project.org/package=psfmi)
+[![Monthly downloads badge](https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue)](https://CRAN.R-project.org/package=psfmi)
+[![Travis Build Status](https://travis-ci.com/mwheymans/psfmi.svg?branch=master)](https://travis-ci.org/mwheymans/psfmi) 
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg)](https://cran.r-project.org/)
+
+The package provides functions to apply pooling, backward and forward selection 
+of logistic and Cox regression prediction models in multiply imputed data sets 
+using Rubin's Rules (RR), the D1, D2, D3 and the median p-values method. 
+The model can contain	continuous, dichotomous, categorical and restricted cubic 
+spline predictors and interaction terms between all these type of predictors. 
+
+Validation of the models can be performed with cross-validation or bootstrapping 
+in multiply imputed data sets and pooled model performance measures as AUC value, 
+R-square, scaled Brier score and calibration plots are generated. Also a function 
+to externally validate logistic	prediction models in multiple imputed data sets
+is available.
+
+## Installation
+
+You can install the released version of psfmi from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("psfmi")
+```
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("mwheymans/psfmi")
+```
+
+## Package Website
+
+For more examples see [the package website](https://mwheymans.github.io/psfmi/)
+
+## Example
+
+This example shows you how to apply forward selection with a model that includes a 
+restricted cubic spline function and an interaction term.
+
+```{r example}
+library(psfmi)
+
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + JobDemands + rcs(Tampascale, 3) +
+                   factor(Satisfaction) + Smoking + factor(Satisfaction)*rcs(Pain, 3) ,
+                   p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr",
+                   method="D1")
+pool_lr$RR_model_final
+
+```
+

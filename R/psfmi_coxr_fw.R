@@ -2,6 +2,7 @@
 #'
 #' \code{psfmi_coxr_fw} Forward selection of Cox regression
 #' models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+#' Function is called by \code{psfmi_coxr}.
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
 #'  The original dataset that contains missing values must be excluded from the
@@ -361,14 +362,15 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
     as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
 
   fw <- list(data = data, RR_model = RR_model, RR_model_final = RR_model_final,
-             multiparm = multiparm, multiparm_final = multiparm_final,
+             multiparm = multiparm, multiparm_final = multiparm_final, 
+             multiparm_out = multiparm_out,
+             formula_step = fm_total,  formula_final = fm_step_final, 
+             formula_initial = formula_initial,
              predictors_in = P_select, predictors_out = P_excluded,
-             multiparm_out = multiparm_out, formula_step = fm_total,
-             formula_final = fm_step_final, formula_initial = formula_initial,
-             impvar = impvar, nimp = nimp, time = time,
-             status = status, method = method, p.crit = p.crit,
+             impvar = impvar, nimp = nimp, status = status, time = time,
+             method = method, p.crit = p.crit,
              call = call, model_type = "survival", direction = "FW",
-             predictors_final = predictors_final, predictors_initial = P_orig, keep.predictors = keep.P)
-
+             predictors_final = predictors_final, predictors_initial = P_orig, 
+             keep.predictors = keep.P)
   return(fw)
 }

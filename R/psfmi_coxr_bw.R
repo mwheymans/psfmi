@@ -2,6 +2,7 @@
 #'
 #' \code{psfmi_coxr_bw} Backward selection of Cox regression
 #' models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+#' Function is called by \code{psfmi_coxr}.
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
 #'  The original dataset that contains missing values must be excluded from the
@@ -402,12 +403,15 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
     as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
 
   bw <-
-    list(data = data, RR_model_final = RR_model_final, RR_model = RR_model_step,
-         multiparm_final = multiparm_final, multiparm = multiparm_step,
+    list(data = data, RR_model = RR_model_step, RR_model_final = RR_model_final,
+         multiparm = multiparm_step, multiparm_final = multiparm_final, 
          formula_step = fm_step_total, formula_final = fm_step_final,
          formula_initial = formula_initial, predictors_in = P_included,
-         predictors_out = P_remove, impvar = impvar, nimp = nimp, status = status, time = time,
-         method = method, p.crit = p.crit, call = call, model_type = "survival", direction = "BW",
-         predictors_final = predictors_final, predictors_initial = P_orig, keep.predictors = keep.P)
+         predictors_out = P_remove, 
+         impvar = impvar, nimp = nimp, status = status, time = time,
+         method = method, p.crit = p.crit, call = call, 
+         model_type = "survival", direction = "BW",
+         predictors_final = predictors_final, predictors_initial = P_orig, 
+         keep.predictors = keep.P)
   return(bw)
 }
