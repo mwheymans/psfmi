@@ -18,11 +18,12 @@ median p-values method. The model can contain continuous, dichotomous,
 categorical and restricted cubic spline predictors and interaction terms
 between all these type of predictors.
 
-Validation of the models can be performed with cross-validation or
-bootstrapping in multiply imputed data sets and pooled model performance
-measures as AUC value, R-square, scaled Brier score and calibration
-plots are generated. Also a function to externally validate logistic
-prediction models in multiple imputed data sets is available.
+Validation of the prediction models can be performed with
+cross-validation or bootstrapping in multiply imputed data sets and
+pooled model performance measures as AUC value, R-square, scaled Brier
+score and calibration plots are generated. Also a function to externally
+validate logistic prediction models in multiple imputed data sets is
+available.
 
 ## Installation
 
@@ -39,6 +40,11 @@ And the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("mwheymans/psfmi")
 ```
+
+## Package Website
+
+For more examples see [the package
+website](https://mwheymans.github.io/psfmi/)
 
 ## Example
 
@@ -72,8 +78,3 @@ pool_lr$RR_model_final
 #> 4 1.91841309 0.870983375 4.2254639
 #> 5 1.60060402 0.650163744 3.9404431
 ```
-
-## Package Website
-
-For more examples see [the package
-website](https://mwheymans.github.io/psfmi/)

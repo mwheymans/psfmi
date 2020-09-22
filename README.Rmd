@@ -26,7 +26,7 @@ using Rubin's Rules (RR), the D1, D2, D3 and the median p-values method.
 The model can contain	continuous, dichotomous, categorical and restricted cubic 
 spline predictors and interaction terms between all these type of predictors. 
 
-Validation of the models can be performed with cross-validation or bootstrapping 
+Validation of the prediction models can be performed with cross-validation or bootstrapping 
 in multiply imputed data sets and pooled model performance measures as AUC value, 
 R-square, scaled Brier score and calibration plots are generated. Also a function 
 to externally validate logistic	prediction models in multiple imputed data sets
