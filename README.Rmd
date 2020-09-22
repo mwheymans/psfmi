@@ -46,10 +46,6 @@ And the development version from [GitHub](https://github.com/) with:
 devtools::install_github("mwheymans/psfmi")
 ```
 
-## Package Website
-
-For more examples see [the package website](https://mwheymans.github.io/psfmi/)
-
 ## Example
 
 This example shows you how to apply forward selection with a model that includes a 
