@@ -1,4 +1,4 @@
-# Package 1.0.0
+# Package 0.5.0
 
 * Added forward selection to the psfmi_lr and psfmi_coxr functions.
 * Added the functions psfmi_lr_fw, psfmi_lr_bw, psfmi_coxr_fw and 
