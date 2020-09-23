@@ -2,8 +2,8 @@
 This is a resubmission. In this version I have:
 Updated version nr to 0.5.0.
 Added new methods to combine cross-validation with multiple imputation
-in function psfmi_perform and added the possibility to do forward selection
-in the functions psfmi_lr and psfmi_coxr. 
+in function psfmi_perform and added the possibility for forward 
+and backward selection in the functions psfmi_lr and psfmi_coxr. 
 Updated the vignettes. 
 
 ## R CMD check results
