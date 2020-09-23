@@ -30,6 +30,16 @@ Failed:   0
 Warnings: 0
 Skipped:  0
 
+Nice code.
+
+## Test environments
+*	R studio 1.3.1073, R version 4.0.2
+* win-builder (devel and release), R version 3.6.0
+* on Travis CI: Operating System Details Distributor ID:	Ubuntu
+  Description:	Ubuntu 16.04.6 LTS
+  Release:	16.04
+  Codename:	xenial (on Travis CI) (Done. Your build exited with 0)
+
 ## Resubmission
 This is a resubmission. In this version I have:
 Updated version nr to 0.2.0.
