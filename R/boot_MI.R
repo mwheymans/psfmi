@@ -151,18 +151,6 @@ boot_MI <- function(pobj, data_orig, nboot = 10, nimp_mice, p.crit, direction, m
       z.rsq.p <-
         mean(z.rsq)
 
-      # within variance
-      n <-
-        nrow(pobj$data[pobj$data[pobj$impvar] == 1, ])
-      se.z.rsq <- 1/(n-3)
-      # between variance
-      b.rsq <-
-        var(z.rsq)
-      # total variance
-      tv.rsq <-
-        se.z.rsq + ((1 + (1/pobj$nimp)) * b.rsq)
-      se.t.rsq <-
-        sqrt(tv.rsq)
       # inv Fisher z = pooled rsq
       R2_test <-
         tanh(z.rsq.p)

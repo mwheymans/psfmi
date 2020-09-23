@@ -149,14 +149,6 @@ MI_boot <- function(pobj, p.crit, nboot, direction)
       z.rsq <- atanh(perform_test[, 3])
       z.rsq.p <- mean(z.rsq)
 
-      # within variance
-      n <- nrow(pobj$data[pobj$data[pobj$impvar] == 1, ])
-      se.z.rsq <- 1/(n-3)
-      # between variance
-      b.rsq <- var(z.rsq)
-      # total variance
-      tv.rsq <- se.z.rsq + ((1 + (1/pobj$nimp)) * b.rsq)
-      se.t.rsq <- sqrt(tv.rsq)
       # inv Fisher z = pooled rsq
       R2_test <- tanh(z.rsq.p)
 

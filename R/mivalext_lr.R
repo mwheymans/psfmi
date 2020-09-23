@@ -257,14 +257,6 @@ mivalext_lr <-
     z.rsq <- atanh(stats_ext$rsq.mi)
     z.rsq.p <- mean(z.rsq)
     
-    # within variance
-    n <- nrow(data.val[data.val[, impvar] == 1, ])
-    w.z.rsq <- (1/(n-3))^2
-    # between variance
-    b.rsq <- var(z.rsq)
-    # total variance
-    tv.rsq <- w.z.rsq + ((1 + (1/nimp)) * b.rsq)
-    se.t.rsq <- sqrt(tv.rsq)
     # inv Fisher z = pooled rsq
     inv.z.rsq.p <- round(tanh(z.rsq.p), 5)
     
@@ -278,15 +270,7 @@ mivalext_lr <-
     # Fisher z Transformation
     z.rsq.cal <- atanh(stats_ext$rsq.mi.cal)
     z.rsq.p.cal <- mean(z.rsq.cal)
-    
-    # within variance
-    n <- nrow(data.val[data.val[, impvar] == 1, ])
-    w.z.rsq.cal <- (1/(n-3))^2
-    # between variance
-    b.rsq.cal <- var(z.rsq.cal)
-    # total variance
-    tv.rsq.cal <- w.z.rsq.cal + ((1 + (1/nimp)) * b.rsq.cal)
-    se.t.rsq.cal <- sqrt(tv.rsq.cal)
+
     # inv Fisher z = pooled rsq
     inv.z.rsq.p.cal <- round(tanh(z.rsq.p.cal), 5)
     

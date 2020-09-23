@@ -498,8 +498,10 @@ formula_initial <-
   as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
 
 pobjbw <-
-  list(data = data, RR_model_final = RR_model_final, RR_model = RR_model_step, multiparm_final = multiparm_final,
-       multiparm = multiparm_step, formula_step = fm_step_total, formula_final = fm_step_final, formula_initial = formula_initial,
+  list(data = data, RR_model_final = RR_model_final, RR_model = RR_model_step, 
+       multiparm_final = multiparm_final,
+       multiparm = multiparm_step, formula_step = fm_step_total, 
+       formula_final = fm_step_final, formula_initial = formula_initial,
        predictors_in = P_included, predictors_out = P_remove, Outcome = Outcome,
        anova_test = anova_test, p.crit = p.crit, call = call, model_type = "binomial",
        predictors_final = predictors_final, predictors_initial = P_orig)

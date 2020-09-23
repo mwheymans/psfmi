@@ -152,19 +152,6 @@ MI_cv_naive <- function(pobj, folds = 3, p.crit = 1, BW=FALSE, anova_test = "LRT
   z.rsq.p_train <-
     mean(z.rsq_train)
 
-  # within variance
-  n <-
-    nrow(pobj$data[pobj$data[pobj$impvar] == 1, ])
-  se.z.rsq_train <- 1/(n-3)
-  # between variance
-  b.rsq_train <-
-    var(z.rsq_train)
-  # total variance
-  tv.rsq_train <-
-    se.z.rsq_train + ((1 + (1/pobj$nimp)) * b.rsq_train)
-  se.t.rsq_train <-
-    sqrt(tv.rsq_train)
-
   # inv Fisher z = pooled rsq
   pool_R2_train <-
     tanh(z.rsq.p_train)
@@ -178,17 +165,6 @@ MI_cv_naive <- function(pobj, folds = 3, p.crit = 1, BW=FALSE, anova_test = "LRT
   z.rsq.p_test <-
     mean(z.rsq_test)
 
-  # within variance
-  n <-
-    nrow(pobj$data[pobj$data[pobj$impvar] == 1, ])
-  se.z.rsq_test <- 1/(n-3)
-  # between variance
-  b.rsq_test <-
-    var(z.rsq_test)
-  # total variance
-  tv.rsq_test <-
-    se.z.rsq_test + ((1 + (1/pobj$nimp)) * b.rsq_test)
-  se.t.rsq_test <- sqrt(tv.rsq_test)
   # inv Fisher z = pooled rsq
   pool_R2_test <-
     tanh(z.rsq.p_test)
