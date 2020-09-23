@@ -112,7 +112,7 @@
       <h1 data-toc-skip>Working together: mice and psfmi</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-09-22</h4>
+            <h4 class="date">2020-09-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_mice.Rmd"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
@@ -196,22 +196,22 @@
   
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term     estimate  std.error   statistic       df     p.value</span>
-<span class="co">#&gt; 1   (Intercept)  0.208574103 2.45289114  0.08503194 129.7335 0.932367077</span>
-<span class="co">#&gt; 2        Gender -0.353855567 0.41531854 -0.85201004 145.1546 0.395612040</span>
-<span class="co">#&gt; 3       Smoking  0.090337841 0.33953892  0.26606034 149.5221 0.790559262</span>
-<span class="co">#&gt; 4      Function -0.142014886 0.04422077 -3.21149719 116.3805 0.001707602</span>
-<span class="co">#&gt; 5    JobControl  0.007699546 0.01979229  0.38901744 133.4073 0.697883463</span>
-<span class="co">#&gt; 6    JobDemands -0.001988542 0.03755751 -0.05294660 130.9056 0.957855170</span>
-<span class="co">#&gt; 7 SocialSupport  0.038028953 0.05635525  0.67480759 148.6842 0.500845979</span>
+<span class="co">#&gt;            term     estimate  std.error  statistic       df     p.value</span>
+<span class="co">#&gt; 1   (Intercept)  0.326750934 2.44935229  0.1334030 122.6408 0.894093328</span>
+<span class="co">#&gt; 2        Gender -0.362463117 0.41272374 -0.8782221 149.0301 0.381236881</span>
+<span class="co">#&gt; 3       Smoking  0.082708472 0.34047092  0.2429238 147.7454 0.808401393</span>
+<span class="co">#&gt; 4      Function -0.138993206 0.04322066 -3.2158976 137.1741 0.001621978</span>
+<span class="co">#&gt; 5    JobControl  0.004624499 0.01957324  0.2362664 143.9001 0.813561915</span>
+<span class="co">#&gt; 6    JobDemands -0.001778395 0.03732939 -0.0476406 124.3336 0.962079112</span>
+<span class="co">#&gt; 7 SocialSupport  0.039377754 0.05649840  0.6969712 135.8923 0.487011417</span>
 <span class="co">#&gt;          OR  lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 1.2319202 0.01006096 150.8431783</span>
-<span class="co">#&gt; 2 0.7019763 0.31102565   1.5843414</span>
-<span class="co">#&gt; 3 1.0945440 0.56261572   2.1293870</span>
-<span class="co">#&gt; 4 0.8676083 0.79557703   0.9461613</span>
-<span class="co">#&gt; 5 1.0077293 0.96938509   1.0475902</span>
-<span class="co">#&gt; 6 0.9980134 0.92718584   1.0742515</span>
-<span class="co">#&gt; 7 1.0387613 0.93013332   1.1600757</span>
+<span class="co">#&gt; 1 1.3864561 0.01140185 168.5919725</span>
+<span class="co">#&gt; 2 0.6959600 0.30993222   1.5627943</span>
+<span class="co">#&gt; 3 1.0862251 0.55732066   2.1170666</span>
+<span class="co">#&gt; 4 0.8702339 0.79955041   0.9471662</span>
+<span class="co">#&gt; 5 1.0046352 0.96682376   1.0439254</span>
+<span class="co">#&gt; 6 0.9982232 0.92779544   1.0739970</span>
+<span class="co">#&gt; 7 1.0401633 0.93112746   1.1619674</span>
 </pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
@@ -266,12 +266,12 @@
   
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model_final</span>
 <span class="co">#&gt; $`Final model`</span>
-<span class="co">#&gt;          term   estimate  std.error statistic       df     p.value        OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.1302406 0.45769428  2.469423 146.7964 0.014679402 3.0964013</span>
-<span class="co">#&gt; 2    Function -0.1309521 0.04065332 -3.221192 145.4679 0.001575178 0.8772598</span>
+<span class="co">#&gt;          term   estimate  std.error statistic       df      p.value        OR</span>
+<span class="co">#&gt; 1 (Intercept)  1.2423967 0.46265749  2.685349 145.0524 0.0080899145 3.4639054</span>
+<span class="co">#&gt; 2    Function -0.1425187 0.04147075 -3.436608 144.5070 0.0007694614 0.8671713</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.2625832 7.5937181</span>
-<span class="co">#&gt; 2 0.8100716 0.9500206</span>
+<span class="co">#&gt; 1 1.3987626 8.5780393</span>
+<span class="co">#&gt; 2 0.7994739 0.9406012</span>
 </pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
