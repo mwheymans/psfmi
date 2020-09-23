@@ -15,21 +15,9 @@ vignette: >
 This page contains information of the `cv_MI` method that is implemented 
 in the [`psfmi`](https://github.com/mwheymans/psfmi) package and that combines 
 Multiple Imputation with Cross-validation for the validation of 
-logistic regression / prediction models. Currently the method is only available 
-via downloading the `psfmi` package via Github. Do this:
-
- install.packages("devtools")
- 
- library(devtools)
- 
- devtools::install_github("mwheymans/psfmi")
- 
- library(psfmi)
-
-The cross-validation methods are adjustments of the methods described in the 
-paper of [Mertens BJ](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289) 
+logistic regression / prediction models. The cross-validation methods are adjustments 
+of the methods described in the paper of [Mertens BJ](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289) 
 and [Miles A](https://journals.sagepub.com/doi/abs/10.1177/0049124115610345).
-
 The `cv_MI` method is implemented in the function `psfmi_perform`.
 An explanation and examples of how to use the methods can be found below.
 

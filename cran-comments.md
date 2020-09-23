@@ -1,5 +1,37 @@
 ## Resubmission
 This is a resubmission. In this version I have:
+Updated version nr to 0.5.0.
+Added new methods to combine cross-validation with multiple imputation
+in function psfmi_perform and added the possibility to do forward selection
+in the functions psfmi_lr and psfmi_coxr. 
+Updated the vignettes. 
+
+## R CMD check results
+Duration: 4m 55s
+
+0 errors √ | 0 warnings √ | 1 note x
+
+checking installed package size ... NOTE
+    installed size is  7.0Mb
+    sub-directories of 1Mb or more:
+      doc   6.5Mb
+
+Known note.
+
+## devtools::test()
+Loading psfmi
+Testing psfmi
+√ |  OK F W S | Context
+√ |   0       | testthat.R
+
+== Results =====================================================================
+OK:       0
+Failed:   0
+Warnings: 0
+Skipped:  0
+
+## Resubmission
+This is a resubmission. In this version I have:
 Updated version nr to 0.2.0.
 Added the new functions pool_intadj.R, pool_performance.R, psfmi_mm.R,
 psfmi_mm_multiparm, psfmi_perform, psfmi_stab.
