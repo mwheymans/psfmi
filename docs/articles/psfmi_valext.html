@@ -246,14 +246,14 @@
   spline.predictors = <span class="st">"Function"</span>, nknots = <span class="fl">3</span>,  
   keep.predictors = <span class="st">"Radiation"</span>, p.crit = <span class="fl">0.157</span>, method=<span class="st">"D1"</span>, direction = <span class="st">"BW"</span>)
 </pre></div>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
 <pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 4 is - Age</code></pre>
-<pre><code>## Removed at Step 5 is - Tampascale</code></pre>
-<pre><code>## Removed at Step 6 is - rcs(Function,3)</code></pre>
-<pre><code>## Removed at Step 7 is - JobControl</code></pre>
-<pre><code>## Removed at Step 8 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 5 is - rcs(Function,3)</code></pre>
+<pre><code>## Removed at Step 6 is - JobControl</code></pre>
+<pre><code>## Removed at Step 7 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 8 is - Tampascale</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -261,31 +261,31 @@
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
-##                    term   estimate std.error  statistic        df      p.value
-## 1           (Intercept) -5.3854345 1.0704448 -5.0310248  71.24071 3.518553e-06
-## 2                  Pain  0.8910417 0.1777906  5.0117468  75.39846 3.466099e-06
-## 3             Radiation  0.6756430 0.4836638  1.3969269 144.40420 1.645786e-01
-## 4 factor(Satisfaction)2 -0.5497611 0.5833955 -0.9423472 114.79546 3.479939e-01
-## 5 factor(Satisfaction)3 -2.7706247 0.8707114 -3.1820244  46.70143 2.600763e-03
-## 6     factor(Carrying)2  1.2632055 0.6788715  1.8607431  35.89310 7.098823e-02
-## 7     factor(Carrying)3  1.7134270 0.6790563  2.5232472  68.88962 1.393930e-02
-##            OR    lower.EXP   upper.EXP
-## 1 0.004582849 0.0005622824  0.03735223
-## 2 2.437667581 1.7204261408  3.45392522
-## 3 1.965296322 0.7615967172  5.07143682
-## 4 0.577087687 0.1839270340  1.81066476
-## 5 0.062622871 0.0113649756  0.34506224
-## 6 3.536740488 0.9348373985 13.38043739
-## 7 5.547941597 1.4659105609 20.99695355</code></pre>
+##                    term   estimate std.error statistic        df      p.value
+## 1           (Intercept) -5.6238682 1.0518548 -5.346620 116.14561 4.542853e-07
+## 2                  Pain  0.9303822 0.1730310  5.376968 141.75681 3.045926e-07
+## 3             Radiation  0.5724518 0.5463793  1.047719  46.62482 3.001693e-01
+## 4 factor(Satisfaction)2 -0.3663094 0.7171091 -0.510814  22.95526 6.143591e-01
+## 5 factor(Satisfaction)3 -2.5320653 0.9244978 -2.738855  27.08062 1.076954e-02
+## 6     factor(Carrying)2  1.3097740 0.6194179  2.114524  84.92312 3.740199e-02
+## 7     factor(Carrying)3  1.5888290 0.7228238  2.198086  43.41908 3.332143e-02
+##            OR    lower.EXP  upper.EXP
+## 1 0.003610647 0.0004594394  0.0283754
+## 2 2.535478154 1.8062293903  3.5591545
+## 3 1.772607818 0.6074705341  5.1724953
+## 4 0.693288289 0.1700193272  2.8270236
+## 5 0.079494674 0.0129834356  0.4867281
+## 6 3.705336367 1.1004454415 12.4763274
+## 7 4.898009948 1.1877897934 20.1975986</code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit">
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">multiparm_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
 ##                       p-values D1 F-statistic
-## Pain                 1.262822e-06   25.117606
-## Radiation            1.624710e-01    1.951405
-## factor(Satisfaction) 3.492321e-03    5.960704
-## factor(Carrying)     4.472593e-02    3.256860</code></pre>
+## Pain                 7.914190e-08   28.911788
+## Radiation            2.980065e-01    1.097714
+## factor(Satisfaction) 1.625401e-02    4.585487
+## factor(Carrying)     5.169294e-02    3.057481</code></pre>
 <p>The same result can be obtained by using the <code>formula</code> setting in the <code>psfmi_lr</code> function</p>
 <div class="sourceCode" id="cb24"><pre class="downlit">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
@@ -296,14 +296,14 @@
   <span class="fu">rcs</span>(<span class="kw">Function</span>, <span class="fl">3</span>), keep.predictors = <span class="st">"Radiation"</span>, 
   p.crit = <span class="fl">0.157</span>, method=<span class="st">"D1"</span>, direction = <span class="st">"BW"</span>)
 </pre></div>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
 <pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 4 is - Age</code></pre>
-<pre><code>## Removed at Step 5 is - Tampascale</code></pre>
-<pre><code>## Removed at Step 6 is - rcs(Function,3)</code></pre>
-<pre><code>## Removed at Step 7 is - JobControl</code></pre>
-<pre><code>## Removed at Step 8 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 5 is - rcs(Function,3)</code></pre>
+<pre><code>## Removed at Step 6 is - JobControl</code></pre>
+<pre><code>## Removed at Step 7 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 8 is - Tampascale</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -311,31 +311,31 @@
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
-##                    term   estimate std.error  statistic        df      p.value
-## 1           (Intercept) -5.3854345 1.0704448 -5.0310248  71.24071 3.518553e-06
-## 2                  Pain  0.8910417 0.1777906  5.0117468  75.39846 3.466099e-06
-## 3             Radiation  0.6756430 0.4836638  1.3969269 144.40420 1.645786e-01
-## 4 factor(Satisfaction)2 -0.5497611 0.5833955 -0.9423472 114.79546 3.479939e-01
-## 5 factor(Satisfaction)3 -2.7706247 0.8707114 -3.1820244  46.70143 2.600763e-03
-## 6     factor(Carrying)2  1.2632055 0.6788715  1.8607431  35.89310 7.098823e-02
-## 7     factor(Carrying)3  1.7134270 0.6790563  2.5232472  68.88962 1.393930e-02
-##            OR    lower.EXP   upper.EXP
-## 1 0.004582849 0.0005622824  0.03735223
-## 2 2.437667581 1.7204261408  3.45392522
-## 3 1.965296322 0.7615967172  5.07143682
-## 4 0.577087687 0.1839270340  1.81066476
-## 5 0.062622871 0.0113649756  0.34506224
-## 6 3.536740488 0.9348373985 13.38043739
-## 7 5.547941597 1.4659105609 20.99695355</code></pre>
+##                    term   estimate std.error statistic        df      p.value
+## 1           (Intercept) -5.6238682 1.0518548 -5.346620 116.14561 4.542853e-07
+## 2                  Pain  0.9303822 0.1730310  5.376968 141.75681 3.045926e-07
+## 3             Radiation  0.5724518 0.5463793  1.047719  46.62482 3.001693e-01
+## 4 factor(Satisfaction)2 -0.3663094 0.7171091 -0.510814  22.95526 6.143591e-01
+## 5 factor(Satisfaction)3 -2.5320653 0.9244978 -2.738855  27.08062 1.076954e-02
+## 6     factor(Carrying)2  1.3097740 0.6194179  2.114524  84.92312 3.740199e-02
+## 7     factor(Carrying)3  1.5888290 0.7228238  2.198086  43.41908 3.332143e-02
+##            OR    lower.EXP  upper.EXP
+## 1 0.003610647 0.0004594394  0.0283754
+## 2 2.535478154 1.8062293903  3.5591545
+## 3 1.772607818 0.6074705341  5.1724953
+## 4 0.693288289 0.1700193272  2.8270236
+## 5 0.079494674 0.0129834356  0.4867281
+## 6 3.705336367 1.1004454415 12.4763274
+## 7 4.898009948 1.1877897934 20.1975986</code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit">
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">multiparm_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
 ##                       p-values D1 F-statistic
-## Pain                 1.262822e-06   25.117606
-## Radiation            1.624710e-01    1.951405
-## factor(Satisfaction) 3.492321e-03    5.960704
-## factor(Carrying)     4.472593e-02    3.256860</code></pre>
+## Pain                 7.914190e-08   28.911788
+## Radiation            2.980065e-01    1.097714
+## factor(Satisfaction) 1.625401e-02    4.585487
+## factor(Carrying)     5.169294e-02    3.057481</code></pre>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>
 <div id="step-4---internally-validate-the-model" class="section level2 unnumbered">
@@ -426,14 +426,14 @@
 
 <span class="kw">res</span><span class="op">$</span><span class="kw">int_adj</span>
 </pre></div>
-<pre><code>## [1] -4.692188</code></pre>
+<pre><code>## [1] -4.89589</code></pre>
 <div class="sourceCode" id="cb79"><pre class="downlit">
 <span class="kw">res</span><span class="op">$</span><span class="kw">coef_shrink_pooled</span>
 </pre></div>
 <pre><code>##                  Pain             Radiation factor(Satisfaction)2 
-##             0.7702299             0.5840360            -0.4752217 
+##             0.8042364             0.4948360            -0.3166433 
 ## factor(Satisfaction)3     factor(Carrying)2     factor(Carrying)3 
-##            -2.3949698             1.0919339             1.4811121</code></pre>
+##            -2.1887554             1.1321884             1.3734077</code></pre>
 <p>The last step is to externally validate this adjusted model.</p>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>
@@ -457,11 +457,11 @@
 </pre></div>
 <pre><code>## $`ROC (logit)`
 ##             95% Low    AUC 95% Up
-## AUC (logit)  0.7404 0.8485 0.9167
+## AUC (logit)  0.7398 0.8489 0.9173
 ## 
 ## $`ROC (median)`
 ## 1st Qu.  Median 3rd Qu. 
-## 0.84678 0.84959 0.85178</code></pre>
+## 0.84834 0.84866 0.85679</code></pre>
 <div class="sourceCode" id="cb85"><pre class="downlit">
  <span class="kw">res_extval</span><span class="op">$</span><span class="kw">R2_fixed</span>
 </pre></div>
@@ -470,17 +470,17 @@
 ## 
 ## $`Median (fixed)`
 ## 1st Qu.  Median 3rd Qu. 
-## 0.45485 0.46046 0.47145</code></pre>
+## 0.46091 0.46202 0.47610</code></pre>
 <div class="sourceCode" id="cb87"><pre class="downlit">
  <span class="kw">res_extval</span><span class="op">$</span><span class="kw">HLtest</span>
 </pre></div>
-<pre><code>##        D        p       df      df2 
-##  0.33223  0.93758  8.00000 12.47557</code></pre>
+<pre><code>##       D       p      df     df2 
+## 0.19457 0.98489 8.00000 9.33549</code></pre>
 <div class="sourceCode" id="cb89"><pre class="downlit">
  <span class="kw">res_extval</span><span class="op">$</span><span class="kw">LP_pooled_ext</span>
 </pre></div>
 <pre><code>## intercept     slope 
-##  -0.01278   0.87586</code></pre>
+##  -0.05724   0.87904</code></pre>
 <p>In the external dataset the AUC is 0.84772 and the R-squared 0.45. The Hosmer and Lemeshow test has a p-value of 0.63168, which means that the fit is satisfactory. This is also confirmed on the calibration plot where the calibration curves in each imputed dataset are near the optimal (dashed) line. The slope (regression coefficients) is has a value of 0.86526 and slightly deviates from the value of 1, which means that the coefficients values differ between the development and external dataset.</p>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>

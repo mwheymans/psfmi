@@ -327,7 +327,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <div id="pooling-with-fs-including-spline-coefficients-and-method-mpr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-fs-including-spline-coefficients-and-method-mpr" class="anchor"></a>Pooling with FS including spline coefficients and method MPR</h2>
-<p>Pooling Cox regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 including a restricted cubic spline predictor and forcing Tampascale in the models during backward selection.</p>
+<p>Pooling Cox regression models over 5 imputed datasets with forward selection using a p-value of 0.05 and as method MPR including a restricted cubic spline predictor and forcing Tampascale in the models during forward selection.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
@@ -335,13 +335,35 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
   predictors=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Duration"</span>, <span class="st">"Previous"</span>,  <span class="st">"Radiation"</span>, <span class="st">"Onset"</span>, <span class="st">"Function"</span>), 
   p.crit=<span class="fl">0.05</span>, cat.predictors=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Satisfaction"</span>), spline.predictors=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Tampascale"</span>),
   int.predictors=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Tampascale:Radiation"</span>), keep.predictors = <span class="st">"Tampascale"</span>, 
-  nknots=<span class="fl">3</span>, method=<span class="st">"D1"</span>, direction = <span class="st">"MPR"</span>)
+  nknots=<span class="fl">3</span>, method=<span class="st">"MPR"</span>, direction = <span class="st">"FW"</span>)
+<span class="co">#&gt; Entered at Step 1 is - Function</span>
+<span class="co">#&gt; Entered at Step 2 is - Duration</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Selection correctly terminated, </span>
+<span class="co">#&gt; No new variables entered the model</span>
   
   <span class="kw">pool_coxr</span><span class="op">$</span><span class="kw">RR_model_final</span>
-<span class="co">#&gt; NULL</span>
+<span class="co">#&gt; $`Final model`</span>
+<span class="co">#&gt;                            term    estimate  std.error statistic       df</span>
+<span class="co">#&gt; 1                      Duration -0.00834864 0.00375033 -2.226108 186.9008</span>
+<span class="co">#&gt; 2  rcs(Tampascale, 3)Tampascale -0.06563800 0.02724068 -2.409558 129.2769</span>
+<span class="co">#&gt; 3 rcs(Tampascale, 3)Tampascale'  0.05942661 0.02982168  1.992732 106.0096</span>
+<span class="co">#&gt; 4                      Function  0.05529708 0.01668254  3.314668 184.6679</span>
+<span class="co">#&gt;       p.value        HR lower.EXP upper.EXP</span>
+<span class="co">#&gt; 1 0.027201742 0.9916861 0.9844233 0.9990025</span>
+<span class="co">#&gt; 2 0.017380618 0.9364698 0.8877814 0.9878284</span>
+<span class="co">#&gt; 3 0.048860903 1.0612279 1.0009766 1.1251058</span>
+<span class="co">#&gt; 4 0.001104361 1.0568545 1.0228566 1.0919825</span>
   
   <span class="kw">pool_coxr</span><span class="op">$</span><span class="kw">predictors_in</span>
-<span class="co">#&gt; NULL</span>
+<span class="co">#&gt;          Duration Previous Radiation Onset Function factor(Satisfaction)</span>
+<span class="co">#&gt; Step 1          0        0         0     0        1                    0</span>
+<span class="co">#&gt; Step 2          1        0         0     0        0                    0</span>
+<span class="co">#&gt; Included        1        0         0     0        1                    0</span>
+<span class="co">#&gt;          rcs(Tampascale,3) rcs(Tampascale,3)*Radiation</span>
+<span class="co">#&gt; Step 1                   1                           0</span>
+<span class="co">#&gt; Step 2                   1                           0</span>
+<span class="co">#&gt; Included                 1                           0</span>
 </pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>

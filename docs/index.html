@@ -13,23 +13,20 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets">
 <meta property="og:description" content="
-	The package provides functions to apply pooling, backward and forward selection 
-	of logistic, Cox regression and Multilevel (mixed models) prediction 
-	models in multiply imputed datasets. Backward and forward selection can be done 
+	Pooling, backward and forward selection of logistic and Cox regression models in 
+	multiply imputed datasets. Backward and forward selection can be done 
 	from the pooled model using Rubin's Rules (RR), the D1, D2, D3 and 
-	the median p-values method. The model can contain	continuous, dichotomous, 
-	categorical predictors and interaction terms between all these type of predictors. 
-	Continuous predictors	can also be introduced as restricted cubic spline coefficients. 
-	The package includes a function to evaluate the stability 
-	of the models	using bootstrapping and cluster bootstrapping. The package further 
-	contains functions to generate pooled model performance measures in multiply 
-	imputed datasets as ROC/AUC, R-squares, scaled Brier score, fit test values and 
-	calibration	plots for logistic regression models. 
-	Internal validation of the developed model can be performed with cross-validation or 
-	bootstrapping. The adjusted intercept after shrinkage of the pooled regression 
-	coefficients can be subsequently obtained. Backward and forward selection as part of 
-	internal validation is possible. Also a function to externally validate logistic	
-	prediction models in multiple imputed datasets is available.
+	the median p-values method. This is also possible for Mixed models. 
+	The models can contain continuous, dichotomous, categorical and restricted 
+	cubic spline predictors and interaction terms between	all these type of predictors. 
+	The stability of the models	can be evaluated using bootstrapping and cluster 
+	bootstrapping. The package further contains functions to pool the model performance 
+	as ROC/AUC, R-squares, scaled Brier score and calibration	plots for logistic 
+	regression models. Internal validation can be	done with cross-validation or bootstrapping. 
+	The adjusted intercept after shrinkage of pooled regression coefficients can be obtained. 
+	Backward and forward selection as part of internal validation is possible. 
+	Also a function to externally validate logistic prediction models in multiple imputed 
+	datasets is available.
 	Eekhout (2017) &lt;doi:10.1186/s12874-017-0404-7&gt;.
 	Wiel (2009) &lt;doi:10.1093/biostatistics/kxp011&gt;.
 	Marshall (2009) &lt;doi:10.1186/1471-2288-9-57&gt;.">
