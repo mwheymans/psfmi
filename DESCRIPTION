@@ -37,7 +37,7 @@ Authors@R: c(
   comment = c(ORCID = "0000-0002-3889-0921")),
   person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
 Description:
-	The package provides functions to apply pooling, backward and forward selection 
+	This package provides functions to apply pooling, backward and forward selection 
 	of logistic, Cox regression and Multilevel (mixed models) prediction 
 	models in multiply imputed datasets. Backward and forward selection can be done 
 	from the pooled model using Rubin's Rules (RR), the D1, D2, D3 and 
