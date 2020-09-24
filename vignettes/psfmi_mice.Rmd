@@ -26,23 +26,23 @@ multivariable models can easily be developed in combination with mice.
 
 # Installing the psfmi and mice packages
 
-The `psfmi` package can be installed from [CRAN](https://cran.r-project.org/web/packages/psfmi/index.html) and the newer development version from Github by running the following 
-code in the R console window:
- 
- install.packages("devtools")
- 
- library(devtools)
- 
- devtools::install_github("mwheymans/psfmi")
- 
- library(psfmi)
+You can install the released version of psfmi from [CRAN](https://CRAN.R-project.org) with:
 
-To install the `mice` package use:
+``` r
+install.packages("psfmi")
+```
+And the development version from [GitHub](https://github.com/) with:
 
- install.packages("mice")
- 
- library(mice)
- 
+``` r
+# install.packages("devtools")
+devtools::install_github("mwheymans/psfmi")
+```
+You can install the released version of mice from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("mice")
+
+``` 
 # Examples 
 
 + [mice and psfmi for pooling logistic regression models] 

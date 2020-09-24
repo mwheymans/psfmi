@@ -29,18 +29,19 @@ the pooled model.
 This vignette show you examples of how to apply these 
 procedures.
 
-# Installing the psfmi package
+# Installation
 
-The package can be installed from [CRAN](https://cran.r-project.org/web/packages/psfmi/index.html) and the development version from Github 
-by running the following code in the R console window:
- 
- install.packages("devtools")
- 
- library(devtools)
- 
- devtools::install_github("mwheymans/psfmi")
- 
- library(psfmi)
+You can install the released version of psfmi from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("psfmi")
+```
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("mwheymans/psfmi")
+```
 
 # Examples 
 

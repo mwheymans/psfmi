@@ -113,7 +113,7 @@
 </h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-09-23</h4>
+            <h4 class="date">2020-09-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_valext.Rmd"><code>vignettes/psfmi_valext.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_valext.Rmd</code></div>
@@ -131,31 +131,36 @@
 <h1 class="hasAnchor">
 <a href="#steps" class="anchor"></a>Steps</h1>
 <ul>
-<li><a href="#step-1---install-the-mice-and-psfmi-package">Step 1 - Install the mice and psfmi package</a></li>
+<li><a href="#step-1---install-the-psfmi-and-mice-package">Step 1 - Install the psfmi and mice package</a></li>
 <li><a href="#step-2---impute-the-missing-data-with-mice">Step 2 - Impute the missing data with mice</a></li>
 <li><a href="#step-3---develop-the-model">Step 3 - Develop the model</a></li>
 <li><a href="#step-4---internally-validate-the-model">Step 4 - Internally validate the model</a></li>
 <li><a href="#step-5---shrink-pooled-coefficients-and-determine-new-intercept">Step 5 - Shrink pooled coefficients and determine new intercept</a></li>
 <li><a href="#step-6---externally-validate-the-model">Step 6 - Externally validate the model</a></li>
 </ul>
-<div id="step-1---install-the-mice-and-psfmi-package" class="section level2 unnumbered">
+<div id="step-1---install-the-psfmi-and-mice-package" class="section level2 unnumbered">
 <h2 class="hasAnchor">
-<a href="#step-1---install-the-mice-and-psfmi-package" class="anchor"></a>Step 1 - Install the mice and psfmi package</h2>
-<p>For this vignette I used the development version of <code>psfmi</code> from Github by running the following code in the R console window:</p>
-<p>install.packages(“devtools”)</p>
-<p>library(devtools)</p>
-<p>devtools::install_github(“mwheymans/psfmi”)</p>
-<p>library(psfmi)</p>
-<p>The package <code>mice</code> can be installed by using:</p>
-<p>install.packages(“mice”)</p>
-<p>library(mice)</p>
+<a href="#step-1---install-the-psfmi-and-mice-package" class="anchor"></a>Step 1 - Install the psfmi and mice package</h2>
+<p>You can install the released version of psfmi from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"psfmi"</span>)
+</pre></div>
+<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install.packages("devtools")</span>
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"mwheymans/psfmi"</span>)
+</pre></div>
+<p>You can install the released version of mice from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"mice"</span>)
+</pre></div>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>
 <div id="step-2---impute-the-missing-data-with-mice" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#step-2---impute-the-missing-data-with-mice" class="anchor"></a>Step 2 - Impute the missing data with mice</h2>
 <p>I generated 5 imputed datasets to handle the missing values in the lbp_orig dataset that is included in the <code>psfmi</code> package. Depending on the amount of missing data, the number of imputed datasets may be increased (see on-line book: <a href="https://bookdown.org/mwheymans/bookmi/multiple-imputation.html#number-of-imputed-datasets-and-iterations">Applied Missing Data analysis</a>).</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/stefvanbuuren/mice">mice</a></span>)
 </pre></div>
 <pre><code>## 
@@ -163,7 +168,7 @@
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     cbind, rbind</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
 
   <span class="kw">imp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mice/man/mice.html">mice</a></span>(<span class="kw">lbp_orig</span>, m=<span class="fl">5</span>, maxit=<span class="fl">10</span>) 
@@ -221,7 +226,7 @@
 ##   10   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport
 ##   10   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</code></pre>
 <p>Use the <code>complete</code> function of the <code>mice</code> package to extract the completed datasets. By setting <code>action = "long"</code> and <code>include = FALSE</code>, the imputed datasets are stacked under each other to form one long dataset and the original dataset (that included missing values) is not included in that long dataset.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/stefvanbuuren/mice">mice</a></span>)
   
   <span class="kw">data_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mice/man/complete.mids.html">complete</a></span>(<span class="kw">imp</span>, action = <span class="st">"long"</span>, include = <span class="fl">FALSE</span>)
@@ -232,7 +237,7 @@
 <h2 class="hasAnchor">
 <a href="#step-3---develop-the-model" class="anchor"></a>Step 3 - Develop the model</h2>
 <p>Use the <code>psfmi_lr</code> function in the <code>psfmi</code> package to perform backward selection over the 5 multiply imputed datasets with a p-value of 0.05 and as selection method D1.<br><strong>Note</strong> that with this function it is possible to include cubic spline coefficients in case of non-linear relationships during backward selection and that predictors may be forced in the model during backward selection by including them at the setting <code>keep.predictors</code>. When the setting <code>direction</code> is changed to FW, forward selection is done.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
 
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">data_comp</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">".imp"</span>, Outcome=<span class="st">"Chronic"</span>,
@@ -241,10 +246,10 @@
   spline.predictors = <span class="st">"Function"</span>, nknots = <span class="fl">3</span>,  
   keep.predictors = <span class="st">"Radiation"</span>, p.crit = <span class="fl">0.157</span>, method=<span class="st">"D1"</span>, direction = <span class="st">"BW"</span>)
 </pre></div>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - Age</code></pre>
-<pre><code>## Removed at Step 4 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - Gender</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
+<pre><code>## Removed at Step 4 is - Age</code></pre>
 <pre><code>## Removed at Step 5 is - rcs(Function,3)</code></pre>
 <pre><code>## Removed at Step 6 is - JobControl</code></pre>
 <pre><code>## Removed at Step 7 is - SocialSupport</code></pre>
@@ -252,37 +257,37 @@
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit">
+<div class="sourceCode" id="cb20"><pre class="downlit">
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
 ##                    term   estimate std.error  statistic        df      p.value
-## 1           (Intercept) -5.4824945 1.1287305 -4.8572219  40.63339 1.805755e-05
-## 2                  Pain  0.9210388 0.1756133  5.2446987  95.49284 9.393436e-07
-## 3             Radiation  0.4851309 0.5026629  0.9651217 103.09171 3.367424e-01
-## 4 factor(Satisfaction)2 -0.5294904 0.5797551 -0.9133002 116.03817 3.629784e-01
-## 5 factor(Satisfaction)3 -2.6544438 0.9061559 -2.9293455  30.09081 6.422386e-03
-## 6     factor(Carrying)2  1.2170747 0.7013316  1.7353771  28.71294 9.339683e-02
-## 7     factor(Carrying)3  1.6319915 0.8585119  1.9009539  15.20356 7.643606e-02
-##            OR    lower.EXP   upper.EXP
-## 1 0.004158942 0.0004551852  0.03799948
-## 2 2.511898348 1.7803976538  3.54394609
-## 3 1.624387671 0.6064770254  4.35075888
-## 4 0.588904974 0.1890373994  1.83460558
-## 5 0.070337947 0.0119084209  0.41545615
-## 6 3.377293817 0.8542467923 13.35224625
-## 7 5.114049121 0.9505716148 27.51344350</code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit">
+## 1           (Intercept) -5.4850350 1.2080752 -4.5403093  28.99977 9.082863e-05
+## 2                  Pain  0.8893034 0.1900510  4.6792878  39.47869 3.349947e-05
+## 3             Radiation  0.5776779 0.4830763  1.1958316 134.29054 2.338696e-01
+## 4 factor(Satisfaction)2 -0.4953599 0.6439976 -0.7691953  51.80733 4.452702e-01
+## 5 factor(Satisfaction)3 -2.6401957 0.9253910 -2.8530596  25.65313 8.445475e-03
+## 6     factor(Carrying)2  1.2966342 0.6873574  1.8864048  34.85080 6.759515e-02
+## 7     factor(Carrying)3  1.8608317 0.7543774  2.4667119  27.26012 2.020415e-02
+##           OR    lower.EXP   upper.EXP
+## 1 0.00414839 0.0003886379  0.04428064
+## 2 2.43343391 1.6766594777  3.53178489
+## 3 1.78189581 0.6913205755  4.59288032
+## 4 0.60935155 0.1724591023  2.15302821
+## 5 0.07134731 0.0116323873  0.43760906
+## 6 3.65696747 0.9506719476 14.06732483
+## 7 6.42908166 1.4655813739 28.20252203</code></pre>
+<div class="sourceCode" id="cb22"><pre class="downlit">
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">multiparm_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
 ##                       p-values D1 F-statistic
-## Pain                 2.782135e-07   27.506865
-## Radiation            3.350259e-01    0.931460
-## factor(Satisfaction) 9.195059e-03    5.137344
-## factor(Carrying)     1.331288e-01    2.203621</code></pre>
+## Pain                 1.643029e-05   21.895735
+## Radiation            2.318976e-01    1.430013
+## factor(Satisfaction) 1.842953e-02    4.597598
+## factor(Carrying)     4.277364e-02    3.409119</code></pre>
 <p>The same result can be obtained by using the <code>formula</code> setting in the <code>psfmi_lr</code> function</p>
-<div class="sourceCode" id="cb21"><pre class="downlit">
+<div class="sourceCode" id="cb24"><pre class="downlit">
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
 
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">data_comp</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">".imp"</span>, 
@@ -291,10 +296,10 @@
   <span class="fu">rcs</span>(<span class="kw">Function</span>, <span class="fl">3</span>), keep.predictors = <span class="st">"Radiation"</span>, 
   p.crit = <span class="fl">0.157</span>, method=<span class="st">"D1"</span>, direction = <span class="st">"BW"</span>)
 </pre></div>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - Age</code></pre>
-<pre><code>## Removed at Step 4 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - Gender</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
+<pre><code>## Removed at Step 4 is - Age</code></pre>
 <pre><code>## Removed at Step 5 is - rcs(Function,3)</code></pre>
 <pre><code>## Removed at Step 6 is - JobControl</code></pre>
 <pre><code>## Removed at Step 7 is - SocialSupport</code></pre>
@@ -302,35 +307,35 @@
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit">
+<div class="sourceCode" id="cb34"><pre class="downlit">
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
 ##                    term   estimate std.error  statistic        df      p.value
-## 1           (Intercept) -5.4824945 1.1287305 -4.8572219  40.63339 1.805755e-05
-## 2                  Pain  0.9210388 0.1756133  5.2446987  95.49284 9.393436e-07
-## 3             Radiation  0.4851309 0.5026629  0.9651217 103.09171 3.367424e-01
-## 4 factor(Satisfaction)2 -0.5294904 0.5797551 -0.9133002 116.03817 3.629784e-01
-## 5 factor(Satisfaction)3 -2.6544438 0.9061559 -2.9293455  30.09081 6.422386e-03
-## 6     factor(Carrying)2  1.2170747 0.7013316  1.7353771  28.71294 9.339683e-02
-## 7     factor(Carrying)3  1.6319915 0.8585119  1.9009539  15.20356 7.643606e-02
-##            OR    lower.EXP   upper.EXP
-## 1 0.004158942 0.0004551852  0.03799948
-## 2 2.511898348 1.7803976538  3.54394609
-## 3 1.624387671 0.6064770254  4.35075888
-## 4 0.588904974 0.1890373994  1.83460558
-## 5 0.070337947 0.0119084209  0.41545615
-## 6 3.377293817 0.8542467923 13.35224625
-## 7 5.114049121 0.9505716148 27.51344350</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit">
+## 1           (Intercept) -5.4850350 1.2080752 -4.5403093  28.99977 9.082863e-05
+## 2                  Pain  0.8893034 0.1900510  4.6792878  39.47869 3.349947e-05
+## 3             Radiation  0.5776779 0.4830763  1.1958316 134.29054 2.338696e-01
+## 4 factor(Satisfaction)2 -0.4953599 0.6439976 -0.7691953  51.80733 4.452702e-01
+## 5 factor(Satisfaction)3 -2.6401957 0.9253910 -2.8530596  25.65313 8.445475e-03
+## 6     factor(Carrying)2  1.2966342 0.6873574  1.8864048  34.85080 6.759515e-02
+## 7     factor(Carrying)3  1.8608317 0.7543774  2.4667119  27.26012 2.020415e-02
+##           OR    lower.EXP   upper.EXP
+## 1 0.00414839 0.0003886379  0.04428064
+## 2 2.43343391 1.6766594777  3.53178489
+## 3 1.78189581 0.6913205755  4.59288032
+## 4 0.60935155 0.1724591023  2.15302821
+## 5 0.07134731 0.0116323873  0.43760906
+## 6 3.65696747 0.9506719476 14.06732483
+## 7 6.42908166 1.4655813739 28.20252203</code></pre>
+<div class="sourceCode" id="cb36"><pre class="downlit">
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">multiparm_final</span>
 </pre></div>
 <pre><code>## $`Step 9`
 ##                       p-values D1 F-statistic
-## Pain                 2.782135e-07   27.506865
-## Radiation            3.350259e-01    0.931460
-## factor(Satisfaction) 9.195059e-03    5.137344
-## factor(Carrying)     1.331288e-01    2.203621</code></pre>
+## Pain                 1.643029e-05   21.895735
+## Radiation            2.318976e-01    1.430013
+## factor(Satisfaction) 1.842953e-02    4.597598
+## factor(Carrying)     4.277364e-02    3.409119</code></pre>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>
 <div id="step-4---internally-validate-the-model" class="section level2 unnumbered">
@@ -338,7 +343,7 @@
 <a href="#step-4---internally-validate-the-model" class="anchor"></a>Step 4 - Internally validate the model</h2>
 <p>To internally validate the model we use the <code>psfmi_perform</code> function. With this function five different methods can be used to internally validate models in MI data <a href="https://mwheymans.github.io/psfmi/articles/">see these Vignettes</a>, Three methods use cross-validation and two bootstrapping in combination with MI.</p>
 <p>We will use cross-validation and more specific the method <a href="https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html">cv_MI_RR</a>. With this method it is possible to integrate backward selection into the cross-validation procedure. The last model that is selected by the psfmi_lr function is internally validated. So, if we want to apply backward selection during cross-validation from the full model we first have to apply the psfmi_lr function without variable selection. That is the example that we want to use here, because we know that variable selection is one of the main reasons that prediction models are over-fitted.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit">
+<div class="sourceCode" id="cb38"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
 
 <span class="kw">pool_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">data_comp</span>, formula = <span class="kw">Chronic</span> <span class="op">~</span> <span class="kw">Gender</span> <span class="op">+</span> <span class="kw">Age</span> <span class="op">+</span> <span class="kw">JobControl</span> <span class="op">+</span> <span class="kw">Tampascale</span> <span class="op">+</span> 
@@ -395,7 +400,7 @@
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<div class="sourceCode" id="cb72"><pre class="downlit">
+<div class="sourceCode" id="cb75"><pre class="downlit">
 <span class="kw">res_cv</span>
 </pre></div>
 <pre><code>## $stats
@@ -414,21 +419,21 @@
 <a href="#step-5---shrink-pooled-coefficients-and-determine-new-intercept" class="anchor"></a>Step 5 - Shrink pooled coefficients and determine new intercept</h2>
 <p>We can use the slope value of 0.864415077 that was estimated at the previous step as a shrinkage factor to prevent our model from being overfitted in new data. We do this by multiplying the pooled coefficients with the shrinkage factor and also to determine a new intercept value that is aligned with the shrunken coefficients.</p>
 <p>We use the <code>pool_intadj</code> function for this that will provide the adjusted coefficients and new intercept value.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit">
+<div class="sourceCode" id="cb77"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
 
 <span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pool_intadj.html">pool_intadj</a></span>(<span class="kw">pool_lr</span>, shrinkage_factor = <span class="fl">0.864415077</span>)
 
 <span class="kw">res</span><span class="op">$</span><span class="kw">int_adj</span>
 </pre></div>
-<pre><code>## [1] -4.773048</code></pre>
-<div class="sourceCode" id="cb76"><pre class="downlit">
+<pre><code>## [1] -4.775809</code></pre>
+<div class="sourceCode" id="cb79"><pre class="downlit">
 <span class="kw">res</span><span class="op">$</span><span class="kw">coef_shrink_pooled</span>
 </pre></div>
 <pre><code>##                  Pain             Radiation factor(Satisfaction)2 
-##             0.7961598             0.4193545            -0.4576995 
+##             0.7687273             0.4993534            -0.4281966 
 ## factor(Satisfaction)3     factor(Carrying)2     factor(Carrying)3 
-##            -2.2945413             1.0520578             1.4107180</code></pre>
+##            -2.2822250             1.1208302             1.6085310</code></pre>
 <p>The last step is to externally validate this adjusted model.</p>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>
@@ -436,7 +441,7 @@
 <h2 class="hasAnchor">
 <a href="#step-6---externally-validate-the-model" class="anchor"></a>Step 6 - Externally validate the model</h2>
 <p>We validate the model in an external dataset that is imputed five times due to missing data.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit">
+<div class="sourceCode" id="cb81"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
 
  <span class="kw">res_extval</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mivalext_lr.html">mivalext_lr</a></span>(data.val = <span class="kw">lbpmi_extval</span>, nimp = <span class="fl">5</span>, impvar = <span class="st">"Impnr"</span>,
@@ -447,35 +452,35 @@
 <pre><code>## 
 ## Pooled performance measures over m = 5 imputed external validation datasets correctly estimated</code></pre>
 <p><img src="psfmi_valext_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb80"><pre class="downlit">
+<div class="sourceCode" id="cb83"><pre class="downlit">
  <span class="kw">res_extval</span><span class="op">$</span><span class="kw">ROC</span>
 </pre></div>
 <pre><code>## $`ROC (logit)`
 ##             95% Low    AUC 95% Up
-## AUC (logit)  0.7391 0.8499 0.9188
+## AUC (logit)  0.7358 0.8459 0.9155
 ## 
 ## $`ROC (median)`
 ## 1st Qu.  Median 3rd Qu. 
-## 0.84740 0.85084 0.85866</code></pre>
-<div class="sourceCode" id="cb82"><pre class="downlit">
+## 0.84396 0.84615 0.85303</code></pre>
+<div class="sourceCode" id="cb85"><pre class="downlit">
  <span class="kw">res_extval</span><span class="op">$</span><span class="kw">R2_fixed</span>
 </pre></div>
 <pre><code>## $`Fisher Z (fixed)`
-## [1] 0.45762
+## [1] 0.45335
 ## 
 ## $`Median (fixed)`
 ## 1st Qu.  Median 3rd Qu. 
-## 0.45972 0.46276 0.47626</code></pre>
-<div class="sourceCode" id="cb84"><pre class="downlit">
+## 0.45530 0.45872 0.46955</code></pre>
+<div class="sourceCode" id="cb87"><pre class="downlit">
  <span class="kw">res_extval</span><span class="op">$</span><span class="kw">HLtest</span>
 </pre></div>
 <pre><code>##         D         p        df       df2 
-##   0.80484   0.59919   8.00000 160.52224</code></pre>
-<div class="sourceCode" id="cb86"><pre class="downlit">
+##   0.92174   0.49789   8.00000 519.50970</code></pre>
+<div class="sourceCode" id="cb89"><pre class="downlit">
  <span class="kw">res_extval</span><span class="op">$</span><span class="kw">LP_pooled_ext</span>
 </pre></div>
 <pre><code>## intercept     slope 
-##   0.00404   0.88742</code></pre>
+##   0.00613   0.87072</code></pre>
 <p>In the external dataset the AUC is 0.84772 and the R-squared 0.45. The Hosmer and Lemeshow test has a p-value of 0.63168, which means that the fit is satisfactory. This is also confirmed on the calibration plot where the calibration curves in each imputed dataset are near the optimal (dashed) line. The slope (regression coefficients) is has a value of 0.86526 and slightly deviates from the value of 1, which means that the coefficients values differ between the development and external dataset.</p>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>

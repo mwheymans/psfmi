@@ -112,7 +112,7 @@
       <h1 data-toc-skip>Working together: mice and psfmi</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-09-23</h4>
+            <h4 class="date">2020-09-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_mice.Rmd"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
@@ -129,14 +129,19 @@
 <div id="installing-the-psfmi-and-mice-packages" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installing-the-psfmi-and-mice-packages" class="anchor"></a>Installing the psfmi and mice packages</h1>
-<p>The <code>psfmi</code> package can be installed from <a href="https://cran.r-project.org/web/packages/psfmi/index.html">CRAN</a> and the newer development version from Github by running the following code in the R console window:</p>
-<p>install.packages(“devtools”)</p>
-<p>library(devtools)</p>
-<p>devtools::install_github(“mwheymans/psfmi”)</p>
-<p>library(psfmi)</p>
-<p>To install the <code>mice</code> package use:</p>
-<p>install.packages(“mice”)</p>
-<p>library(mice)</p>
+<p>You can install the released version of psfmi from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"psfmi"</span>)
+</pre></div>
+<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install.packages("devtools")</span>
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"mwheymans/psfmi"</span>)
+</pre></div>
+<p>You can install the released version of mice from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"mice"</span>)
+</pre></div>
 </div>
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
@@ -148,7 +153,7 @@
 <div id="mice-and-psfmi-for-pooling-logistic-regression-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mice-and-psfmi-for-pooling-logistic-regression-models" class="anchor"></a>mice and psfmi for pooling logistic regression models</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/stefvanbuuren/mice">mice</a></span>)
@@ -196,29 +201,29 @@
   
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term      estimate  std.error    statistic       df     p.value</span>
-<span class="co">#&gt; 1   (Intercept)  0.0416291449 2.39613503  0.017373455 138.9401 0.986163609</span>
-<span class="co">#&gt; 2        Gender -0.3743336898 0.41446060 -0.903182805 143.7432 0.367939950</span>
-<span class="co">#&gt; 3       Smoking  0.0774559890 0.34000325  0.227809556 147.1931 0.820110439</span>
-<span class="co">#&gt; 4      Function -0.1348849035 0.04296207 -3.139627501 138.9599 0.002066697</span>
-<span class="co">#&gt; 5    JobControl  0.0060704223 0.02018776  0.300698206 110.5245 0.764209547</span>
-<span class="co">#&gt; 6    JobDemands  0.0003533555 0.03658660  0.009658059 141.1940 0.992307736</span>
-<span class="co">#&gt; 7 SocialSupport  0.0433098107 0.05592764  0.774390156 147.0457 0.439943456</span>
+<span class="co">#&gt;            term     estimate  std.error   statistic       df     p.value</span>
+<span class="co">#&gt; 1   (Intercept)  0.049777318 2.37863709  0.02092682 148.3863 0.983332143</span>
+<span class="co">#&gt; 2        Gender -0.345674691 0.41519153 -0.83256683 148.3592 0.406427294</span>
+<span class="co">#&gt; 3       Smoking  0.078125830 0.33900687  0.23045500 149.2424 0.818053821</span>
+<span class="co">#&gt; 4      Function -0.138762844 0.04444761 -3.12194194 111.9300 0.002286615</span>
+<span class="co">#&gt; 5    JobControl  0.008679059 0.02007350  0.43236393 121.5461 0.666243053</span>
+<span class="co">#&gt; 6    JobDemands -0.001823340 0.03702743 -0.04924295 133.0511 0.960799525</span>
+<span class="co">#&gt; 7 SocialSupport  0.040557315 0.05588572  0.72571869 143.1967 0.469195651</span>
 <span class="co">#&gt;          OR   lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 1.0425078 0.009515859 114.2117071</span>
-<span class="co">#&gt; 2 0.6877474 0.305234034   1.5496190</span>
-<span class="co">#&gt; 3 1.0805347 0.554909425   2.1040464</span>
-<span class="co">#&gt; 4 0.8738165 0.803248969   0.9505835</span>
-<span class="co">#&gt; 5 1.0060889 0.967057250   1.0466959</span>
-<span class="co">#&gt; 6 1.0003534 0.931130001   1.0747231</span>
-<span class="co">#&gt; 7 1.0442614 0.935842248   1.1652411</span>
+<span class="co">#&gt; 1 1.0510370 0.009928445 111.2640287</span>
+<span class="co">#&gt; 2 0.7077427 0.313658620   1.5969582</span>
+<span class="co">#&gt; 3 1.0812587 0.556366716   2.1013485</span>
+<span class="co">#&gt; 4 0.8704344 0.797813714   0.9496654</span>
+<span class="co">#&gt; 5 1.0087168 0.969800393   1.0491949</span>
+<span class="co">#&gt; 6 0.9981783 0.928302995   1.0733133</span>
+<span class="co">#&gt; 7 1.0413910 0.933346556   1.1619427</span>
 </pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="mice-and-psfmi-for-selecting-logistic-regression-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mice-and-psfmi-for-selecting-logistic-regression-models" class="anchor"></a>mice and psfmi for selecting logistic regression models</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/stefvanbuuren/mice">mice</a></span>)
@@ -267,11 +272,11 @@
   <span class="kw">pool_lr</span><span class="op">$</span><span class="kw">RR_model_final</span>
 <span class="co">#&gt; $`Final model`</span>
 <span class="co">#&gt;          term   estimate  std.error statistic       df     p.value        OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.1456654 0.46988000  2.438209 122.9230 0.016190130 3.1445331</span>
-<span class="co">#&gt; 2    Function -0.1322424 0.04171437 -3.170189 121.2161 0.001929236 0.8761286</span>
+<span class="co">#&gt; 1 (Intercept)  1.1633264 0.46029566  2.527346 138.6046 0.012615352 3.2005619</span>
+<span class="co">#&gt; 2    Function -0.1344476 0.04110625 -3.270733 134.4027 0.001362923 0.8741987</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.2519479 7.8981631</span>
-<span class="co">#&gt; 2 0.8073463 0.9507708</span>
+<span class="co">#&gt; 1 1.2984184 7.8892879</span>
+<span class="co">#&gt; 2 0.8065287 0.9475465</span>
 </pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>

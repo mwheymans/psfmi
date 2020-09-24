@@ -17,7 +17,7 @@ a (logistic) regression prediction model with `mice` and `psfmi`.
 
 # Steps {-}
 
-   + [Step 1 - Install the mice and psfmi package]
+   + [Step 1 - Install the psfmi and mice package]
    + [Step 2 - Impute the missing data with mice]
    + [Step 3 - Develop the model] 
    + [Step 4 - Internally validate the model]
@@ -25,24 +25,25 @@ a (logistic) regression prediction model with `mice` and `psfmi`.
    + [Step 6 - Externally validate the model]
    
 
-## Step 1 - Install the mice and psfmi package {-}
+## Step 1 - Install the psfmi and mice package {-}
 
-For this vignette I used the development version of `psfmi` from Github 
-by running the following code in the R console window:
- 
- install.packages("devtools")
- 
- library(devtools)
- 
- devtools::install_github("mwheymans/psfmi")
- 
- library(psfmi)
+You can install the released version of psfmi from [CRAN](https://CRAN.R-project.org) with:
 
-The package `mice` can be installed by using:
- 
- install.packages("mice")
+``` r
+install.packages("psfmi")
+```
+And the development version from [GitHub](https://github.com/) with:
 
- library(mice) 
+``` r
+# install.packages("devtools")
+devtools::install_github("mwheymans/psfmi")
+```
+You can install the released version of mice from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("mice")
+
+``` 
 
 Back to [Steps]
 
