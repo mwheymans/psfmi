@@ -34,7 +34,8 @@ Nice code.
 
 ## Test environments
 *	R studio 1.3.1073, R version 4.0.2
-* win-builder (devel and release), R version 4.0.2
+* win-builder Development: Status: OK, R version 4.0.2
+* win-builder Release: Status: OK, R version 4.0.2
 * on Travis CI: Operating System Details Distributor ID:	Ubuntu
   Description:	Ubuntu 16.04.6 LTS
   Release:	16.04
