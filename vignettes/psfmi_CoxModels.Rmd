@@ -121,9 +121,9 @@ Back to [Examples]
 
 ## Pooling with FS including spline coefficients and method MPR
 
-Pooling Cox regression models over 5 imputed datasets with backward selection
-using a p-value of 0.05 and as method D1 including a restricted cubic spline 
-predictor and forcing Tampascale in the models during backward selection.
+Pooling Cox regression models over 5 imputed datasets with forward selection
+using a p-value of 0.05 and as method MPR including a restricted cubic spline 
+predictor and forcing Tampascale in the models during forward selection.
 
 ```{r}
 
@@ -132,7 +132,7 @@ predictor and forcing Tampascale in the models during backward selection.
   predictors=c("Duration", "Previous",  "Radiation", "Onset", "Function"), 
   p.crit=0.05, cat.predictors=c("Satisfaction"), spline.predictors=c("Tampascale"),
   int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
-  nknots=3, method="D1", direction = "MPR")
+  nknots=3, method="MPR", direction = "FW")
   
   pool_coxr$RR_model_final
   
