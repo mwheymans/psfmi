@@ -27,8 +27,7 @@ available.
 
 ## Installation
 
-You can install the released version of psfmi from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the released version of psfmi with:
 
 ``` r
 install.packages("psfmi")
