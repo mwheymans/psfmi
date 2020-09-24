@@ -29,20 +29,6 @@ the pooled model.
 This vignette show you examples of how to apply these 
 procedures.
 
-# Installation
-
-You can install the released version of psfmi from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("psfmi")
-```
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("mwheymans/psfmi")
-```
-
 # Examples 
 
 * [Logistic Regression]

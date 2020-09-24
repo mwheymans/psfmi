@@ -27,7 +27,7 @@ a (logistic) regression prediction model with `mice` and `psfmi`.
 
 ## Step 1 - Install the psfmi and mice package {-}
 
-You can install the released version of psfmi from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of psfmi with:
 
 ``` r
 install.packages("psfmi")
@@ -38,7 +38,7 @@ And the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("mwheymans/psfmi")
 ```
-You can install the released version of mice from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of mice with:
 
 ``` r
 install.packages("mice")

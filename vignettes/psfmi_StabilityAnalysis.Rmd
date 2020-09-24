@@ -24,19 +24,6 @@ Mixed models. With this function the stability of models selected and the bootst
 frequency can be evaluated. For logistic and Cox regression models bootstrapping 
 is than used and for Multilevel models cluster bootstrapping.
 
-# Installation
-
-You can install the released version of psfmi from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("psfmi")
-```
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("mwheymans/psfmi")
-```
 # Examples 
 
 * [Stability analysis of Logistic regression model] 

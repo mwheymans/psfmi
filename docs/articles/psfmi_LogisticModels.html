@@ -129,19 +129,6 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <p>You can also use forward or backward selection from the pooled model.</p>
 <p>This vignette show you examples of how to apply these procedures.</p>
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
-<p>You can install the released version of psfmi from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"psfmi"</span>)
-</pre></div>
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># install.packages("devtools")</span>
-<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"mwheymans/psfmi"</span>)
-</pre></div>
-</div>
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h1>
@@ -160,7 +147,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div id="pooling-without-bs-and-method-d1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-without-bs-and-method-d1" class="anchor"></a>Pooling without BS and method D1</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb1"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, Outcome=<span class="st">"Chronic"</span>,
@@ -192,7 +179,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-and-method-d1" class="anchor"></a>Pooling with BS and method D1</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 and forcing the predictor “Smoking” in the models during backward selection.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb2"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, Outcome=<span class="st">"Chronic"</span>,
@@ -232,7 +219,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-and-method-mpr" class="anchor"></a>Pooling with BS and method MPR</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 and forcing the predictor “Smoking” in the models during backward selection.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb3"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, Outcome=<span class="st">"Chronic"</span>,
@@ -278,7 +265,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-including-several-interaction-terms-and-method-d2" class="anchor"></a>Pooling with BS including several interaction terms and method D2</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with BS using a p-value of 0.05 and as method D2. Several interaction terms, including a categorical predictor, are part of the selection procedure.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, Outcome=<span class="st">"Chronic"</span>,
@@ -333,7 +320,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-and-forcing-interaction-terms-and-method-d1" class="anchor"></a>Pooling with BS and forcing interaction terms and method D1</h2>
 <p>Same as above but now forcing several predictors, including interaction terms, in the model during BS.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, Outcome=<span class="st">"Chronic"</span>,
@@ -384,7 +371,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-including-spline-coefficient-and-method-d1" class="anchor"></a>Pooling with BS including spline coefficient and method D1</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with BS using a p-value of 0.05 and as method D1. A spline predictor and interaction term are part of the selection procedure.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
   <span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, Outcome=<span class="st">"Chronic"</span>,
