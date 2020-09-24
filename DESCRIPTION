@@ -40,7 +40,7 @@ Description:
 	Pooling, backward and forward selection of logistic and Cox regression models in 
 	multiply imputed datasets. Backward and forward selection can be done 
 	from the pooled model using Rubin's Rules (RR), the D1, D2, D3 and 
-	the median p-values (MPR) method. This is also possible for Mixed models. 
+	the median p-values method. This is also possible for Mixed models. 
 	The models can contain continuous, dichotomous, categorical and restricted 
 	cubic spline predictors and interaction terms between	all these type of predictors. 
 	The stability of the models	can be evaluated using bootstrapping and cluster 
