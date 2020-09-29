@@ -112,7 +112,7 @@
       <h1 data-toc-skip>Multiple Imputation and Cross-validation - The MI_cv_naive method</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-09-24</h4>
+            <h4 class="date">2020-09-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/MI_cv_naive.Rmd"><code>vignettes/MI_cv_naive.Rmd</code></a></small>
       <div class="hidden name"><code>MI_cv_naive.Rmd</code></div>
@@ -148,15 +148,14 @@ Schematic overview of the MI_cv_naive method
 <a href="#method-mi_cv_naive-1" class="anchor"></a>Method MI_cv_naive</h2>
 <p>To run the MI_cv_naive method use:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
-<span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, formula = <span class="kw">Chronic</span> <span class="op">~</span> <span class="kw">Pain</span> <span class="op">+</span> <span class="kw">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span>(<span class="kw">Tampascale</span>, <span class="fl">3</span>) <span class="op">+</span>
-                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">Satisfaction</span>) <span class="op">+</span> <span class="kw">Smoking</span>, p.crit = <span class="fl">1</span>, direction=<span class="st">"BW"</span>,
-                   nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, method=<span class="st">"D1"</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
+<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"BW"</span>,
+                   nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">100</span>)
-<span class="kw">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="kw">pool_lr</span>, val_method = <span class="st">"MI_cv_naive"</span>, folds = <span class="fl">5</span>,
-                     p.crit=<span class="fl">1</span>, BW=<span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
+<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"MI_cv_naive"</span>, folds <span class="op">=</span> <span class="fl">5</span>,
+                     p.crit<span class="op">=</span><span class="fl">1</span>, BW<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## Imputation 1</code></pre>
 <pre><code>## 
@@ -168,8 +167,7 @@ Schematic overview of the MI_cv_naive method
 <pre><code>## 
 ## Imputation 5</code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">res_cv</span>
-</pre></div>
+<span class="va">res_cv</span></pre></div>
 <pre><code>## $cv_stats
 ##                  Train      Test
 ## AUC          0.8913819 0.8514000
@@ -190,15 +188,14 @@ Schematic overview of the MI_cv_naive method
 <a href="#method-mi_cv_naive-including-bw-selection" class="anchor"></a>Method MI_cv_naive including BW selection</h2>
 <p>To run the MI_cv_naive method by implementing backward variable selection during cross-validation use:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
-<span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, formula = <span class="kw">Chronic</span> <span class="op">~</span> <span class="kw">Pain</span> <span class="op">+</span> <span class="kw">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span>(<span class="kw">Tampascale</span>, <span class="fl">3</span>) <span class="op">+</span>
-                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">Satisfaction</span>) <span class="op">+</span> <span class="kw">Smoking</span>, p.crit = <span class="fl">1</span>, direction=<span class="st">"BW"</span>,
-                   nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, method=<span class="st">"D1"</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
+<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"BW"</span>,
+                   nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">100</span>)
-<span class="kw">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="kw">pool_lr</span>, val_method = <span class="st">"MI_cv_naive"</span>, folds = <span class="fl">5</span>,
-                     p.crit=<span class="fl">0.05</span>, BW=<span class="fl">TRUE</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
+<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"MI_cv_naive"</span>, folds <span class="op">=</span> <span class="fl">5</span>,
+                     p.crit<span class="op">=</span><span class="fl">0.05</span>, BW<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## Imputation 1</code></pre>
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
@@ -351,8 +348,7 @@ Schematic overview of the MI_cv_naive method
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <div class="sourceCode" id="cb106"><pre class="downlit">
-<span class="kw">res_cv</span>
-</pre></div>
+<span class="va">res_cv</span></pre></div>
 <pre><code>## $cv_stats
 ##                  Train      Test
 ## AUC          0.8804827 0.8575000

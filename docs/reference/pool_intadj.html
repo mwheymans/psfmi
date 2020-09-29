@@ -166,7 +166,7 @@
  internally validated with the <code>psfmi_perform</code> function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pool_intadj</span>(<span class='kw'>pobj</span>, <span class='kw'>shrinkage_factor</span>)</pre>
+    <pre class="usage"><span class='fu'>pool_intadj</span><span class='op'>(</span><span class='va'>pobj</span>, <span class='va'>shrinkage_factor</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,21 +204,21 @@ with the <code>psfmi_perform</code> function.</p></td>
 <p>http://missingdatasolutions.rbind.io/</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='kw'>res_psfmi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span>(data=<span class='kw'>lbpmilr</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>"Impnr"</span>, Outcome=<span class='st'>"Chronic"</span>,
-           predictors=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>,<span class='st'>"Tampascale"</span>,<span class='st'>"Smoking"</span>,<span class='st'>"Function"</span>, 
-           <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span>), p.crit = <span class='fl'>1</span>, method=<span class='st'>"D1"</span>, direction=<span class='st'>"BW"</span>)
- <span class='kw'>res_psfmi</span><span class='op'>$</span><span class='kw'>RR_Model</span>
+    <pre class="examples"><div class='input'> <span class='va'>res_psfmi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>lbpmilr</span>, nimp<span class='op'>=</span><span class='fl'>5</span>, impvar<span class='op'>=</span><span class='st'>"Impnr"</span>, Outcome<span class='op'>=</span><span class='st'>"Chronic"</span>,
+           predictors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>,<span class='st'>"Tampascale"</span>,<span class='st'>"Smoking"</span>,<span class='st'>"Function"</span>, 
+           <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span><span class='op'>)</span>, p.crit <span class='op'>=</span> <span class='fl'>1</span>, method<span class='op'>=</span><span class='st'>"D1"</span>, direction<span class='op'>=</span><span class='st'>"BW"</span><span class='op'>)</span>
+ <span class='va'>res_psfmi</span><span class='op'>$</span><span class='va'>RR_Model</span>
 </div><div class='output co'>#&gt; NULL</div><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>100</span>)
- <span class='kw'>res_val</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psfmi_perform.html'>psfmi_perform</a></span>(<span class='kw'>res_psfmi</span>, method = <span class='st'>"MI_boot"</span>, nboot=<span class='fl'>10</span>, 
-   int_val = <span class='fl'>TRUE</span>, p.crit=<span class='fl'>1</span>, cal.plot=<span class='fl'>FALSE</span>, plot.indiv=<span class='fl'>FALSE</span>)
- <span class='kw'>res_val</span><span class='op'>$</span><span class='kw'>intval</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+ <span class='va'>res_val</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psfmi_perform.html'>psfmi_perform</a></span><span class='op'>(</span><span class='va'>res_psfmi</span>, method <span class='op'>=</span> <span class='st'>"MI_boot"</span>, nboot<span class='op'>=</span><span class='fl'>10</span>, 
+   int_val <span class='op'>=</span> <span class='cn'>TRUE</span>, p.crit<span class='op'>=</span><span class='fl'>1</span>, cal.plot<span class='op'>=</span><span class='cn'>FALSE</span>, plot.indiv<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+ <span class='va'>res_val</span><span class='op'>$</span><span class='va'>intval</span>
 
- <span class='kw'>res</span> <span class='op'>&lt;-</span> <span class='fu'>pool_intadj</span>(<span class='kw'>res_psfmi</span>, shrinkage_factor = <span class='fl'>0.9774058</span>)
- <span class='kw'>res</span><span class='op'>$</span><span class='kw'>int_adj</span>
- <span class='kw'>res</span><span class='op'>$</span><span class='kw'>coef_shrink_pooled</span>
- } 
+ <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>pool_intadj</span><span class='op'>(</span><span class='va'>res_psfmi</span>, shrinkage_factor <span class='op'>=</span> <span class='fl'>0.9774058</span><span class='op'>)</span>
+ <span class='va'>res</span><span class='op'>$</span><span class='va'>int_adj</span>
+ <span class='va'>res</span><span class='op'>$</span><span class='va'>coef_shrink_pooled</span>
+ <span class='op'>}</span> 
   
 </div></pre>
   </div>

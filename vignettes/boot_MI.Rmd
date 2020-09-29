@@ -37,7 +37,6 @@ knitr::include_graphics("boot_MI.png")
 
 * [Method boot_MI]
 * [Method boot_MI including BW selection]
-* [Method boot_MI including FW selection]
 
 ## Method boot_MI 
 
@@ -53,6 +52,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Ta
                    factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
                  nimp=5, impvar="Impnr", method="D1")
 
+set.seed(100)
 res_MI_boot <- psfmi_perform(pool_lr, val_method = "boot_MI", data_orig = lbp_orig, nboot = 5,
                      p.crit=1, nimp_mice = 3, direction = "BW", miceImp = miceImp,
                      printFlag = FALSE)
@@ -78,6 +78,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, Outcome="Chronic", predictors = c("Pain", "Job
                    cat.predictors = "Satisfaction", spline.predictors = "Tampascale", nknots=3,
                    p.crit = 1, direction="FW", nimp=5, impvar="Impnr", method="D1")
 
+set.seed(100)
 res_MI_boot <- psfmi_perform(pool_lr, val_method = "boot_MI", data_orig = lbp_orig, nboot = 5,
                      p.crit=0.05, nimp_mice = 3, direction = "BW", miceImp = miceImp,
                      printFlag = FALSE)
@@ -88,25 +89,3 @@ res_MI_boot
 
 Back to [Examples]
 
-## Method boot_MI including FW selection
-
-Internal validation is done of the last model that is selected by the function `psfmi_lr`. 
-In the example below, `psfmi_lr` is used with `p.crit` set at 1, and pooling is than done 
-without variable selection, i.e. first the full model is pooled. When subsequently 
-interval validation is done with the `psfmi_perform` function including FW, FW is applied in 
-each bootstrap sample from the full model.
- 
-```{r}
-
-library(psfmi)
-pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
-                   factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
-                 nimp=5, impvar="Impnr", method="D1")
-
-res_MI_boot <- psfmi_perform(pool_lr, val_method = "boot_MI", data_orig = lbp_orig, nboot = 5,
-                     p.crit=0.05, nimp_mice = 3, direction = "FW", miceImp = miceImp,
-                     printFlag = FALSE)
-
-res_MI_boot
-
-```

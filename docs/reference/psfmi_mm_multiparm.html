@@ -159,18 +159,18 @@
     <p><code>psfmi_mm_multiparm</code> Function to pool according to D1, D2 and D3 methods</p>
     </div>
 
-    <pre class="usage"><span class='fu'>psfmi_mm_multiparm</span>(
-  <span class='kw'>data</span>,
-  <span class='kw'>nimp</span>,
-  <span class='kw'>impvar</span>,
-  <span class='kw'>Outcome</span>,
-  <span class='kw'>P</span>,
-  <span class='kw'>p.crit</span>,
-  <span class='kw'>family</span>,
-  <span class='kw'>random.eff</span>,
-  <span class='kw'>method</span>,
-  <span class='kw'>print.method</span>
-)</pre>
+    <pre class="usage"><span class='fu'>psfmi_mm_multiparm</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>nimp</span>,
+  <span class='va'>impvar</span>,
+  <span class='va'>Outcome</span>,
+  <span class='va'>P</span>,
+  <span class='va'>p.crit</span>,
+  <span class='va'>family</span>,
+  <span class='va'>random.eff</span>,
+  <span class='va'>method</span>,
+  <span class='va'>print.method</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -235,12 +235,12 @@ and dichotomous predictors Rubin’s Rules are used.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='fu'>psfmi_mm_multiparm</span>(data=<span class='kw'>ipdna_md</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>".imp"</span>, family=<span class='st'>"linear"</span>,
- P=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"bnp"</span>, <span class='st'>"dbp"</span>, <span class='st'>"lvef"</span>, <span class='st'>"bmi_cat"</span>),
- random.eff=<span class='st'>"( 1 | centre)"</span>, Outcome=<span class='st'>"sbp"</span>,
- p.crit=<span class='fl'>0.05</span>, method=<span class='st'>"D1"</span>, print.method = <span class='fl'>FALSE</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='fu'>psfmi_mm_multiparm</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>ipdna_md</span>, nimp<span class='op'>=</span><span class='fl'>5</span>, impvar<span class='op'>=</span><span class='st'>".imp"</span>, family<span class='op'>=</span><span class='st'>"linear"</span>,
+ P<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gender"</span>, <span class='st'>"bnp"</span>, <span class='st'>"dbp"</span>, <span class='st'>"lvef"</span>, <span class='st'>"bmi_cat"</span><span class='op'>)</span>,
+ random.eff<span class='op'>=</span><span class='st'>"( 1 | centre)"</span>, Outcome<span class='op'>=</span><span class='st'>"sbp"</span>,
+ p.crit<span class='op'>=</span><span class='fl'>0.05</span>, method<span class='op'>=</span><span class='st'>"D1"</span>, print.method <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 </div></pre>
   </div>

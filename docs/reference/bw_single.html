@@ -164,19 +164,19 @@ Logistic regression models.</h1>
 prediction models using selection methods LRT or Chisq.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bw_single</span>(
-  <span class='kw'>data</span>,
-  formula = <span class='kw'>NULL</span>,
-  Outcome = <span class='kw'>NULL</span>,
-  predictors = <span class='kw'>NULL</span>,
-  p.crit = <span class='fl'>1</span>,
-  cat.predictors = <span class='kw'>NULL</span>,
-  spline.predictors = <span class='kw'>NULL</span>,
-  int.predictors = <span class='kw'>NULL</span>,
-  keep.predictors = <span class='kw'>NULL</span>,
-  nknots = <span class='kw'>NULL</span>,
-  anova_test = <span class='st'>"Chisq"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bw_single</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  formula <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Outcome <span class='op'>=</span> <span class='cn'>NULL</span>,
+  predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  p.crit <span class='op'>=</span> <span class='fl'>1</span>,
+  cat.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  spline.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  int.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  keep.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nknots <span class='op'>=</span> <span class='cn'>NULL</span>,
+  anova_test <span class='op'>=</span> <span class='st'>"Chisq"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -265,13 +265,13 @@ in the model during predictor selection. All type of variables are allowed.</p><
     <p>Martijn Heymans, 2020</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='kw'>res_single</span> <span class='op'>&lt;-</span> <span class='fu'>bw_single</span>(data=<span class='kw'>lbpmilr</span>, p.crit = <span class='fl'>0.05</span>, Outcome=<span class='st'>"Chronic"</span>,
-         predictors=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Tampascale"</span>, <span class='st'>"Smoking"</span>),
-         cat.predictors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Satisfaction"</span>), anova_test = <span class='st'>"Chisq"</span>)
+    <pre class="examples"><div class='input'> <span class='va'>res_single</span> <span class='op'>&lt;-</span> <span class='fu'>bw_single</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>lbpmilr</span>, p.crit <span class='op'>=</span> <span class='fl'>0.05</span>, Outcome<span class='op'>=</span><span class='st'>"Chronic"</span>,
+         predictors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tampascale"</span>, <span class='st'>"Smoking"</span><span class='op'>)</span>,
+         cat.predictors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Satisfaction"</span><span class='op'>)</span>, anova_test <span class='op'>=</span> <span class='st'>"Chisq"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Selection correctly terminated, </span>
 #&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>         
-<span class='kw'>res_single</span><span class='op'>$</span><span class='kw'>RR_model_final</span>
+<span class='va'>res_single</span><span class='op'>$</span><span class='va'>RR_model_final</span>
 </div><div class='output co'>#&gt; $`Step 2`
 #&gt;                          Estimate  Std Error    Z value      P-value
 #&gt; (Intercept)           -13.0922408 0.65283752 -20.054363 1.848950e-89

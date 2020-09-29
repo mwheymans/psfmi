@@ -164,24 +164,24 @@ models in multiply imputed datasets</h1>
 linear mixed models in multiply imputed datasets using different selection methods.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>psfmi_mm</span>(
-  <span class='kw'>data</span>,
-  nimp = <span class='fl'>5</span>,
-  impvar = <span class='kw'>NULL</span>,
-  clusvar = <span class='kw'>NULL</span>,
-  <span class='kw'>Outcome</span>,
-  predictors = <span class='kw'>NULL</span>,
-  random.eff = <span class='kw'>NULL</span>,
-  family = <span class='st'>"linear"</span>,
-  p.crit = <span class='fl'>1</span>,
-  cat.predictors = <span class='kw'>NULL</span>,
-  spline.predictors = <span class='kw'>NULL</span>,
-  int.predictors = <span class='kw'>NULL</span>,
-  keep.predictors = <span class='kw'>NULL</span>,
-  nknots = <span class='kw'>NULL</span>,
-  method = <span class='st'>"RR"</span>,
-  print.method = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>psfmi_mm</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  nimp <span class='op'>=</span> <span class='fl'>5</span>,
+  impvar <span class='op'>=</span> <span class='cn'>NULL</span>,
+  clusvar <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>Outcome</span>,
+  predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  random.eff <span class='op'>=</span> <span class='cn'>NULL</span>,
+  family <span class='op'>=</span> <span class='st'>"linear"</span>,
+  p.crit <span class='op'>=</span> <span class='fl'>1</span>,
+  cat.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  spline.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  int.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  keep.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nknots <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='st'>"RR"</span>,
+  print.method <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -309,14 +309,14 @@ to method are shown and for continuous and dichotomous predictors Rubin’s Rule
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='kw'>pool_mm</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_mm</span>(data=<span class='kw'>ipdna_md</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>".imp"</span>, family=<span class='st'>"linear"</span>,
-  predictors=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gender"</span>, <span class='st'>"afib"</span>, <span class='st'>"sbp"</span>), clusvar = <span class='st'>"centre"</span>,
-  random.eff=<span class='st'>"( 1 | centre)"</span>, Outcome=<span class='st'>"dbp"</span>, cat.predictors = <span class='st'>"bmi_cat"</span>,
-  p.crit=<span class='fl'>0.15</span>, method=<span class='st'>"D1"</span>, print.method = <span class='fl'>FALSE</span>)
-  <span class='kw'>pool_mm</span><span class='op'>$</span><span class='kw'>RR_Model</span>
-  <span class='kw'>pool_mm</span><span class='op'>$</span><span class='kw'>multiparm</span>
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>pool_mm</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_mm</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>ipdna_md</span>, nimp<span class='op'>=</span><span class='fl'>5</span>, impvar<span class='op'>=</span><span class='st'>".imp"</span>, family<span class='op'>=</span><span class='st'>"linear"</span>,
+  predictors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gender"</span>, <span class='st'>"afib"</span>, <span class='st'>"sbp"</span><span class='op'>)</span>, clusvar <span class='op'>=</span> <span class='st'>"centre"</span>,
+  random.eff<span class='op'>=</span><span class='st'>"( 1 | centre)"</span>, Outcome<span class='op'>=</span><span class='st'>"dbp"</span>, cat.predictors <span class='op'>=</span> <span class='st'>"bmi_cat"</span>,
+  p.crit<span class='op'>=</span><span class='fl'>0.15</span>, method<span class='op'>=</span><span class='st'>"D1"</span>, print.method <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  <span class='va'>pool_mm</span><span class='op'>$</span><span class='va'>RR_Model</span>
+  <span class='va'>pool_mm</span><span class='op'>$</span><span class='va'>multiparm</span>
+<span class='op'>}</span>
 
 </div></pre>
   </div>

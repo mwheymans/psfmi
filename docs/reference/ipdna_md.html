@@ -159,7 +159,7 @@
     <p>5 imputed datasets of the first 10 centres of the IPDNa dataset in the micemd package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>ipdna_md</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ipdna_md</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -183,11 +183,11 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>ipdna_md</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ipdna_md</span><span class='op'>)</span>
 <span class='co'>## maybe str(ipdna_md)</span>
 
 <span class='co'>#summary per study</span>
-<span class='fu'><a href='https://rdrr.io/r/base/by.html'>by</a></span>(<span class='kw'>ipdna_md</span>, <span class='kw'>ipdna_md</span><span class='op'>$</span><span class='kw'>centre</span>, <span class='kw'>summary</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/by.html'>by</a></span><span class='op'>(</span><span class='va'>ipdna_md</span>, <span class='va'>ipdna_md</span><span class='op'>$</span><span class='va'>centre</span>, <span class='va'>summary</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; ipdna_md$centre: 1
 #&gt;       .imp        .id            centre  gender        bmi       
 #&gt;  Min.   :1   Min.   :  1.0   Min.   :1   0:1015   Min.   :11.59  

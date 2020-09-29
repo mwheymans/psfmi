@@ -159,16 +159,16 @@
     <p><code>pool_performance</code> Pooling performance measures</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pool_performance</span>(
-  <span class='kw'>data</span>,
-  <span class='kw'>nimp</span>,
-  <span class='kw'>impvar</span>,
-  <span class='kw'>Outcome</span>,
-  <span class='kw'>predictors</span>,
-  <span class='kw'>cal.plot</span>,
-  <span class='kw'>plot.indiv</span>,
-  groups_cal = <span class='fl'>10</span>
-)</pre>
+    <pre class="usage"><span class='fu'>pool_performance</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>nimp</span>,
+  <span class='va'>impvar</span>,
+  <span class='va'>Outcome</span>,
+  <span class='va'>predictors</span>,
+  <span class='va'>cal.plot</span>,
+  <span class='va'>plot.indiv</span>,
+  groups_cal <span class='op'>=</span> <span class='fl'>10</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -217,12 +217,12 @@ can be chosen.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='kw'>perf</span> <span class='op'>&lt;-</span> <span class='fu'>pool_performance</span>(data=<span class='kw'>lbpmilr</span>, nimp=<span class='fl'>5</span>, impvar=<span class='st'>"Impnr"</span>, 
- Outcome = <span class='st'>"Chronic"</span>, predictors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>, <span class='st'>"rcs(Tampascale, 3)"</span>, 
- <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span>, <span class='st'>"factor(Carrying)"</span>), 
- cal.plot=<span class='fl'>TRUE</span>, plot.indiv=<span class='fl'>FALSE</span>)
+    <pre class="examples"><div class='input'> <span class='va'>perf</span> <span class='op'>&lt;-</span> <span class='fu'>pool_performance</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>lbpmilr</span>, nimp<span class='op'>=</span><span class='fl'>5</span>, impvar<span class='op'>=</span><span class='st'>"Impnr"</span>, 
+ Outcome <span class='op'>=</span> <span class='st'>"Chronic"</span>, predictors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gender"</span>, <span class='st'>"Pain"</span>, <span class='st'>"rcs(Tampascale, 3)"</span>, 
+ <span class='st'>"Smoking"</span>, <span class='st'>"Function"</span>, <span class='st'>"Radiation"</span>, <span class='st'>"Age"</span>, <span class='st'>"factor(Carrying)"</span><span class='op'>)</span>, 
+ cal.plot<span class='op'>=</span><span class='cn'>TRUE</span>, plot.indiv<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='pool_performance-1.png' alt='' width='700' height='433' /></div><div class='input'> 
- <span class='kw'>perf</span><span class='op'>$</span><span class='kw'>ROC_pooled</span>
+ <span class='va'>perf</span><span class='op'>$</span><span class='va'>ROC_pooled</span>
 </div><div class='output co'>#&gt;             95% Low    AUC 95% Up
 #&gt; AUC (logit)  0.8044 0.8763 0.9243</div><div class='input'> 
 </div></pre>

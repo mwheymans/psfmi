@@ -112,7 +112,7 @@
       <h1 data-toc-skip>Multiple Imputation and Cross-validation - Method cv_MI_RR</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-09-24</h4>
+            <h4 class="date">2020-09-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/cv_MI_RR.Rmd"><code>vignettes/cv_MI_RR.Rmd</code></a></small>
       <div class="hidden name"><code>cv_MI_RR.Rmd</code></div>
@@ -149,15 +149,14 @@ Schematic overview of the cv_MI_RR method
 <a href="#method-cv_mi_rr-1" class="anchor"></a>Method cv_MI_RR</h2>
 <p>To run the cv_MI_RR method use:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
-<span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, formula = <span class="kw">Chronic</span> <span class="op">~</span> <span class="kw">Pain</span> <span class="op">+</span> <span class="kw">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span>(<span class="kw">Tampascale</span>, <span class="fl">3</span>) <span class="op">+</span>
-                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">Satisfaction</span>) <span class="op">+</span> <span class="kw">Smoking</span>, p.crit = <span class="fl">1</span>, direction=<span class="st">"BW"</span>,
-                   nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, method=<span class="st">"D1"</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
+<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"BW"</span>,
+                   nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">200</span>)
-<span class="kw">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="kw">pool_lr</span>, val_method = <span class="st">"cv_MI_RR"</span>, data_orig = <span class="kw">lbp_orig</span>, folds = <span class="fl">3</span>,
-                     p.crit=<span class="fl">1</span>, BW=<span class="fl">FALSE</span>,  nimp_mice = <span class="fl">5</span>, miceImp = <span class="kw">miceImp</span>, printFlag = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>
+<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">3</span>,
+                     p.crit<span class="op">=</span><span class="fl">1</span>, BW<span class="op">=</span><span class="cn">FALSE</span>,  nimp_mice <span class="op">=</span> <span class="fl">5</span>, miceImp <span class="op">=</span> <span class="va">miceImp</span>, printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## fold 1</code></pre>
 <pre><code>## 
@@ -165,8 +164,7 @@ Schematic overview of the cv_MI_RR method
 <pre><code>## 
 ## fold 3</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">res_cv</span>
-</pre></div>
+<span class="va">res_cv</span></pre></div>
 <pre><code>## $stats
 ##                  Train      Test
 ## AUC          0.9010971 0.8730282
@@ -183,15 +181,14 @@ Schematic overview of the cv_MI_RR method
 <a href="#method-cv_mi_rr-including-bw-selection" class="anchor"></a>Method cv_MI_RR including BW selection</h2>
 <p>To run the cv_MI_RR method including backward selection:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mwheymans.github.io/psfmi">psfmi</a></span>)
-<span class="kw">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span>(data=<span class="kw">lbpmilr</span>, formula = <span class="kw">Chronic</span> <span class="op">~</span> <span class="kw">Pain</span> <span class="op">+</span> <span class="kw">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span>(<span class="kw">Tampascale</span>, <span class="fl">3</span>) <span class="op">+</span>
-                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">Satisfaction</span>) <span class="op">+</span> <span class="kw">Smoking</span>, p.crit = <span class="fl">1</span>, direction=<span class="st">"BW"</span>,
-                   nimp=<span class="fl">5</span>, impvar=<span class="st">"Impnr"</span>, method=<span class="st">"D1"</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
+<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"BW"</span>,
+                   nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">200</span>)
-<span class="kw">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span>(<span class="kw">pool_lr</span>, val_method = <span class="st">"cv_MI_RR"</span>, data_orig = <span class="kw">lbp_orig</span>, folds = <span class="fl">3</span>,
-                     p.crit=<span class="fl">0.05</span>, BW=<span class="fl">TRUE</span>, nimp_mice = <span class="fl">5</span>, miceImp = <span class="kw">miceImp</span>, printFlag = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>
+<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">3</span>,
+                     p.crit<span class="op">=</span><span class="fl">0.05</span>, BW<span class="op">=</span><span class="cn">TRUE</span>, nimp_mice <span class="op">=</span> <span class="fl">5</span>, miceImp <span class="op">=</span> <span class="va">miceImp</span>, printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## fold 1</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
@@ -218,8 +215,7 @@ Schematic overview of the cv_MI_RR method
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="kw">res_cv</span>
-</pre></div>
+<span class="va">res_cv</span></pre></div>
 <pre><code>## $stats
 ##                  Train      Test
 ## AUC          0.8811653 0.8310626
