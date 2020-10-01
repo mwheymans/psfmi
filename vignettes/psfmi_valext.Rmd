@@ -2,8 +2,7 @@
 title: "Workflow to Develop and Validate a Prediction model with `mice` and `psfmi`"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
-output:
-  bookdown::html_document2
+output: github_document
 vignette: >
   %\VignetteIndexEntry{psfmi_valext}
   %\VignetteEngine{knitr::rmarkdown}
@@ -19,10 +18,11 @@ a (logistic) regression prediction model with `mice` and `psfmi`.
 
    + [Step 1 - Install the psfmi and mice package]
    + [Step 2 - Impute the missing data with mice]
-   + [Step 3 - Develop the model] 
-   + [Step 4 - Internally validate the model]
-   + [Step 5 - Shrink pooled coefficients and determine new intercept]
-   + [Step 6 - Externally validate the model]
+   + [Step 3 - Develop the model]
+   + [Step 4 - Determine model performance]
+   + [Step 5 - Internally validate the model]
+   + [Step 6 - Shrink pooled coefficients and determine new intercept]
+   + [Step 7 - Externally validate the model]
    
 
 ## Step 1 - Install the psfmi and mice package {-}
@@ -123,7 +123,27 @@ The same result can be obtained by using the `formula` setting in the `psfmi_lr`
 
 Back to [Steps]
 
-## Step 4 - Internally validate the model {-}
+## Step 4 - Determine model performance {-}
+
+The performance of the model selected at step 3 can be determined by using the
+`pool_performance` function.
+
+```{r}
+
+  library(psfmi)
+
+  pool_select <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", 
+  formula = Chronic ~ Pain + Radiation + factor(Satisfaction) + factor(Carrying),  
+  p.crit = 1, method="D1")
+  
+  perf <- pool_performance(data=data_comp, nimp=5, impvar=".imp", 
+  Outcome = "Chronic", predictors = c("Pain", "Radiation", "factor(Satisfaction)",
+             "factor(Carrying)"), cal.plot=TRUE, plot.indiv=FALSE, groups_cal = 10)
+  perf
+
+```
+
+## Step 5 - Internally validate the model {-}
 
 To internally validate the model we use the `psfmi_perform` function. With this function five different
 methods can be used to internally validate models in MI data [see these Vignettes](https://mwheymans.github.io/psfmi/articles/),
@@ -156,7 +176,7 @@ res_cv
 
 Back to [Steps]
 
-## Step 5 - Shrink pooled coefficients and determine new intercept {-}
+## Step 6 - Shrink pooled coefficients and determine new intercept {-}
 
 We can use the slope value of 0.864415077 that was estimated at the previous step as a 
 shrinkage factor to prevent our model from being overfitted in new data. 
@@ -181,7 +201,7 @@ The last step is to externally validate this adjusted model.
 
 Back to [Steps]
 
-## Step 6 - Externally validate the model {-}
+## Step 7 - Externally validate the model {-}
 
 We validate the model in an external dataset that is imputed five times
 due to missing data. 
