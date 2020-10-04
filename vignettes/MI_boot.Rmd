@@ -3,7 +3,7 @@ title: "Multiple Imputation and Bootstrapping - Method MI_boot"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  bookdown::html_document2
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{MI_boot}
   %\VignetteEngine{knitr::rmarkdown}

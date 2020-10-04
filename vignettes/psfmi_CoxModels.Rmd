@@ -3,7 +3,7 @@ title: "Pooling and Selection of Cox Regression Models"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  bookdown::html_document2
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{psfmi_CoxModels}
   %\VignetteEngine{knitr::rmarkdown}

@@ -3,7 +3,7 @@ title: "Multiple Imputation and Cross-validation - Method cv_MI_RR"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  bookdown::html_document2
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{cv_MI_RR}
   %\VignetteEngine{knitr::rmarkdown}

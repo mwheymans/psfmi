@@ -1,9 +1,9 @@
 ---
-title: "Workflow to Develop and Validate a Prediction model with `mice` and `psfmi`"
+title: "Workflow to Develop and Validate a Prediction model with mice and psfmi"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  bookdown::html_document2
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{psfmi_valext}
   %\VignetteEngine{knitr::rmarkdown}
@@ -30,19 +30,19 @@ a (logistic) regression prediction model with `mice` and `psfmi`.
 
 You can install the released version of psfmi with:
 
-``` {r}
+``` r
 install.packages("psfmi")
 ```
 And the development version from [GitHub](https://github.com/) with:
 
-``` {r}
+``` r
 # install.packages("devtools")
 devtools::install_github("mwheymans/psfmi")
 ```
 
 You can install the released version of mice with:
 
-``` {r}
+``` r
 install.packages("mice")
 
 ``` 
@@ -173,7 +173,6 @@ res_cv <- psfmi_perform(pool_val, val_method = "cv_MI_RR", data_orig = lbp_orig,
 
 res_cv
 
-  
 ```
 
 Back to [Steps]
