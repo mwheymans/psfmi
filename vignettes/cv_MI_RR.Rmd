@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{cv_MI_RR}
+  %\VignetteIndexEntry{Multiple Imputation and Cross-validation - Method cv_MI_RR}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

@@ -3,9 +3,9 @@ title: "Stability analysis after Multiple Imputation"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  bookdown::html_document2
+  rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{psfmi_StabilityAnalysis}
+  %\VignetteIndexEntry{Stability analysis after Multiple Imputation}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

@@ -3,9 +3,9 @@ title: "Multiple Imputation and Cross-validation - The MI_cv_naive method"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  bookdown::html_document2
+  rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{MI_cv_naive}
+  %\VignetteIndexEntry{Multiple Imputation and Cross-validation - The MI_cv_naive method}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
