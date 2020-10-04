@@ -130,7 +130,7 @@ Back to [Steps]
 The performance of the model selected at step 3 can be determined by using the
 `pool_performance` function.
 
-```{r}
+```{r plot}
 
   library(psfmi)
 
