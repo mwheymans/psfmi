@@ -3,7 +3,7 @@ title: "Workflow to Develop and Validate a Prediction model with `mice` and `psf
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
-  html_document: default
+  bookdown::html_document2
 vignette: >
   %\VignetteIndexEntry{psfmi_valext}
   %\VignetteEngine{knitr::rmarkdown}
