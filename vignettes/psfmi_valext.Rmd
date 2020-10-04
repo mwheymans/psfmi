@@ -130,7 +130,7 @@ Back to [Steps]
 The performance of the model selected at step 3 can be determined by using the
 `pool_performance` function.
 
-```{r plot}
+```{r plot, fig.height = 3, fig.width = 5}
 
   library(psfmi)
 
@@ -207,7 +207,7 @@ Back to [Steps]
 We validate the model in an external dataset that is imputed five times
 due to missing data. 
 
-```{r}
+```{r plot2, fig.height = 3, fig.width = 5}
 
 library(psfmi)
 
