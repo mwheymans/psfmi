@@ -10,6 +10,13 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
+```{r, include = FALSE, message = FALSE}
+library(knitr)
+opts_chunk$set(tidy = FALSE, cache = FALSE)
+library(mice)
+library(psfmi)
+```
+
 # Introduction {-}
 
 This vignette shows how to develop, internally and externally validate
@@ -58,9 +65,6 @@ datasets may be increased (see on-line book:
 
 ```{r}
 
-  library(mice)
-  library(psfmi)
-
   imp <- mice(lbp_orig, m=5, maxit=10) 
   
 ```
@@ -72,8 +76,6 @@ values) is not included in that long dataset.
 
 ```{r}
 
-  library(mice)
-  
   data_comp <- complete(imp, action = "long", include = FALSE)
   
 ```
@@ -91,8 +93,6 @@ When the setting `direction` is changed to FW, forward selection is done.
 
 ```{r}
 
-  library(psfmi)
-
   pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", Outcome="Chronic",
   predictors=c("Gender", "Age", "JobControl", "Tampascale", "Pain", "Radiation",
   "JobDemands", "SocialSupport", "Smoking"), cat.predictors = c("Satisfaction", "Carrying"), 
@@ -108,8 +108,6 @@ When the setting `direction` is changed to FW, forward selection is done.
 The same result can be obtained by using the `formula` setting in the `psfmi_lr` function 
 
 ```{r}
-
-  library(psfmi)
 
   pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", 
   formula = Chronic ~ Gender + Age + JobControl + Tampascale + Pain + Radiation +
@@ -131,8 +129,6 @@ The performance of the model selected at step 3 can be determined by using the
 `pool_performance` function.
 
 ```{r plot, fig.height = 3, fig.width = 5}
-
-  library(psfmi)
 
   pool_select <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", 
   formula = Chronic ~ Pain + Radiation + factor(Satisfaction) + factor(Carrying),  
@@ -160,18 +156,16 @@ is one of the main reasons that prediction models are over-fitted.
 
 ```{r}
 
-library(psfmi)
-
-pool_val <- psfmi_lr(data=data_comp, formula = Chronic ~ Gender + Age + JobControl + Tampascale + 
+  pool_val <- psfmi_lr(data=data_comp, formula = Chronic ~ Gender + Age + JobControl + Tampascale + 
                       Pain + Radiation + JobDemands + SocialSupport + Smoking + factor(Satisfaction) + 
                       factor(Carrying) + rcs(Function, 3), p.crit = 1, direction="BW",
                       nimp=5, impvar=".imp", method="D1")
 
-set.seed(200)
-res_cv <- psfmi_perform(pool_val, val_method = "cv_MI_RR", data_orig = lbp_orig, folds = 3,
+  set.seed(200)
+  res_cv <- psfmi_perform(pool_val, val_method = "cv_MI_RR", data_orig = lbp_orig, folds = 3,
                      p.crit=0.05, BW=TRUE, nimp_mice = 10, miceImp = miceImp, printFlag = FALSE)
 
-res_cv
+  res_cv
 
 ```
 
@@ -189,12 +183,10 @@ new intercept value.
 
 ```{r}
 
-library(psfmi)
+  res <- pool_intadj(pool_lr, shrinkage_factor = 0.864415077)
 
-res <- pool_intadj(pool_lr, shrinkage_factor = 0.864415077)
-
-res$int_adj
-res$coef_shrink_pooled
+  res$int_adj
+  res$coef_shrink_pooled
 
 ```
 
@@ -209,20 +201,18 @@ due to missing data.
 
 ```{r plot2, fig.height = 3, fig.width = 5}
 
-library(psfmi)
-
- res_extval <- mivalext_lr(data.val = lbpmi_extval, nimp = 5, impvar = "Impnr",
-  Outcome = "Chronic", predictors = pool_lr$predictors_final,
-  lp.orig = c(res$int_adj, res$coef_shrink_pooled),
-  cal.plot = TRUE)
+   res_extval <- mivalext_lr(data.val = lbpmi_extval, nimp = 5, impvar = "Impnr",
+    Outcome = "Chronic", predictors = pool_lr$predictors_final,
+    lp.orig = c(res$int_adj, res$coef_shrink_pooled),
+    cal.plot = TRUE)
  
- res_extval$ROC
+  res_extval$ROC
  
- res_extval$R2_fixed
+  res_extval$R2_fixed
  
- res_extval$HLtest
+  res_extval$HLtest
  
- res_extval$LP_pooled_ext
+  res_extval$LP_pooled_ext
  
 ```
 
