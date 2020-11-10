@@ -27,26 +27,26 @@ pool_reclassification <-
     reclass <-
       lapply(datasets, function(x) {
         
-        x1 <-
+        pred1 <-
           x[, 1]
-        x2 <-
+        pred2 <-
           x[, 2]
         y <-
           x[, 3]
         
         # NRI categorical
         c1 <-
-          cut(x1, breaks = cutoff, include.lowest = TRUE, right = FALSE)
+          cut(pred1, breaks = cutoff, include.lowest = TRUE, right = FALSE)
         c2 <-
-          cut(x2, breaks = cutoff, include.lowest = TRUE, right = FALSE)
+          cut(pred2, breaks = cutoff, include.lowest = TRUE, right = FALSE)
         c11 <-
           factor(c1, levels = levels(c1), labels = c(1:length(levels(c1))))
         c22 <-
           factor(c2, levels = levels(c2), labels = c(1:length(levels(c2))))
         
-        x1_cat <-
+        pred1_cat <-
           as.numeric(c11) * (1/(length(levels(c11))))
-        x2_cat <-
+        pred2_cat <-
           as.numeric(c22) * (1/(length(levels(c22))))
         
         n <-
@@ -65,7 +65,7 @@ pool_reclassification <-
           sum(b)
         
         # nri categorical
-        d_cat <- x2_cat - x1_cat
+        d_cat <- pred2_cat - pred1_cat
         nup.ev_cat <- sum(d_cat[a] > 0)
         pup.ev_cat <- nup.ev_cat/na
         nup.ne_cat <- sum(d_cat[b] > 0)
@@ -86,7 +86,7 @@ pool_reclassification <-
         se.nri_cat <- sqrt(v.nri.ev_cat + v.nri.ne_cat)
         
         # nri continuous and idi
-        d <- x2 - x1
+        d <- pred2 - pred1
         nup.ev <- sum(d[a] > 0)
         pup.ev <- nup.ev/na
         nup.ne <- sum(d[b] > 0)
