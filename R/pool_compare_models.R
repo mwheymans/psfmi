@@ -54,13 +54,13 @@
 #'  Outcome="Chronic", predictors=c("Radiation"), cat.predictors = ("Satisfaction"),
 #'  int.predictors = NULL, spline.predictors="Tampascale", nknots=3, method="D1")
 #'
-#'  res_compare <- pool_compare_model(pool_lr, compare.predictors = c("Pain", "Duration", 
+#'  res_compare <- pool_compare_models(pool_lr, compare.predictors = c("Pain", "Duration", 
 #'  "Function"), cutoff = 0.4)
 #'  res_compare
 #'
 #'  
 #' @export
-pool_compare_model <- function(pobj,
+pool_compare_models <- function(pobj,
                                compare.predictors = NULL,
                                compare.group = NULL,
                                cutoff = 0.5,
@@ -390,8 +390,9 @@ pool_compare_model <- function(pobj,
   
   compobj <-
     list(D3_stats=D3_stats, stats_compare=stats_compare,
-         NRI=nri_res, AUC = auc_stats, AUC_diff = auc_pool_diff,
-         formula_test=fm_step, cutoff=cutoff, null_model = fm_null,
-         compare_predictors = P_compare, compare_group = compare.group)
+         NRI=nri_res, cutoff=cutoff, AUC = auc_stats, 
+         AUC_diff = auc_pool_diff, formula_test=fm_step, 
+         null_model = fm_null, compare_predictors = P_compare, 
+         compare_group = compare.group)
   compobj
 }
