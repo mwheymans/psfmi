@@ -1,4 +1,4 @@
-#' Calculated the scaled Brier score
+#' Calculates the scaled Brier score
 #'
 #' @param obs Observed outcomes.  
 #' @param pred Predicted outcomes in the form of probabilities.

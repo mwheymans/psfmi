@@ -2,7 +2,7 @@
 % Please edit documentation in R/scaled_brier.R
 \name{scaled_brier}
 \alias{scaled_brier}
-\title{Calculated the scaled Brier score}
+\title{Calculates the scaled Brier score}
 \usage{
 scaled_brier(obs, pred)
 }
@@ -15,7 +15,7 @@ scaled_brier(obs, pred)
 The value for the scaled Brier score.
 }
 \description{
-Calculated the scaled Brier score
+Calculates the scaled Brier score
 }
 \seealso{
 \code{\link{psfmi_perform}}, \code{\link{pool_performance}}

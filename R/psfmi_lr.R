@@ -35,7 +35,7 @@
 #'   See details for more information. Default is "RR".
 #' @param direction The direction of predictor selection, "BW" means backward selection and "FW"
 #'   means forward selection.
-
+#'
 #' @details The basic pooling procedure to derive pooled coefficients, standard errors, 95
 #'  confidence intervals and p-values is Rubin's Rules (RR). However, RR is only possible when
 #'  the model included continuous or dichotomous variables. Specific procedures are
