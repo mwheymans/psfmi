@@ -83,9 +83,9 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
       HR <-
         exp(out.res$estimate)
       lower.EXP <-
-        exp(out.res$estimate - (1.96*out.res$std.error))
+        exp(out.res$estimate - (qt(0.975, out.res$df)*out.res$std.error))
       upper.EXP <-
-        exp(out.res$estimate + (1.96*out.res$std.error))
+        exp(out.res$estimate + (qt(0.975, out.res$df)*out.res$std.error))
       model.res <-
         data.frame(cbind(out.res, HR, lower.EXP, upper.EXP))
       RR.model[[k]] <-
@@ -138,9 +138,9 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
         HR <-
           exp(out.res1$estimate)
         lower.EXP <-
-          exp(out.res1$estimate - (1.96*out.res1$std.error))
+          exp(out.res1$estimate - (qt(0.975, out.res1$df)*out.res1$std.error))
         upper.EXP <-
-          exp(out.res1$estimate + (1.96*out.res1$std.error))
+          exp(out.res1$estimate + (qt(0.975, out.res1$df)*out.res1$std.error))
         model.res1 <-
           data.frame(cbind(out.res1, HR, lower.EXP, upper.EXP))
         RR.model[[k]] <-
@@ -295,9 +295,9 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
       HR <-
         exp(out.res$estimate)
       lower.EXP <-
-        exp(out.res$estimate - (1.96*out.res$std.error))
+        exp(out.res$estimate - (qt(0.975, out.res$df)*out.res$std.error))
       upper.EXP <-
-        exp(out.res$estimate + (1.96*out.res$std.error))
+        exp(out.res$estimate + (qt(0.975, out.res$df)*out.res$std.error))
       model.res <-
         data.frame(cbind(out.res, HR, lower.EXP, upper.EXP))
       RR.model[[k+1]] <-

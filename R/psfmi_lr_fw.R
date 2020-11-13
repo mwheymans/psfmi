@@ -96,8 +96,8 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
         # Rubin's Rules
         out.res <- summary(pool(fit))
         OR <- exp(out.res$estimate)
-        lower.EXP <- exp(out.res$estimate - (1.96*out.res$std.error))
-        upper.EXP <- exp(out.res$estimate + (1.96*out.res$std.error))
+        lower.EXP <- exp(out.res$estimate - (qt(0.975, out.res$df)*out.res$std.error))
+        upper.EXP <- exp(out.res$estimate + (qt(0.975, out.res$df)*out.res$std.error))
         model.res <- data.frame(cbind(out.res, OR, lower.EXP, upper.EXP))
         RR.model[[k]] <- model.res
       }
@@ -137,8 +137,8 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
 
         out.res <- summary(pool(fit1))
         OR <- exp(out.res$estimate)
-        lower.EXP <- exp(out.res$estimate - (1.96*out.res$std.error))
-        upper.EXP <- exp(out.res$estimate + (1.96*out.res$std.error))
+        lower.EXP <- exp(out.res$estimate - (qt(0.975, out.res$df)*out.res$std.error))
+        upper.EXP <- exp(out.res$estimate + (qt(0.975, out.res$df)*out.res$std.error))
         model.res <- data.frame(cbind(out.res, OR, lower.EXP, upper.EXP))
         RR.model[[k]] <- model.res
         names(RR.model)[k] <- paste("Step", j)
@@ -223,8 +223,8 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
 
         out.res1 <- summary(pool(fit1))
         OR <- exp(out.res1$estimate)
-        lower.EXP <- exp(out.res1$estimate - (1.96*out.res1$std.error))
-        upper.EXP <- exp(out.res1$estimate + (1.96*out.res1$std.error))
+        lower.EXP <- exp(out.res1$estimate - (qt(0.975, out.res1$df)*out.res1$std.error))
+        upper.EXP <- exp(out.res1$estimate + (qt(0.975, out.res1$df)*out.res1$std.error))
         model.res1 <- data.frame(cbind(out.res1, OR, lower.EXP, upper.EXP))
         RR.model[[k]] <- model.res1
         names(RR.model)[k] <- paste("Step", j)
@@ -369,8 +369,8 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
         # Rubin's Rules
         out.res <- summary(pool(fit))
         OR <- exp(out.res$estimate)
-        lower.EXP <- exp(out.res$estimate - (1.96*out.res$std.error))
-        upper.EXP <- exp(out.res$estimate + (1.96*out.res$std.error))
+        lower.EXP <- exp(out.res$estimate - (qt(0.975, out.res$df)*out.res$std.error))
+        upper.EXP <- exp(out.res$estimate + (qt(0.975, out.res$df)*out.res$std.error))
         model.res <- data.frame(cbind(out.res, OR, lower.EXP, upper.EXP))
         RR_model_select <- list(model.res)
         names(RR_model_select)[[1]] <- paste("Step", 0, " - no variables entered - ")

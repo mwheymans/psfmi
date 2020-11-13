@@ -96,8 +96,8 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
 
         out.res <- suppressWarnings(summary(pool(fit)))
         HR <- exp(out.res$estimate)
-        lower.EXP <- exp(out.res$estimate - (1.96*out.res$std.error))
-        upper.EXP <- exp(out.res$estimate + (1.96*out.res$std.error))
+        lower.EXP <- exp(out.res$estimate - (qt(0.975, out.res$df)*out.res$std.error))
+        upper.EXP <- exp(out.res$estimate + (qt(0.975, out.res$df)*out.res$std.error))
         model.res <- data.frame(cbind(out.res, HR, lower.EXP, upper.EXP))
         RR.model[[k]] <- model.res
       }
@@ -137,8 +137,8 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
 
         out.res <- suppressWarnings(summary(pool(fit1)))
         HR <- exp(out.res$estimate)
-        lower.EXP <- exp(out.res$estimate - (1.96*out.res$std.error))
-        upper.EXP <- exp(out.res$estimate + (1.96*out.res$std.error))
+        lower.EXP <- exp(out.res$estimate - (qt(0.975, out.res$df)*out.res$std.error))
+        upper.EXP <- exp(out.res$estimate + (qt(0.975, out.res$df)*out.res$std.error))
         model.res <- data.frame(cbind(out.res, HR, lower.EXP, upper.EXP))
         RR.model[[k]] <- model.res
         names(RR.model)[k] <- paste("Step", j)
