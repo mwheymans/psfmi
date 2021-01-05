@@ -4,14 +4,7 @@
 \alias{MI_cv_naive}
 \title{Naive method for Cross-validation in Multiply Imputed datasets}
 \usage{
-MI_cv_naive(
-  pobj,
-  folds = 3,
-  p.crit = 1,
-  BW = FALSE,
-  anova_test = "LRT",
-  cv_naive_appt = TRUE
-)
+MI_cv_naive(pobj, folds = 3, p.crit = 1, BW = FALSE, cv_naive_appt = TRUE)
 }
 \arguments{
 \item{pobj}{An object of class \code{pmods} (pooled models), produced by a previous
@@ -24,9 +17,6 @@ cross-validation. When set at 1, pooling and internal validation is done without
 backward selection.}
 
 \item{BW}{If TRUE backward selection is conducted within cross-validation. Default is FALSE.}
-
-\item{anova_test}{Test statistic used for backward selection.
-Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible..}
 
 \item{cv_naive_appt}{Default is TRUE for showing the cross-validation apparent (train) and
 test results. Set to FALSE to only give test results.}

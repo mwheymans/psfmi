@@ -4,7 +4,7 @@
 \alias{cv_MI}
 \title{Cross-validation in Multiply Imputed datasets}
 \usage{
-cv_MI(pobj, data_orig, folds, nimp_cv, BW, p.crit, anova_test, miceImp, ...)
+cv_MI(pobj, data_orig, folds, nimp_cv, BW, p.crit, miceImp, ...)
 }
 \arguments{
 \item{pobj}{An object of class \code{pmods} (pooled models), produced by a previous
@@ -21,9 +21,6 @@ call to \code{psfmi_lr}.}
 \item{p.crit}{A numerical scalar. P-value selection criterium used for backward during
 cross-validation. When set at 1, pooling and internal validation is done without
 backward selection.}
-
-\item{anova_test}{Test statistic used for backward selection.
-Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible.}
 
 \item{miceImp}{Wrapper function around the \code{mice} function.}
 

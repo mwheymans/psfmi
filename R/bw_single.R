@@ -2,7 +2,7 @@
 #' Logistic regression models.
 #'
 #' \code{bw_single} Backward selection of Logistic regression
-#' prediction models using selection methods LRT or Chisq.
+#' prediction models using as selection method the likelihood-ratio Chi-square value.
 #'
 #' @param data A data frame. 
 #' @param formula A formula object to specify the model as normally used by glm.
@@ -22,8 +22,7 @@
 #' @param keep.predictors A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. All type of variables are allowed.
 #' @param nknots A numerical vector that defines the number of knots for each spline predictor separately.
-#' @param anova_test a character string, matching one of "Chisq" or "LRT".
-
+#'
 #' @details 
 #'  A typical formula object has the form \code{Outcome ~ terms}. Categorical variables has to
 #'  be defined as \code{Outcome ~ factor(variable)}, restricted cubic spline variables as
@@ -47,7 +46,7 @@
 #' @examples
 #'  res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
 #'          predictors=c("Tampascale", "Smoking"),
-#'          cat.predictors = c("Satisfaction"), anova_test = "Chisq")
+#'          cat.predictors = c("Satisfaction"))
 #'          
 #' res_single$RR_model_final
 #'
@@ -65,8 +64,7 @@ bw_single <- function(data,
          spline.predictors=NULL,
          int.predictors=NULL,
          keep.predictors=NULL,
-         nknots=NULL,
-         anova_test="Chisq")
+         nknots=NULL)
 {
 call <- match.call()
 
@@ -269,15 +267,11 @@ RR.model <- df.chi <- P_rm_step <- fm_step <- imp.dt <- multiparm <- list()
     fm <-
       as.formula(paste(Y, paste(P, collapse = "+")))
 
-      fit <- list()
+      #fit <- list()
         fit <-
           glm(fm, data = data, family = binomial)
-        if(anova_test=="Chisq")
-          chi_test <-
-          anova(fit, test = "Chisq")
-        if(anova_test=="LRT")
-          chi_test <-
-          anova(fit, test = "LRT")
+        chi_test <-
+          car::Anova(fit)
 
       # Rubin's Rules
       out.res <-
@@ -300,16 +294,16 @@ RR.model <- df.chi <- P_rm_step <- fm_step <- imp.dt <- multiparm <- list()
       p.pool <-
         data.frame(matrix(0, length(P), 2))
       p.pool[, 1] <-
-        chi_test$`Pr(>Chi)`[-1]
+        chi_test$`Pr(>Chisq)`
       p.pool[, 2] <-
-        chi_test$Deviance[-1]
+        chi_test$`LR Chisq`
 
       #P <-
       #  clean_P(P)
       row.names(p.pool) <-
         P
       names(p.pool) <-
-        c("P-value", "Deviance")
+        c("P-value", "LR Chisq")
 
       # Extract regression formula's
       fm_step[[k]] <-
@@ -503,7 +497,7 @@ pobjbw <-
        multiparm = multiparm_step, formula_step = fm_step_total, 
        formula_final = fm_step_final, formula_initial = formula_initial,
        predictors_in = P_included, predictors_out = P_remove, Outcome = Outcome,
-       anova_test = anova_test, p.crit = p.crit, call = call, model_type = "binomial",
+       p.crit = p.crit, call = call, model_type = "binomial",
        predictors_final = predictors_final, predictors_initial = P_orig)
 class(pobjbw) <- "smods"
 return(pobjbw)

@@ -12,8 +12,6 @@
 #' @param p.crit A numerical scalar. P-value selection criterium used for backward during
 #'  cross-validation. When set at 1, pooling and internal validation is done without
 #'  backward selection.
-#' @param anova_test Test statistic used for backward selection.
-#'  Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible.
 #' @param miceImp Wrapper function around the \code{mice} function.
 #' @param ...  Arguments as predictorMatrix, seed, maxit, etc that can be adjusted for
 #'  the \code{mice} function.
@@ -23,7 +21,7 @@
 #' @keywords internal 
 #' 
 #' @export
-cv_MI <- function(pobj, data_orig, folds, nimp_cv, BW, p.crit, anova_test, miceImp, ...)
+cv_MI <- function(pobj, data_orig, folds, nimp_cv, BW, p.crit, miceImp, ...)
 {
 
   call <- match.call()
@@ -75,8 +73,7 @@ cv_MI <- function(pobj, data_orig, folds, nimp_cv, BW, p.crit, anova_test, miceI
       if(BW==TRUE){
         pobj_bw <-
           bw_single(formula = fm_train_temp, data =  data_compl[-idfold[[f]], ],
-                    p.crit = p.crit, keep.predictors = pobj$keep.predictors,
-                    anova_test = anova_test)
+                    p.crit = p.crit, keep.predictors = pobj$keep.predictors)
 
         if(is_empty(pobj_bw$predictors_final))
           pobj_bw$predictors_final <- 1

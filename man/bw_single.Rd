@@ -15,8 +15,7 @@ bw_single(
   spline.predictors = NULL,
   int.predictors = NULL,
   keep.predictors = NULL,
-  nknots = NULL,
-  anova_test = "Chisq"
+  nknots = NULL
 )
 }
 \arguments{
@@ -47,8 +46,6 @@ an interaction pair, separated by a “:” symbol.}
 in the model during predictor selection. All type of variables are allowed.}
 
 \item{nknots}{A numerical vector that defines the number of knots for each spline predictor separately.}
-
-\item{anova_test}{a character string, matching one of "Chisq" or "LRT".}
 }
 \value{
 An object of class \code{smods} (single models) from
@@ -64,7 +61,7 @@ An object of class \code{smods} (single models) from
 }
 \description{
 \code{bw_single} Backward selection of Logistic regression
-prediction models using selection methods LRT or Chisq.
+prediction models using as selection method the likelihood-ratio Chi-square value.
 }
 \details{
 A typical formula object has the form \code{Outcome ~ terms}. Categorical variables has to
@@ -76,7 +73,7 @@ A typical formula object has the form \code{Outcome ~ terms}. Categorical variab
 \examples{
  res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
          predictors=c("Tampascale", "Smoking"),
-         cat.predictors = c("Satisfaction"), anova_test = "Chisq")
+         cat.predictors = c("Satisfaction"))
          
 res_single$RR_model_final
 

@@ -16,7 +16,6 @@ psfmi_perform(
   p.crit = 1,
   BW = FALSE,
   direction = NULL,
-  anova_test = "LRT",
   cv_naive_appt = FALSE,
   cal.plot = FALSE,
   plot.indiv = FALSE,
@@ -60,9 +59,6 @@ conducted within cross-validation. Default is FALSE.}
 
 \item{direction}{Can be used together with val_methods boot_MI and MI_boot. The direction of
 predictor selection, "BW" is for backward selection and "FW" for forward selection.}
-
-\item{anova_test}{Test statistic used for backward selection with method cv_MI and MI_cv_naive.
-Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible.}
 
 \item{cv_naive_appt}{Can be used in combination with val_method MI_cv_naive. Default is TRUE for
 showing the cross-validation apparent (train) and test results. Set to FALSE to only give test results.}
@@ -135,8 +131,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Ta
 pool_lr$RR_model
 
 res_perf <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds=3,
-            nimp_cv = 2, p.crit=0.05, BW=TRUE, anova_test = "LRT",
-            miceImp = miceImp, printFlag = FALSE)
+            nimp_cv = 2, p.crit=0.05, BW=TRUE, miceImp = miceImp, printFlag = FALSE)
             
 res_perf
 

@@ -28,8 +28,6 @@
 #'  conducted within cross-validation. Default is FALSE.
 #' @param direction Can be used together with val_methods boot_MI and MI_boot. The direction of
 #'  predictor selection, "BW" is for backward selection and "FW" for forward selection.
-#' @param anova_test Test statistic used for backward selection with method cv_MI and MI_cv_naive.
-#'  Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible.
 #' @param cv_naive_appt Can be used in combination with val_method MI_cv_naive. Default is TRUE for
 #'  showing the cross-validation apparent (train) and test results. Set to FALSE to only give test results.
 #' @param cal.plot If TRUE a calibration plot is generated. Default is FALSE. Can be used in combination
@@ -109,8 +107,7 @@
 #' pool_lr$RR_model
 #'
 #' res_perf <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds=3,
-#'             nimp_cv = 2, p.crit=0.05, BW=TRUE, anova_test = "LRT",
-#'             miceImp = miceImp, printFlag = FALSE)
+#'             nimp_cv = 2, p.crit=0.05, BW=TRUE, miceImp = miceImp, printFlag = FALSE)
 #'             
 #' res_perf
 #'
@@ -125,7 +122,7 @@
 #' @export
 psfmi_perform <- function(pobj, val_method = NULL, data_orig = NULL, int_val = TRUE, nboot = 10,
                           folds=3, nimp_cv = 5, nimp_mice = 5, p.crit = 1, BW = FALSE,
-                          direction = NULL, anova_test = "LRT", cv_naive_appt=FALSE,
+                          direction = NULL, cv_naive_appt=FALSE,
                           cal.plot=FALSE, plot.indiv=FALSE, groups_cal=10, miceImp, ...)
 {
   ##############################
@@ -176,7 +173,7 @@ psfmi_perform <- function(pobj, val_method = NULL, data_orig = NULL, int_val = T
           message("\n", "Recommended to increase nimp_cv to 100", "\n")
         }
         pobjcv <- cv_MI(pobj, data_orig = data_orig, nimp_cv = nimp_cv,
-                        folds = folds, p.crit = p.crit, anova_test = anova_test, BW=BW, miceImp = miceImp, ...)
+                        folds = folds, p.crit = p.crit, BW=BW, miceImp = miceImp, ...)
         return(pobjcv)
       }
       
@@ -191,8 +188,7 @@ psfmi_perform <- function(pobj, val_method = NULL, data_orig = NULL, int_val = T
     
     if(val_method=="MI_cv_naive"){
       pobjcv <-
-        MI_cv_naive(pobj, folds = folds, BW = BW, p.crit = p.crit, anova_test = anova_test,
-                    cv_naive_appt = cv_naive_appt)
+        MI_cv_naive(pobj, folds = folds, BW = BW, p.crit = p.crit, cv_naive_appt = cv_naive_appt)
       return(pobjcv)
     }
     

@@ -10,8 +10,6 @@
 #'  cross-validation. When set at 1, pooling and internal validation is done without
 #'  backward selection.
 #' @param BW If TRUE backward selection is conducted within cross-validation. Default is FALSE.
-#' @param anova_test Test statistic used for backward selection.
-#'  Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible..
 #' @param cv_naive_appt Default is TRUE for showing the cross-validation apparent (train) and
 #' test results. Set to FALSE to only give test results.
 #' 
@@ -20,7 +18,7 @@
 #' @keywords internal 
 #' 
 #' @export
-MI_cv_naive <- function(pobj, folds = 3, p.crit = 1, BW=FALSE, anova_test = "LRT", cv_naive_appt=TRUE)
+MI_cv_naive <- function(pobj, folds = 3, p.crit = 1, BW=FALSE, cv_naive_appt=TRUE)
 {
   # Create train and test datasets
   # Stratified on outcome
@@ -57,8 +55,7 @@ MI_cv_naive <- function(pobj, folds = 3, p.crit = 1, BW=FALSE, anova_test = "LRT
                            # if BW = TRUE
                            if(BW==TRUE){
                              pobj_bw <- bw_single(formula = fm_train, data =  train_data,
-                                                  p.crit = p.crit, keep.predictors = pobj$keep.predictors,
-                                                  anova_test = anova_test)
+                                                  p.crit = p.crit, keep.predictors = pobj$keep.predictors)
 
                              if(is_empty(pobj_bw$predictors_final))
                                pobj_bw$predictors_final <- 1
