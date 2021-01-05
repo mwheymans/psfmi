@@ -31,18 +31,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -81,7 +75,7 @@
       <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after Multiple Imputation</a>
     </li>
     <li>
-      <a href="../articles/psfmi_valext.html">Workflow to Develop and Validate a Prediction model with mice and psfmi</a>
+      <a href="../articles/workflow.html">Workflow to Develop and Validate a Prediction model in Multiply Imputed data</a>
     </li>
   </ul>
 </li>
@@ -92,7 +86,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/mwheymans/psfmi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,13 +100,13 @@
 
       
 
-      </header><script src="psfmi_CoxModels_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="psfmi_CoxModels_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Pooling and Selection of Cox Regression Models</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-10-05</h4>
+            <h4 class="date">2021-01-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_CoxModels.Rmd"><code>vignettes/psfmi_CoxModels.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_CoxModels.Rmd</code></div>
@@ -145,9 +139,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <h2 class="hasAnchor">
 <a href="#pooling-without-bs-and-method-d1" class="anchor"></a>Pooling without BS and method D1</h2>
 <p>If you set p.crit at 1 than no selection of variables takes place. Either using direction = “FW” or direction = “BW” will produce the same result.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
+<span class="co">#&gt; Registered S3 methods overwritten by 'car':</span>
+<span class="co">#&gt;   method                          from</span>
+<span class="co">#&gt;   influence.merMod                lme4</span>
+<span class="co">#&gt;   cooks.distance.influence.merMod lme4</span>
+<span class="co">#&gt;   dfbeta.influence.merMod         lme4</span>
+<span class="co">#&gt;   dfbetas.influence.merMod        lme4</span>
   <span class="va">pool_coxr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmicox</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, time<span class="op">=</span><span class="st">"Time"</span>, status<span class="op">=</span><span class="st">"Status"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Duration"</span>, <span class="st">"Radiation"</span>, <span class="st">"Onset"</span>, <span class="st">"Function"</span>, <span class="st">"Age"</span>,
   <span class="st">"Previous"</span>, <span class="st">"Tampascale"</span>, <span class="st">"JobControl"</span>, <span class="st">"JobDemand"</span>, <span class="st">"Social"</span><span class="op">)</span>, p.crit<span class="op">=</span><span class="fl">1</span>,
@@ -169,36 +169,30 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt; 11 factor(Expect_cat)2  0.243295714 0.231183479  1.0523923 177.6191 0.29404919</span>
 <span class="co">#&gt; 12 factor(Expect_cat)3  0.227055353 0.200259380  1.1338063 178.6187 0.25839523</span>
 <span class="co">#&gt;           HR lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1  0.9922918 0.9845632 1.0000811</span>
-<span class="co">#&gt; 2  0.9278136 0.6869711 1.2530922</span>
-<span class="co">#&gt; 3  0.9105225 0.6450123 1.2853263</span>
-<span class="co">#&gt; 4  1.0449397 1.0108591 1.0801694</span>
-<span class="co">#&gt; 5  0.9911858 0.9763160 1.0062821</span>
-<span class="co">#&gt; 6  0.9063322 0.6133734 1.3392136</span>
-<span class="co">#&gt; 7  0.9770006 0.9503887 1.0043577</span>
-<span class="co">#&gt; 8  0.9916555 0.9755964 1.0079789</span>
-<span class="co">#&gt; 9  0.9783958 0.9490959 1.0086002</span>
-<span class="co">#&gt; 10 0.9499476 0.9046771 0.9974834</span>
-<span class="co">#&gt; 11 1.2754457 0.8107270 2.0065470</span>
-<span class="co">#&gt; 12 1.2548993 0.8475097 1.8581172</span></pre></div>
+<span class="co">#&gt; 1  0.9922918 0.9845108 1.0001342</span>
+<span class="co">#&gt; 2  0.9278136 0.6855705 1.2556522</span>
+<span class="co">#&gt; 3  0.9105225 0.6435046 1.2883376</span>
+<span class="co">#&gt; 4  1.0449397 1.0106267 1.0804177</span>
+<span class="co">#&gt; 5  0.9911858 0.9762151 1.0063861</span>
+<span class="co">#&gt; 6  0.9063322 0.6117408 1.3427877</span>
+<span class="co">#&gt; 7  0.9770006 0.9501492 1.0046109</span>
+<span class="co">#&gt; 8  0.9916555 0.9754881 1.0080908</span>
+<span class="co">#&gt; 9  0.9783958 0.9488992 1.0088093</span>
+<span class="co">#&gt; 10 0.9499476 0.9043761 0.9978154</span>
+<span class="co">#&gt; 11 1.2754457 0.8082175 2.0127772</span>
+<span class="co">#&gt; 12 1.2548993 0.8452496 1.8630856</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-fs-and-method-mpr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-fs-and-method-mpr" class="anchor"></a>Pooling with FS and method MPR</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_coxr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmicox</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, time<span class="op">=</span><span class="st">"Time"</span>, status<span class="op">=</span><span class="st">"Status"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Duration"</span>, <span class="st">"Radiation"</span>, <span class="st">"Onset"</span>, <span class="st">"Function"</span>, <span class="st">"Age"</span>,
   <span class="st">"Previous"</span>, <span class="st">"Tampascale"</span><span class="op">)</span>, p.crit<span class="op">=</span><span class="fl">0.05</span>,
   cat.predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Expect_cat"</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"MPR"</span>, direction <span class="op">=</span> <span class="st">"FW"</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'car':</span>
-<span class="co">#&gt;   method                          from</span>
-<span class="co">#&gt;   influence.merMod                lme4</span>
-<span class="co">#&gt;   cooks.distance.influence.merMod lme4</span>
-<span class="co">#&gt;   dfbeta.influence.merMod         lme4</span>
-<span class="co">#&gt;   dfbetas.influence.merMod        lme4</span>
 <span class="co">#&gt; Entered at Step 1 is - Function</span>
 <span class="co">#&gt; Entered at Step 2 is - Duration</span>
 <span class="co">#&gt; </span>
@@ -211,8 +205,8 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt; 1 Duration -0.007961913 0.003722934 -2.138612 189.0119 0.0337507152 0.9920697</span>
 <span class="co">#&gt; 2 Function  0.056799291 0.015453322  3.675539 189.0119 0.0003091121 1.0584434</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1  0.984857 0.9993353</span>
-<span class="co">#&gt; 2  1.026865 1.0909925</span>
+<span class="co">#&gt; 1 0.9848108 0.9993821</span>
+<span class="co">#&gt; 2 1.0266655 1.0912048</span>
   
   <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_in</span>
 <span class="co">#&gt;          Duration Radiation Onset Function Age Previous Tampascale</span>
@@ -222,15 +216,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt;          factor(Expect_cat)</span>
 <span class="co">#&gt; Step 1                    0</span>
 <span class="co">#&gt; Step 2                    0</span>
-<span class="co">#&gt; Included                  0</span></pre></div>
+<span class="co">#&gt; Included                  0</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-fs-including-interaction-terms-and-method-d1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-fs-including-interaction-terms-and-method-d1" class="anchor"></a>Pooling with FS including interaction terms and method D1</h2>
 <p>Pooling Cox regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D2 including interaction terms with a categorical predictor and forcing the predictor Tampascale in the models during backward selection.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_coxr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmicox</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, time<span class="op">=</span><span class="st">"Time"</span>, status<span class="op">=</span><span class="st">"Status"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Duration"</span>, <span class="st">"Previous"</span>,  <span class="st">"Radiation"</span>, <span class="st">"Onset"</span>,
@@ -250,9 +244,9 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt; 2 Tampascale -0.016998788 0.013360456 -1.272321 177.6436 0.204921997 0.9831449</span>
 <span class="co">#&gt; 3   Function  0.050217190 0.016427330  3.056930 187.0360 0.002563622 1.0514994</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 0.9844559  0.999048</span>
-<span class="co">#&gt; 2 0.9577339  1.009230</span>
-<span class="co">#&gt; 3 1.0181830  1.085906</span>
+<span class="co">#&gt; 1 0.9844091 0.9990955</span>
+<span class="co">#&gt; 2 0.9575624 1.0094108</span>
+<span class="co">#&gt; 3 1.0179701 1.0861332</span>
   
   <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_in</span>
 <span class="co">#&gt;          Duration Previous Radiation Onset Function Tampascale</span>
@@ -266,15 +260,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt;          factor(Expect_cat)*Tampascale</span>
 <span class="co">#&gt; Step 1                               0</span>
 <span class="co">#&gt; Step 2                               0</span>
-<span class="co">#&gt; Included                             0</span></pre></div>
+<span class="co">#&gt; Included                             0</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-including-spline-coefficients-and-method-d1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-including-spline-coefficients-and-method-d1" class="anchor"></a>Pooling with BS including spline coefficients and method D1</h2>
 <p>Pooling Cox regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 including a restricted cubic spline predictor and forcing Tampascale in the models during backward selection.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_coxr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmicox</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, time<span class="op">=</span><span class="st">"Time"</span>, status<span class="op">=</span><span class="st">"Status"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Duration"</span>, <span class="st">"Previous"</span>,  <span class="st">"Radiation"</span>, <span class="st">"Onset"</span>, <span class="st">"Function"</span><span class="op">)</span>, 
@@ -298,10 +292,10 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt; 3  rcs(Tampascale, 3)Tampascale -0.06563800 0.02724068 -2.409558 129.2769</span>
 <span class="co">#&gt; 4 rcs(Tampascale, 3)Tampascale'  0.05942661 0.02982168  1.992732 106.0096</span>
 <span class="co">#&gt;       p.value        HR lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 0.027201742 0.9916861 0.9844233 0.9990025</span>
-<span class="co">#&gt; 2 0.001104361 1.0568545 1.0228566 1.0919825</span>
-<span class="co">#&gt; 3 0.017380618 0.9364698 0.8877814 0.9878284</span>
-<span class="co">#&gt; 4 0.048860903 1.0612279 1.0009766 1.1251058</span>
+<span class="co">#&gt; 1 0.027201742 0.9916861 0.9843763 0.9990502</span>
+<span class="co">#&gt; 2 0.001104361 1.0568545 1.0226366 1.0922174</span>
+<span class="co">#&gt; 3 0.017380618 0.9364698 0.8873345 0.9883259</span>
+<span class="co">#&gt; 4 0.048860903 1.0612279 1.0003023 1.1258642</span>
   
   <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_out</span>
 <span class="co">#&gt;         Duration Previous Radiation Onset Function factor(Satisfaction)</span>
@@ -317,15 +311,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt; Step 3                  0                           0</span>
 <span class="co">#&gt; Step 4                  0                           0</span>
 <span class="co">#&gt; Step 5                  0                           0</span>
-<span class="co">#&gt; Removed                 0                           1</span></pre></div>
+<span class="co">#&gt; Removed                 0                           1</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-fs-including-spline-coefficients-and-method-mpr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-fs-including-spline-coefficients-and-method-mpr" class="anchor"></a>Pooling with FS including spline coefficients and method MPR</h2>
 <p>Pooling Cox regression models over 5 imputed datasets with forward selection using a p-value of 0.05 and as method MPR including a restricted cubic spline predictor and forcing Tampascale in the models during forward selection.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_coxr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmicox</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, time<span class="op">=</span><span class="st">"Time"</span>, status<span class="op">=</span><span class="st">"Status"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Duration"</span>, <span class="st">"Previous"</span>,  <span class="st">"Radiation"</span>, <span class="st">"Onset"</span>, <span class="st">"Function"</span><span class="op">)</span>, 
@@ -346,10 +340,10 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt; 3 rcs(Tampascale, 3)Tampascale'  0.05942661 0.02982168  1.992732 106.0096</span>
 <span class="co">#&gt; 4                      Function  0.05529708 0.01668254  3.314668 184.6679</span>
 <span class="co">#&gt;       p.value        HR lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 0.027201742 0.9916861 0.9844233 0.9990025</span>
-<span class="co">#&gt; 2 0.017380618 0.9364698 0.8877814 0.9878284</span>
-<span class="co">#&gt; 3 0.048860903 1.0612279 1.0009766 1.1251058</span>
-<span class="co">#&gt; 4 0.001104361 1.0568545 1.0228566 1.0919825</span>
+<span class="co">#&gt; 1 0.027201742 0.9916861 0.9843763 0.9990502</span>
+<span class="co">#&gt; 2 0.017380618 0.9364698 0.8873345 0.9883259</span>
+<span class="co">#&gt; 3 0.048860903 1.0612279 1.0003023 1.1258642</span>
+<span class="co">#&gt; 4 0.001104361 1.0568545 1.0226366 1.0922174</span>
   
   <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_in</span>
 <span class="co">#&gt;          Duration Previous Radiation Onset Function factor(Satisfaction)</span>
@@ -359,7 +353,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 <span class="co">#&gt;          rcs(Tampascale,3) rcs(Tampascale,3)*Radiation</span>
 <span class="co">#&gt; Step 1                   1                           0</span>
 <span class="co">#&gt; Step 2                   1                           0</span>
-<span class="co">#&gt; Included                 1                           0</span></pre></div>
+<span class="co">#&gt; Included                 1                           0</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -380,7 +374,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, and MPR (Median R R
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

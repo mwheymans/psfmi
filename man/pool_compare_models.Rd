@@ -2,7 +2,7 @@
 % Please edit documentation in R/pool_compare_models.R
 \name{pool_compare_models}
 \alias{pool_compare_models}
-\title{Compare model fit and performance in Multipy Imputed data}
+\title{Compare the fit and performance of prediction models in Multipy Imputed data}
 \usage{
 pool_compare_models(
   pobj,
@@ -52,12 +52,12 @@ An object from which the following objects can be extracted:
 }
 }
 \description{
-\code{pool_compare_model} Compares fit and performance of models in multiply imputed 
- data sets by using clinical important performance measures
+\code{pool_compare_model} Compares the fit and performance of prediction models 
+ in multiply imputed data sets by using clinical important performance measures
 }
 \details{
-Models are compared by using the D3 method for pooling Likelihood ratio statistics
- (method of Meng and Rubin). The pooled AIC difference is calculated according to
+The fit of the models are compared by using the D3 method for pooling Likelihood ratio 
+ statistics (method of Meng and Rubin). The pooled AIC difference is calculated according to
  the formula \code{AIC = D - 2*p}, where D is the pooled likelihood ratio tests of 
  constrained models (numerator in D3 statistic) and p is the difference in number of parameters 
  between the full and restricted models that are compared. The pooled AUC difference  

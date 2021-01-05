@@ -16,7 +16,11 @@ reference:
   - mivalext_lr
 - title: Functions to evaluate Model stability
 - contents:
-  - psfmi_stab 
+  - psfmi_stab
+- title: Functions to compare prediction models
+- contents:
+  - pool_compare_models
+  - pool_reclassification   
 - title: Extra Functions
 - contents:
   - bw_single
@@ -24,8 +28,26 @@ reference:
   - pool_auc
   - scaled_brier
   - rsq_nagel
-- title: Datasets used in examples
+- title: Datasets used in examples and tutorials
 - contents: 
+  - anderson
+  - aortadis
+  - bmd
+  - chlrform
+  - chol_long
+  - chol_wide
+  - day2_dataset4_mi
+  - hipstudy
+  - hipstudy_external
+  - hoorn_basic
+  - infarct
+  - lungvolume
+  - mammaca
+  - men
+  - sbp_age
+  - sbp_qas
+  - smoking
+  - weight 
   - lbp_orig
   - ipdna_md
   - lbpmicox

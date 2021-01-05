@@ -17,6 +17,7 @@ Original dataset of patients with a aortadissection
     \item{\code{Acute}}{dichotomous, 1=yes, 0=no}
     \item{\code{Acute3}}{categorical: 0 = No, 1 = Little, 2 = Much}
     \item{\code{Stomach_Ache}}{dichotomous, 1=yes, 0=no}
+    \item{\code{Hyper}}{dichotomous, Hypertensio, 1=yes, 0=no}
     \item{\code{Smoking}}{dichotomous, 1=yes, 0=no}
     \item{\code{Radiation}}{dichotomous, 1=yes, 0=no}
   }

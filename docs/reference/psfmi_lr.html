@@ -75,19 +75,13 @@ Logistic regression models in multiply imputed data. — psfmi_lr" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -125,7 +119,7 @@ Logistic regression models in multiply imputed data. — psfmi_lr" />
       <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after Multiple Imputation</a>
     </li>
     <li>
-      <a href="../articles/psfmi_valext.html">Workflow to Develop and Validate a Prediction model with mice and psfmi</a>
+      <a href="../articles/workflow.html">Workflow to Develop and Validate a Prediction model in Multiply Imputed data</a>
     </li>
   </ul>
 </li>
@@ -136,7 +130,7 @@ Logistic regression models in multiply imputed data. — psfmi_lr" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mwheymans/psfmi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -352,15 +346,15 @@ means forward selection.</p></td>
 #&gt; 6           factor(Satisfaction)3 -2.245109289 1.28811308 -1.742944248
 #&gt; 7 Radiation:factor(Satisfaction)2 -1.112425071 1.29072002 -0.861863964
 #&gt; 8 Radiation:factor(Satisfaction)3 -0.328027439 1.69820886 -0.193160834
-#&gt;          df      p.value          OR    lower.EXP upper.EXP
-#&gt; 1 121.39346 1.302896e-03 0.009009292 0.0005457143  0.148736
-#&gt; 2  86.27941 1.612718e-07 2.720996221 1.9290261484  3.838113
-#&gt; 3  30.54412 2.459495e-01 3.635100740 0.4283734029 30.846820
-#&gt; 4 102.60849 5.411357e-01 0.984717906 0.9374158634  1.034407
-#&gt; 5  94.66955 9.926090e-01 1.006768633 0.2424840468  4.179999
-#&gt; 6  23.29136 9.453270e-02 0.105915964 0.0084819837  1.322591
-#&gt; 7  40.99328 3.937762e-01 0.328760726 0.0261937013  4.126321
-#&gt; 8  19.52844 8.488278e-01 0.720343254 0.0258223004 20.094817
+#&gt;          df      p.value          OR    lower.EXP  upper.EXP
+#&gt; 1 121.39346 1.302896e-03 0.009009292 0.0005305503  0.1529871
+#&gt; 2  86.27941 1.612718e-07 2.720996221 1.9196231945  3.8569134
+#&gt; 3  30.54412 2.459495e-01 3.635100740 0.3922493500 33.6876464
+#&gt; 4 102.60849 5.411357e-01 0.984717906 0.9368661635  1.0350137
+#&gt; 5  94.66955 9.926090e-01 1.006768633 0.2380619605  4.2576440
+#&gt; 6  23.29136 9.453270e-02 0.105915964 0.0073877578  1.5184839
+#&gt; 7  40.99328 3.937762e-01 0.328760726 0.0242557883  4.4559927
+#&gt; 8  19.52844 8.488278e-01 0.720343254 0.0207352364 25.0247643
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
@@ -378,7 +372,7 @@ means forward selection.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

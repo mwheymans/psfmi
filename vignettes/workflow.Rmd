@@ -1,11 +1,11 @@
 ---
-title: "Workflow to Develop and Validate a Prediction model with mice and psfmi"
+title: "Workflow to Develop and Validate a Prediction model in Multiply Imputed data"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Workflow to Develop and Validate a Prediction model with mice and psfmi}
+  %\VignetteIndexEntry{Workflow to Develop and Validate a Prediction model in Multiply Imputed data}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -65,7 +65,7 @@ datasets may be increased (see on-line book:
 
 ```{r}
 
-  imp <- mice(lbp_orig, m=5, maxit=10) 
+  imp <- mice(lbp_orig, m=5, maxit=10, seed = 750) 
   
 ```
 
@@ -151,7 +151,7 @@ We will use cross-validation and more specific the method [cv_MI_RR](https://mwh
 to integrate backward selection into the cross-validation procedure. The last model that is selected 
 by the psfmi_lr function is internally validated. So, if we want to apply backward selection during 
 cross-validation from the full model we first have to apply the psfmi_lr function without variable 
-selection. That is the example that we want to use here, because we know that variable selection 
+selection. That is what we apply here, because we know that variable selection 
 is one of the main reasons that prediction models are over-fitted.
 
 ```{r}
@@ -162,7 +162,7 @@ is one of the main reasons that prediction models are over-fitted.
                       nimp=5, impvar=".imp", method="D1")
 
   set.seed(200)
-  res_cv <- psfmi_perform(pool_val, val_method = "cv_MI_RR", data_orig = lbp_orig, folds = 3,
+  res_cv <- psfmi_perform(pool_val, val_method = "cv_MI_RR", data_orig = lbp_orig, folds = 5,
                      p.crit=0.05, BW=TRUE, nimp_mice = 10, miceImp = miceImp, printFlag = FALSE)
 
   res_cv
@@ -173,7 +173,7 @@ Back to [Steps]
 
 ## Step 6 - Shrink pooled coefficients and determine new intercept {-}
 
-We can use the slope value of 0.864415077 that was estimated at the previous step as a 
+We can use the slope value of 0.8449148 that was estimated at the previous step as a 
 shrinkage factor to prevent our model from being overfitted in new data. 
 We do this by multiplying the pooled coefficients with the shrinkage factor and 
 also to determine a new intercept value that is aligned with the shrunken coefficients.
@@ -183,7 +183,7 @@ new intercept value.
 
 ```{r}
 
-  res <- pool_intadj(pool_lr, shrinkage_factor = 0.864415077)
+  res <- pool_intadj(pool_lr, shrinkage_factor = 0.8449148)
 
   res$int_adj
   res$coef_shrink_pooled
@@ -216,11 +216,11 @@ due to missing data.
  
 ```
 
-In the external dataset the AUC is 0.84772 and the R-squared 0.45. The
-Hosmer and Lemeshow test has a p-value of 0.63168, which means that
+In the external dataset the AUC is 0.8482 and the R-squared 0.45587. The
+Hosmer and Lemeshow test has a p-value of 0.67820, which means that
 the fit is satisfactory. This is also confirmed on the calibration plot
 where the calibration curves in each imputed dataset are near the optimal (dashed)
-line. The slope (regression coefficients) is has a value of 0.86526 and slightly 
+line. The slope (regression coefficients) has a value of 0.88741 and slightly 
 deviates from the value of 1, which means that the coefficients values differ 
 between the development and external dataset.
 

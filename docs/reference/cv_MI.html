@@ -73,19 +73,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -123,7 +117,7 @@
       <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after Multiple Imputation</a>
     </li>
     <li>
-      <a href="../articles/psfmi_valext.html">Workflow to Develop and Validate a Prediction model with mice and psfmi</a>
+      <a href="../articles/workflow.html">Workflow to Develop and Validate a Prediction model in Multiply Imputed data</a>
     </li>
   </ul>
 </li>
@@ -134,7 +128,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mwheymans/psfmi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -161,7 +155,7 @@
  and test folds. Called by function <code>psfmi_perform</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cv_MI</span><span class='op'>(</span><span class='va'>pobj</span>, <span class='va'>data_orig</span>, <span class='va'>folds</span>, <span class='va'>nimp_cv</span>, <span class='va'>BW</span>, <span class='va'>p.crit</span>, <span class='va'>anova_test</span>, <span class='va'>miceImp</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>cv_MI</span><span class='op'>(</span><span class='va'>pobj</span>, <span class='va'>data_orig</span>, <span class='va'>folds</span>, <span class='va'>nimp_cv</span>, <span class='va'>BW</span>, <span class='va'>p.crit</span>, <span class='va'>miceImp</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,11 +186,6 @@ call to <code>psfmi_lr</code>.</p></td>
       <td><p>A numerical scalar. P-value selection criterium used for backward during
 cross-validation. When set at 1, pooling and internal validation is done without
 backward selection.</p></td>
-    </tr>
-    <tr>
-      <th>anova_test</th>
-      <td><p>Test statistic used for backward selection.
-Default is method "LRT" for the likelihood ratio test. Method "Chisq" is also possible.</p></td>
     </tr>
     <tr>
       <th>miceImp</th>
@@ -231,7 +220,7 @@ the <code>mice</code> function.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

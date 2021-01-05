@@ -31,18 +31,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -81,7 +75,7 @@
       <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after Multiple Imputation</a>
     </li>
     <li>
-      <a href="../articles/psfmi_valext.html">Workflow to Develop and Validate a Prediction model with mice and psfmi</a>
+      <a href="../articles/workflow.html">Workflow to Develop and Validate a Prediction model in Multiply Imputed data</a>
     </li>
   </ul>
 </li>
@@ -92,7 +86,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/mwheymans/psfmi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,13 +100,13 @@
 
       
 
-      </header><script src="boot_MI_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="boot_MI_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Multiple Imputation and Bootstrapping - Method boot_MI</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-10-05</h4>
+            <h4 class="date">2021-01-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/boot_MI.Rmd"><code>vignettes/boot_MI.Rmd</code></a></small>
       <div class="hidden name"><code>boot_MI.Rmd</code></div>
@@ -148,16 +142,23 @@ Schematic overview of the boot_MI method
 <h2 class="hasAnchor">
 <a href="#method-boot_mi-1" class="anchor"></a>Method boot_MI</h2>
 <p>internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1. This setting is also used and in the <code>psfmi_perform</code> function. This means that first the full model is pooled and subsequently interval validation is also done of this full model.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## Registered S3 methods overwritten by 'car':
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
                    <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"FW"</span>,
                  nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">res_MI_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"boot_MI"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, nboot <span class="op">=</span> <span class="fl">5</span>,
                      p.crit<span class="op">=</span><span class="fl">1</span>, nimp_mice <span class="op">=</span> <span class="fl">3</span>, direction <span class="op">=</span> <span class="st">"BW"</span>, miceImp <span class="op">=</span> <span class="va">miceImp</span>,
-                     printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+                     printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## Boot 1</code></pre>
 <pre><code>## 
@@ -170,40 +171,40 @@ Schematic overview of the boot_MI method
 ## Boot 5</code></pre>
 <pre><code>## 
 ## p.crit = 1, validation is done without variable selection</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">res_MI_boot</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">res_MI_boot</span></code></pre></div>
 <pre><code>## $stats_val
 ##                   Orig  Apparent      Test   Optimism Corrected
-## AUC          0.8871000 0.8913200 0.8809800 0.01034000 0.8767600
-## R2           0.5605521 0.5770041 0.5396844 0.03731976 0.5232324
-## Brier Scaled 0.4514569 0.4637398 0.4189267 0.04481311 0.4066438
-## Slope        1.0000000 1.0000000 0.9243125 0.07568752 0.9243125
+## AUC          0.8871000 0.8916400 0.8802000 0.01144000 0.8756600
+## R2           0.5605521 0.5783181 0.5378758 0.04044230 0.5201098
+## Brier Scaled 0.4514569 0.4629364 0.4117878 0.05114854 0.4003084
+## Slope        1.0000000 1.0000000 0.9050770 0.09492303 0.9050770
 ## 
 ## $intercept_test
 ##  intercept 
-## -0.1371995 
+## -0.1418631 
 ## 
 ## $res_boot
 ##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test
-## Boot 1  0.8479   0.8791 0.4684409 0.5325239    0.3481905     0.4128728
-## Boot 2  0.9072   0.8841 0.6126818 0.5498697    0.4979818     0.4270307
-## Boot 3  0.8915   0.8825 0.5940010 0.5448945    0.4786195     0.4305115
-## Boot 4  0.9082   0.8871 0.6174039 0.5524729    0.5078093     0.4218454
-## Boot 5  0.9018   0.8721 0.5924930 0.5186609    0.4860982     0.4023733
+## Boot 1  0.8431   0.8777 0.4443306 0.5289039    0.3356881     0.4126126
+## Boot 2  0.9131   0.8817 0.6384560 0.5483116    0.5150413     0.4217096
+## Boot 3  0.8911   0.8822 0.5923924 0.5458272    0.4735383     0.4225408
+## Boot 4  0.9104   0.8864 0.6219550 0.5501550    0.5026123     0.4078803
+## Boot 5  0.9005   0.8730 0.5944567 0.5161814    0.4878018     0.3941958
 ##          intercept     Slope
-## Boot 1 -0.14607722 1.1906754
-## Boot 2 -0.10212119 0.7782875
-## Boot 3 -0.02750989 0.8896097
-## Boot 4 -0.33091091 0.9276800
-## Boot 5 -0.07937831 0.8353099</code></pre>
+## Boot 1 -0.11704446 1.2052458
+## Boot 2 -0.18244542 0.7159558
+## Boot 3 -0.05277384 0.8674005
+## Boot 4 -0.40024757 0.8972059
+## Boot 5  0.04319589 0.8395768</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="method-boot_mi-including-bw-selection" class="section level2">
 <h2 class="hasAnchor">
 <a href="#method-boot_mi-including-bw-selection" class="anchor"></a>Method boot_MI including BW selection</h2>
 <p>Internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1, and pooling is than done without variable selection, i.e. first the full model is pooled. When subsequently interval validation is done with the <code>psfmi_perform</code> function including BW, BW is applied in each bootstrap sample from the full model.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
 <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pain"</span>, <span class="st">"JobDemands"</span>, <span class="st">"Smoking"</span><span class="op">)</span>, 
                    cat.predictors <span class="op">=</span> <span class="st">"Satisfaction"</span>, spline.predictors <span class="op">=</span> <span class="st">"Tampascale"</span>, nknots<span class="op">=</span><span class="fl">3</span>,
                    p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"FW"</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
@@ -211,7 +212,7 @@ Schematic overview of the boot_MI method
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
 <span class="va">res_MI_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"boot_MI"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, nboot <span class="op">=</span> <span class="fl">5</span>,
                      p.crit<span class="op">=</span><span class="fl">0.05</span>, nimp_mice <span class="op">=</span> <span class="fl">3</span>, direction <span class="op">=</span> <span class="st">"BW"</span>, miceImp <span class="op">=</span> <span class="va">miceImp</span>,
-                     printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+                     printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## Boot 1</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
@@ -230,9 +231,9 @@ Schematic overview of the boot_MI method
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Boot 3</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - Pain</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -251,32 +252,32 @@ Schematic overview of the boot_MI method
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit">
-<span class="va">res_MI_boot</span></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">res_MI_boot</span></code></pre></div>
 <pre><code>## $stats_val
 ##                   Orig  Apparent      Test   Optimism Corrected
-## AUC          0.8871000 0.8764000 0.8723000 0.00410000 0.8830000
-## R2           0.5605521 0.5399010 0.5240218 0.01587923 0.5446729
-## Brier Scaled 0.4514569 0.4403205 0.4224445 0.01787603 0.4335809
-## Slope        1.0000000 1.0000000 0.9778260 0.02217396 0.9778260
+## AUC          0.8871000 0.8750000 0.8704400 0.00456000 0.8825400
+## R2           0.5605521 0.5353315 0.5160330 0.01929853 0.5412536
+## Brier Scaled 0.4514569 0.4285873 0.4076258 0.02096155 0.4304954
+## Slope        1.0000000 1.0000000 0.9649318 0.03506820 0.9649318
 ## 
 ## $intercept_test
 ##  intercept 
-## -0.1240925 
+## -0.0995169 
 ## 
 ## $res_boot
 ##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test
-## Boot 1  0.8311   0.8624 0.4252377 0.5109677    0.3250388     0.4044525
-## Boot 2  0.8918   0.8730 0.5759000 0.5236701    0.4611184     0.4354081
-## Boot 3  0.8742   0.8722 0.5409754 0.5226609    0.4555226     0.4259192
-## Boot 4  0.8963   0.8730 0.5896455 0.5217544    0.4997357     0.4240566
-## Boot 5  0.8886   0.8809 0.5677464 0.5410557    0.4601870     0.4223860
-##           intercept     Slope
-## Boot 1 -0.092341674 1.1955537
-## Boot 2 -0.002580268 0.8492599
-## Boot 3 -0.255009289 0.9432925
-## Boot 4 -0.192108523 0.9532151
-## Boot 5 -0.078422678 0.9478089</code></pre>
+## Boot 1  0.8230   0.8669 0.4070467 0.5121114    0.3136382     0.4027844
+## Boot 2  0.9034   0.8722 0.6093501 0.5213792    0.4866593     0.4297398
+## Boot 3  0.8684   0.8568 0.5243855 0.4775389    0.4131725     0.3481191
+## Boot 4  0.8933   0.8730 0.5795163 0.5227525    0.4873638     0.4282208
+## Boot 5  0.8869   0.8833 0.5563589 0.5463829    0.4421028     0.4292647
+##          intercept     Slope
+## Boot 1 -0.14270301 1.2315078
+## Boot 2 -0.01465516 0.7948917
+## Boot 3 -0.19316264 0.8346061
+## Boot 4 -0.19130914 0.9528790
+## Boot 5  0.04424543 1.0107745</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -297,7 +298,7 @@ Schematic overview of the boot_MI method
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

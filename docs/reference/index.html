@@ -71,19 +71,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -121,7 +115,7 @@
       <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after Multiple Imputation</a>
     </li>
     <li>
-      <a href="../articles/psfmi_valext.html">Workflow to Develop and Validate a Prediction model with mice and psfmi</a>
+      <a href="../articles/workflow.html">Workflow to Develop and Validate a Prediction model in Multiply Imputed data</a>
     </li>
   </ul>
 </li>
@@ -132,7 +126,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mwheymans/psfmi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -255,6 +249,31 @@ models in multiply imputed datasets</p></td>
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-functions-to-compare-prediction-models" class="hasAnchor"><a href="#section-functions-to-compare-prediction-models" class="anchor"></a>Functions to compare prediction models</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="pool_compare_models.html">pool_compare_models()</a></code> </p>
+        </td>
+        <td><p>Compare the fit and performance of prediction models in Multipy Imputed data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pool_reclassification.html">pool_reclassification()</a></code> </p>
+        </td>
+        <td><p>Function to pool NRI measures over Multiply Imputed datasets</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-extra-functions" class="hasAnchor"><a href="#section-extra-functions" class="anchor"></a>Extra Functions</h2>
           <p class="section-desc"></p>
         </th>
@@ -288,7 +307,7 @@ Logistic regression models.</p></td>
         <td>
           <p><code><a href="scaled_brier.html">scaled_brier()</a></code> </p>
         </td>
-        <td><p>Calculated the scaled Brier score</p></td>
+        <td><p>Calculates the scaled Brier score</p></td>
       </tr><tr>
         
         <td>
@@ -299,7 +318,7 @@ Logistic regression models.</p></td>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-datasets-used-in-examples" class="hasAnchor"><a href="#section-datasets-used-in-examples" class="anchor"></a>Datasets used in examples</h2>
+          <h2 id="section-datasets-used-in-examples-and-tutorials" class="hasAnchor"><a href="#section-datasets-used-in-examples-and-tutorials" class="anchor"></a>Datasets used in examples and tutorials</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -309,6 +328,114 @@ Logistic regression models.</p></td>
       
       
       <tr>
+        
+        <td>
+          <p><code><a href="anderson.html">anderson</a></code> </p>
+        </td>
+        <td><p>Data from a placebo-controlled RCT with leukemia patients</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="aortadis.html">aortadis</a></code> </p>
+        </td>
+        <td><p>Dataset of patients with a aortadissection</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bmd.html">bmd</a></code> </p>
+        </td>
+        <td><p>Data of a non-experimental study in more than 300 elderly women</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="chlrform.html">chlrform</a></code> </p>
+        </td>
+        <td><p>Data about concentration of ß2-microglobuline in urine as indicator for possible damage to the kidney</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="chol_long.html">chol_long</a></code> </p>
+        </td>
+        <td><p>Long dataset of persons from the The Amsterdam Growth and Health Longitudinal Study (AGHLS)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="chol_wide.html">chol_wide</a></code> </p>
+        </td>
+        <td><p>Wide dataset of persons from the The Amsterdam Growth and Health Longitudinal Study (AGHLS)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="day2_dataset4_mi.html">day2_dataset4_mi</a></code> </p>
+        </td>
+        <td><p>Dataset of low back pain patients with missing values</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hipstudy.html">hipstudy</a></code> </p>
+        </td>
+        <td><p>Dataset of elderly patients with a hip fracture</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hipstudy_external.html">hipstudy_external</a></code> </p>
+        </td>
+        <td><p>External Dataset of elderly patients with a hip fracture</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hoorn_basic.html">hoorn_basic</a></code> </p>
+        </td>
+        <td><p>Dataset of the Hoorn Study</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="infarct.html">infarct</a></code> </p>
+        </td>
+        <td><p>Data of a patient-control study regarding the relationship between MI and smoking</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lungvolume.html">lungvolume</a></code> </p>
+        </td>
+        <td><p>Data of the development of lung and heartvolume of unborn babies</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mammaca.html">mammaca</a></code> </p>
+        </td>
+        <td><p>Data of a study among women with breast cancer</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="men.html">men</a></code> </p>
+        </td>
+        <td><p>Data of 613 patients with meningitis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sbp_age.html">sbp_age</a></code> </p>
+        </td>
+        <td><p>Dataset with blood pressure measurements</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sbp_qas.html">sbp_qas</a></code> </p>
+        </td>
+        <td><p>Dataset with blood pressure measurements</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="smoking.html">smoking</a></code> </p>
+        </td>
+        <td><p>Survival data about smoking</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="weight.html">weight</a></code> </p>
+        </td>
+        <td><p>Dataset of persons from the The Amsterdam Growth and Health Longitudinal Study (AGHLS)</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="lbp_orig.html">lbp_orig</a></code> </p>
@@ -363,7 +490,7 @@ Logistic regression models.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

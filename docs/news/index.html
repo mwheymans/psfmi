@@ -71,19 +71,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -121,7 +115,7 @@
       <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after Multiple Imputation</a>
     </li>
     <li>
-      <a href="../articles/psfmi_valext.html">Workflow to Develop and Validate a Prediction model with mice and psfmi</a>
+      <a href="../articles/workflow.html">Workflow to Develop and Validate a Prediction model in Multiply Imputed data</a>
     </li>
   </ul>
 </li>
@@ -132,7 +126,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mwheymans/psfmi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -153,38 +147,6 @@
       <small>Source: <a href='https://github.com/mwheymans/psfmi/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="package-050" class="section level1">
-<h1 class="page-header" data-toc-text="0.5.0">
-<a href="#package-050" class="anchor"></a>Package 0.5.0<small> 2020-09-24 </small>
-</h1>
-<ul>
-<li>Added forward selection to the psfmi_lr and psfmi_coxr functions.</li>
-<li>Added the functions psfmi_lr_fw, psfmi_lr_bw, psfmi_coxr_fw and psfmi_coxr_bw that are called by psfmi_lr or psfmi_coxr for forward and backward selection after MI with logistic and Cox regression models.</li>
-<li>Extended the function psfmi_perform by including the possibility of using cross-validation in combination with multiple imputation.</li>
-<li>Added the functions cv_MI, cv_MI_RR, MI_cv_naive, boot_MI and MI_boot, that are called by psfmi_perform to combine cross-validation or bootstrapping with MI.<br>
-</li>
-<li>Added the function bw_single for backward selection in a single dataset.</li>
-<li>Added the functions pool_auc, rsq_nagel and scaled_brier.</li>
-<li>Added the internal functions mean_auc_log, clean_P, miceImp.</li>
-<li>Updated vignettes.</li>
-<li>Created a package website with pkgdown.</li>
-</ul>
-</div>
-    <div id="package-020" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.0">
-<a href="#package-020" class="anchor"></a>Package 0.2.0<small> 2020-02-03 </small>
-</h1>
-<ul>
-<li>Added functions pool_intadj.R, pool_performance.R, psfmi_mm.R, psfmi_mm_multiparm, psfmi_perform, psfmi_stab.</li>
-<li>Added the class statement smodsmi to the functions psfmi_lr, psfmi_coxr<br>
-and psfmi_mm.</li>
-<li>Added the following output object information to psfmi_lr, psfmi_coxr<br>
-and psfmi_mm: model_type, predictors_in, predictors_out, fit.formula, predictors_final and predictors_initial.</li>
-<li>Excluded function miperform_lr.</li>
-<li>Changed name object multiparm_p into multiparm.</li>
-<li>Updated vignettes.</li>
-</ul>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -202,7 +164,7 @@ and psfmi_mm: model_type, predictors_in, predictors_out, fit.formula, predictors
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

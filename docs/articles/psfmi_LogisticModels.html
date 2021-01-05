@@ -31,18 +31,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -81,7 +75,7 @@
       <a href="../articles/psfmi_StabilityAnalysis.html">Stability analysis after Multiple Imputation</a>
     </li>
     <li>
-      <a href="../articles/psfmi_valext.html">Workflow to Develop and Validate a Prediction model with mice and psfmi</a>
+      <a href="../articles/workflow.html">Workflow to Develop and Validate a Prediction model in Multiply Imputed data</a>
     </li>
   </ul>
 </li>
@@ -92,7 +86,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/mwheymans/psfmi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,13 +100,13 @@
 
       
 
-      </header><script src="psfmi_LogisticModels_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="psfmi_LogisticModels_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Pooling and Selection of Logistic Regression Models</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2020-10-05</h4>
+            <h4 class="date">2021-01-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_LogisticModels.Rmd"><code>vignettes/psfmi_LogisticModels.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_LogisticModels.Rmd</code></div>
@@ -147,9 +141,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div id="pooling-without-bs-and-method-d1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-without-bs-and-method-d1" class="anchor"></a>Pooling without BS and method D1</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
+<span class="co">#&gt; Registered S3 methods overwritten by 'car':</span>
+<span class="co">#&gt;   method                          from</span>
+<span class="co">#&gt;   influence.merMod                lme4</span>
+<span class="co">#&gt;   cooks.distance.influence.merMod lme4</span>
+<span class="co">#&gt;   dfbeta.influence.merMod         lme4</span>
+<span class="co">#&gt;   dfbetas.influence.merMod        lme4</span>
   <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
   <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
@@ -165,21 +165,21 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 6    JobDemands  0.00227508 0.03872846  0.058744401 103.72259 0.953268722</span>
 <span class="co">#&gt; 7 SocialSupport  0.04434046 0.05750883  0.771019941 126.70867 0.442130487</span>
 <span class="co">#&gt;          OR   lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 0.9787776 0.007362449 130.1205053</span>
-<span class="co">#&gt; 2 0.7015581 0.309165955   1.5919729</span>
-<span class="co">#&gt; 3 1.0785854 0.552994262   2.1037224</span>
-<span class="co">#&gt; 4 0.8677214 0.796994613   0.9447246</span>
-<span class="co">#&gt; 5 1.0069274 0.967206964   1.0482791</span>
-<span class="co">#&gt; 6 1.0022777 0.929012848   1.0813204</span>
-<span class="co">#&gt; 7 1.0453382 0.933908457   1.1700632</span></pre></div>
+<span class="co">#&gt; 1 0.9787776 0.006951596 137.8108760</span>
+<span class="co">#&gt; 2 0.7015581 0.306989710   1.6032584</span>
+<span class="co">#&gt; 3 1.0785854 0.549958398   2.1153353</span>
+<span class="co">#&gt; 4 0.8677214 0.796369271   0.9454664</span>
+<span class="co">#&gt; 5 1.0069274 0.966670925   1.0488604</span>
+<span class="co">#&gt; 6 1.0022777 0.928182101   1.0822882</span>
+<span class="co">#&gt; 7 1.0453382 0.932895897   1.1713332</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-and-method-d1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-and-method-d1" class="anchor"></a>Pooling with BS and method D1</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 and forcing the predictor “Smoking” in the models during backward selection.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
@@ -200,9 +200,9 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 2     Smoking  0.06427314 0.33804675  0.1901309 151.8086 0.84946055 1.0663836</span>
 <span class="co">#&gt; 3    Function -0.14058914 0.04225212 -3.3273866 121.6357 0.00115993 0.8688462</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.2990643 8.6045855</span>
-<span class="co">#&gt; 2 0.5497462 2.0685436</span>
-<span class="co">#&gt; 3 0.7997922 0.9438623</span>
+<span class="co">#&gt; 1 1.2883439 8.6761852</span>
+<span class="co">#&gt; 2 0.5468337 2.0795610</span>
+<span class="co">#&gt; 3 0.7991282 0.9446467</span>
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
 <span class="co">#&gt;         Gender Smoking Function JobControl JobDemands SocialSupport</span>
@@ -210,26 +210,20 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; Step 2       0       0        0          1          0             0</span>
 <span class="co">#&gt; Step 3       0       0        0          0          0             1</span>
 <span class="co">#&gt; Step 4       1       0        0          0          0             0</span>
-<span class="co">#&gt; Removed      1       0        0          1          1             1</span></pre></div>
+<span class="co">#&gt; Removed      1       0        0          1          1             1</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-and-method-mpr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-and-method-mpr" class="anchor"></a>Pooling with BS and method MPR</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method D1 and forcing the predictor “Smoking” in the models during backward selection.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
   <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, keep.predictors <span class="op">=</span> <span class="st">"Smoking"</span>,
   p.crit <span class="op">=</span> <span class="fl">0.05</span>, method<span class="op">=</span><span class="st">"MPR"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'car':</span>
-<span class="co">#&gt;   method                          from</span>
-<span class="co">#&gt;   influence.merMod                lme4</span>
-<span class="co">#&gt;   cooks.distance.influence.merMod lme4</span>
-<span class="co">#&gt;   dfbeta.influence.merMod         lme4</span>
-<span class="co">#&gt;   dfbetas.influence.merMod        lme4</span>
 <span class="co">#&gt; Removed at Step 1 is - JobDemands</span>
 <span class="co">#&gt; Removed at Step 2 is - JobControl</span>
 <span class="co">#&gt; Removed at Step 3 is - SocialSupport</span>
@@ -245,9 +239,9 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 2     Smoking  0.06427314 0.33804675  0.1901309 151.8086 0.84946055 1.0663836</span>
 <span class="co">#&gt; 3    Function -0.14058914 0.04225212 -3.3273866 121.6357 0.00115993 0.8688462</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.2990643 8.6045855</span>
-<span class="co">#&gt; 2 0.5497462 2.0685436</span>
-<span class="co">#&gt; 3 0.7997922 0.9438623</span>
+<span class="co">#&gt; 1 1.2883439 8.6761852</span>
+<span class="co">#&gt; 2 0.5468337 2.0795610</span>
+<span class="co">#&gt; 3 0.7991282 0.9446467</span>
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
 <span class="co">#&gt;         Gender Smoking Function JobControl JobDemands SocialSupport</span>
@@ -255,15 +249,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; Step 2       0       0        0          1          0             0</span>
 <span class="co">#&gt; Step 3       0       0        0          0          0             1</span>
 <span class="co">#&gt; Step 4       1       0        0          0          0             0</span>
-<span class="co">#&gt; Removed      1       0        0          1          1             1</span></pre></div>
+<span class="co">#&gt; Removed      1       0        0          1          1             1</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-including-several-interaction-terms-and-method-d2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-including-several-interaction-terms-and-method-d2" class="anchor"></a>Pooling with BS including several interaction terms and method D2</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with BS using a p-value of 0.05 and as method D2. Several interaction terms, including a categorical predictor, are part of the selection procedure.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, 
@@ -287,9 +281,9 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 2 factor(Carrying)2  1.391554 0.4709708  2.954650 144.1330 3.657304e-03</span>
 <span class="co">#&gt; 3 factor(Carrying)3  2.248897 0.4750324  4.734198 151.4269 5.010441e-06</span>
 <span class="co">#&gt;          OR  lower.EXP  upper.EXP</span>
-<span class="co">#&gt; 1 0.2054828 0.09808504  0.4304753</span>
-<span class="co">#&gt; 2 4.0210931 1.59751783 10.1214455</span>
-<span class="co">#&gt; 3 9.4772792 3.73532116 24.0458093</span>
+<span class="co">#&gt; 1 0.2054828 0.09750312  0.4330445</span>
+<span class="co">#&gt; 2 4.0210931 1.58510710 10.2006922</span>
+<span class="co">#&gt; 3 9.4772792 3.70747175 24.2264342</span>
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
 <span class="co">#&gt;         Gender Smoking Function JobControl factor(Carrying)</span>
@@ -309,15 +303,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; Step 5                     0                        1              0</span>
 <span class="co">#&gt; Step 6                     0                        0              0</span>
 <span class="co">#&gt; Step 7                     0                        0              0</span>
-<span class="co">#&gt; Removed                    1                        1              1</span></pre></div>
+<span class="co">#&gt; Removed                    1                        1              1</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-and-forcing-interaction-terms-and-method-d1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-and-forcing-interaction-terms-and-method-d1" class="anchor"></a>Pooling with BS and forcing interaction terms and method D1</h2>
 <p>Same as above but now forcing several predictors, including interaction terms, in the model during BS.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, 
@@ -339,13 +333,13 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 6 Smoking:factor(Carrying)2  2.093737680 1.3149790  1.5922214  66.01171</span>
 <span class="co">#&gt; 7 Smoking:factor(Carrying)3  2.370029492 1.3934064  1.7008889  51.83267</span>
 <span class="co">#&gt;      p.value         OR  lower.EXP  upper.EXP</span>
-<span class="co">#&gt; 1 0.55507827  0.4446258 0.03062439   6.455380</span>
-<span class="co">#&gt; 2 0.12944599  0.1658715 0.01674676   1.642907</span>
-<span class="co">#&gt; 3 0.83164826  0.9953854 0.95401285   1.038552</span>
-<span class="co">#&gt; 4 0.24696141  2.0615378 0.60980909   6.969293</span>
-<span class="co">#&gt; 5 0.01071096  4.6404601 1.45744482  14.775084</span>
-<span class="co">#&gt; 6 0.11611271  8.1151905 0.61654673 106.814803</span>
-<span class="co">#&gt; 7 0.09495675 10.6977078 0.69694615 164.203434</span>
+<span class="co">#&gt; 1 0.55507827  0.4446258 0.02884811   6.852861</span>
+<span class="co">#&gt; 2 0.12944599  0.1658715 0.01604000   1.715297</span>
+<span class="co">#&gt; 3 0.83164826  0.9953854 0.95315370   1.039488</span>
+<span class="co">#&gt; 4 0.24696141  2.0615378 0.60139911   7.066751</span>
+<span class="co">#&gt; 5 0.01071096  4.6404601 1.43831227  14.971624</span>
+<span class="co">#&gt; 6 0.11611271  8.1151905 0.58760877 112.075110</span>
+<span class="co">#&gt; 7 0.09495675 10.6977078 0.65294658 175.268475</span>
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_in</span>
 <span class="co">#&gt;          Gender Smoking Function JobControl factor(Carrying)</span>
@@ -359,15 +353,15 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; Step 2                      0                        1              0</span>
 <span class="co">#&gt; Step 3                      0                        1              0</span>
 <span class="co">#&gt; Step 4                      0                        1              0</span>
-<span class="co">#&gt; Included                    0                        1              0</span></pre></div>
+<span class="co">#&gt; Included                    0                        1              0</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-including-spline-coefficient-and-method-d1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pooling-with-bs-including-spline-coefficient-and-method-d1" class="anchor"></a>Pooling with BS including spline coefficient and method D1</h2>
 <p>Pooling Logistic regression models over 5 imputed datasets with BS using a p-value of 0.05 and as method D1. A spline predictor and interaction term are part of the selection procedure.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
   <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
   predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, 
@@ -391,9 +385,9 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 2 factor(Carrying)2  1.391554 0.4709708  2.954650 144.1330 3.657304e-03</span>
 <span class="co">#&gt; 3 factor(Carrying)3  2.248897 0.4750324  4.734198 151.4269 5.010441e-06</span>
 <span class="co">#&gt;          OR  lower.EXP  upper.EXP</span>
-<span class="co">#&gt; 1 0.2054828 0.09808504  0.4304753</span>
-<span class="co">#&gt; 2 4.0210931 1.59751783 10.1214455</span>
-<span class="co">#&gt; 3 9.4772792 3.73532116 24.0458093</span>
+<span class="co">#&gt; 1 0.2054828 0.09750312  0.4330445</span>
+<span class="co">#&gt; 2 4.0210931 1.58510710 10.2006922</span>
+<span class="co">#&gt; 3 9.4772792 3.70747175 24.2264342</span>
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
 <span class="co">#&gt;         Gender Smoking JobControl factor(Carrying) factor(Satisfaction)</span>
@@ -411,7 +405,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; Step 4                0                        0</span>
 <span class="co">#&gt; Step 5                0                        1</span>
 <span class="co">#&gt; Step 6                0                        0</span>
-<span class="co">#&gt; Removed               1                        1</span></pre></div>
+<span class="co">#&gt; Removed               1                        1</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -432,7 +426,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

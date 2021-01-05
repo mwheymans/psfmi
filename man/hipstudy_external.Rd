@@ -23,7 +23,7 @@ External dataset of elderly patients with a hip fracture
     \item{\code{Thrombocytes}}{continuous: Thrombocytes preoperative (10^9/l)}
     \item{\code{CRP}}{continuous: C-reactive protein (CRP) preoperative (mg/l)}
     \item{\code{Creatinine}}{continuous: Creatinine preoperative (μmol/l)}
-    \item{\code{Urea}}{continuous: Ureum preoperative (mmol/l)}
+    \item{\code{Urea}}{continuous: Urea preoperative (mmol/l)}
     \item{\code{Albumine}}{continuous: Albumin preoperative (g/l)}
     \item{\code{Fracture}}{dichotomous: 1 = fracture at the height of the thicker portion of 
       the Femur (per or subtrochanter fracture), 0 = Femoral neck fracture (collum fracture)}
