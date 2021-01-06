@@ -106,7 +106,7 @@
 #' @author Martijn Heymans, 2020
 #'
 #' @examples
-#'   pool_lr <- psfmi_lr( data=lbpmilr, formula = Chronic ~ Pain + 
+#'   pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + 
 #'   factor(Satisfaction) + rcs(Tampascale,3) + Radiation + 
 #'   Radiation*factor(Satisfaction) + Age + Duration + BMI,
 #'   p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr", 

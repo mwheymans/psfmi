@@ -41,10 +41,10 @@
 #'  \code{model_type}, \code{predictors_final} for names of predictors in final selection step and 
 #'  \code{predictors_initial} for names of predictors in start model.
 #'
-#' @references http://missingdatasolutions.rbind.io/
+#'@references http://missingdatasolutions.rbind.io/
 #'
-#' @examples
-#'  res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
+#'@examples
+#'   res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
 #'          predictors=c("Tampascale", "Smoking"),
 #'          cat.predictors = c("Satisfaction"))
 #'          
@@ -108,7 +108,6 @@ if(is_empty(formula)) {
     form_vars[!grepl("rcs", form_vars)]
   int.P <-
     gsub(":", "*", clean_P(int.P))
-
   cat.P <- clean_P(cat.P)
   s.P <- clean_P(s.P)
   P <- form_vars
