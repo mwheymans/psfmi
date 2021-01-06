@@ -30,6 +30,7 @@ reference:
   - rsq_nagel
 - title: Datasets used in examples and tutorials
 - contents: 
+  - lbp_orig
   - anderson
   - aortadis
   - bmd
@@ -48,7 +49,6 @@ reference:
   - sbp_qas
   - smoking
   - weight 
-  - lbp_orig
   - ipdna_md
   - lbpmicox
   - lbpmilr

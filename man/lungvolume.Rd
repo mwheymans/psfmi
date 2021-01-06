@@ -3,7 +3,7 @@
 \docType{data}
 \title{Data of the development of lung and heartvolume of unborn babies}
 \description{
-Data regarding the development of lung and heartvolume of unborn babies in the 18e till 34e week of pregnancy
+Data regarding the development of lung and heartvolume of unborn babies in the 18 till 34 week of pregnancy
 }
 \usage{data(lungvolume)}
 \format{
