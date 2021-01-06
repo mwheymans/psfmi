@@ -10,8 +10,8 @@ Dataset with blood pressure measurements
   A data frame with 30 observations on the following 3 variables.
   \describe{
     \item{\code{pat_id}}{continuous}
-    \item{\code{sbp}}{continuous: systolic blood pressure (sbp, in mm Hg)}
-    \item{\code{age}}{continuous: age (age, in years)}
+    \item{\code{sbp}}{continuous: systolic blood pressure}
+    \item{\code{age}}{continuous: age (years)}
   }
 }
 \examples{

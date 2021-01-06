@@ -14,7 +14,7 @@ Data of 613 patients with meningitis
     \item{\code{predisp}}{dichotomous: 0=no, 1=yes}
     \item{\code{mensepsi}}{categorical: disease characteristics at admission, 1=menigitis, 2=sepsis, 3=other}
     \item{\code{coma}}{dichotomous: coma at admission, 0=no, 1=coma}
-    \item{\code{diastol}}{continuous: diastolic blood pressure. at admission}
+    \item{\code{diastol}}{continuous: diastolic blood pressure at admission}
     \item{\code{course}}{dichotomous: disease course, 0=alive, 1=deceased}
   }
 }
