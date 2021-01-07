@@ -105,15 +105,14 @@ mivalext_lr <-
         stop("Not needed to define lp.orig, coefficient values
       are derived from original dataset as defined under data.orig")
     }
-    
+  
     if(is.null(data.orig) & is.null(lp.orig))
       stop("data.orig and lp.orig not defined, no model to validate")
-    
     if (ncol(data.val) < 2)
       stop("Validation data should contain at least two columns")
     if(is.null(impvar))
       stop("Imputation variable is not defined")
-    if (order(unique(data.val[impvar]))[1] == 0)
+    if (sort(unique(data.val[,impvar]))[1] == 0)
       stop("Original dataset should not be included")
     if(is.null(nimp))
       stop("Number of imputed datasets is not defined, use nimp!")

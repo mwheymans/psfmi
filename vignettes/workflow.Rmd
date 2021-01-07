@@ -75,9 +75,7 @@ each other to form one long dataset and the original dataset (that included miss
 values) is not included in that long dataset.
 
 ```{r}
-
   data_comp <- complete(imp, action = "long", include = FALSE)
-  
 ```
 
 Back to [Steps]
@@ -183,7 +181,11 @@ new intercept value.
 
 ```{r}
 
-  res <- pool_intadj(pool_lr, shrinkage_factor = 0.8449148)
+  pool_select <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", 
+  formula = Chronic ~ Pain + Radiation + factor(Satisfaction) + factor(Carrying),  
+  p.crit = 1, method="D1")
+
+  res <- pool_intadj(pool_select, shrinkage_factor = 0.8449148)
 
   res$int_adj
   res$coef_shrink_pooled
@@ -201,10 +203,10 @@ due to missing data.
 
 ```{r plot2, fig.height = 3, fig.width = 5}
 
-   res_extval <- mivalext_lr(data.val = lbpmi_extval, nimp = 5, impvar = "Impnr",
-    Outcome = "Chronic", predictors = pool_lr$predictors_final,
-    lp.orig = c(res$int_adj, res$coef_shrink_pooled),
-    cal.plot = TRUE)
+  res_extval <- mivalext_lr(data.val = lbpmi_extval, nimp = 5, impvar = "Impnr",
+  Outcome = "Chronic", predictors = pool_lr$predictors_final,
+  lp.orig = c(res$int_adj, res$coef_shrink_pooled),
+  cal.plot = TRUE)
  
   res_extval$ROC
  

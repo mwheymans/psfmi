@@ -218,7 +218,7 @@ psfmi_coxr <- function(data,
   if(is_empty(method)) method="RR"
   if(all(!is_empty(cat.P) | !is_empty(s.P)) & method=="RR")
     stop("Categorical or spline variables in model, define selection method: D1, D2 or MPR")
-  if (order(unique(data[, impvar]))[1] == 0)
+  if (sort(unique(data[, impvar]))[1] == 0)
     stop("Original dataset should not be included")
   if(is_empty(nimp))
     stop("Number of imputed datasets is not defined, use nimp!")
