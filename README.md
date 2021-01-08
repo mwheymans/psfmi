@@ -9,7 +9,7 @@ badge](https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue)](https://C
 [![Travis Build
 Status](https://travis-ci.com/mwheymans/psfmi.svg?branch=master)](https://travis-ci.org/mwheymans/psfmi)
 [![minimal R
-version](https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg)](https://cran.r-project.org/)
+version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
 
 The package provides functions to apply pooling, backward and forward
 selection of logistic and Cox regression prediction models in multiply
