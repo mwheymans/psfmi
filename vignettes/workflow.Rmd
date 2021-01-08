@@ -10,17 +10,17 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
+# Introduction {-}
+
+This vignette shows how to develop, internally and externally validate
+a (logistic) regression prediction model with `mice` and `psfmi`.
+
 ```{r, include = FALSE, message = FALSE}
 library(knitr)
 opts_chunk$set(tidy = FALSE, cache = FALSE)
 library(mice)
 library(psfmi)
 ```
-
-# Introduction {-}
-
-This vignette shows how to develop, internally and externally validate
-a (logistic) regression prediction model with `mice` and `psfmi`.
 
 # Steps {-}
 

@@ -30,7 +30,7 @@ Validation of the prediction models can be performed with cross-validation or bo
 in multiply imputed data sets and pooled model performance measures as AUC value, 
 R-square, scaled Brier score and calibration plots are generated. Also a function 
 to externally validate logistic	prediction models in multiple imputed data sets
-is available.
+is available and a function to compare models in multiply imputed data.
 
 ## Installation
 

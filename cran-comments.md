@@ -1,5 +1,36 @@
 ## Resubmission
 This is a resubmission. In this version I have:
+Updated version nr to 0.7.1.
+Added new functions to compare models, the functions pool_compare_models and 
+pool_reclassification. Applied some bug fixes in the function bw_single. 
+Added internal function RR_diff_prop to pool difference in proportions. 
+Updated vignettes and package website with pkgdown and added datasets to 
+be used in tutorials.
+
+## R CMD check results
+Duration: 8m 23.1s
+
+0 errors √ | 0 warnings √ | 0 notes √
+
+## devtools::test()
+Loading psfmi
+Testing psfmi
+√ |  OK F W S | Context
+/ |   0       | testthat.R                                                                           
+== Results ==========================================================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
+
+## Test environments
+*	R studio 1.3.1073, R version 4.0.2
+* win-builder Development: Status: OK, R version 4.0.2
+* win-builder Release: Status: OK, R version 4.0.2
+* on Travis CI: Operating System Details Distributor ID:	Ubuntu
+  Description:	Ubuntu 16.04.6 LTS
+  Release:	16.04
+  Codename:	xenial (on Travis CI) (Done. Your build exited with 0)
+  
+## Resubmission
+This is a resubmission. In this version I have:
 Updated version nr to 0.5.0.
 Added new methods to combine cross-validation with multiple imputation
 in function psfmi_perform and added the possibility for forward 

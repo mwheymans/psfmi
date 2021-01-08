@@ -23,7 +23,7 @@ cross-validation or bootstrapping in multiply imputed data sets and
 pooled model performance measures as AUC value, R-square, scaled Brier
 score and calibration plots are generated. Also a function to externally
 validate logistic prediction models in multiple imputed data sets is
-available.
+available and a function to compare models in multiply imputed data.
 
 ## Installation
 
@@ -47,6 +47,12 @@ includes a restricted cubic spline function and an interaction term.
 
 ``` r
 library(psfmi)
+#> Registered S3 methods overwritten by 'car':
+#>   method                          from
+#>   influence.merMod                lme4
+#>   cooks.distance.influence.merMod lme4
+#>   dfbeta.influence.merMod         lme4
+#>   dfbetas.influence.merMod        lme4
 
 pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + JobDemands + rcs(Tampascale, 3) +
                    factor(Satisfaction) + Smoking + factor(Satisfaction)*rcs(Pain, 3) ,
@@ -66,9 +72,9 @@ pool_lr$RR_model_final
 #> 4      rcs(Pain, 3)Pain  0.6514983 0.4028728  1.6171315  51.09308 0.112008088
 #> 5     rcs(Pain, 3)Pain'  0.4703811 0.4596490  1.0233483  75.29317 0.309419924
 #>           OR   lower.EXP upper.EXP
-#> 1 0.02724823 0.001324739 0.5604621
-#> 2 0.62342367 0.226561226 1.7154616
-#> 3 0.09701406 0.023120005 0.4070815
-#> 4 1.91841309 0.870983375 4.2254639
-#> 5 1.60060402 0.650163744 3.9404431
+#> 1 0.02724823 0.001245225 0.5962503
+#> 2 0.62342367 0.224644070 1.7301016
+#> 3 0.09701406 0.022793375 0.4129150
+#> 4 1.91841309 0.854476033 4.3070942
+#> 5 1.60060402 0.640677978 3.9987846
 ```

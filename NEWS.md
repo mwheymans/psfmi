@@ -1,3 +1,14 @@
+# Package 0.7.1
+
+* Added the functions pool_compare_models and pool_reclassification.
+* applied some bug fixes in the function bw_single where selection with anova
+was replaced with Anova.
+* added internal function RR_diff_prop to pool difference in proportions and
+related SE with RR.
+* Updated vignettes.
+* Updated  package website with pkgdown.
+* Added datasets to be used in tutorials.
+
 # Package 0.5.0
 
 * Added forward selection to the psfmi_lr and psfmi_coxr functions.
