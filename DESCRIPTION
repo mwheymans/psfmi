@@ -5,7 +5,7 @@ Depends:
 Imports:
     ggplot2 (>= 3.3.2),
     norm (>= 1.0-9.5),
-    survival (>= 3.2-7),
+    survival (>= 3.1-12),
     mitools (>= 2.4),
     pROC (>= 1.16.2),
     rms (>= 6.1-0),
