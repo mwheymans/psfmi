@@ -106,7 +106,7 @@
       <h1 data-toc-skip>Working together: mice and psfmi</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2021-01-08</h4>
+            <h4 class="date">2021-01-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_mice.Rmd"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
@@ -201,22 +201,22 @@
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term     estimate  std.error   statistic        df     p.value</span>
-<span class="co">#&gt; 1   (Intercept)  0.113232768 2.46696357  0.04589965 124.33140 0.963463874</span>
-<span class="co">#&gt; 2        Gender -0.382214699 0.41462963 -0.92182195 145.74934 0.358144836</span>
-<span class="co">#&gt; 3       Smoking  0.093711692 0.34006958  0.27556623 148.92572 0.783263236</span>
-<span class="co">#&gt; 4      Function -0.140071364 0.04272704 -3.27828367 146.48560 0.001304567</span>
-<span class="co">#&gt; 5    JobControl  0.007554817 0.02007609  0.37630913 122.79337 0.707336503</span>
-<span class="co">#&gt; 6    JobDemands -0.001878524 0.03939908 -0.04767939  77.43169 0.962094523</span>
-<span class="co">#&gt; 7 SocialSupport  0.042511167 0.05710733  0.74440825 137.50084 0.457899856</span>
-<span class="co">#&gt;          OR   lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 1.1198926 0.008485038 147.8083465</span>
-<span class="co">#&gt; 2 0.6823485 0.300689246   1.5484409</span>
-<span class="co">#&gt; 3 1.0982431 0.560866129   2.1504915</span>
-<span class="co">#&gt; 4 0.8692962 0.798905647   0.9458888</span>
-<span class="co">#&gt; 5 1.0075834 0.968327192   1.0484311</span>
-<span class="co">#&gt; 6 0.9981232 0.922816261   1.0795757</span>
-<span class="co">#&gt; 7 1.0434277 0.932010701   1.1681640</span></code></pre></div>
+<span class="co">#&gt;            term     estimate  std.error   statistic       df     p.value</span>
+<span class="co">#&gt; 1   (Intercept) -0.126206155 2.37537642 -0.05313101 147.9555 0.957699192</span>
+<span class="co">#&gt; 2        Gender -0.333574354 0.41547296 -0.80287862 147.5937 0.423335896</span>
+<span class="co">#&gt; 3       Smoking  0.082054314 0.33981842  0.24146517 149.5978 0.809525263</span>
+<span class="co">#&gt; 4      Function -0.144068238 0.04381498 -3.28810472 131.0409 0.001295148</span>
+<span class="co">#&gt; 5    JobControl  0.005940285 0.01964562  0.30237191 145.9358 0.762799091</span>
+<span class="co">#&gt; 6    JobDemands  0.003107044 0.03711943  0.08370399 143.3354 0.933408574</span>
+<span class="co">#&gt; 7 SocialSupport  0.050165121 0.05692499  0.88124955 137.2650 0.379723226</span>
+<span class="co">#&gt;          OR  lower.EXP  upper.EXP</span>
+<span class="co">#&gt; 1 0.8814331 0.00806475 96.3358237</span>
+<span class="co">#&gt; 2 0.7163586 0.31517777  1.6281912</span>
+<span class="co">#&gt; 3 1.0855148 0.55465477  2.1244608</span>
+<span class="co">#&gt; 4 0.8658287 0.79394232  0.9442239</span>
+<span class="co">#&gt; 5 1.0059580 0.96764848  1.0457841</span>
+<span class="co">#&gt; 6 1.0031119 0.93214660  1.0794798</span>
+<span class="co">#&gt; 7 1.0514447 0.93950871  1.1767171</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="mice-and-psfmi-for-selecting-logistic-regression-models" class="section level2">
@@ -270,12 +270,12 @@
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span>
 <span class="co">#&gt; $`Final model`</span>
-<span class="co">#&gt;          term   estimate  std.error statistic       df      p.value        OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.2057565 0.45896221  2.627137 150.6590 0.0095009471 3.3392843</span>
-<span class="co">#&gt; 2    Function -0.1385257 0.04090863 -3.386222 150.8502 0.0009036542 0.8706409</span>
+<span class="co">#&gt;          term   estimate  std.error statistic       df     p.value       OR</span>
+<span class="co">#&gt; 1 (Intercept)  1.1939416 0.47729052  2.501499 111.6667 0.013816976 3.300063</span>
+<span class="co">#&gt; 2    Function -0.1365118 0.04232627 -3.225227 110.3949 0.001656209 0.872396</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.3484056 8.2696329</span>
-<span class="co">#&gt; 2 0.8030378 0.9439352</span></code></pre></div>
+<span class="co">#&gt; 1 1.2817429 8.4965689</span>
+<span class="co">#&gt; 2 0.8022065 0.9487268</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
