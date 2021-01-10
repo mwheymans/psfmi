@@ -16,18 +16,20 @@ Duration: 8m 23.1s
 Loading psfmi
 Testing psfmi
 √ |  OK F W S | Context
-/ |   0       | testthat.R                                                                           
-== Results ==========================================================================================
+/ |   0       | testthat.R                                                                                  
+== Results =========================================================================================================
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
 
 ## Test environments
-*	R studio 1.3.1073, R version 4.0.2
-* win-builder Development: Status: OK, R version 4.0.2
-* win-builder Release: Status: OK, R version 4.0.2
-* on Travis CI: Operating System Details Distributor ID:	Ubuntu
-  Description:	Ubuntu 16.04.6 LTS
-  Release:	16.04
-  Codename:	xenial (on Travis CI) (Done. Your build exited with 0)
+*	R studio 1.4.970, R version 4.0.3
+* win-builder Development: * DONE Status: OK
+* win-builder Release: * DONE Status: OK
+* on Travis CI: R session information
+$ Rscript -e 'sessionInfo()'
+R version 4.0.2 (2020-06-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 16.04.6 LTS
+Done. Your build exited with 0.
   
 ## Resubmission
 This is a resubmission. In this version I have:

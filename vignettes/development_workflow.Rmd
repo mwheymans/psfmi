@@ -2,8 +2,7 @@
 title: "Workflow to Develop and Validate a Prediction model in Multiply Imputed data"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
-output:
-  rmarkdown::html_vignette
+output: html_document
 vignette: >
   %\VignetteIndexEntry{Workflow to Develop and Validate a Prediction model in Multiply Imputed data}
   %\VignetteEngine{knitr::rmarkdown}
@@ -227,4 +226,3 @@ deviates from the value of 1, which means that the coefficients values differ
 between the development and external dataset.
 
 Back to [Steps]
-

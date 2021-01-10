@@ -44,7 +44,7 @@
 #'@references http://missingdatasolutions.rbind.io/
 #'
 #'@examples
-#'   res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
+#' res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
 #'          predictors=c("Tampascale", "Smoking"),
 #'          cat.predictors = c("Satisfaction"))
 #'          

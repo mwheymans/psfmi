@@ -1,6 +1,6 @@
 #' Calculates the pooled Area Under the Curve in Multiply Imputed datasets 
 #'
-#' \code{pool_auc} Calculated the pooled AUC and 95% Confidence interval
+#' \code{pool_auc} Calculates the pooled AUC and 95% Confidence interval
 #'  by using Rubin's Rules. The AUC values are log transformed before pooling. 
 #'
 #' @param est_auc A list of AUC values estimated in Multiply Imputed datasets.  
