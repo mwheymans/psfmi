@@ -2,7 +2,8 @@
 title: "Workflow to Develop and Validate a Prediction model in Multiply Imputed data"
 author: "Martijn W Heymans"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Workflow to Develop and Validate a Prediction model in Multiply Imputed data}
   %\VignetteEngine{knitr::rmarkdown}
