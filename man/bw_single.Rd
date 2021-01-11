@@ -71,7 +71,7 @@ A typical formula object has the form \code{Outcome ~ terms}. Categorical variab
  All variables in the terms part have to be separated by a "+".
 }
 \examples{
-  res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
+res_single <- bw_single(data=lbpmilr, p.crit = 0.05, Outcome="Chronic",
          predictors=c("Tampascale", "Smoking"),
          cat.predictors = c("Satisfaction"))
          

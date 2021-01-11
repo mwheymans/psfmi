@@ -21,7 +21,7 @@ pooling and finally back transformed. If FALSE the raw values are pooled.}
 The pooled AUC value and the 95% CI.
 }
 \description{
-\code{pool_auc} Calculated the pooled AUC and 95% Confidence interval
+\code{pool_auc} Calculates the pooled AUC and 95% Confidence interval
  by using Rubin's Rules. The AUC values are log transformed before pooling.
 }
 \seealso{
