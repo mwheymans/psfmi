@@ -8,3 +8,4 @@
 ^Meta$
 ^README\.Rmd$
 ^CRAN-RELEASE$
+^pkgdown$
