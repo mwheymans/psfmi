@@ -60,5 +60,5 @@ LazyData:
 RoxygenNote: 7.1.1
 License: GPL (>= 2)
 URL: https://mwheymans.github.io/psfmi/
-BugReports: https://github.com/mwheymans/psfmi/issues 
+BugReports: https://github.com/mwheymans/psfmi/issues/ 
 VignetteBuilder: knitr
