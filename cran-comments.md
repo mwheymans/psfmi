@@ -8,7 +8,7 @@ Updated vignettes and package website with pkgdown and added datasets to
 be used in tutorials.
 
 ## R CMD check results
-Duration: 8m 23.1s
+Duration: 5m 19.8s
 
 0 errors √ | 0 warnings √ | 0 notes √
 
@@ -16,8 +16,8 @@ Duration: 8m 23.1s
 Loading psfmi
 Testing psfmi
 √ |  OK F W S | Context
-/ |   0       | testthat.R                                                                                  
-== Results =========================================================================================================
+/ |   0       | testthat.R                                                                                              
+== Results =============================================================================================================
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
 
 ## Test environments
