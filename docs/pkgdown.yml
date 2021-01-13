@@ -12,5 +12,8 @@ articles:
   psfmi_LogisticModels: psfmi_LogisticModels.html
   psfmi_mice: psfmi_mice.html
   psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
-last_built: 2021-01-12T18:24Z
+last_built: 2021-01-13T11:18Z
+urls:
+  reference: https://mwheymans.github.io/psfmi//reference
+  article: https://mwheymans.github.io/psfmi//articles
 

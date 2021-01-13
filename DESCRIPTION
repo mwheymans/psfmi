@@ -35,7 +35,7 @@ Version: 0.7.1
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut"),
   comment = c(ORCID = "0000-0002-3889-0921")),
-  person("Iris", "Eekhout", email = "i.eekhout@tno.nl", role=c("ctb")))
+  person("Iris", "Eekhout", email = "iris.eekhout@tno.nl", role=c("ctb")))
 Description:
 	Pooling, backward and forward selection of logistic and Cox regression models in 
 	multiply imputed datasets. Backward and forward selection can be done 

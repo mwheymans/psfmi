@@ -1,3 +1,7 @@
+---
+title: "cran_comments"
+---
+
 ## Resubmission
 This is a resubmission. In this version I have:
 Updated version nr to 0.7.1.
