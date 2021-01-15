@@ -1,0 +1,77 @@
+---
+title: "Tutorial"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(psfmi)
+```
+
+
+## Topic 1
+
+### Exercise 1a
+
+Write the code to answer question 1a
+
+```{r exercise1a, exercise=TRUE, exercise.eval=TRUE}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+                    predictors=c("Gender"), p.crit = 1, cat.predictors = NULL, method="D1")
+pool_lr$RR_Model
+
+```
+
+```{r exercise1a-hint}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+                    predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+                     "SocialSupport"), p.crit = 1, cat.predictors = c("Carrying",  "Satisfaction"), 
+                    method="D1", direction = NULL)
+pool_lr$RR_Model
+pool_lr$multiparm
+
+```
+
+## Topic 2
+
+### Exercise with Hint
+
+*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+
+Modify the following code to limit the number of rows printed to 5:
+
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+mtcars
+```
+
+```{r print-limit-hint}
+head(mtcars)
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+
