@@ -10,3 +10,4 @@
 ^pkgdown$
 ^\.github$
 ^docs$
+^inst$
