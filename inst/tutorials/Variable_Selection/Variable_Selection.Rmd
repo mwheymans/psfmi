@@ -1,0 +1,105 @@
+---
+title: "Tutorial"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(psfmi)
+```
+
+## Practical Exercises variable selection
+
+### Exercise 1a
+
+Write the code to answer question 1a
+
+```{r exercise1a, exercise=TRUE, exercise.eval=TRUE}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+                    predictors=c("Gender"), p.crit = 1, cat.predictors = c("Carrying"), method="D1")
+pool_lr$RR_model
+
+```
+
+```{r exercise1a-hint}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+                    predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+                     "SocialSupport"), p.crit = 1, cat.predictors = c("Carrying",  "Satisfaction"), 
+                    method="D1", direction = NULL)
+pool_lr$RR_model
+
+```
+
+### Exercise 1b
+
+Write the code to answer question 1b
+
+```{r exercise1b, exercise=TRUE, exercise.eval=TRUE}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+            predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+           "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying",  "Satisfaction"), method="D1", direction="BW")
+
+
+```
+
+```{r exercise1b-hint}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+            predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+           "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying",  "Satisfaction"), method="D1", direction="BW")
+
+pool_lr$RR_model
+
+```
+
+### Exercise 1c
+
+Write the code to answer question 1c
+
+```{r exercise1c, exercise=TRUE, exercise.eval=TRUE}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+            predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+           "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying",             "Satisfaction"), method="D1", direction="BW")
+
+
+```
+
+```{r exercise1c-hint}
+
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+            predictors=c("Gender", "Smoking", "Function", "JobControl", "JobDemands",
+           "SocialSupport"), p.crit = 0.05, cat.predictors = c("Carrying",  "Satisfaction"), method="D1", direction="BW")
+
+pool_lr$RR_multiparm
+
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+
