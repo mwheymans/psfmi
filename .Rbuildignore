@@ -10,4 +10,4 @@
 ^pkgdown$
 ^\.github$
 ^docs$
-^inst$
+^inst/tutorials/.*\.html$
