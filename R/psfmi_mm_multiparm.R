@@ -71,8 +71,8 @@ psfmi_mm_multiparm <-
       lower.EXP <- exp(out.res1[, 1] - (1.96*out.res1[, 2]))
       upper.EXP <- exp(out.res1[, 1] + (1.96*out.res1[, 2]))
       model.res1 <- cbind(out.res1, OR, lower.EXP, upper.EXP)
-      model.res1 <- round(model.res1, 4)
-      } else model.res1 <- round(out.res1, 4)
+      model.res1 <- model.res1
+      } else model.res1 <- out.res1
       out.res0 <- summary(mice::pool(fit0))
 
       tmr <- mitml::testModels(fit1, fit0, method = method)
@@ -82,7 +82,7 @@ psfmi_mm_multiparm <-
       pool.p.val[j, ] <- c(pvalue, fstat)
       
       pool.multiparm <- pool.p.val
-      pool.multiparm <- round(data.frame(pool.multiparm), 5)
+      pool.multiparm <- data.frame(pool.multiparm)
       row.names(pool.multiparm) <- P
       names(pool.multiparm) <- c("p-values", "F-statistic")
       
