@@ -8,14 +8,14 @@
 #'   The original dataset that contains missing values must be excluded from the
 #'   dataset. The imputed datasets must be distinguished by an imputation variable,
 #'   specified under impvar, and starting by 1.
-#' @param formula A formula object to specify the model as normally used by glm.
+#' @param formula A formula object to specify the model as normally used by coxph.
 #'   See under "Details" and "Examples" how these can be specified. If a formula
 #'   object is used set predictors, cat.predictors, spline.predictors or int.predictors
 #'   at the default value of NULL.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the
 #' imputed datasets.
-#' @param time Follow up time.
+#' @param time Survival time.
 #' @param status The status variable, normally 0=censoring, 1=event.
 #' @param predictors Character vector with the names of the predictor variables.
 #'   At least one predictor variable has to be defined. Give predictors unique names
@@ -46,11 +46,11 @@
 #'  Spline regression coefficients are defined by using the rcs function for restricted cubic
 #'  splines of the rms package. A minimum number of 3 knots as defined under knots is required.
 #'
-#'  A typical formula object has the form \code{Outcome ~ terms}. Categorical variables has to
-#'  be defined as \code{Outcome ~ factor(variable)}, restricted cubic spline variables as
-#'  \code{Outcome ~ rcs(variable, 3)}. Interaction terms can be defined as
-#'  \code{Outcome ~ variable1*variable2} or \code{Outcome ~ variable1 + variable2 + variable1:variable2}.
-#'  All variables in the terms part have to be separated by a "+". If a formula
+#'  A typical formula object has the form \code{Surv(time, status) ~ terms}. Categorical variables has to
+#'  be defined as \code{Surv(time, status) ~ factor(variable)}, restricted cubic spline variables as
+#'  \code{Surv(time, status) ~ rcs(variable, 3)}. Interaction terms can be defined as
+#'  \code{Surv(time, status) ~ variable1*variable2} or \code{Surv(time, status) ~ variable1 + variable2 + 
+#'  variable1:variable2}. All variables in the terms part have to be separated by a "+". If a formula
 #'  object is used set predictors, cat.predictors, spline.predictors or int.predictors
 #'  at the default value of NULL.
 #'
