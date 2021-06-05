@@ -125,7 +125,7 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
   p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr", 
   keep.predictors = c("Radiation*factor(Satisfaction)", "Age"), method="D1")
   
-  pool_lr$RR_model_final
+  pool_lm$RR_model_final
 
 }
 \references{

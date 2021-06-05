@@ -124,11 +124,12 @@ psfmi_lm <- function(data,
   
   call <- match.call()
   
+  if(method=="D3")
+    stop("\n", "For linear regression use method D1, D2 or MPR", "\n") 
+  
   if(is_empty(formula)) {
     if(is_empty(Outcome))
       stop("Outcome variable not defined")
-   if(method=="D3")
-      stop("\n", "For linear regression use method D1, D2 or MPR", "\n") 
     P <-
       predictors
     cat.P <-

@@ -12,11 +12,11 @@ Status](https://travis-ci.com/mwheymans/psfmi.svg?branch=master)](https://travis
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
 
 The package provides functions to apply pooling, backward and forward
-selection of logistic and Cox regression prediction models in multiply
-imputed data sets using Rubin’s Rules (RR), the D1, D2, D3 and the
-median p-values method. The model can contain continuous, dichotomous,
-categorical and restricted cubic spline predictors and interaction terms
-between all these type of predictors.
+selection of linear, logistic and Cox regression prediction models in
+multiply imputed data sets using Rubin’s Rules (RR), the D1, D2, D3 and
+the median p-values method. The model can contain continuous,
+dichotomous, categorical and restricted cubic spline predictors and
+interaction terms between all these type of predictors.
 
 Validation of the prediction models can be performed with
 cross-validation or bootstrapping in multiply imputed data sets and
@@ -38,6 +38,15 @@ And the development version from [GitHub](https://github.com/) with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("mwheymans/psfmi")
+```
+
+## Citation
+
+Cite the package as:
+
+``` r
+Martijn Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
+Multiple Imputed Datasets. R package version 0.7.1. https://mwheymans.github.io/psfmi/
 ```
 
 ## Example

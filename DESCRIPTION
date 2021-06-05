@@ -37,7 +37,7 @@ Authors@R: c(
   comment = c(ORCID = "0000-0002-3889-0921")),
   person("Iris", "Eekhout", email = "iris.eekhout@tno.nl", role=c("ctb")))
 Description:
-	Pooling, backward and forward selection of logistic and Cox regression models in 
+	Pooling, backward and forward selection of linear, logistic and Cox regression models in 
 	multiply imputed datasets. Backward and forward selection can be done 
 	from the pooled model using Rubin's Rules (RR), the D1, D2, D3 and 
 	the median p-values method. This is also possible for Mixed models. 
