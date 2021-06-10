@@ -286,7 +286,7 @@ bw_single_cox <- function(data,
         car::Anova(fit)
     }
     
-    # Rubin's Rules
+    # Model results
     out.res <-
       summary(fit)$coefficients
     lower.EXP <-
