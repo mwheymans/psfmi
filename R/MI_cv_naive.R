@@ -55,7 +55,8 @@ MI_cv_naive <- function(pobj, folds = 3, p.crit = 1, BW=FALSE, cv_naive_appt=TRU
                            # if BW = TRUE
                            if(BW==TRUE){
                              pobj_bw <- bw_single(formula = fm_train, data =  train_data,
-                                                  p.crit = p.crit, keep.predictors = pobj$keep.predictors)
+                                                  p.crit = p.crit, keep.predictors = pobj$keep.predictors,
+                                                  model_type="binomial")
 
                              if(is_empty(pobj_bw$predictors_final))
                                pobj_bw$predictors_final <- 1

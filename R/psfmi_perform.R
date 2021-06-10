@@ -131,7 +131,7 @@ psfmi_perform <- function(pobj, val_method = NULL, data_orig = NULL, int_val = T
   
   if(class(pobj)!="pmods")
     stop("\n", "Object should be of type pmods", "\n")
-  if(pobj$model_type=="survival")
+  if(pobj$model_type!="binomial")
     stop("\n", "Methods only available for models of type binomial", "\n")
   if(is_empty(pobj$predictors_final))
     stop("\n", "Model is empty. Cannot validate empty model", "\n")
