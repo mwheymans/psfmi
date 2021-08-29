@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Predictor selection function for backward selection of
-Logistic regression models. — bw_single • psfmi</title>
+Linear and Logistic regression models. — bw_single • psfmi</title>
 
 
 <!-- jquery -->
@@ -41,11 +41,9 @@ Logistic regression models. — bw_single • psfmi</title>
 
 
 <meta property="og:title" content="Predictor selection function for backward selection of
-Logistic regression models. — bw_single" />
-<meta property="og:description" content="bw_single Backward selection of Logistic regression
-prediction models using as selection method the likelihood-ratio Chi-square value." />
-
-
+Linear and Logistic regression models. — bw_single" />
+<meta property="og:description" content="bw_single Backward selection of Linear and Logistic regression
+ models using as selection method the likelihood-ratio Chi-square value." />
 
 
 
@@ -77,13 +75,19 @@ prediction models using as selection method the likelihood-ratio Chi-square valu
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -113,6 +117,9 @@ prediction models using as selection method the likelihood-ratio Chi-square valu
     </li>
     <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_LinearModels.html">Pooling and Selection of Linear Regression Models</a>
     </li>
     <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
@@ -150,14 +157,14 @@ prediction models using as selection method the likelihood-ratio Chi-square valu
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Predictor selection function for backward selection of
-Logistic regression models.</h1>
+Linear and Logistic regression models.</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/bw_single.R'><code>R/bw_single.R</code></a></small>
     <div class="hidden name"><code>bw_single.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>bw_single</code> Backward selection of Logistic regression
-prediction models using as selection method the likelihood-ratio Chi-square value.</p>
+    <p><code>bw_single</code> Backward selection of Linear and Logistic regression
+ models using as selection method the likelihood-ratio Chi-square value.</p>
     </div>
 
     <pre class="usage"><span class='fu'>bw_single</span><span class='op'>(</span>
@@ -170,7 +177,8 @@ prediction models using as selection method the likelihood-ratio Chi-square valu
   spline.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
   int.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
   keep.predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
-  nknots <span class='op'>=</span> <span class='cn'>NULL</span>
+  nknots <span class='op'>=</span> <span class='cn'>NULL</span>,
+  model_type <span class='op'>=</span> <span class='st'>"binomial"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -224,6 +232,11 @@ in the model during predictor selection. All type of variables are allowed.</p><
       <th>nknots</th>
       <td><p>A numerical vector that defines the number of knots for each spline predictor separately.</p></td>
     </tr>
+    <tr>
+      <th>model_type</th>
+      <td><p>A character vector. If "binomial" a logistic regression model is used (default) and for 
+"linear" a linear regression model is used.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -275,6 +288,21 @@ in the model during predictor selection. All type of variables are allowed.</p><
 #&gt; factor(Satisfaction)2 6.803418e-01   1.4462937     2.695758
 #&gt; factor(Satisfaction)3 1.900789e-01   0.8229721     1.777114
 #&gt; </div><div class='input'>
+<span class='va'>res_single</span> <span class='op'>&lt;-</span> <span class='fu'>bw_single</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>lbpmilr</span>, p.crit <span class='op'>=</span> <span class='fl'>0.05</span>, Outcome<span class='op'>=</span><span class='st'>"Pain"</span>,
+         predictors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tampascale"</span>, <span class='st'>"Smoking"</span><span class='op'>)</span>,
+         cat.predictors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Satisfaction"</span><span class='op'>)</span>, model_type<span class='op'>=</span><span class='st'>"linear"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Selection correctly terminated, </span>
+#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>         
+<span class='va'>res_single</span><span class='op'>$</span><span class='va'>RR_model_final</span>
+</div><div class='output co'>#&gt; $`Step 1`
+#&gt;                          Estimate  Std. Error    t value      Pr(&gt;|t|)
+#&gt; (Intercept)           -7.15626215 0.199950580 -35.790154 4.130400e-206
+#&gt; Tampascale             0.31386692 0.005090637  61.655726  0.000000e+00
+#&gt; Smoking               -0.17056565 0.053679180  -3.177501  1.514148e-03
+#&gt; factor(Satisfaction)2  0.09471944 0.064155327   1.476408  1.400330e-01
+#&gt; factor(Satisfaction)3  0.56199340 0.079802763   7.042280  2.808103e-12
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -291,7 +319,7 @@ in the model during predictor selection. All type of variables are allowed.</p><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

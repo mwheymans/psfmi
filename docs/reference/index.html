@@ -44,8 +44,6 @@
 
 
 
-
-
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -73,13 +71,19 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -109,6 +113,9 @@
     </li>
     <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_LinearModels.html">Pooling and Selection of Linear Regression Models</a>
     </li>
     <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
@@ -171,10 +178,10 @@
       <tr>
         
         <td>
-          <p><code><a href="psfmi_coxr.html">psfmi_coxr()</a></code> </p>
+          <p><code><a href="psfmi_lm.html">psfmi_lm()</a></code> </p>
         </td>
         <td><p>Pooling and Predictor selection function for backward or forward selection of
-Cox regression models in multiply imputed data.</p></td>
+Linear regression models in multiply imputed data.</p></td>
       </tr><tr>
         
         <td>
@@ -182,6 +189,13 @@ Cox regression models in multiply imputed data.</p></td>
         </td>
         <td><p>Pooling and Predictor selection function for backward or forward selection of
 Logistic regression models in multiply imputed data.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="psfmi_coxr.html">psfmi_coxr()</a></code> </p>
+        </td>
+        <td><p>Pooling and Predictor selection function for backward or forward selection of
+Cox regression models in multiply imputed data.</p></td>
       </tr><tr>
         
         <td>
@@ -213,7 +227,13 @@ models in multiply imputed datasets</p></td>
         <td>
           <p><code><a href="psfmi_perform.html">psfmi_perform()</a></code> </p>
         </td>
-        <td><p>Evaluate model performance of logistic prediction models in Multiply Imputed datasets</p></td>
+        <td><p>Internal validation and performance of logistic prediction models across Multiply Imputed datasets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pool_performance.html">pool_performance()</a></code> </p>
+        </td>
+        <td><p>Pooling performance measures across multiply imputed datasets</p></td>
       </tr><tr>
         
         <td>
@@ -291,13 +311,20 @@ models in multiply imputed datasets</p></td>
           <p><code><a href="bw_single.html">bw_single()</a></code> </p>
         </td>
         <td><p>Predictor selection function for backward selection of
-Logistic regression models.</p></td>
+Linear and Logistic regression models.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pool_performance.html">pool_performance()</a></code> </p>
+          <p><code><a href="bw_single_cox.html">bw_single_cox()</a></code> </p>
         </td>
-        <td><p>Pooling performance measures over multiply imputed datasets</p></td>
+        <td><p>Predictor selection function for backward selection of
+Cox regression models.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hoslem_test.html">hoslem_test()</a></code> </p>
+        </td>
+        <td><p>Calculates the Hosmer and Lemeshow goodness of fit test.</p></td>
       </tr><tr>
         
         <td>
@@ -316,6 +343,12 @@ Logistic regression models.</p></td>
           <p><code><a href="rsq_nagel.html">rsq_nagel()</a></code> </p>
         </td>
         <td><p>Nagelkerke's R-square calculation for logistic regression / glm models</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pool_D2.html">pool_D2()</a></code> </p>
+        </td>
+        <td><p>Combines the Chi Square statistics across Multiply Imputed datasets</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -492,7 +525,7 @@ Logistic regression models.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

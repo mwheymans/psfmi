@@ -1,6 +1,6 @@
-pandoc: 2.11.3.2
-pkgdown: 1.6.1.9000
-pkgdown_sha: 84f234cf19153ce99bf1bcf875dc56248ddf0cbe
+pandoc: 2.11.4
+pkgdown: 1.6.1
+pkgdown_sha: ~
 articles:
   boot_MI: boot_MI.html
   cv_MI: cv_MI.html
@@ -9,10 +9,11 @@ articles:
   MI_boot: MI_boot.html
   MI_cv_naive: MI_cv_naive.html
   psfmi_CoxModels: psfmi_CoxModels.html
+  psfmi_LinearModels: psfmi_LinearModels.html
   psfmi_LogisticModels: psfmi_LogisticModels.html
   psfmi_mice: psfmi_mice.html
   psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
-last_built: 2021-01-13T11:18Z
+last_built: 2021-08-27T14:26Z
 urls:
   reference: https://mwheymans.github.io/psfmi//reference
   article: https://mwheymans.github.io/psfmi//articles

@@ -91,30 +91,14 @@ When the setting `direction` is changed to FW, forward selection is done.
 
 ```{r}
 
-  pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", Outcome="Chronic",
-  predictors=c("Gender", "Age", "JobControl", "Tampascale", "Pain", "Radiation",
-  "JobDemands", "SocialSupport", "Smoking"), cat.predictors = c("Satisfaction", "Carrying"), 
-  spline.predictors = "Function", nknots = 3,  
-  keep.predictors = "Radiation", p.crit = 0.157, method="D1", direction = "BW")
-  
-  pool_lr$RR_model_final
-  
-  pool_lr$multiparm_final
-
-```
-
-The same result can be obtained by using the `formula` setting in the `psfmi_lr` function 
-
-```{r}
-
   pool_lr <- psfmi_lr(data=data_comp, nimp=5, impvar=".imp", 
-  formula = Chronic ~ Gender + Age + JobControl + Tampascale + Pain + Radiation +
-    JobDemands + SocialSupport + Smoking + factor(Satisfaction) + factor(Carrying) + 
-  rcs(Function, 3), keep.predictors = "Radiation", 
-  p.crit = 0.157, method="D1", direction = "BW")
+              formula=Chronic ~ Gender + Age + JobControl + Tampascale + 
+              Pain + Radiation + JobDemands + SocialSupport + Smoking + 
+              factor(Satisfaction) + factor(Carrying) + rcs(Function, 3), 
+              keep.predictors = "Radiation", 
+              p.crit = 0.157, method="D1", direction = "BW")
   
   pool_lr$RR_model_final
-  
   pool_lr$multiparm_final
 
 ```
@@ -133,8 +117,8 @@ The performance of the model selected at step 3 can be determined by using the
   p.crit = 1, method="D1")
   
   perf <- pool_performance(data=data_comp, nimp=5, impvar=".imp", 
-  Outcome = "Chronic", predictors = c("Pain", "Radiation", "factor(Satisfaction)",
-             "factor(Carrying)"), cal.plot=TRUE, plot.indiv=FALSE, groups_cal = 10)
+  formula = Chronic ~ Pain  + Radiation + factor(Satisfaction) + factor(Carrying), 
+  cal.plot=TRUE, plot.method="mean", groups_cal = 10)
   perf
 
 ```

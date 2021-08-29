@@ -31,12 +31,18 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -67,6 +73,9 @@
     </li>
     <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_LinearModels.html">Pooling and Selection of Linear Regression Models</a>
     </li>
     <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
@@ -100,13 +109,13 @@
 
       
 
-      </header><script src="development_workflow_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="development_workflow_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Workflow to Develop and Validate a Prediction model in Multiply Imputed data</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2021-01-13</h4>
+            <h4 class="date">2021-08-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/development_workflow.Rmd"><code>vignettes/development_workflow.Rmd</code></a></small>
       <div class="hidden name"><code>development_workflow.Rmd</code></div>
@@ -215,11 +224,12 @@
 <a href="#step-3---develop-the-model" class="anchor"></a>Step 3 - Develop the model</h2>
 <p>Use the <code>psfmi_lr</code> function in the <code>psfmi</code> package to perform backward selection over the 5 multiply imputed datasets with a p-value of 0.05 and as selection method D1.<br><strong>Note</strong> that with this function it is possible to include cubic spline coefficients in case of non-linear relationships during backward selection and that predictors may be forced in the model during backward selection by including them at the setting <code>keep.predictors</code>. When the setting <code>direction</code> is changed to FW, forward selection is done.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Age"</span>, <span class="st">"JobControl"</span>, <span class="st">"Tampascale"</span>, <span class="st">"Pain"</span>, <span class="st">"Radiation"</span>,
-  <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span>, <span class="st">"Smoking"</span><span class="op">)</span>, cat.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Satisfaction"</span>, <span class="st">"Carrying"</span><span class="op">)</span>, 
-  spline.predictors <span class="op">=</span> <span class="st">"Function"</span>, nknots <span class="op">=</span> <span class="fl">3</span>,  
-  keep.predictors <span class="op">=</span> <span class="st">"Radiation"</span>, p.crit <span class="op">=</span> <span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R">  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
+              formula<span class="op">=</span><span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="va">Tampascale</span> <span class="op">+</span> 
+              <span class="va">Pain</span> <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> 
+              <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Function</span>, <span class="fl">3</span><span class="op">)</span>, 
+              keep.predictors <span class="op">=</span> <span class="st">"Radiation"</span>, 
+              p.crit <span class="op">=</span> <span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Removed at Step 1 is - Gender</code></pre>
 <pre><code>## Removed at Step 2 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 3 is - Smoking</code></pre>
@@ -258,67 +268,22 @@
 ## Radiation            3.148421e-01    1.013702
 ## factor(Satisfaction) 2.426042e-02    4.267156
 ## factor(Carrying)     3.261509e-02    3.483376</code></pre>
-<p>The same result can be obtained by using the <code>formula</code> setting in the <code>psfmi_lr</code> function</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
-  formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="va">Tampascale</span> <span class="op">+</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span>
-    <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">rcs</span><span class="op">(</span><span class="va">Function</span>, <span class="fl">3</span><span class="op">)</span>, keep.predictors <span class="op">=</span> <span class="st">"Radiation"</span>, 
-  p.crit <span class="op">=</span> <span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Removed at Step 1 is - Gender</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - Smoking</code></pre>
-<pre><code>## Removed at Step 4 is - Age</code></pre>
-<pre><code>## Removed at Step 5 is - Tampascale</code></pre>
-<pre><code>## Removed at Step 6 is - rcs(Function,3)</code></pre>
-<pre><code>## Removed at Step 7 is - JobControl</code></pre>
-<pre><code>## Removed at Step 8 is - SocialSupport</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span></code></pre></div>
-<pre><code>## $`Step 9`
-##                    term   estimate std.error  statistic        df      p.value
-## 1           (Intercept) -5.6290593 1.1754061 -4.7890336  39.95530 2.318419e-05
-## 2                  Pain  0.9354091 0.1851492  5.0521901  67.68397 3.532584e-06
-## 3             Radiation  0.5186631 0.5151459  1.0068276  91.48901 3.166731e-01
-## 4 factor(Satisfaction)2 -0.4282950 0.6531511 -0.6557364  44.49919 5.153699e-01
-## 5 factor(Satisfaction)3 -2.6431297 0.9429219 -2.8031270  26.83928 9.283867e-03
-## 6     factor(Carrying)2  1.2554087 0.6254666  2.0071556  78.40085 4.817958e-02
-## 7     factor(Carrying)3  1.6871723 0.6473849  2.6061349 115.47451 1.036350e-02
-##            OR    lower.EXP  upper.EXP
-## 1 0.003591953 0.0003338808  0.0386429
-## 2 2.548255652 1.7610642412  3.6873197
-## 3 1.679780430 0.6037849102  4.6732905
-## 4 0.651619185 0.1747816872  2.4293596
-## 5 0.071138280 0.0102714430  0.4926917
-## 6 3.509272384 1.0103539396 12.1887907
-## 7 5.404177760 1.4991278521 19.4814186</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm_final</span></code></pre></div>
-<pre><code>## $`Step 9`
-##                       p-values D1 F-statistic
-## Pain                 1.275830e-06   25.524625
-## Radiation            3.148421e-01    1.013702
-## factor(Satisfaction) 2.426042e-02    4.267156
-## factor(Carrying)     3.261509e-02    3.483376</code></pre>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>
 <div id="step-4---determine-model-performance" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#step-4---determine-model-performance" class="anchor"></a>Step 4 - Determine model performance</h2>
 <p>The performance of the model selected at step 3 can be determined by using the <code>pool_performance</code> function.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">pool_select</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
   formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span>,  
   p.crit <span class="op">=</span> <span class="fl">1</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
   
   <span class="va">perf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pool_performance.html">pool_performance</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
-  Outcome <span class="op">=</span> <span class="st">"Chronic"</span>, predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pain"</span>, <span class="st">"Radiation"</span>, <span class="st">"factor(Satisfaction)"</span>,
-             <span class="st">"factor(Carrying)"</span><span class="op">)</span>, cal.plot<span class="op">=</span><span class="cn">TRUE</span>, plot.indiv<span class="op">=</span><span class="cn">FALSE</span>, groups_cal <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
+  formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span>  <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span>, 
+  cal.plot<span class="op">=</span><span class="cn">TRUE</span>, plot.method<span class="op">=</span><span class="st">"mean"</span>, groups_cal <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="development_workflow_files/figure-html/plot-1.png" width="480"></p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">perf</span></code></pre></div>
 <pre><code>## $ROC_pooled
 ##             95% Low    AUC 95% Up
@@ -339,14 +304,18 @@
 ## [1] 0.4882759
 ## 
 ## $nimp
-## [1] 5</code></pre>
+## [1] 5
+## 
+## $HLtest_pooled
+##         D2          p        df1        df2 
+##  0.7163405  0.6758435  8.0000000 42.8715173</code></pre>
 </div>
 <div id="step-5---internally-validate-the-model" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#step-5---internally-validate-the-model" class="anchor"></a>Step 5 - Internally validate the model</h2>
 <p>To internally validate the model we use the <code>psfmi_perform</code> function. With this function five different methods can be used to internally validate models in MI data <a href="https://mwheymans.github.io/psfmi/articles/">see these Vignettes</a>, Three methods use cross-validation and two bootstrapping in combination with MI.</p>
 <p>We will use cross-validation and more specific the method <a href="https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html">cv_MI_RR</a>. With this method it is possible to integrate backward selection into the cross-validation procedure. The last model that is selected by the psfmi_lr function is internally validated. So, if we want to apply backward selection during cross-validation from the full model we first have to apply the psfmi_lr function without variable selection. That is what we apply here, because we know that variable selection is one of the main reasons that prediction models are over-fitted.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">pool_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="va">Tampascale</span> <span class="op">+</span> 
                       <span class="va">Pain</span> <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> 
                       <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Function</span>, <span class="fl">3</span><span class="op">)</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"BW"</span>,
@@ -427,7 +396,7 @@
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_cv</span></code></pre></div>
 <pre><code>## $stats
 ##                  Train      Test
@@ -445,7 +414,7 @@
 <a href="#step-6---shrink-pooled-coefficients-and-determine-new-intercept" class="anchor"></a>Step 6 - Shrink pooled coefficients and determine new intercept</h2>
 <p>We can use the slope value of 0.8449148 that was estimated at the previous step as a shrinkage factor to prevent our model from being overfitted in new data. We do this by multiplying the pooled coefficients with the shrinkage factor and also to determine a new intercept value that is aligned with the shrunken coefficients.</p>
 <p>We use the <code>pool_intadj</code> function for this that will provide the adjusted coefficients and new intercept value.</p>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">pool_select</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
   formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span>,  
   p.crit <span class="op">=</span> <span class="fl">1</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
@@ -454,7 +423,7 @@
 
   <span class="va">res</span><span class="op">$</span><span class="va">int_adj</span></code></pre></div>
 <pre><code>## [1] -4.795145</code></pre>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res</span><span class="op">$</span><span class="va">coef_shrink_pooled</span></code></pre></div>
 <pre><code>##                  Pain             Radiation factor(Satisfaction)2 
 ##             0.7903410             0.4382261            -0.3618728 
@@ -467,7 +436,7 @@
 <h2 class="hasAnchor">
 <a href="#step-7---externally-validate-the-model" class="anchor"></a>Step 7 - Externally validate the model</h2>
 <p>We validate the model in an external dataset that is imputed five times due to missing data.</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mivalext_lr.html">mivalext_lr</a></span><span class="op">(</span>data.val <span class="op">=</span> <span class="va">lbpmi_extval</span>, nimp <span class="op">=</span> <span class="fl">5</span>, impvar <span class="op">=</span> <span class="st">"Impnr"</span>,
   Outcome <span class="op">=</span> <span class="st">"Chronic"</span>, predictors <span class="op">=</span> <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_final</span>,
   lp.orig <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">int_adj</span>, <span class="va">res</span><span class="op">$</span><span class="va">coef_shrink_pooled</span><span class="op">)</span>,
@@ -475,7 +444,7 @@
 <pre><code>## 
 ## Pooled performance measures over m = 5 imputed external validation datasets correctly estimated</code></pre>
 <p><img src="development_workflow_files/figure-html/plot2-1.png" width="480"></p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">ROC</span></code></pre></div>
 <pre><code>## $`ROC (logit)`
 ##             95% Low    AUC 95% Up
@@ -484,7 +453,7 @@
 ## $`ROC (median)`
 ## 1st Qu.  Median 3rd Qu. 
 ## 0.84803 0.84897 0.85366</code></pre>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">R2_fixed</span></code></pre></div>
 <pre><code>## $`Fisher Z (fixed)`
 ## [1] 0.45587
@@ -492,11 +461,11 @@
 ## $`Median (fixed)`
 ## 1st Qu.  Median 3rd Qu. 
 ## 0.46034 0.46045 0.47505</code></pre>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">HLtest</span></code></pre></div>
 <pre><code>##         D         p        df       df2 
 ##   0.71479   0.67820   8.00000 149.55620</code></pre>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">LP_pooled_ext</span></code></pre></div>
 <pre><code>## intercept     slope 
 ##  -0.01812   0.88741</code></pre>
@@ -521,7 +490,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

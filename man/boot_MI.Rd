@@ -26,7 +26,7 @@ call to \code{psfmi_lr}.}
 \item{nimp_mice}{Numerical scalar. Number of multiple imputation runs.}
 
 \item{p.crit}{A numerical scalar. P-value selection criterium used for backward
-or forward selection during in the bootstrap samples. When set at 1, validation is done
+or forward selection during validation. When set at 1, validation is done
 without variable selection.}
 
 \item{direction}{The direction of predictor selection, "BW" is for backward selection and
@@ -40,6 +40,13 @@ the \code{mice} function.}
 \description{
 \code{boot_MI} Bootstrapping followed by Multiple Imputation for internal validation.
  Called by function \code{psfmi_perform}.
+}
+\details{
+This function bootstraps from the incomplete dataset and applies MI in each 
+ bootstrap sample. The model that is selected by the \code{psfmi_lr} function is
+ validated. When p.crit != 1, internal validation is conducted with variable selection.
+ The performance measures in the multiply imputed bootstrap samples are tested in the 
+ original multiply imputed datasets (pooled) to determine the optimism.
 }
 \seealso{
 \code{\link{psfmi_perform}}

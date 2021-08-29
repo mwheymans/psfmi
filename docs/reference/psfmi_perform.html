@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evaluate model performance of logistic prediction models in Multiply Imputed datasets — psfmi_perform • psfmi</title>
+<title>Internal validation and performance of logistic prediction models across Multiply Imputed datasets — psfmi_perform • psfmi</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,10 @@
 
 
 
-<meta property="og:title" content="Evaluate model performance of logistic prediction models in Multiply Imputed datasets — psfmi_perform" />
+<meta property="og:title" content="Internal validation and performance of logistic prediction models across Multiply Imputed datasets — psfmi_perform" />
 <meta property="og:description" content="psfmi_perform Evaluate Performance of logistic regression models selected with
  the psfmi_lr function of the psfmi package by using cross-validation
  or bootstrapping." />
-
-
 
 
 
@@ -76,13 +74,19 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -112,6 +116,9 @@
     </li>
     <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_LinearModels.html">Pooling and Selection of Linear Regression Models</a>
     </li>
     <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
@@ -148,7 +155,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Evaluate model performance of logistic prediction models in Multiply Imputed datasets</h1>
+    <h1>Internal validation and performance of logistic prediction models across Multiply Imputed datasets</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/psfmi_perform.R'><code>R/psfmi_perform.R</code></a></small>
     <div class="hidden name"><code>psfmi_perform.Rd</code></div>
     </div>
@@ -173,8 +180,8 @@
   direction <span class='op'>=</span> <span class='cn'>NULL</span>,
   cv_naive_appt <span class='op'>=</span> <span class='cn'>FALSE</span>,
   cal.plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  plot.indiv <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  groups_cal <span class='op'>=</span> <span class='fl'>10</span>,
+  plot.method <span class='op'>=</span> <span class='st'>"mean"</span>,
+  groups_cal <span class='op'>=</span> <span class='fl'>5</span>,
   <span class='va'>miceImp</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
@@ -250,15 +257,17 @@ showing the cross-validation apparent (train) and test results. Set to FALSE to 
 with int_val = FALSE.</p></td>
     </tr>
     <tr>
-      <th>plot.indiv</th>
-      <td><p>If TRUE calibration plots for each separate imputed dataset are generated,
-otherwise all calibration plots are plotted in one figure.</p></td>
+      <th>plot.method</th>
+      <td><p>If "mean" one calibration plot is generated, first taking the 
+mean of the linear predictor across the multiply imputed datasets (default), if 
+"individual" the calibration plot of each imputed dataset is plotted, 
+if "overlay" calibration plots from each imputed datasets are plotted in one figure.</p></td>
     </tr>
     <tr>
       <th>groups_cal</th>
-      <td><p>A numerical scalar. Number of groups used on the calibration plot.
-Default is 10. If the range of predicted probabilities is too low, less groups can be
-chosen.</p></td>
+      <td><p>A numerical scalar. Number of groups used on the calibration plot and. 
+for the Hosmer and Lemeshow test. Default is 10. If the range of predicted probabilities. 
+is low, less than 10 groups can be chosen, but not &lt; 3.</p></td>
     </tr>
     <tr>
       <th>miceImp</th>
@@ -424,7 +433,7 @@ be changed.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -28,13 +28,13 @@ procedures.
 # Examples 
 
 * [Cox regression]
-    + [Pooling without BS and method D1] 
-    + [Pooling with FS and method MPR] 
-    + [Pooling with FS including interaction terms and method D1]
-    + [Pooling with BS including spline coefficients and method D1]
-    + [Pooling with FS including spline coefficients and method MPR]
+    + [Pooling without BW and method D1] 
+    + [Pooling with FW and method MPR] 
+    + [Pooling with FW including interaction terms and method D1]
+    + [Pooling with BW including spline coefficients and method D1]
+    + [Pooling with FW including spline coefficients and method MPR]
 
-## Pooling without BS and method D1
+## Pooling without BW and method D1
 
 If you set p.crit at 1 than no selection of variables takes place. 
 Either using direction = "FW" or direction = "BW" will produce the same
@@ -43,60 +43,65 @@ result.
 ```{r}
 
   library(psfmi)
-  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-  predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
-  "Previous", "Tampascale", "JobControl", "JobDemand", "Social"), p.crit=1,
-  cat.predictors=c("Expect_cat"), method="D1", direction = "BW")
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", 
+                formula = Surv(Time, Status) ~ Duration + Radiation + Onset + 
+                Function + Age + Previous + Tampascale + JobControl + 
+                JobDemand + Social + factor(Expect_cat), p.crit=1,
+                method="D1", direction = "BW")
   
   pool_coxr$RR_model
+  pool_coxr$multiparm
   
 ```  
 
 Back to [Examples]
 
-## Pooling with FS and method MPR
+## Pooling with FW and method MPR
 
 ```{r, eval=TRUE}
 
   library(psfmi)
-  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-  predictors=c("Duration", "Radiation", "Onset", "Function", "Age",
-  "Previous", "Tampascale"), p.crit=0.05,
-  cat.predictors=c("Expect_cat"), method="MPR", direction = "FW")
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", 
+                formula = Surv(Time, Status) ~ Duration + Radiation + Onset + 
+                Function + Age + Previous + Tampascale + JobControl + 
+                JobDemand + Social + factor(Expect_cat), p.crit=0.05,
+                method="D1", direction = "FW")
   
   pool_coxr$RR_model_final
-  
+  pool_coxr$RR_model_final
   pool_coxr$predictors_in
   
 ```  
 
 Back to [Examples]
 
-## Pooling with FS including interaction terms and method D1
+## Pooling with FW including interaction terms and method D1
 
 Pooling Cox regression models over 5 imputed datasets with backward selection
-using a p-value of 0.05 and as method D2 including interaction terms with 
+using a p-value of 0.05 and as method D1 including interaction terms with 
 a categorical predictor and forcing the predictor Tampascale in the models 
 during backward selection.
 
 ```{r}
 
   library(psfmi)
-  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-  predictors=c("Duration", "Previous",  "Radiation", "Onset",
-  "Function", "Tampascale" ), p.crit=0.05, cat.predictors=c("Satisfaction",
-  "Expect_cat"), int.predictors=c("Tampascale:Radiation",
-  "Expect_cat:Tampascale"), keep.predictors = "Tampascale", method="D1", direction = "FW")
+  
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", 
+                formula = Surv(Time, Status) ~ Duration + Radiation + Onset + 
+                Function + Age + Previous + Tampascale + factor(Expect_cat) +
+                factor(Satisfaction) + Tampascale:Radiation + 
+                factor(Expect_cat):Tampascale, keep.predictors = "Tampascale",
+                p.crit=0.05, method="D1", direction = "FW")
   
   pool_coxr$RR_model_final
-  
+  pool_coxr$RR_model_final
   pool_coxr$predictors_in
-  
+
 ```  
 
 Back to [Examples]
 
-## Pooling with BS including spline coefficients and method D1
+## Pooling with BW including spline coefficients and method D1
 
 Pooling Cox regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and as method D1 including a restricted cubic spline 
@@ -105,21 +110,23 @@ predictor and forcing Tampascale in the models during backward selection.
 ```{r}
 
   library(psfmi)
-  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-  predictors=c("Duration", "Previous",  "Radiation", "Onset", "Function"), 
-  p.crit=0.05, cat.predictors=c("Satisfaction"), spline.predictors=c("Tampascale"),
-  int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
-  nknots=3, method="D1", direction = "BW")
+  
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", 
+                formula = Surv(Time, Status) ~ Duration + Radiation + Onset + 
+                Function + Previous + rcs(Tampascale, 3) + 
+                factor(Satisfaction) + rcs(Tampascale, 3):Radiation,  
+                keep.predictors = "Tampascale",
+                p.crit=0.05, method="D1", direction = "BW")
   
   pool_coxr$RR_model_final
-  
-  pool_coxr$predictors_out
-  
+  pool_coxr$RR_model_final
+  pool_coxr$predictors_in
+
 ```  
 
 Back to [Examples]
 
-## Pooling with FS including spline coefficients and method MPR
+## Pooling with FW including spline coefficients and method MPR
 
 Pooling Cox regression models over 5 imputed datasets with forward selection
 using a p-value of 0.05 and as method MPR including a restricted cubic spline 
@@ -128,14 +135,15 @@ predictor and forcing Tampascale in the models during forward selection.
 ```{r}
 
   library(psfmi)
-  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", time="Time", status="Status",
-  predictors=c("Duration", "Previous",  "Radiation", "Onset", "Function"), 
-  p.crit=0.05, cat.predictors=c("Satisfaction"), spline.predictors=c("Tampascale"),
-  int.predictors=c("Tampascale:Radiation"), keep.predictors = "Tampascale", 
-  nknots=3, method="MPR", direction = "FW")
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", 
+                formula = Surv(Time, Status) ~ Duration + Radiation + Onset + 
+                Function + Previous + rcs(Tampascale, 3) + 
+                factor(Satisfaction) + rcs(Tampascale, 3):Radiation,  
+                keep.predictors = "Tampascale",
+                p.crit=0.05, method="MPR", direction = "FW")
   
   pool_coxr$RR_model_final
-  
+  pool_coxr$RR_model_final
   pool_coxr$predictors_in
   
 ```  

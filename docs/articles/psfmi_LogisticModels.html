@@ -31,12 +31,18 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -67,6 +73,9 @@
     </li>
     <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_LinearModels.html">Pooling and Selection of Linear Regression Models</a>
     </li>
     <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
@@ -100,13 +109,13 @@
 
       
 
-      </header><script src="psfmi_LogisticModels_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="psfmi_LogisticModels_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Pooling and Selection of Logistic Regression Models</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2021-01-13</h4>
+            <h4 class="date">2021-08-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_LogisticModels.Rmd"><code>vignettes/psfmi_LogisticModels.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_LogisticModels.Rmd</code></div>
@@ -144,15 +153,10 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'car':</span>
-<span class="co">#&gt;   method                          from</span>
-<span class="co">#&gt;   influence.merMod                lme4</span>
-<span class="co">#&gt;   cooks.distance.influence.merMod lme4</span>
-<span class="co">#&gt;   dfbeta.influence.merMod         lme4</span>
-<span class="co">#&gt;   dfbetas.influence.merMod        lme4</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
-  <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, 
+                      formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> 
+                      <span class="va">Function</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, 
+                      method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
@@ -181,10 +185,11 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
-  <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, keep.predictors <span class="op">=</span> <span class="st">"Smoking"</span>,
-  p.crit <span class="op">=</span> <span class="fl">0.05</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span>
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, 
+                      formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> 
+                      <span class="va">Function</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, 
+                      keep.predictors <span class="op">=</span> <span class="st">"Smoking"</span>, method<span class="op">=</span><span class="st">"D1"</span>, p.crit<span class="op">=</span><span class="fl">0.05</span>, 
+                      direction<span class="op">=</span><span class="st">"BW"</span><span class="op">)</span>
 <span class="co">#&gt; Removed at Step 1 is - JobDemands</span>
 <span class="co">#&gt; Removed at Step 2 is - JobControl</span>
 <span class="co">#&gt; Removed at Step 3 is - SocialSupport</span>
@@ -203,7 +208,11 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 1 1.2883439 8.6761852</span>
 <span class="co">#&gt; 2 0.5468337 2.0795610</span>
 <span class="co">#&gt; 3 0.7991282 0.9446467</span>
-  
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm_final</span>
+<span class="co">#&gt; $`Step 5`</span>
+<span class="co">#&gt;           p-values D1 F-statistic</span>
+<span class="co">#&gt; Smoking  0.8492075865  0.03614977</span>
+<span class="co">#&gt; Function 0.0009162863 11.07150131</span>
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
 <span class="co">#&gt;         Gender Smoking Function JobControl JobDemands SocialSupport</span>
 <span class="co">#&gt; Step 1       0       0        0          0          1             0</span>
@@ -220,10 +229,11 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
-  <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, keep.predictors <span class="op">=</span> <span class="st">"Smoking"</span>,
-  p.crit <span class="op">=</span> <span class="fl">0.05</span>, method<span class="op">=</span><span class="st">"MPR"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span>
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, 
+                      formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> 
+                      <span class="va">Function</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, 
+                      keep.predictors <span class="op">=</span> <span class="st">"Smoking"</span>, method<span class="op">=</span><span class="st">"MPR"</span>, p.crit<span class="op">=</span><span class="fl">0.05</span>, 
+                      direction<span class="op">=</span><span class="st">"BW"</span><span class="op">)</span>
 <span class="co">#&gt; Removed at Step 1 is - JobDemands</span>
 <span class="co">#&gt; Removed at Step 2 is - JobControl</span>
 <span class="co">#&gt; Removed at Step 3 is - SocialSupport</span>
@@ -242,8 +252,12 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 1 1.2883439 8.6761852</span>
 <span class="co">#&gt; 2 0.5468337 2.0795610</span>
 <span class="co">#&gt; 3 0.7991282 0.9446467</span>
-  
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm_final</span>
+<span class="co">#&gt; $`Step 5`</span>
+<span class="co">#&gt;           p-value MPR</span>
+<span class="co">#&gt; Smoking  0.8734388519</span>
+<span class="co">#&gt; Function 0.0003502948</span>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>  
 <span class="co">#&gt;         Gender Smoking Function JobControl JobDemands SocialSupport</span>
 <span class="co">#&gt; Step 1       0       0        0          0          1             0</span>
 <span class="co">#&gt; Step 2       0       0        0          1          0             0</span>
@@ -259,15 +273,18 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, 
-  p.crit <span class="op">=</span> <span class="fl">0.05</span>, cat.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Carrying"</span>, <span class="st">"Satisfaction"</span><span class="op">)</span>,
-  int.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Carrying:Smoking"</span>, <span class="st">"Gender:Smoking"</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"D2"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span>
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, 
+                      formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> 
+                        <span class="va">Function</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span> <span class="op">+</span> 
+                        <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span>
+                        <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span><span class="op">:</span><span class="va">Smoking</span> <span class="op">+</span> <span class="va">Gender</span><span class="op">:</span><span class="va">Smoking</span>, 
+                      method<span class="op">=</span><span class="st">"D2"</span>, p.crit<span class="op">=</span><span class="fl">0.05</span>, 
+                      direction<span class="op">=</span><span class="st">"BW"</span><span class="op">)</span>
 <span class="co">#&gt; Removed at Step 1 is - JobControl</span>
 <span class="co">#&gt; Removed at Step 2 is - factor(Satisfaction)</span>
 <span class="co">#&gt; Removed at Step 3 is - Gender*Smoking</span>
 <span class="co">#&gt; Removed at Step 4 is - Gender</span>
-<span class="co">#&gt; Removed at Step 5 is - factor(Carrying)*Smoking</span>
+<span class="co">#&gt; Removed at Step 5 is - Smoking*factor(Carrying)</span>
 <span class="co">#&gt; Removed at Step 6 is - Smoking</span>
 <span class="co">#&gt; Removed at Step 7 is - Function</span>
 <span class="co">#&gt; </span>
@@ -284,8 +301,11 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 1 0.2054828 0.09750312  0.4330445</span>
 <span class="co">#&gt; 2 4.0210931 1.58510710 10.2006922</span>
 <span class="co">#&gt; 3 9.4772792 3.70747175 24.2264342</span>
-  
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm_final</span>
+<span class="co">#&gt; $`Step 8`</span>
+<span class="co">#&gt;                   p-values D2 F-statistic</span>
+<span class="co">#&gt; factor(Carrying) 1.251841e-05    11.29016</span>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span> 
 <span class="co">#&gt;         Gender Smoking Function JobControl factor(Carrying)</span>
 <span class="co">#&gt; Step 1       0       0        0          1                0</span>
 <span class="co">#&gt; Step 2       0       0        0          0                0</span>
@@ -295,7 +315,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; Step 6       0       1        0          0                0</span>
 <span class="co">#&gt; Step 7       0       0        1          0                0</span>
 <span class="co">#&gt; Removed      1       1        1          1                0</span>
-<span class="co">#&gt;         factor(Satisfaction) factor(Carrying)*Smoking Gender*Smoking</span>
+<span class="co">#&gt;         factor(Satisfaction) Smoking*factor(Carrying) Gender*Smoking</span>
 <span class="co">#&gt; Step 1                     0                        0              0</span>
 <span class="co">#&gt; Step 2                     1                        0              0</span>
 <span class="co">#&gt; Step 3                     0                        0              1</span>
@@ -313,17 +333,19 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, 
-  p.crit <span class="op">=</span> <span class="fl">0.157</span>, cat.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Carrying"</span>, <span class="st">"Satisfaction"</span><span class="op">)</span>,
-  int.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Carrying*Smoking"</span>, <span class="st">"Gender*Smoking"</span><span class="op">)</span>,
-  keep.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Smoking*Carrying"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"FW"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, 
+                      formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> 
+                      <span class="va">Function</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span>
+                        <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span><span class="op">:</span><span class="va">Smoking</span> <span class="op">+</span> <span class="va">Gender</span><span class="op">:</span><span class="va">Smoking</span>, 
+                      keep.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Smoking*Carrying"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"D1"</span>, 
+                      p.crit<span class="op">=</span><span class="fl">0.05</span>, direction<span class="op">=</span><span class="st">"BW"</span><span class="op">)</span>
+<span class="co">#&gt; Removed at Step 1 is - Gender*Smoking</span>
+<span class="co">#&gt; Removed at Step 2 is - Gender</span>
+<span class="co">#&gt; Removed at Step 3 is - factor(Satisfaction)</span>
+<span class="co">#&gt; Removed at Step 4 is - Function</span>
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span>
-<span class="co">#&gt; $`Final model`</span>
+<span class="co">#&gt; $`Step 5`</span>
 <span class="co">#&gt;                        term     estimate std.error  statistic        df</span>
 <span class="co">#&gt; 1               (Intercept) -0.810522255 1.3650185 -0.5937812  55.33263</span>
 <span class="co">#&gt; 2                   Smoking -1.796541680 1.1699026 -1.5356336  65.48650</span>
@@ -340,20 +362,26 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 5 0.01071096  4.6404601 1.43831227  14.971624</span>
 <span class="co">#&gt; 6 0.11611271  8.1151905 0.58760877 112.075110</span>
 <span class="co">#&gt; 7 0.09495675 10.6977078 0.65294658 175.268475</span>
-  
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_in</span>
-<span class="co">#&gt;          Gender Smoking Function JobControl factor(Carrying)</span>
-<span class="co">#&gt; Step 1        0       1        0          1                1</span>
-<span class="co">#&gt; Step 2        0       1        0          1                1</span>
-<span class="co">#&gt; Step 3        0       1        0          1                1</span>
-<span class="co">#&gt; Step 4        0       1        0          1                1</span>
-<span class="co">#&gt; Included      0       1        0          1                1</span>
-<span class="co">#&gt;          factor(Satisfaction) factor(Carrying)*Smoking Gender*Smoking</span>
-<span class="co">#&gt; Step 1                      0                        1              0</span>
-<span class="co">#&gt; Step 2                      0                        1              0</span>
-<span class="co">#&gt; Step 3                      0                        1              0</span>
-<span class="co">#&gt; Step 4                      0                        1              0</span>
-<span class="co">#&gt; Included                    0                        1              0</span></code></pre></div>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm_final</span>
+<span class="co">#&gt; $`Step 5`</span>
+<span class="co">#&gt;                          p-values D1 F-statistic</span>
+<span class="co">#&gt; Smoking                  0.313723002   1.1877289</span>
+<span class="co">#&gt; JobControl               0.831291534   0.0456017</span>
+<span class="co">#&gt; factor(Carrying)         0.000903194   4.7060389</span>
+<span class="co">#&gt; Smoking*factor(Carrying) 0.188926654   1.6841757</span>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span> 
+<span class="co">#&gt;         Gender Smoking Function JobControl factor(Carrying)</span>
+<span class="co">#&gt; Step 1       0       0        0          0                0</span>
+<span class="co">#&gt; Step 2       1       0        0          0                0</span>
+<span class="co">#&gt; Step 3       0       0        0          0                0</span>
+<span class="co">#&gt; Step 4       0       0        1          0                0</span>
+<span class="co">#&gt; Removed      1       0        1          0                0</span>
+<span class="co">#&gt;         factor(Satisfaction) Smoking*factor(Carrying) Gender*Smoking</span>
+<span class="co">#&gt; Step 1                     0                        0              1</span>
+<span class="co">#&gt; Step 2                     0                        0              0</span>
+<span class="co">#&gt; Step 3                     1                        0              0</span>
+<span class="co">#&gt; Step 4                     0                        0              0</span>
+<span class="co">#&gt; Removed                    1                        0              1</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-including-spline-coefficient-and-method-d1" class="section level2">
@@ -363,16 +391,17 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"JobControl"</span><span class="op">)</span>, 
-  p.crit <span class="op">=</span> <span class="fl">0.157</span>, cat.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Carrying"</span>, <span class="st">"Satisfaction"</span><span class="op">)</span>,
-  spline.predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Function"</span><span class="op">)</span>, int.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Carrying:Smoking"</span><span class="op">)</span>, 
-  nknots<span class="op">=</span><span class="fl">3</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span>
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, 
+                      formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> 
+                      <span class="va">JobControl</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span>
+                      <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span><span class="op">:</span><span class="va">Smoking</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Function</span>, <span class="fl">3</span><span class="op">)</span>, 
+                      method<span class="op">=</span><span class="st">"D1"</span>, 
+                      p.crit<span class="op">=</span><span class="fl">0.05</span>, direction<span class="op">=</span><span class="st">"BW"</span><span class="op">)</span>
 <span class="co">#&gt; Removed at Step 1 is - JobControl</span>
 <span class="co">#&gt; Removed at Step 2 is - Gender</span>
 <span class="co">#&gt; Removed at Step 3 is - rcs(Function,3)</span>
 <span class="co">#&gt; Removed at Step 4 is - factor(Satisfaction)</span>
-<span class="co">#&gt; Removed at Step 5 is - factor(Carrying)*Smoking</span>
+<span class="co">#&gt; Removed at Step 5 is - Smoking*factor(Carrying)</span>
 <span class="co">#&gt; Removed at Step 6 is - Smoking</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
@@ -388,8 +417,11 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; 1 0.2054828 0.09750312  0.4330445</span>
 <span class="co">#&gt; 2 4.0210931 1.58510710 10.2006922</span>
 <span class="co">#&gt; 3 9.4772792 3.70747175 24.2264342</span>
-  
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm_final</span>
+<span class="co">#&gt; $`Step 7`</span>
+<span class="co">#&gt;                   p-values D1 F-statistic</span>
+<span class="co">#&gt; factor(Carrying) 2.257078e-05     10.8085</span>
+  <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_out</span> 
 <span class="co">#&gt;         Gender Smoking JobControl factor(Carrying) factor(Satisfaction)</span>
 <span class="co">#&gt; Step 1       0       0          1                0                    0</span>
 <span class="co">#&gt; Step 2       1       0          0                0                    0</span>
@@ -398,7 +430,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 <span class="co">#&gt; Step 5       0       0          0                0                    0</span>
 <span class="co">#&gt; Step 6       0       1          0                0                    0</span>
 <span class="co">#&gt; Removed      1       1          1                0                    1</span>
-<span class="co">#&gt;         rcs(Function,3) factor(Carrying)*Smoking</span>
+<span class="co">#&gt;         rcs(Function,3) Smoking*factor(Carrying)</span>
 <span class="co">#&gt; Step 1                0                        0</span>
 <span class="co">#&gt; Step 2                0                        0</span>
 <span class="co">#&gt; Step 3                1                        0</span>
@@ -426,7 +458,7 @@ the following pooling methods: RR (Rubin’s Rules), D1, D2, D3 and MPR (Median 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

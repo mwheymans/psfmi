@@ -13,18 +13,16 @@ vignette: >
 # Introduction
 
 This page contains information of the `boot_MI` method that is implemented 
-in the `psfmi_perform` function of the [`psfmi`](https://github.com/mwheymans/psfmi) package and that combines 
-Multiple Imputation with bootstrapping for the validation of 
-logistic regression / prediction models. Internal validation is done of the last model that is 
-selected by the function `psfmi_lr`. An explanation and examples of how to use the methods can be found below.
+in the `psfmi_perform` function of the [`psfmi`](https://github.com/mwheymans/psfmi) package. 
 
 # Method boot_MI
 
-With the method boot_MI, first bootstrap samples are drawn from the original
-dataset with missing values and than multiple imputation is applied in each 
-bootstrap sample. The pooled model is analyzed in the each bootstrap training data 
-and subsequently tested in original multiply imputed data. The method can be 
-performed in combination with backward or forward selection selection.
+The method follows the internal validation procedure of the `validate` function in the `rms` package for
+complete data but now within the context of multiply imputed data. With the method boot_MI, 
+first bootstrap samples are drawn from the original incomplete dataset and than multiple imputation 
+is applied in each of these incomplete bootstrap samples. The pooled model is analyzed in each bootstrap 
+sample (training data) and subsequently tested in the original multiply imputed data to determine the amount
+of optimism. The method can be performed in combination with backward or forward selection.
 
 How these steps work is visualized in the Figure below. 
 
@@ -42,7 +40,7 @@ knitr::include_graphics("boot_MI.png")
 
 internal validation is done of the last model that is selected by the function `psfmi_lr`. 
 In the example below, `psfmi_lr` is used with `p.crit` set at 1. This setting is also
-used and in the `psfmi_perform` function. This means that first the full model is pooled and
+used in the `psfmi_perform` function. This means that first the full model is pooled and
 subsequently interval validation is also done of this full model.  
  
 ```{r}
@@ -67,9 +65,12 @@ Back to [Examples]
 
 Internal validation is done of the last model that is selected by the function `psfmi_lr`. 
 In the example below, `psfmi_lr` is used with `p.crit` set at 1, and pooling is than done 
-without variable selection, i.e. first the full model is pooled. When subsequently 
-interval validation is done with the `psfmi_perform` function including BW, BW is applied in 
-each bootstrap sample from the full model.  
+of the full model. Then interval validation is done with the `psfmi_perform` function 
+including BW selection by setting p.crit=0.05. BW selection is than applied in 
+each bootstrap sample from the full model of pool_lr. In this way, shrinkage of models can 
+be performed including backward selection of variables. In this way a fair shrinkage factor
+can be determined because variable selection is responsible for a large amount of overfitting in
+coefficients.
  
 ```{r}
 

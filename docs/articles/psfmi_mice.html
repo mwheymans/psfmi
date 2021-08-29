@@ -31,12 +31,18 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -67,6 +73,9 @@
     </li>
     <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
+    </li>
+    <li>
+      <a href="../articles/psfmi_LinearModels.html">Pooling and Selection of Linear Regression Models</a>
     </li>
     <li>
       <a href="../articles/psfmi_LogisticModels.html">Pooling and Selection of Logistic Regression Models</a>
@@ -100,13 +109,13 @@
 
       
 
-      </header><script src="psfmi_mice_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="psfmi_mice_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working together: mice and psfmi</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2021-01-13</h4>
+            <h4 class="date">2021-08-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_mice.Rmd"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
@@ -147,12 +156,6 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'car':</span>
-<span class="co">#&gt;   method                          from</span>
-<span class="co">#&gt;   influence.merMod                lme4</span>
-<span class="co">#&gt;   cooks.distance.influence.merMod lme4</span>
-<span class="co">#&gt;   dfbeta.influence.merMod         lme4</span>
-<span class="co">#&gt;   dfbetas.influence.merMod        lme4</span>
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amices/mice">mice</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'mice'</span>
@@ -195,28 +198,27 @@
   <span class="va">data_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/complete.mids.html">complete</a></span><span class="op">(</span><span class="va">imp</span>, action <span class="op">=</span> <span class="st">"long"</span>, include <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
   
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
-  <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-  
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
+                      formula<span class="op">=</span><span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="va">Function</span> <span class="op">+</span> 
+                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span>
 <span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term     estimate  std.error   statistic        df     p.value</span>
-<span class="co">#&gt; 1   (Intercept) -0.148559995 2.41804383 -0.06143809 129.23574 0.951105231</span>
-<span class="co">#&gt; 2        Gender -0.327823971 0.41853810 -0.78325956 139.85513 0.434799081</span>
-<span class="co">#&gt; 3       Smoking  0.075233866 0.33973713  0.22144729 148.98843 0.825047399</span>
-<span class="co">#&gt; 4      Function -0.142937394 0.04357142 -3.28053077 138.66634 0.001310542</span>
-<span class="co">#&gt; 5    JobControl  0.008066543 0.02099653  0.38418464  77.42411 0.701894729</span>
-<span class="co">#&gt; 6    JobDemands  0.005389816 0.03708154  0.14535037 143.18678 0.884638653</span>
-<span class="co">#&gt; 7 SocialSupport  0.041573096 0.05572070  0.74609792 149.62909 0.456778836</span>
+<span class="co">#&gt;            term     estimate  std.error   statistic        df    p.value</span>
+<span class="co">#&gt; 1   (Intercept)  0.283657240 2.48858253  0.11398346 100.86734 0.90947748</span>
+<span class="co">#&gt; 2        Gender -0.353851948 0.41379843 -0.85513120 147.68275 0.39386367</span>
+<span class="co">#&gt; 3       Smoking  0.081544765 0.33977708  0.23999490 149.47241 0.81066303</span>
+<span class="co">#&gt; 4      Function -0.143869177 0.04338030 -3.31646316 140.91518 0.00115968</span>
+<span class="co">#&gt; 5    JobControl  0.004651936 0.01970098  0.23612709 131.28658 0.81370204</span>
+<span class="co">#&gt; 6    JobDemands -0.001450953 0.03767810 -0.03850918 117.82096 0.96934689</span>
+<span class="co">#&gt; 7 SocialSupport  0.042966976 0.05881760  0.73051226  94.95953 0.46687563</span>
 <span class="co">#&gt;          OR   lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 0.8619483 0.007207477 103.0811269</span>
-<span class="co">#&gt; 2 0.7204898 0.314961851   1.6481539</span>
-<span class="co">#&gt; 3 1.0781363 0.550960802   2.1097287</span>
-<span class="co">#&gt; 4 0.8668083 0.795258818   0.9447952</span>
-<span class="co">#&gt; 5 1.0080992 0.966823594   1.0511369</span>
-<span class="co">#&gt; 6 1.0054044 0.934346276   1.0818665</span>
-<span class="co">#&gt; 7 1.0424494 0.933767365   1.1637809</span></code></pre></div>
+<span class="co">#&gt; 1 1.3279777 0.009532009 185.0108140</span>
+<span class="co">#&gt; 2 0.7019789 0.309876078   1.5902304</span>
+<span class="co">#&gt; 3 1.0849618 0.554414958   2.1232149</span>
+<span class="co">#&gt; 4 0.8660010 0.794828022   0.9435472</span>
+<span class="co">#&gt; 5 1.0046628 0.966261755   1.0445899</span>
+<span class="co">#&gt; 6 0.9985501 0.926755950   1.0759060</span>
+<span class="co">#&gt; 7 1.0439034 0.928856184   1.1732003</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="mice-and-psfmi-for-selecting-logistic-regression-models" class="section level2">
@@ -259,10 +261,10 @@
   <span class="va">data_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/complete.mids.html">complete</a></span><span class="op">(</span><span class="va">imp</span>, action <span class="op">=</span> <span class="st">"long"</span>, include <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
   
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-  predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"Function"</span>, <span class="st">"JobControl"</span>,
-  <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, p.crit <span class="op">=</span> <span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"D1"</span>,
-  direction <span class="op">=</span> <span class="st">"FW"</span><span class="op">)</span>
+  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
+                      formula<span class="op">=</span><span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="va">Function</span> <span class="op">+</span> 
+                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, 
+                      p.crit <span class="op">=</span> <span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"FW"</span><span class="op">)</span>
 <span class="co">#&gt; Entered at Step 1 is - Function</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Selection correctly terminated, </span>
@@ -270,12 +272,12 @@
   
   <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span>
 <span class="co">#&gt; $`Final model`</span>
-<span class="co">#&gt;          term   estimate  std.error statistic       df      p.value       OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.2155591 0.46164303  2.633115 147.1860 0.0093639449 3.372179</span>
-<span class="co">#&gt; 2    Function -0.1393805 0.04143013 -3.364231 140.5453 0.0009895589 0.869897</span>
+<span class="co">#&gt;          term   estimate  std.error statistic       df      p.value        OR</span>
+<span class="co">#&gt; 1 (Intercept)  1.2025989 0.46051470  2.611424 149.8039 0.0099338147 3.3287570</span>
+<span class="co">#&gt; 2    Function -0.1381187 0.04099716 -3.368982 150.8178 0.0009578883 0.8709953</span>
 <span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.3542589 8.3969107</span>
-<span class="co">#&gt; 2 0.8014863 0.9441467</span></code></pre></div>
+<span class="co">#&gt; 1  1.339982 8.2692357</span>
+<span class="co">#&gt; 2  0.803224 0.9444847</span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -296,7 +298,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
