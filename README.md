@@ -46,7 +46,7 @@ Cite the package as:
 
 ``` r
 Martijn Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
-Multiple Imputed Datasets. R package version 0.7.1. https://mwheymans.github.io/psfmi/
+Multiple Imputed Datasets. R package version 1.0.0. https://mwheymans.github.io/psfmi/
 ```
 
 ## Example
@@ -56,12 +56,6 @@ includes a restricted cubic spline function and an interaction term.
 
 ``` r
 library(psfmi)
-#> Registered S3 methods overwritten by 'car':
-#>   method                          from
-#>   influence.merMod                lme4
-#>   cooks.distance.influence.merMod lme4
-#>   dfbeta.influence.merMod         lme4
-#>   dfbetas.influence.merMod        lme4
 
 pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + JobDemands + rcs(Tampascale, 3) +
                    factor(Satisfaction) + Smoking + factor(Satisfaction)*rcs(Pain, 3) ,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/psfmi_perform.R
 \name{psfmi_perform}
 \alias{psfmi_perform}
-\title{Evaluate model performance of logistic prediction models in Multiply Imputed datasets}
+\title{Internal validation and performance of logistic prediction models across Multiply Imputed datasets}
 \usage{
 psfmi_perform(
   pobj,
@@ -18,8 +18,8 @@ psfmi_perform(
   direction = NULL,
   cv_naive_appt = FALSE,
   cal.plot = FALSE,
-  plot.indiv = FALSE,
-  groups_cal = 10,
+  plot.method = "mean",
+  groups_cal = 5,
   miceImp,
   ...
 )
@@ -66,12 +66,14 @@ showing the cross-validation apparent (train) and test results. Set to FALSE to 
 \item{cal.plot}{If TRUE a calibration plot is generated. Default is FALSE. Can be used in combination
 with int_val = FALSE.}
 
-\item{plot.indiv}{If TRUE calibration plots for each separate imputed dataset are generated,
-otherwise all calibration plots are plotted in one figure.}
+\item{plot.method}{If "mean" one calibration plot is generated, first taking the 
+mean of the linear predictor across the multiply imputed datasets (default), if 
+"individual" the calibration plot of each imputed dataset is plotted, 
+if "overlay" calibration plots from each imputed datasets are plotted in one figure.}
 
-\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot.
-Default is 10. If the range of predicted probabilities is too low, less groups can be
-chosen.}
+\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot and. 
+for the Hosmer and Lemeshow test. Default is 10. If the range of predicted probabilities. 
+is low, less than 10 groups can be chosen, but not < 3.}
 
 \item{miceImp}{Wrapper function around the \code{mice} function.}
 

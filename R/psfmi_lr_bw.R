@@ -407,6 +407,13 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
       multiparm_step[k+1]
     fm_step_final <-
       fm_step_total[k+1]
+    if(p.crit==1) {
+      Y_initial <-
+        c(paste(Outcome, paste("~")))
+      formula_initial <-
+        as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
+      fm_step_final <- formula_initial
+    }
   }
   if(!is_empty(P) & p.crit !=1){
     RR_model_step <-

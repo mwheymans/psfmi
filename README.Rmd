@@ -51,7 +51,7 @@ Cite the package as:
 
 ``` r
 Martijn Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
-Multiple Imputed Datasets. R package version 0.7.1. https://mwheymans.github.io/psfmi/
+Multiple Imputed Datasets. R package version 1.0.0. https://mwheymans.github.io/psfmi/
 ```
 ## Example
 

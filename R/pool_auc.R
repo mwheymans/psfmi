@@ -1,22 +1,26 @@
-#' Calculates the pooled Area Under the Curve in Multiply Imputed datasets 
+#' Calculates the pooled C-statistic (Area Under the ROC Curve) in Multiply Imputed datasets 
 #'
-#' \code{pool_auc} Calculates the pooled AUC and 95% Confidence interval
-#'  by using Rubin's Rules. The AUC values are log transformed before pooling. 
+#' \code{pool_auc} Calculates the pooled C-statistic and 95% Confidence interval
+#'  by using Rubin's Rules. The C-statistic values are log transformed before pooling. 
 #'
-#' @param est_auc A list of AUC values estimated in Multiply Imputed datasets.  
-#' @param est_se A list of standard errors of AUC values estimated 
+#' @param est_auc A list of C-statistic (AUC/ROC) values estimated in Multiply Imputed datasets.  
+#' @param est_se A list of standard errors of C-statistic values estimated 
 #'  in Multiply Imputed datasets.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.   
 #' @param log_auc If TRUE natural logarithmic transformation is applied before
 #'  pooling and finally back transformed. If FALSE the raw values are pooled.                  
 #'                                               
-#' @return The pooled AUC value and the 95% CI.
+#' @return The pooled C-statistic value and the 95% CI.
 #' 
 #' @seealso \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
 #' @author Martijn Heymans, 2020
 #'  
 #' @export   
-pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
+pool_auc <- function(est_auc, 
+                     est_se, 
+                     nimp = 5, 
+                     log_auc=TRUE)
+  {
 
   RR_se <- function(est, se, nimp){
     m <- nimp
@@ -40,7 +44,7 @@ pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
   est_auc_se <-
     unlist(est_se)
   if(length(est_auc) != nimp)
-    stop("Include auc value for each imputed dataset")
+    stop("Include c-statistic value for each imputed dataset")
   
   if(log_auc){
     est_auc_log <-
@@ -60,8 +64,8 @@ pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
       (1 + exp(mean(est_auc_log) - (se_total[2]*se_total[1])))
     auc_res <- round(matrix(c(inv.auc.l, inv.auc, inv.auc.u),
                             1, 3, byrow = T), 4)
-    dimnames(auc_res) <- list(c("AUC (logit)"),
-                              c("95% Low", "AUC", "95% Up"))
+    dimnames(auc_res) <- list(c("C-statistic (logit)"),
+                              c("95% Low", "C-statistic", "95% Up"))
   } else {
     mean_auc <-
       mean(est_auc)
@@ -76,7 +80,7 @@ pool_auc <- function(est_auc, est_se, nimp = 5, log_auc=TRUE){
       round(matrix(c(auc_l, mean_auc, auc_u),
                    1, 3, byrow = T), 4)
     dimnames(auc_res) <-
-      list(c("AUC"), c("95% Low", "AUC", "95% Up"))
+      list(c("C-statistic"), c("95% Low", "C-statistic", "95% Up"))
   }
   return(auc_res)
 }

@@ -434,8 +434,15 @@ psfmi_lr_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
   }
 
   multiparm_out <- NULL
-  P_excluded <- as_tibble(names(P_select[nrow(P_select), ][P_select[nrow(P_select), ] ==0] ))
-  names(P_excluded) <- "Excluded"
+  if(length(c(P_select)==0)==1) { P_excluded <- P_orig
+  } else {
+    P_excluded <- as_tibble(names(P_select[nrow(P_select), ][P_select[nrow(P_select), ] ==0] ))
+  }
+  if(is_empty(P_excluded)){
+    P_excluded <- NULL
+  } else {
+    names(P_excluded) <- "Excluded"
+  }
   predictors_final <- names(P_select[nrow(P_select), ][P_select[nrow(P_select), ] ==1])
   if(is_empty(P_each_step)){
     RR_model <- RR_model_final <- RR_model_select

@@ -1,3 +1,19 @@
+# Package 1.0.0
+
+* Added the functions psfmi_lm, psfmi_lm_fw, psfmi_lr_bw for pooling
+and backward and forward selection of linear regression models.
+* Added the function hoslem_test and implemented this in the 
+function pool_performance.
+* added pooled concordance and R-squared measures for Cox regression to
+function pool_performance.
+* Added the function pool_D2, to pool chi-square statistics.
+* Added the internal function pool_performance_internal, used internally 
+by psfmi_perform.
+* created a new vignette for the psfmi_lm function and updated
+the other ones.
+* corrected other bug fixes.
+* Updated package website with pkgdown (included citation).
+
 # Package 0.7.1
 
 * Added the functions pool_compare_models and pool_reclassification.

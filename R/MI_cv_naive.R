@@ -206,10 +206,10 @@ MI_cv_naive <- function(pobj, folds = 3, p.crit = 1, BW=FALSE, cv_naive_appt=TRU
     }
 
     perform_mi_orig <-
-      pool_performance(data=pobj$data, nimp = pobj$nimp,
-                       impvar=pobj$impvar, Outcome = pobj$Outcome,
-                       predictors = pobj$predictors_final, cal.plot=FALSE,
-                       plot.indiv=FALSE, groups_cal = 10)
+      pool_performance_internal(data=pobj$data, nimp = pobj$nimp,
+                       impvar=pobj$impvar,
+                       formula = fm)
+    
     rescv <- list(Test=rescv, Apparent=perform_mi_orig)
   }
   return(rescv)

@@ -31,7 +31,7 @@ Suggests:
     bookdown,
     readr
 Title: Prediction Model Selection and Performance Evaluation in Multiple Imputed Datasets
-Version: 0.7.1
+Version: 1.0.0
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut"),
   comment = c(ORCID = "0000-0002-3889-0921")),
@@ -45,7 +45,7 @@ Description:
 	cubic spline predictors and interaction terms between	all these type of predictors. 
 	The stability of the models	can be evaluated using bootstrapping and cluster 
 	bootstrapping. The package further contains functions to pool the model performance 
-	as ROC/AUC, R-squares, scaled Brier score and calibration	plots for logistic 
+	as ROC/AUC, R-squares, scaled Brier score, H&L test and calibration	plots for logistic 
 	regression models. Internal validation can be	done with cross-validation or bootstrapping. 
 	The adjusted intercept after shrinkage of pooled regression coefficients can be obtained. 
 	Backward and forward selection as part of internal validation is possible. 

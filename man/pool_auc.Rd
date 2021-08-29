@@ -2,14 +2,14 @@
 % Please edit documentation in R/pool_auc.R
 \name{pool_auc}
 \alias{pool_auc}
-\title{Calculates the pooled Area Under the Curve in Multiply Imputed datasets}
+\title{Calculates the pooled C-statistic (Area Under the ROC Curve) in Multiply Imputed datasets}
 \usage{
 pool_auc(est_auc, est_se, nimp = 5, log_auc = TRUE)
 }
 \arguments{
-\item{est_auc}{A list of AUC values estimated in Multiply Imputed datasets.}
+\item{est_auc}{A list of C-statistic (AUC/ROC) values estimated in Multiply Imputed datasets.}
 
-\item{est_se}{A list of standard errors of AUC values estimated 
+\item{est_se}{A list of standard errors of C-statistic values estimated 
 in Multiply Imputed datasets.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
@@ -18,11 +18,11 @@ in Multiply Imputed datasets.}
 pooling and finally back transformed. If FALSE the raw values are pooled.}
 }
 \value{
-The pooled AUC value and the 95% CI.
+The pooled C-statistic value and the 95% CI.
 }
 \description{
-\code{pool_auc} Calculates the pooled AUC and 95% Confidence interval
- by using Rubin's Rules. The AUC values are log transformed before pooling.
+\code{pool_auc} Calculates the pooled C-statistic and 95% Confidence interval
+ by using Rubin's Rules. The C-statistic values are log transformed before pooling.
 }
 \seealso{
 \code{\link{psfmi_perform}}, \code{\link{pool_performance}}

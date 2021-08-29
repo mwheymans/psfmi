@@ -77,7 +77,7 @@ psfmi_lm_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
       }
       
       # Rubin's Rules
-      RR.model <- summary(pool(fit))
+      RR.model[[k]] <- summary(pool(fit))
       names(RR.model)[[k]] <-
         paste("Step", k)#
     }
@@ -339,6 +339,14 @@ psfmi_lm_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
       multiparm_step[k+1]
     fm_step_final <-
       fm_step_total[k+1]
+    if(p.crit==1) {
+      Y_initial <-
+        c(paste(Outcome, paste("~")))
+      formula_initial <-
+        as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
+      fm_step_final <- formula_initial
+      RR_model_final <- RR_model_step
+    }
   }
   if(!is_empty(P) & p.crit !=1){
     RR_model_step <-

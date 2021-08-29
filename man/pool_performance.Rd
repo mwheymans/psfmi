@@ -2,15 +2,16 @@
 % Please edit documentation in R/pool_performance.R
 \name{pool_performance}
 \alias{pool_performance}
-\title{Pooling performance measures over multiply imputed datasets}
+\title{Pooling performance measures across multiply imputed datasets}
 \usage{
 pool_performance(
   data,
+  formula,
   nimp,
   impvar,
-  Outcome,
-  predictors,
-  cal.plot,
+  model_type = "binomial",
+  cal.plot = TRUE,
+  plot.method = "mean",
   plot.indiv,
   groups_cal = 10
 )
@@ -20,35 +21,42 @@ pool_performance(
 The original dataset that contains missing values must be excluded 
 from the dataset.}
 
+\item{formula}{A formula object to specify the model as normally used by glm.}
+
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
 \item{impvar}{A character vector. Name of the variable that distinguishes 
 the imputed datasets.}
 
-\item{Outcome}{Character vector containing the name of the outcome variable.}
+\item{model_type}{If "binomial" (default), performance measures are calculated
+for logistic regression models, if "survival" for Cox regression models.}
 
-\item{predictors}{Character vector with the names of the predictor 
-variables as used in the formula part of an glm object.}
+\item{cal.plot}{If TRUE a calibration plot is generated. Default is TRUE. 
+model_type must be "binomial".}
 
-\item{cal.plot}{If TRUE a calibration plot is generated. Default is FALSE. 
-Can be used in combination with int_val = FALSE.}
+\item{plot.method}{If "mean" one calibration plot is generated, first taking the 
+mean of the linear predictor across the multiply imputed datasets (default), if 
+"individual" the calibration plot of each imputed dataset is plotted, 
+if "overlay" calibration plots from each imputed datasets are plotted in one figure.}
 
-\item{plot.indiv}{If TRUE calibration plots for each separate imputed dataset 
-are generated, otherwise all calibration plots are plotted in one figure.}
+\item{plot.indiv}{This argument is deprecated; please use plot.method instead.}
 
-\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot. 
-Default is 10. If the range of predicted probabilities is low, less than 10 groups 
-can be chosen.}
+\item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot and. 
+for the Hosmer and Lemeshow test. Default is 10. If the range of predicted probabilities. 
+is low, less than 10 groups can be chosen, but not < 3.}
 }
 \description{
-\code{pool_performance} Pooling performance measures
+\code{pool_performance} Pooling performance measures for logistic
+ regression models.
 }
 \examples{
  perf <- pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 
- Outcome = "Chronic", predictors = c("Gender", "Pain", "rcs(Tampascale, 3)", 
- "Smoking", "Function", "Radiation", "Age", "factor(Carrying)"), 
- cal.plot=TRUE, plot.indiv=FALSE)
+ formula = Chronic ~ Gender + Pain + Tampascale + 
+ Smoking + Function + Radiation + Age + factor(Carrying), 
+ cal.plot=TRUE, plot.method="mean", 
+ groups_cal=10, model_type="binomial")
  
  perf$ROC_pooled
+ perf$R2_pooled
  
 }

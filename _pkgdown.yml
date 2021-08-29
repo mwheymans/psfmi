@@ -5,13 +5,15 @@ bootswatch: spacelab
 reference:
 - title: Pooling and Predictor selection functions
 - contents: 
-  - psfmi_coxr
+  - psfmi_lm
   - psfmi_lr
+  - psfmi_coxr
   - psfmi_mm
   - psfmi_mm_multiparm
 - title: Functions to evaluate Model performance
 - contents: 
   - psfmi_perform
+  - pool_performance
   - pool_intadj
   - mivalext_lr
 - title: Functions to evaluate Model stability
@@ -24,10 +26,12 @@ reference:
 - title: Extra Functions
 - contents:
   - bw_single
-  - pool_performance
+  - bw_single_cox
+  - hoslem_test
   - pool_auc
   - scaled_brier
   - rsq_nagel
+  - pool_D2
 - title: Datasets used in examples and tutorials
 - contents: 
   - lbp_orig

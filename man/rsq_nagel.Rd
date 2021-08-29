@@ -10,7 +10,7 @@ rsq_nagel(fitobj)
 \item{fitobj}{a logistic regression model object of "glm"}
 }
 \value{
-The value for the scaled Brier score.
+The value for the explained variance.
 }
 \description{
 Nagelkerke's R-square calculation for logistic regression / glm models

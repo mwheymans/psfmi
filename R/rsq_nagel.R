@@ -2,7 +2,7 @@
 #'
 #' @param fitobj a logistic regression model object of "glm"   
 #' 
-#' @return The value for the scaled Brier score.
+#' @return The value for the explained variance.
 #' @seealso \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
 #' @author Martijn Heymans, 2020
 #'   
