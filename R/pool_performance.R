@@ -18,6 +18,8 @@
 #'   mean of the linear predictor across the multiply imputed datasets (default), if 
 #'   "individual" the calibration plot of each imputed dataset is plotted, 
 #'   if "overlay" calibration plots from each imputed datasets are plotted in one figure. 
+#' @param Outcome This argument is deprecated; please use formula instead.
+#' @param predictors This argument is deprecated; please use formula instead.
 #' @param plot.indiv This argument is deprecated; please use plot.method instead.      
 #' @param groups_cal A numerical scalar. Number of groups used on the calibration plot and. 
 #'  for the Hosmer and Lemeshow test. Default is 10. If the range of predicted probabilities. 
@@ -38,6 +40,8 @@ pool_performance <- function(data,
                              formula, 
                              nimp, 
                              impvar, 
+                             Outcome,
+                             predictors,
                              model_type="binomial",
                              cal.plot=TRUE, 
                              plot.method="mean", 
@@ -51,6 +55,14 @@ pool_performance <- function(data,
     warning("argument plot.indiv is deprecated; please use plot.method instead.",
             call. = FALSE)
     plot.method <- plot.indiv
+  }
+  if (!missing(Outcome)) {
+    warning("argument Outcome is deprecated; please use formula instead.",
+            call. = FALSE)
+  }
+  if (!missing(predictors)) {
+    warning("argument predictors is deprecated; please use formula instead.",
+            call. = FALSE)
   }
   
   if(model_type=="survival" & cal.plot)
