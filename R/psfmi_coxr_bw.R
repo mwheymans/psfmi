@@ -383,8 +383,12 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
         c(paste0("Surv(", time, ",", status, ")~"))
       formula_initial <-
         as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
-      fm_step_final <- formula_initial
-      RR_model_final <- RR_model_step
+      fm_step_final <- 
+        formula_initial
+      RR_model_final <-
+        RR_model_step[k]
+      multiparm_final <-
+        multiparm_step[k]
     }
   }
   if(!is_empty(P) & p.crit !=1){
