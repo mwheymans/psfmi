@@ -224,6 +224,8 @@ boot_MI <- function(pobj,
   # Perform original model in multiply imputed original data
   # if p.crit != 1 selection takes place during validation
   if(p.crit != 1) {
+    if(p.crit != pobj$p.crit)
+      stop("p-value used during internal validation must be the same as for original model selection, change p.crit")
     Y_orig <- c(paste(pobj$Outcome, paste("~")))
     if(is_empty(pobj$predictors_initial)) stop("You can not validate an empty model")
     fm_orig <-
@@ -239,7 +241,6 @@ boot_MI <- function(pobj,
       pool_performance_internal(data=pobj$data, nimp = pobj$nimp,
                        impvar=pobj$impvar, formula = fm_orig_perf)
   } else {
-    
     Y_orig <- c(paste(pobj$Outcome, paste("~")))
     if(is_empty(pobj$predictors_final)) {
       pobj$predictors_final <- 1

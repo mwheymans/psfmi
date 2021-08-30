@@ -211,6 +211,8 @@ MI_boot <- function(pobj,
   # Perform original model in multiply imputed original data
   # if p.crit != 1 selection takes place during validation
   if(p.crit != 1) {
+    if(p.crit != pobj$p.crit)
+      stop("p-value used during internal validation must be the same as for original model selection, change p.crit")
     Y_orig <- c(paste(pobj$Outcome, paste("~")))
     if(is_empty(pobj$predictors_initial)) stop("You can not validate an empty model")
     fm_orig <-
