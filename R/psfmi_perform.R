@@ -197,7 +197,10 @@ psfmi_perform <- function(pobj, val_method = NULL, data_orig = NULL, int_val = T
     
     # Specific for boot_MI and MI_boot
     if(val_method=="boot_MI" | val_method=="MI_boot") {
-      
+      if(p.crit != 1) {
+        if(p.crit != pobj$p.crit)
+          stop("p-value used during internal validation must be the same as 
+               for original model selection, change p.crit")
       if(val_method=="boot_MI"){
         # Part boot_MI
         if(is_empty(data_orig))
