@@ -126,7 +126,7 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
           data <-
             filter(data, data[impvar] <= nimp)
           imp_list <-
-            data %>% group_split(data[, impvar], keep = FALSE) %>%
+            data %>% group_split(data[, impvar], .keep = FALSE) %>%
             mitools::imputationList(imp_list)
 
           fit0 <-
