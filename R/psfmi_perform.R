@@ -122,10 +122,23 @@
 #'}
 #'
 #' @export
-psfmi_perform <- function(pobj, val_method = NULL, data_orig = NULL, int_val = TRUE, nboot = 10,
-                          folds=3, nimp_cv = 5, nimp_mice = 5, p.crit = 1, BW = FALSE,
-                          direction = NULL, cv_naive_appt=FALSE,
-                          cal.plot=FALSE, plot.method="mean", groups_cal=5, miceImp, ...)
+psfmi_perform <- function(pobj, 
+                          val_method = NULL, 
+                          data_orig = NULL, 
+                          int_val = TRUE, 
+                          nboot = 10,
+                          folds=3, 
+                          nimp_cv = 5, 
+                          nimp_mice = 5, 
+                          p.crit = 1, 
+                          BW = FALSE,
+                          direction = NULL, 
+                          cv_naive_appt=FALSE,
+                          cal.plot=FALSE, 
+                          plot.method="mean", 
+                          groups_cal=5, 
+                          miceImp, 
+                          ...)
 {
   ##############################
   #General Settings
@@ -201,6 +214,7 @@ psfmi_perform <- function(pobj, val_method = NULL, data_orig = NULL, int_val = T
         if(p.crit != pobj$p.crit)
           stop("p-value used during internal validation must be the same as 
                for original model selection, change p.crit")
+      }  
       if(val_method=="boot_MI"){
         # Part boot_MI
         if(is_empty(data_orig))
