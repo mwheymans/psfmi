@@ -211,27 +211,28 @@ MI_boot <- function(pobj,
   # Perform original model in multiply imputed original data
   # if p.crit != 1 selection takes place during validation
   if(p.crit != 1) {
-    if(p.crit != pobj$p.crit)
-      stop("p-value used during internal validation must be the same as for original model selection, change p.crit")
     Y_orig <- c(paste(pobj$Outcome, paste("~")))
     if(is_empty(pobj$predictors_initial)) stop("You can not validate an empty model")
     fm_orig <-
       as.formula(paste(Y_orig, paste(pobj$predictors_initial, collapse = "+")))
-    
     pool_lr_orig <-
       psfmi_lr(formula = fm_orig, data =  pobj$data, nimp=pobj$nimp,
                impvar = pobj$impvar, p.crit = p.crit,
                keep.predictors = pobj$keep.predictors,
                method = pobj$method, direction = direction)
-    fm_orig_perf <-
-      as.formula(paste(Y_orig, paste(pool_lr_orig$predictors_final, collapse = "+")))
+    if(is_empty(pool_lr_orig$predictors_final)) {
+      pool_lr_orig$predictors_final <- 1
+      fm_orig <-
+        as.formula(paste(Y_orig, paste(pool_lr_orig$predictors_final, collapse = "+")))
+    } else {
+      fm_orig <-
+        as.formula(paste(Y_orig, paste(pool_lr_orig$predictors_final, collapse = "+")))
+    }
     perform_mi_orig <-
       pool_performance_internal(data=pobj$data, nimp = pobj$nimp,
-                       impvar=pobj$impvar, formula = fm_orig_perf)
+                                impvar=pobj$impvar, formula = fm_orig)
   } else {
-    
     Y_orig <- c(paste(pobj$Outcome, paste("~")))
-    
     if(is_empty(pobj$predictors_final)) {
       pobj$predictors_final <- 1
       fm_orig <-
@@ -242,7 +243,7 @@ MI_boot <- function(pobj,
     }
     perform_mi_orig <-
       pool_performance_internal(data=pobj$data, nimp = pobj$nimp,
-                       impvar=pobj$impvar, formula = fm_orig)
+                                impvar=pobj$impvar, formula = fm_orig)
   }
   ROC_orig <-
     perform_mi_orig$ROC_pooled[2]
@@ -282,6 +283,7 @@ MI_boot <- function(pobj,
   row.names(pobjval) <-
     c("AUC", "R2", "Brier Scaled", "Slope")
   pobjval <- list(stats_val = pobjval, intercept_test = res_boot_m[7], 
-                  res_boot = res_boot, predictors_selected = predictors_selected)
+                  res_boot = res_boot, predictors_selected = predictors_selected,
+                  model_orig=fm_orig)
   return(pobjval)
 }
