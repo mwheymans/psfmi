@@ -1,8 +1,8 @@
 #' Predictor selection function for backward selection of
 #' Cox regression models.
 #'
-#' \code{bw_single_cox} Backward selection of Cox regression
-#'  models using as selection method the likelihood-ratio Chi-square statistic.
+#' \code{coxph_bw} Backward selection of Cox regression models 
+#'  using as selection method the partial likelihood-ratio statistic.
 #'
 #' @param data A data frame. 
 #' @param formula A formula object to specify the model as normally used by coxph.
@@ -33,22 +33,23 @@
 #'
 #'@return An object of class \code{smods} (single models) from
 #'  which the following objects can be extracted: original dataset as \code{data}, final selected
-#'  model as \code{RR_model_final}, model at each selection step \code{RR_model_setp},
-#'  p-values at final step according to selection method as \code{multiparm_final}, and
-#'  at each step as \code{multiparm_step}, formula object at final step as \code{formula_final}, 
+#'  model as \code{RR_model_final}, model at each selection step \code{RR_model},
+#'  p-values at final step \code{multiparm_final}, and at each step as \code{multiparm}, 
+#'  formula object at final step as \code{formula_final}, 
 #'  and at each step as \code{formula_step} and for start model as \code{formula_initial}, 
 #'  predictors included at each selection step as \code{predictors_in}, predictors excluded
-#'  at each step as \code{predictors_out}, and \code{Outcome}, \code{anova_test}, \code{p.crit}, \code{call},
+#'  at each step as \code{predictors_out}, and \code{time}, \code{status}, \code{p.crit}, \code{call},
 #'  \code{model_type}, \code{predictors_final} for names of predictors in final selection step and 
-#'  \code{predictors_initial} for names of predictors in start model.
+#'  \code{predictors_initial} for names of predictors in start model and \code{keep.predictors} for
+#'  variables that are forced in the model during selection.
 #'
 #'@references http://missingdatasolutions.rbind.io/
 #'
 #'@examples
-#' lbpmicox1 <- subset(lbpmicox, Impnr==1) # extract first imputed dataset
-#' res_single <- bw_single_cox(data=lbpmicox1, p.crit = 1, time="Time", status = "Status",
-#'                            predictors=c("Previous", "Radiation", "Onset", "Age", "Tampascale",
-#'                            "Pain", "JobControl"), cat.predictors = c("Satisfaction"), 
+#' lbpmicox1 <- subset(psfmi::lbpmicox, Impnr==1) # extract first imputed dataset
+#' res_single <- coxph_fw(data=lbpmicox1, p.crit = 0.05, formula=Surv(Time, Status) ~
+#'                            Previous +  Radiation + Onset + Age + Tampascale + 
+#'                            Pain + JobControl + factor(Satisfaction), 
 #'                            spline.predictors = "Function",
 #'                            nknots = 3)
 #'          
@@ -58,23 +59,24 @@
 #' @author Martijn Heymans, 2021
 #' 
 #' @export
-bw_single_cox <- function(data,
-         formula = NULL,
-         status = NULL,
-         time = NULL,
-         predictors=NULL,
-         p.crit=1,
-         cat.predictors=NULL,
-         spline.predictors=NULL,
-         int.predictors=NULL,
-         keep.predictors=NULL,
-         nknots=NULL)
+coxph_bw <- function(data,
+                     formula = NULL,
+                     status = NULL,
+                     time = NULL,
+                     predictors=NULL,
+                     p.crit=1,
+                     cat.predictors=NULL,
+                     spline.predictors=NULL,
+                     int.predictors=NULL,
+                     keep.predictors=NULL,
+                     nknots=NULL)
 {
+  
   call <- match.call()
   
   if(is_empty(formula)) {
     if(!all(data[status]==1 | data[status]==0))
-      stop("Outcome should be a 0 - 1 variable")
+      stop("Status should be a 0 - 1 variable")
     P <-
       predictors
     cat.P <-
@@ -131,7 +133,7 @@ bw_single_cox <- function(data,
   data <- data.frame(as_tibble(data))
   data <- mutate_if(data, is.factor, ~ as.numeric(as.character(.x)))
   if(!all(data[status]==1 | data[status]==0))
-    stop("Outcome should be a 0 - 1 variable")
+    stop("Status should be a 0 - 1 variable")
   if ((nvar <- ncol(data)) < 2)
     stop("Data should contain at least two columns")
   if (p.crit > 1)
@@ -262,61 +264,106 @@ bw_single_cox <- function(data,
   
   ############################## BW selection
   
-  RR.model <- df.chi <- P_rm_step <- fm_step <- imp.dt <- multiparm <- list()
+  call <- match.call()
+  
+  RR.model <- P_rm_step <- fm_step <- imp.dt <- multiparm <- list()
+  
+  P_orig <-
+    P
+  keep.P <-
+    sapply(as.list(keep.P), clean_P)
+  P_orig_temp <-
+    clean_P(P)
+  
+  if(!is_empty(keep.P))
+    if(length(P_orig)==1)
+      if(P_orig_temp == keep.P)
+        stop("\n", "No need to define keep.predictors. Exclude keep.predictors and set p.crit = 1","\n")
   
   # Loop k, to pool models in multiply imputed datasets
   for (k in 1:(length(P)+1)) {
     
+    # set regression formula fm
     Y <-
       c(paste0("Surv(", time, ",", status, ")~"))
     fm <-
       as.formula(paste(Y, paste(P, collapse = "+")))
     
-    #fit <- list()
-    fit <-
-      coxph(fm, data = data)
+    # pooling methods
     
-    if(length(attr(terms(fm), "term.labels")) == 1){
-      chi_test <-
-        car::Anova(fit)
-      chi_test <-
-        c(chi_test$`Pr(>|Chi|)`[2], chi_test$Chisq[2])
-    } else {
-      chi_test <-
-        car::Anova(fit)
+    pool.p.val <-
+      matrix(0, length(P), 2)
+    P_test <-
+      clean_P(P)
+    
+    for (j in 1:length(P)) {
+      cov.nam0 <-
+        P[-j]
+      if (length(P) == 1) {
+        cov.nam0 <-
+          "1"
+      }
+      Y <-
+        c(paste0("Surv(", time, ",", status, ")~"))
+      form1 <-
+        as.formula(paste(Y, paste(P, collapse = "+")))
+      form0 <-
+        as.formula(paste(Y, paste(cov.nam0, collapse = "+")))
+      
+      if(any(grepl(P_test[j], P_test[-j]))){
+        cov.nam0 <-
+          P[-grep(P_test[j], P_test)]
+        form0 <-
+          as.formula(paste(Y, paste(c(cov.nam0), collapse = "+")))
+      }
+      
+      
+      fit1 <- coxph(form1, data = data)
+      fit0 <- coxph(form0, data = data)
+      
+      # Model estimates
+      out.res <-
+        summary(fit1)$coefficients
+      lower.EXP <-
+        exp(exp(out.res[, 1]) - (1.96*out.res[, 2]))
+      upper.EXP <-
+        exp(exp(out.res[, 1]) + (1.96*out.res[, 2]))
+      model.res <-
+        data.frame(cbind(out.res, lower.EXP, upper.EXP))
+      names(model.res) <- c("Estimate", "HR", "Std Error", "Z value",
+                            "P-value", "low EXP(HR)", "High EXP(HR)")
+      RR.model[[k]] <-
+        model.res
+      names(RR.model)[[k]] <-
+        paste("Step", k)
+      
+      ll0 <-
+        logLik(fit0)
+      ll1 <-
+        logLik(fit1)
+      
+      LL <-
+        -2*(as.numeric(ll0) - as.numeric(ll1))
+      df0 <-
+        attr(ll0, "df")
+      df1 <-
+        attr(ll1, "df")
+      diff_df <-
+        df1 - df0
+      pvalue <-
+        pchisq(LL, df = diff_df, lower.tail = FALSE)
+      
+      pool.p.val[j, ] <-
+        c(pvalue, LL)
+      
     }
-    
-    # Model results
-    out.res <-
-      summary(fit)$coefficients
-    lower.EXP <-
-      exp(exp(out.res[, 1]) - (1.96*out.res[, 3]))
-    upper.EXP <-
-      exp(exp(out.res[, 1]) + (1.96*out.res[, 3]))
-    model.res <-
-      data.frame(cbind(out.res, lower.EXP, upper.EXP))
-    names(model.res) <- c("Estimate", "HR", "Std Error", "Z value",
-                          "P-value", "low EXP(HR)", "High EXP(HR)")
-    RR.model[[k]] <-
-      model.res
-    names(RR.model)[[k]] <-
-      paste("Step", k)#
-    
+    # End j loop
     p.pool <-
-      data.frame(matrix(0, length(P), 2))
-    if(length(attr(terms(fm), "term.labels")) == 1){
-      p.pool[1, ] <- chi_test
-    } else {
-      p.pool[, 1] <-
-        chi_test$`Pr(>Chisq)`
-      p.pool[, 2] <-
-        chi_test$`LR Chisq`
-    }
-    
+      data.frame(pool.p.val)
     row.names(p.pool) <-
       P
     names(p.pool) <-
-      c("P-value", "LR Chisq")
+      c("p-values", "LR-statistic")
     
     # Extract regression formula's
     fm_step[[k]] <-
@@ -359,14 +406,12 @@ bw_single_cox <- function(data,
         p.pool[remove_P_keep, , FALSE]
     }
     
-    
     if(p.crit==1){
       break()
     }
     
-    if(nrow(p.pool)==0){
+    if(nrow(p.pool)==0)
       break()
-    }
     
     # Select variables
     P_temp <-
@@ -408,12 +453,22 @@ bw_single_cox <- function(data,
         0
       names(multiparm)[[k+1]] <-
         paste("Step", k+1)
+      
+      out.res <-
+        summary(fit1)$coefficients
+      lower.EXP <-
+        exp(exp(out.res[, 1]) - (1.96*out.res[, 2]))
+      upper.EXP <-
+        exp(exp(out.res[, 1]) + (1.96*out.res[, 2]))
+      model.res <-
+        data.frame(cbind(out.res, lower.EXP, upper.EXP))
+      names(model.res) <- c("Estimate", "HR", "Std Error", "Z value",
+                            "P-value", "low EXP(HR)", "High EXP(HR)")
+      
       RR.model[[k+1]] <-
-        NA
+        model.res
       names(RR.model)[[k+1]] <-
         paste("Step", k+1)
-      RR.model[[k+1]] <-
-        coxph(fm_step[[k+1]], data = data)
       break()
     }
   }
@@ -488,6 +543,18 @@ bw_single_cox <- function(data,
       multiparm_step[k+1]
     fm_step_final <-
       fm_step_total[k+1]
+    if(p.crit==1) {
+      Y_initial <-
+        c(paste0("Surv(", time, ",", status, ")~"))
+      formula_initial <-
+        as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
+      fm_step_final <-
+        formula_initial
+      RR_model_final <-
+        RR_model_step[k]
+      multiparm_final <-
+        multiparm_step[k]
+    }
   }
   if(!is_empty(P) & p.crit !=1){
     RR_model_step <-
@@ -513,14 +580,14 @@ bw_single_cox <- function(data,
     as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
   
   pobjbw <-
-    list(data = data, RR_model_final = RR_model_final, RR_model = RR_model_step,
-         multiparm_final = multiparm_final, multiparm = multiparm_step,
+    list(data = data, RR_model = RR_model_step, RR_model_final = RR_model_final,
+         multiparm = multiparm_step, multiparm_final = multiparm_final,
          formula_step = fm_step_total, formula_final = fm_step_final,
-         formula_initial = formula_initial, predictors_in = P_included,
-         predictors_out = P_remove, status = status, time = time, p.crit = p.crit,
-         call = call, model_type = "survival",
-         predictors_final = predictors_final, predictors_initial = P_orig)
-  
+         formula_initial = formula_initial, predictors_in = P_included, 
+         predictors_out = P_remove, status = status, time = time, 
+         p.crit = p.crit, call = call,
+         model_type = "survival", predictors_final = predictors_final,
+         predictors_initial = P_orig, keep.predictors = keep.P)
   class(pobjbw) <- "smods"
   return(pobjbw)
 }

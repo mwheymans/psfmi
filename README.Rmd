@@ -50,7 +50,7 @@ devtools::install_github("mwheymans/psfmi")
 Cite the package as:
 
 ``` r
-Martijn Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
+Martijn W Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
 Multiple Imputed Datasets. R package version 1.0.0. https://mwheymans.github.io/psfmi/
 ```
 ## Example
@@ -61,11 +61,14 @@ restricted cubic spline function and an interaction term.
 ```{r example}
 library(psfmi)
 
-pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + JobDemands + rcs(Tampascale, 3) +
-                   factor(Satisfaction) + Smoking + factor(Satisfaction)*rcs(Pain, 3) ,
-                   p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr",
-                   method="D1")
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + 
+                      JobDemands + rcs(Tampascale, 3) + factor(Satisfaction) + 
+                      Smoking + factor(Satisfaction)*rcs(Pain, 3) ,
+                      p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr",
+                      method="D1")
+
 pool_lr$RR_model_final
+
 
 ```
 

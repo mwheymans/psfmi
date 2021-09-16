@@ -35,7 +35,7 @@ in the model during predictor selection. All type of variables are allowed.}
 }
 \description{
 \code{psfmi_lm_bw} Backward selection of Linear regression
-models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+models in multiply imputed data using selection methods RR, D1, D2, D4 and MPR.
 Function is called by \code{psfmi_lm}.
 }
 \author{

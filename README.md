@@ -12,18 +12,19 @@ Status](https://travis-ci.com/mwheymans/psfmi.svg?branch=master)](https://travis
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
 
 The package provides functions to apply pooling, backward and forward
-selection of linear, logistic and Cox regression prediction models in
-multiply imputed data sets using Rubin’s Rules (RR), the D1, D2, D3 and
-the median p-values method. The model can contain continuous,
-dichotomous, categorical and restricted cubic spline predictors and
-interaction terms between all these type of predictors.
+selection of linear, logistic and Cox regression models in multiply
+imputed data sets using Rubin’s Rules (RR), the D1, D2, D3, D4 and the
+median p-values method. The model can contain continuous, dichotomous,
+categorical and restricted cubic spline predictors and interaction terms
+between all these type of predictors.
 
 Validation of the prediction models can be performed with
-cross-validation or bootstrapping in multiply imputed data sets and
-pooled model performance measures as AUC value, R-square, scaled Brier
-score and calibration plots are generated. Also a function to externally
-validate logistic prediction models in multiple imputed data sets is
-available and a function to compare models in multiply imputed data.
+cross-validation or bootstrapping across multiply imputed data sets and
+pooled model performance measures as AUC value, R-square, Hosmer and
+Lemeshow test, scaled Brier score and calibration plots are generated.
+Also a function to externally validate logistic prediction models in
+multiple imputed data sets is available and a function to compare models
+in multiply imputed data.
 
 ## Installation
 
@@ -45,7 +46,7 @@ devtools::install_github("mwheymans/psfmi")
 Cite the package as:
 
 ``` r
-Martijn Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
+Martijn W Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
 Multiple Imputed Datasets. R package version 1.0.0. https://mwheymans.github.io/psfmi/
 ```
 
@@ -57,15 +58,17 @@ includes a restricted cubic spline function and an interaction term.
 ``` r
 library(psfmi)
 
-pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + JobDemands + rcs(Tampascale, 3) +
-                   factor(Satisfaction) + Smoking + factor(Satisfaction)*rcs(Pain, 3) ,
-                   p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr",
-                   method="D1")
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + 
+                      JobDemands + rcs(Tampascale, 3) + factor(Satisfaction) + 
+                      Smoking + factor(Satisfaction)*rcs(Pain, 3) ,
+                      p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr",
+                      method="D1")
 #> Entered at Step 1 is - rcs(Pain,3)
 #> Entered at Step 2 is - factor(Satisfaction)
 #> 
 #> Selection correctly terminated, 
 #> No new variables entered the model
+
 pool_lr$RR_model_final
 #> $`Final model`
 #>                    term   estimate std.error  statistic        df     p.value

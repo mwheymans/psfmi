@@ -1,7 +1,7 @@
 #' Backward selection of Linear regression models in multiply imputed data.
 #'
 #' \code{psfmi_lm_bw} Backward selection of Linear regression
-#' models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+#' models in multiply imputed data using selection methods RR, D1, D2, D4 and MPR.
 #' Function is called by \code{psfmi_lm}. 
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
@@ -83,7 +83,7 @@ psfmi_lm_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
     }
     
     # D1 and D2 pooling methods
-    if(method=="D1" | method == "D2" ) {
+    if(method=="D1" | method == "D2" | method == "D4" ) {
       
       pool.p.val <-
         matrix(0, length(P), 2)
@@ -110,30 +110,59 @@ psfmi_lm_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
           form0 <-
             as.formula(paste(Y, paste(c(cov.nam0), collapse = "+")))
         }
-        
-        fit1 <- fit0 <- imp.dt <- list()
-        for (i in 1:nimp) {
-          imp.dt[[i]] <-
-            data[data[impvar] == i, ]
-          fit1[[i]] <-
-            glm(form1, data = imp.dt[[i]])
-          fit0[[i]] <-
-            glm(form0, data = imp.dt[[i]])
+        if(method=="D4"){
+          data <-
+            filter(data, data[impvar] <= nimp)
+          imp_list <-
+            data %>% group_split(data[, impvar], .keep = FALSE) %>%
+            mitools::imputationList(imp_list)
+          
+          fit0 <-
+            with(data=imp_list, expr= glm(as.formula(paste(Y,
+                                                           paste(cov.nam0, collapse = "+")))))
+          fit1 <-
+            with(data=imp_list, expr= glm(as.formula(paste(Y,
+                                                           paste(P, collapse = "+")))))
+          
+          RR.model[[k]] <- summary(pool(fit1))
+          names(RR.model)[[k]] <-
+            paste("Step", k)
+          
+          res_D4 <-
+            pool_D4(data=data, fm0=form0, fm1=form1, nimp=nimp,
+                    impvar=impvar, robust=TRUE, model_type="linear")
+          pvalue <-
+            res_D4$pval
+          fstat <-
+            res_D4$F
+          pool.p.val[j, ] <-
+            c(pvalue, fstat)
         }
-        RR.model[[k]] <-
-          summary(pool(fit1))
-        names(RR.model)[[k]] <-
-          paste("Step", k)
         
-        test_P <-
-          mitml::testModels(fit1, fit0, method = method)
-        pvalue <-
-          test_P$test[4]
-        fstat <-
-          test_P$test[1]
-        pool.p.val[j, ] <-
-          c(pvalue, fstat)
-        
+        if(method =="D1" | method =="D2"){
+          fit1 <- fit0 <- imp.dt <- list()
+          for (i in 1:nimp) {
+            imp.dt[[i]] <-
+              data[data[impvar] == i, ]
+            fit1[[i]] <-
+              glm(form1, data = imp.dt[[i]])
+            fit0[[i]] <-
+              glm(form0, data = imp.dt[[i]])
+          }
+          RR.model[[k]] <-
+            summary(pool(fit1))
+          names(RR.model)[[k]] <-
+            paste("Step", k)
+          
+          test_P <-
+            mitml::testModels(fit1, fit0, method = method)
+          pvalue <-
+            test_P$test[4]
+          fstat <-
+            test_P$test[1]
+          pool.p.val[j, ] <-
+            c(pvalue, fstat)
+        }
       }
       p.pool <-
         data.frame(pool.p.val)
@@ -385,5 +414,6 @@ psfmi_lm_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
          model_type = "linear", direction = "BW",
          predictors_final = predictors_final,
          predictors_initial = P_orig, keep.predictors = keep.P)
+  
   return(bw)
 }

@@ -54,15 +54,6 @@
 #'  object is used set predictors, cat.predictors, spline.predictors or int.predictors
 #'  at the default value of NULL.
 #'
-#'  pooled p-values at final step according to pooling method as \code{multiparm_final}, and
-#'  at each step as \code{multiparm}, or \code{multiparm_out} (only when direction = "FW"),
-#'  formula object at final step as \code{fm_step_final}, and at each step as \code{fm_step},
-#'  predictors included at each selection step as \code{predictors_in}, predictors excluded
-#'  at each step as \code{predictors_out}, and name of variable to distinguish imputed datasets
-#'  as \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{call},
-#'  \code{model_type}, direction of selection as \code{direction}, \code{predictors_final} for
-#'  names of predictors in final selection step and \code{predictors_initial} for names of
-#'  predictors in start model.
 #'
 #' @return An object of class \code{pmods} (multiply imputed models) from
 #'  which the following objects can be extracted: 
@@ -144,7 +135,7 @@ psfmi_coxr <- function(data,
     stop("\n", "Method D3 not available for survival data")
   if(is_empty(formula)) {
     if(!all(data[status]==1 | data[status]==0))
-      stop("Outcome should be a 0 - 1 variable")
+      stop("Status should be a 0 - 1 variable")
     
     keep_temp <- keep.predictors
     
@@ -210,7 +201,7 @@ psfmi_coxr <- function(data,
   data <- data.frame(as_tibble(data))
   data <- mutate_if(data, is.factor, ~ as.numeric(as.character(.x)))
   if(!all(data[status]==1 | data[status]==0))
-    stop("Outcome should be a 0 - 1 variable")
+    stop("Status should be a 0 - 1 variable")
   if ((nvar <- ncol(data)) < 2)
     stop("Data should contain at least two columns")
   if(is_empty(impvar))

@@ -28,5 +28,5 @@ The pooled C-statistic value and the 95% CI.
 \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
 }
 \author{
-Martijn Heymans, 2020
+Martijn Heymans, 2021
 }

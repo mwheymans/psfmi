@@ -1,8 +1,8 @@
-#' Predictor selection function for backward selection of
+#' Function for backward selection of
 #' Linear and Logistic regression models.
 #'
-#' \code{bw_single} Backward selection of Linear and Logistic regression
-#'  models using as selection method the likelihood-ratio Chi-square value.
+#' \code{glm_bw} Backward selection of Linear and Logistic regression
+#'  models using as selection method the likelihood-ratio test.
 #'
 #' @param data A data frame. 
 #' @param formula A formula object to specify the model as normally used by glm.
@@ -32,36 +32,50 @@
 #'  \code{Outcome ~ variable1*variable2} or \code{Outcome ~ variable1 + variable2 + variable1:variable2}.
 #'  All variables in the terms part have to be separated by a "+".
 #'
-#'@return An object of class \code{smods} (single models) from
-#'  which the following objects can be extracted: original dataset as \code{data}, final selected
-#'  model as \code{RR_model_final}, model at each selection step \code{RR_model_setp},
-#'  p-values at final step according to selection method as \code{multiparm_final}, and
-#'  at each step as \code{multiparm_step}, formula object at final step as \code{formula_final}, 
+#' @return An object of class \code{smods} (single models) from
+#'  which the following objects can be extracted: original dataset as \code{data}, 
+#'  model at each selection step \code{RR_model}, final selected model as \code{RR_model_final}, 
+#'  p-values at final step \code{multiparm_final}, and at each step as \code{multiparm}, 
+#'  formula object at final step as \code{formula_final}, 
 #'  and at each step as \code{formula_step} and for start model as \code{formula_initial}, 
 #'  predictors included at each selection step as \code{predictors_in}, predictors excluded
-#'  at each step as \code{predictors_out}, and \code{Outcome}, \code{anova_test}, \code{p.crit}, \code{call},
+#'  at each step as \code{predictors_out}, and \code{Outcome}, \code{p.crit}, \code{call},
 #'  \code{model_type}, \code{predictors_final} for names of predictors in final selection step and 
-#'  \code{predictors_initial} for names of predictors in start model.
+#'  \code{predictors_initial} for names of predictors in start model and \code{keep.predictors} for
+#'  variables that are forced in the model during selection.
 #'
 #'@references http://missingdatasolutions.rbind.io/
 #'
-#' @author Martijn Heymans, 2020
+#'@examples
+#'
+#' data1 <- subset(psfmi::lbpmilr, Impnr==1) # extract first imputed dataset
+#' res_single <- glm_bw(data=data1, p.crit = 0.05, formula=Chronic ~
+#'        Tampascale + Smoking + factor(Satisfaction), model_type="binomial")
+#'          
+#' res_single$RR_model_final
+#'
+#' res_single <- glm_bw(data=data1, p.crit = 0.05, formula=Pain ~
+#'          Tampascale  + Smoking + factor(Satisfaction), model_type="linear")
+#'          
+#' res_single$RR_model_final
+#'
+#' @seealso \code{\link{psfmi_perform}}
+#' 
+#' @author Martijn Heymans, 2021
 #' 
 #' @export
-bw_single <- function(data,
-         formula = NULL,
-         Outcome = NULL,
-         predictors=NULL,
-         p.crit=1,
-         cat.predictors=NULL,
-         spline.predictors=NULL,
-         int.predictors=NULL,
-         keep.predictors=NULL,
-         nknots=NULL,
-         model_type="binomial")
+glm_bw <- function(data,
+                  formula = NULL,
+                  Outcome = NULL,
+                  predictors=NULL,
+                  p.crit=1,
+                  cat.predictors=NULL,
+                  spline.predictors=NULL,
+                  int.predictors=NULL,
+                  keep.predictors=NULL,
+                  nknots=NULL,
+                  model_type="binomial")
 {
-  
-  .Deprecated("glm_bw")
   
   call <- match.call()
   
@@ -176,7 +190,7 @@ bw_single <- function(data,
         keep.P.spl <- unlist(strsplit(keep.P[i], split="[*]"))
         if(length(P[Reduce("&", lapply(keep.P.spl, grepl, P))])==0)
           stop("Interaction term in keep.predictors not defined
-            as int.predictors, incorrect")
+            as predictor. Add to formula or int.predictors.")
         keep.P[i] <- P[Reduce("&", lapply(keep.P.spl, grepl, P))]
       }
     }
@@ -253,65 +267,120 @@ bw_single <- function(data,
   
   ############################## BW selection
   
-  RR.model <- df.chi <- P_rm_step <- fm_step <- imp.dt <- multiparm <- list()
+  call <- match.call()
+  
+  RR.model <- P_rm_step <- fm_step <- imp.dt <- multiparm <- list()
+  
+  P_orig <-
+    P
+  keep.P <-
+    sapply(as.list(keep.P), clean_P)
+  P_orig_temp <-
+    clean_P(P)
+  
+  if(!is_empty(keep.P))
+    if(length(P_orig)==1)
+      if(P_orig_temp == keep.P)
+        stop("\n", "No need to define keep.predictors. Exclude keep.predictors and set p.crit = 1","\n")
   
   # Loop k, to pool models in multiply imputed datasets
   for (k in 1:(length(P)+1)) {
     
+    # set regression formula fm
     Y <-
       c(paste(Outcome, paste("~")))
     fm <-
       as.formula(paste(Y, paste(P, collapse = "+")))
     
-    if(model_type=="binomial")
-      fit <-
-      glm(fm, data = data, family = binomial)
-    if(model_type=="linear")
-      fit <-
-      glm(fm, data = data)
-    chi_test <-
-      car::Anova(fit)
+    # D1 and D2 pooling methods
+    #if(method=="D1" | method == "D2" | method=="D3" | method=="D4") {
     
-    # Model estimates
-    if(model_type=="binomial"){
-      out.res <-
-        summary(fit)$coefficients
-      OR <-
-        exp(out.res[, 1])
-      lower.EXP <-
-        exp(exp(out.res[, 1]) - (1.96*out.res[, 2]))
-      upper.EXP <-
-        exp(exp(out.res[, 1]) + (1.96*out.res[, 2]))
-      model.res <-
-        data.frame(cbind(out.res, OR, lower.EXP, upper.EXP))
-      names(model.res) <- c("Estimate", "Std Error", "Z value",
-                            "P-value", "OR", "low EXP(OR)", "High EXP(OR)")
+    pool.p.val <-
+      matrix(0, length(P), 2)
+    P_test <-
+      clean_P(P)
+    
+    for (j in 1:length(P)) {
+      cov.nam0 <-
+        P[-j]
+      if (length(P) == 1) {
+        cov.nam0 <-
+          "1"
+      }
+      Y <-
+        c(paste(Outcome, paste("~")))
+      form1 <-
+        as.formula(paste(Y, paste(P, collapse = "+")))
+      form0 <-
+        as.formula(paste(Y, paste(cov.nam0, collapse = "+")))
+      
+      if(any(grepl(P_test[j], P_test[-j]))){
+        cov.nam0 <-
+          P[-grep(P_test[j], P_test)]
+        form0 <-
+          as.formula(paste(Y, paste(c(cov.nam0), collapse = "+")))
+      }
+      
+      
+      if(model_type=="binomial"){
+        fit1 <- glm(form1, data = data, family = binomial)
+        fit0 <- glm(form0, data = data, family = binomial)
+      }
+      if(model_type=="linear") {
+        fit1 <- glm(form1, data = data)
+        fit0 <- glm(form0, data = data)
+      }
+      
+      # Model estimates
+      if(model_type=="binomial"){
+        out.res <-
+          summary(fit1)$coefficients
+        OR <-
+          exp(out.res[, 1])
+        lower.EXP <-
+          exp(exp(out.res[, 1]) - (1.96*out.res[, 2]))
+        upper.EXP <-
+          exp(exp(out.res[, 1]) + (1.96*out.res[, 2]))
+        model.res <-
+          data.frame(cbind(out.res, OR, lower.EXP, upper.EXP))
+        names(model.res) <- c("Estimate", "Std Error", "Z value",
+                              "P-value", "OR", "low EXP(OR)", "High EXP(OR)")
+      } else {
+        model.res <-
+          summary(fit1)$coefficients
+      }
+      RR.model[[k]] <-
+        model.res
+      names(RR.model)[[k]] <-
+        paste("Step", k)
+      
+      ll0 <-
+        logLik(fit0)
+      ll1 <-
+        logLik(fit1)
+      
+      LL <-
+        -2*(as.numeric(ll0) - as.numeric(ll1))
+      df0 <-
+        attr(ll0, "df")
+      df1 <-
+        attr(ll1, "df")
+      diff_df <-
+        df1 - df0
+      pvalue <-
+        pchisq(LL, df = diff_df, lower.tail = FALSE)
+      
+      pool.p.val[j, ] <-
+        c(pvalue, LL)
+      
     }
-    else {
-      model.res <-
-        summary(fit)$coefficients
-      #model.res <-
-      # data.frame(out.res)
-    }
-    
-    RR.model[[k]] <-
-      model.res
-    names(RR.model)[[k]] <-
-      paste("Step", k)#
-    
+    # End j loop
     p.pool <-
-      data.frame(matrix(0, length(P), 2))
-    p.pool[, 1] <-
-      chi_test$`Pr(>Chisq)`
-    p.pool[, 2] <-
-      chi_test$`LR Chisq`
-    
-    #P <-
-    #  clean_P(P)
+      data.frame(pool.p.val)
     row.names(p.pool) <-
       P
     names(p.pool) <-
-      c("P-value", "LR Chisq")
+      c("p-values", "LR-statistic")
     
     # Extract regression formula's
     fm_step[[k]] <-
@@ -354,14 +423,12 @@ bw_single <- function(data,
         p.pool[remove_P_keep, , FALSE]
     }
     
-    
     if(p.crit==1){
       break()
     }
     
-    if(nrow(p.pool)==0){
+    if(nrow(p.pool)==0)
       break()
-    }
     
     # Select variables
     P_temp <-
@@ -395,15 +462,40 @@ bw_single <- function(data,
       P[!P %in% P_out]
     
     if(is_empty(P)){
-      fm_step[[k+1]] <- as.formula(paste(Y, 1))
-      names(fm_step)[[k+1]] <- paste("Step", k+1)
-      multiparm[[k+1]] <- 0
-      names(multiparm)[[k+1]] <- paste("Step", k+1)
-      if(model_type=="binomial")
-        RR.model[[k+1]] <- print(glm(fm_step[[k+1]], data = data, family = binomial))
-      if(model_type=="linear")
-        RR.model[[k+1]] <- print(glm(fm_step[[k+1]], data = data))
-      names(RR.model)[[k+1]] <- paste("Step", k+1)
+      fm_step[[k+1]] <-
+        as.formula(paste(Y, 1))
+      names(fm_step)[[k+1]] <-
+        paste("Step", k+1)
+      multiparm[[k+1]] <-
+        0
+      names(multiparm)[[k+1]] <-
+        paste("Step", k+1)
+      
+      if(model_type=="binomial"){
+        fit1 <- 
+          glm(fm_step[[k+1]], family=binomial, data=data)
+        out.res <-
+          summary(fit1)$coefficients
+        OR <-
+          exp(out.res[, 1])
+        lower.EXP <-
+          exp(exp(out.res[, 1]) - (1.96*out.res[, 2]))
+        upper.EXP <-
+          exp(exp(out.res[, 1]) + (1.96*out.res[, 2]))
+        model.res <-
+          data.frame(cbind(out.res, OR, lower.EXP, upper.EXP))
+        names(model.res) <- c("Estimate", "Std Error", "Z value",
+                              "P-value", "OR", "low EXP(OR)", "High EXP(OR)")
+      } else {
+        fit1 <- glm(fm_step[[k+1]], data=data)
+        model.res <-
+          summary(fit1)$coefficients
+      }
+      
+      RR.model[[k+1]] <-
+        model.res
+      names(RR.model)[[k+1]] <-
+        paste("Step", k+1)
       break()
     }
   }
@@ -478,6 +570,18 @@ bw_single <- function(data,
       multiparm_step[k+1]
     fm_step_final <-
       fm_step_total[k+1]
+    if(p.crit==1) {
+      Y_initial <-
+        c(paste(Outcome, paste("~")))
+      formula_initial <-
+        as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
+      fm_step_final <-
+        formula_initial
+      RR_model_final <-
+        RR_model_step[k]
+      multiparm_final <-
+        multiparm_step[k]
+    }
   }
   if(!is_empty(P) & p.crit !=1){
     RR_model_step <-
@@ -503,14 +607,14 @@ bw_single <- function(data,
     as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
   
   pobjbw <-
-    list(data = data, RR_model_final = RR_model_final, RR_model = RR_model_step,
-         multiparm_final = multiparm_final,
-         multiparm = multiparm_step, formula_step = fm_step_total,
-         formula_final = fm_step_final, formula_initial = formula_initial,
-         predictors_in = P_included, predictors_out = P_remove, Outcome = Outcome,
-         p.crit = p.crit, call = call, model_type = model_type,
-         predictors_final = predictors_final, predictors_initial = P_orig)
-  
+    list(data = data, RR_model = RR_model_step, RR_model_final = RR_model_final,
+         multiparm = multiparm_step, multiparm_final = multiparm_final,
+         formula_step = fm_step_total, formula_final = fm_step_final,
+         formula_initial = formula_initial, predictors_in = P_included, 
+         predictors_out = P_remove, Outcome = Outcome,  
+         p.crit = p.crit, call = call, model_type = model_type, 
+         predictors_final = predictors_final,
+         predictors_initial = P_orig, keep.predictors = keep.P)
   class(pobjbw) <- "smods"
   return(pobjbw)
-}
+}  

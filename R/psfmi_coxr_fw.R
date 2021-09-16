@@ -290,7 +290,6 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
   }
 
   # Extract selected models
-  # Extract selected models
   outOrder_step <- P_orig
   if(!is_empty(P_each_step)){
     P_select <- data.frame(do.call("rbind", lapply(P_each_step, function(x) {

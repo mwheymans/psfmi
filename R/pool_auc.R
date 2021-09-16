@@ -13,7 +13,7 @@
 #' @return The pooled C-statistic value and the 95% CI.
 #' 
 #' @seealso \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
-#' @author Martijn Heymans, 2020
+#' @author Martijn Heymans, 2021
 #'  
 #' @export   
 pool_auc <- function(est_auc, 

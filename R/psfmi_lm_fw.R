@@ -18,7 +18,7 @@
 #' @param p.crit A numerical scalar. P-value selection criterium. A value of 1
 #'   provides the pooled model without selection.
 #' @param method A character vector to indicate the pooling method for p-values to pool the
-#'   total model or used during predictor selection. This can be "RR", D1", "D2" or "MPR".
+#'   total model or used during predictor selection. This can be "RR", D1", "D2", "D4", or "MPR".
 #'   See details for more information. Default is "RR".
 #' @param keep.P A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. Categorical and interaction variables are allowed.
@@ -57,7 +57,7 @@ psfmi_lm_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
   for(j in 1:length(P))
   {
     
-    P_D1 <- P_D2 <- P_D3 <- P_MPR <- P_RR <-
+    P_D1 <- P_D2 <- P_D3 <- P_D4 <- P_MPR <- P_RR <-
       RR.model <- fm_step <- as.list(rep(0, length(P)))
     
     # Loop k, to pool models in multiply imputed datasets
@@ -98,7 +98,7 @@ psfmi_lm_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
       }
       
       # D1 and D2 pooling methods
-      if(method=="D1" | method == "D2") {
+      if(method=="D1" | method == "D2" | method == "D4") {
         
         if(P_select==0){
           cov.nam0 <- "1"
@@ -122,29 +122,62 @@ psfmi_lm_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
           f0 <- terms(update.formula(f0, paste0("~. +",
                                                 paste0(paste0(c(P_select, cov.nam0_int), collapse = "+")))))
         }
-        
-        fit1 <- fit0 <- list()
-        for (i in 1:nimp) {
-          imp.dt[[i]] <- data[data[impvar] == i, ]
-          fit1[[i]] <- glm(fm, data = imp.dt[[i]])
-          fit0[[i]] <- glm(f0, data = imp.dt[[i]])
+        if(method=="D4"){
+          data <-
+            filter(data, data[impvar] <= nimp)
+          imp_list <-
+            data %>% group_split(data[, impvar], .keep = FALSE) %>%
+            mitools::imputationList(imp_list)
+          
+          fit0 <-
+            with(data=imp_list, expr= glm(as.formula(paste(Y,
+                                                           paste(cov.nam0, collapse = "+")))))
+          fit1 <-
+            with(data=imp_list, expr= glm(as.formula(paste(Y,
+                                                           paste(P, collapse = "+")))))
+          
+          RR.model[[k]] <- summary(pool(fit1))
+          names(RR.model)[[k]] <-
+            paste("Step", k)
+          if(P_select==0) names(RR.model)[k] <- paste("Step", 1)
+          
+          res_D4 <-
+            pool_D4(data=data, fm0=f0, fm1=fm, nimp=nimp,
+                    impvar=impvar, robust=TRUE, model_type="linear")
+          pvalue <-
+            res_D4$pval
+          fstat <-
+            res_D4$F
+          pool.multiparm <- data.frame(matrix(c(pvalue, fstat), length(P[k]), 2))
+          row.names(pool.multiparm) <- P[k]
+          names(pool.multiparm) <- c("p-values", "F-statistic")
+          pool.multiparm
         }
-        
-        RR.model[[k]] <- summary(pool(fit1))
-        names(RR.model)[k] <- paste("Step", j)
-        if(P_select==0) names(RR.model)[k] <- paste("Step", 1)
-        
-        tmr <- mitml::testModels(fit1, fit0, method = method)
-        
-        pvalue <- tmr$test[4]
-        fstat <- tmr$test[1]
-        pool.multiparm <- data.frame(matrix(c(pvalue, fstat), length(P[k]), 2))
-        row.names(pool.multiparm) <- P[k]
-        names(pool.multiparm) <- c("p-values", "F-statistic")
-        pool.multiparm
+        if(method=="D1" | method == "D2"){
+          fit1 <- fit0 <- list()
+          for (i in 1:nimp) {
+            imp.dt[[i]] <- data[data[impvar] == i, ]
+            fit1[[i]] <- glm(fm, data = imp.dt[[i]])
+            fit0[[i]] <- glm(f0, data = imp.dt[[i]])
+          }
+          
+          RR.model[[k]] <- summary(pool(fit1))
+          names(RR.model)[k] <- paste("Step", j)
+          if(P_select==0) names(RR.model)[k] <- paste("Step", 1)
+          
+          tmr <- mitml::testModels(fit1, fit0, method = method)
+          
+          pvalue <- tmr$test[4]
+          fstat <- tmr$test[1]
+          pool.multiparm <- data.frame(matrix(c(pvalue, fstat), length(P[k]), 2))
+          row.names(pool.multiparm) <- P[k]
+          names(pool.multiparm) <- c("p-values", "F-statistic")
+          pool.multiparm
+        }
         
         if(method=="D1") P_D1[[k]] <- pool.multiparm
         if(method=="D2") P_D2[[k]] <- pool.multiparm
+        if(method=="D4") P_D4[[k]] <- pool.multiparm
         
         # Set f0 to original, before testing interactions
         if(P_select==0){
@@ -192,7 +225,7 @@ psfmi_lm_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
     }
     
     # p.pool for multiparameer pooling D1, D2, D3
-    if(method=="D1" | method == "D2"){
+    if(method=="D1" | method == "D2" | method == "D4"){
       p.pool <- data.frame(do.call("rbind", get(paste("P", method, sep="_"))))
       rownames_temp <- row.names(p.pool)
       p.pool <- data.frame(p.pool[, 1])
@@ -313,15 +346,8 @@ psfmi_lm_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
   }
   
   multiparm_out <- NULL
-  if(length(c(P_select)==0)==1) { P_excluded <- P_orig
-  } else {
-    P_excluded <- as_tibble(names(P_select[nrow(P_select), ][P_select[nrow(P_select), ] ==0] ))
-  }
-  if(is_empty(P_excluded)){
-    P_excluded <- NULL
-  } else {
-    names(P_excluded) <- "Excluded"
-  }
+  P_excluded <- as_tibble(names(P_select[nrow(P_select), ][P_select[nrow(P_select), ] ==0] ))
+  names(P_excluded) <- "Excluded"
   predictors_final <- names(P_select[nrow(P_select), ][P_select[nrow(P_select), ] ==1])
   if(is_empty(P_each_step)){
     RR_model <- RR_model_final <- RR_model_select
@@ -376,5 +402,6 @@ psfmi_lm_fw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
              model_type = "linear", direction = "FW",
              predictors_final = predictors_final, predictors_initial = P_orig,
              keep.predictors = keep.P)
+  
   return(fw)
 }

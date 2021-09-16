@@ -121,16 +121,6 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  variable1:variable2}. All variables in the terms part have to be separated by a "+". If a formula
  object is used set predictors, cat.predictors, spline.predictors or int.predictors
  at the default value of NULL.
-
- pooled p-values at final step according to pooling method as \code{multiparm_final}, and
- at each step as \code{multiparm}, or \code{multiparm_out} (only when direction = "FW"),
- formula object at final step as \code{fm_step_final}, and at each step as \code{fm_step},
- predictors included at each selection step as \code{predictors_in}, predictors excluded
- at each step as \code{predictors_out}, and name of variable to distinguish imputed datasets
- as \code{impvar}, \code{nimp}, \code{Outcome}, \code{method}, \code{p.crit}, \code{call},
- \code{model_type}, direction of selection as \code{direction}, \code{predictors_final} for
- names of predictors in final selection step and \code{predictors_initial} for names of
- predictors in start model.
 }
 \section{Vignettes}{
 

@@ -27,7 +27,7 @@ and do not use predictor name combinations with numbers as, age2, BMI10, etc.}
 provides the pooled model without selection.}
 
 \item{method}{A character vector to indicate the pooling method for p-values to pool the
-total model or used during predictor selection. This can be "RR", D1", "D2" or "MPR".
+total model or used during predictor selection. This can be "RR", D1", "D2", "D4", or "MPR".
 See details for more information. Default is "RR".}
 
 \item{keep.P}{A single string or a vector of strings including the variables that are forced

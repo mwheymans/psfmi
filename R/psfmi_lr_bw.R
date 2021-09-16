@@ -94,7 +94,7 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
     }
 
     # D1 and D2 pooling methods
-    if(method=="D1" | method == "D2" | method=="D3") {
+    if(method=="D1" | method == "D2" | method=="D3" | method=="D4") {
 
       pool.p.val <-
         matrix(0, length(P), 2)
@@ -121,7 +121,45 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
           form0 <-
             as.formula(paste(Y, paste(c(cov.nam0), collapse = "+")))
         }
-
+        if(method=="D4"){
+          data <-
+            filter(data, data[impvar] <= nimp)
+          imp_list <-
+            data %>% group_split(data[, impvar], .keep = FALSE) %>%
+            mitools::imputationList(imp_list)
+          
+          fit0 <-
+            with(data=imp_list, expr= glm(as.formula(paste(Y,
+                       paste(cov.nam0, collapse = "+"))), family = binomial))
+          fit1 <-
+            with(data=imp_list, expr= glm(as.formula(paste(Y,
+                       paste(P, collapse = "+"))), family = binomial))
+          
+          out.res1 <-
+            summary(pool(fit1))
+          OR <-
+            exp(out.res1$estimate)
+          lower.EXP <-
+            exp(out.res1$estimate - (qt(0.975, out.res1$df)*out.res1$std.error))
+          upper.EXP <-
+            exp(out.res1$estimate + (qt(0.975, out.res1$df)*out.res1$std.error))
+          model.res1 <-
+            data.frame(cbind(out.res1, OR, lower.EXP, upper.EXP))
+          RR.model[[k]] <-
+            model.res1
+          names(RR.model)[[k]] <-
+            paste("Step", k)
+          
+          res_D4 <- 
+            pool_D4(data=data, fm0=form0, fm1=form1, nimp=nimp,
+                            impvar=impvar, robust=TRUE, model_type="binomial")
+          pvalue <-
+            res_D4$pval
+          fstat <-
+            res_D4$F
+          pool.p.val[j, ] <-
+            c(pvalue, fstat)
+        }
         if(method=="D3"){
           data <-
             filter(data, data[impvar] <= nimp)

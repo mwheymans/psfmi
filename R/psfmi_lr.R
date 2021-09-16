@@ -2,7 +2,7 @@
 #' Logistic regression models in multiply imputed data.
 #'
 #' \code{psfmi_lr} Pooling and backward or forward selection of Logistic regression
-#'  models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.
+#'  models in multiply imputed data using selection methods RR, D1, D2, D3, D4 and MPR.
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded from the
@@ -31,7 +31,7 @@
 #' @param p.crit A numerical scalar. P-value selection criterium. A value of 1
 #'   provides the pooled model without selection.
 #' @param method A character vector to indicate the pooling method for p-values to pool the
-#'   total model or used during predictor selection. This can be "RR", D1", "D2", "D3" or "MPR".
+#'   total model or used during predictor selection. This can be "RR", D1", "D2", "D3", "D4", or "MPR".
 #'   See details for more information. Default is "RR".
 #' @param direction The direction of predictor selection, "BW" means backward selection and "FW"
 #'   means forward selection.
@@ -41,7 +41,7 @@
 #'  the model included continuous or dichotomous variables. Specific procedures are
 #'  available when the model also included categorical (> 2 categories) or restricted cubic spline
 #'  variables. These pooling methods are: “D1” is pooling of the total covariance matrix,
-#'  ”D2” is pooling of Chi-square values, “D3” is pooling Likelihood ratio statistics
+#'  ”D2” is pooling of Chi-square values, “D3” and "D4" is pooling Likelihood ratio statistics
 #'  (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule).
 #'  Spline regression coefficients are defined by using the rcs function for restricted cubic
 #'  splines of the rms package. A minimum number of 3 knots as defined under knots is required.
@@ -203,7 +203,8 @@ psfmi_lr <- function(data,
     stop("Imputation variable is not defined")
   if(is_empty(method)) method="RR"
   if(all(!is_empty(cat.P) | !is_empty(s.P)) & method=="RR")
-    stop("Categorical or spline variables in model, define selection method: D1, D2, D3 or MPR")
+    stop("Categorical or spline variables in model, 
+         define selection method: D1, D2, D3, D4 or MPR")
   if (sort(unique(data[, impvar]))[1] == 0)
     stop("Original dataset should not be included")
   if(is_empty(nimp))
