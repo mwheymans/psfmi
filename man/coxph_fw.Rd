@@ -2,8 +2,7 @@
 % Please edit documentation in R/coxph_fw.R
 \name{coxph_fw}
 \alias{coxph_fw}
-\title{Predictor selection function for forward selection of
-Cox regression models.}
+\title{Predictor selection function for forward selection of Cox regression models.}
 \usage{
 coxph_fw(
   data,
@@ -64,7 +63,7 @@ An object of class \code{smods} (single models) from
  variables that are forced in the model during selection.
 }
 \description{
-\code{coxph_bw} Forward selection of Cox regression models 
+\code{coxph_bw} Forward selection of Cox regression models in single dataset 
  using as selection method the partial likelihood-ratio statistic.
 }
 \details{

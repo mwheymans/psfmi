@@ -2,7 +2,7 @@
 % Please edit documentation in R/psfmi_lm_bw.R
 \name{psfmi_lm_bw}
 \alias{psfmi_lm_bw}
-\title{Backward selection of Linear regression models in multiply imputed data.}
+\title{Backward selection of Linear regression models across multiply imputed data.}
 \usage{
 psfmi_lm_bw(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
 }
@@ -35,7 +35,7 @@ in the model during predictor selection. All type of variables are allowed.}
 }
 \description{
 \code{psfmi_lm_bw} Backward selection of Linear regression
-models in multiply imputed data using selection methods RR, D1, D2, D4 and MPR.
+models across multiply imputed data using selection methods RR, D1, D2, D4 and MPR.
 Function is called by \code{psfmi_lm}.
 }
 \author{

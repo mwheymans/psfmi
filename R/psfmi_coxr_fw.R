@@ -1,7 +1,7 @@
-#' Forward selection of Cox regression models in multiply imputed data.
+#' Forward selection of Cox regression models across multiply imputed data.
 #'
 #' \code{psfmi_coxr_fw} Forward selection of Cox regression
-#' models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+#' models across multiply imputed data using selection methods RR, D1, D2 and MPR.
 #' Function is called by \code{psfmi_coxr}.
 #'
 #' @param data Data frame with stacked multiple imputed datasets.

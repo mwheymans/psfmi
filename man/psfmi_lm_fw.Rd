@@ -2,7 +2,7 @@
 % Please edit documentation in R/psfmi_lm_fw.R
 \name{psfmi_lm_fw}
 \alias{psfmi_lm_fw}
-\title{Forward selection of Linear regression models in multiply imputed data.}
+\title{Forward selection of Linear regression models across multiply imputed data.}
 \usage{
 psfmi_lm_fw(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
 }
@@ -35,7 +35,7 @@ in the model during predictor selection. Categorical and interaction variables a
 }
 \description{
 \code{psfmi_lm_fw} Forward selection of Linear regression
-models in multiply imputed data using selection methods RR, D1, D2 and MPR.
+models across multiply imputed data using selection methods RR, D1, D2, D4 and MPR.
 Function is called by \code{psfmi_lm}.
 }
 \author{

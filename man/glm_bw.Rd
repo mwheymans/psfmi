@@ -2,8 +2,7 @@
 % Please edit documentation in R/glm_bw.R
 \name{glm_bw}
 \alias{glm_bw}
-\title{Function for backward selection of
-Linear and Logistic regression models.}
+\title{Function for backward selection of Linear and Logistic regression models.}
 \usage{
 glm_bw(
   data,
@@ -66,7 +65,7 @@ An object of class \code{smods} (single models) from
 }
 \description{
 \code{glm_bw} Backward selection of Linear and Logistic regression
- models using as selection method the likelihood-ratio test.
+ models in single dataset using as selection method the likelihood-ratio test.
 }
 \details{
 A typical formula object has the form \code{Outcome ~ terms}. Categorical variables has to

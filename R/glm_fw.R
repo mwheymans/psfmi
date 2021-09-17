@@ -1,8 +1,7 @@
-#' Function for forward selection of
-#' Linear and Logistic regression models.
+#' Function for forward selection of Linear and Logistic regression models.
 #'
 #' \code{glm_fw} Forward selection of Linear and Logistic regression
-#'  models using as selection method the likelihood-ratio test statistic.
+#'  models in single dataset using as selection method the likelihood-ratio test statistic.
 #'
 #' @param data A data frame. 
 #' @param formula A formula object to specify the model as normally used by glm.

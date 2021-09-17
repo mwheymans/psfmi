@@ -1,8 +1,7 @@
-#' Function for backward selection of
-#' Linear and Logistic regression models.
+#' Function for backward selection of Linear and Logistic regression models.
 #'
 #' \code{glm_bw} Backward selection of Linear and Logistic regression
-#'  models using as selection method the likelihood-ratio test.
+#'  models in single dataset using as selection method the likelihood-ratio test.
 #'
 #' @param data A data frame. 
 #' @param formula A formula object to specify the model as normally used by glm.

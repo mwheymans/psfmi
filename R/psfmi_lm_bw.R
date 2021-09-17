@@ -1,7 +1,7 @@
-#' Backward selection of Linear regression models in multiply imputed data.
+#' Backward selection of Linear regression models across multiply imputed data.
 #'
 #' \code{psfmi_lm_bw} Backward selection of Linear regression
-#' models in multiply imputed data using selection methods RR, D1, D2, D4 and MPR.
+#' models across multiply imputed data using selection methods RR, D1, D2, D4 and MPR.
 #' Function is called by \code{psfmi_lm}. 
 #'
 #' @param data Data frame with stacked multiple imputed datasets.

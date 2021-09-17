@@ -2,8 +2,7 @@
 % Please edit documentation in R/glm_fw.R
 \name{glm_fw}
 \alias{glm_fw}
-\title{Function for forward selection of
-Linear and Logistic regression models.}
+\title{Function for forward selection of Linear and Logistic regression models.}
 \usage{
 glm_fw(
   data,
@@ -66,7 +65,7 @@ An object of class \code{smods} (single models) from
 }
 \description{
 \code{glm_fw} Forward selection of Linear and Logistic regression
- models using as selection method the likelihood-ratio test statistic.
+ models in single dataset using as selection method the likelihood-ratio test statistic.
 }
 \details{
 A typical formula object has the form \code{Outcome ~ terms}. Categorical variables has to

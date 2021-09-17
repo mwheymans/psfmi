@@ -2,7 +2,7 @@
 % Please edit documentation in R/pool_D4.R
 \name{pool_D4}
 \alias{pool_D4}
-\title{Pools the Likelihood Ratio tests across Multiply Imputed datasets (D4)}
+\title{Pools the Likelihood Ratio tests across Multiply Imputed datasets ( method D4)}
 \usage{
 pool_D4(data, nimp, impvar, fm0, fm1, robust = TRUE, model_type = "binomial")
 }
@@ -19,7 +19,7 @@ imputed datasets.}
 
 \item{fm0}{the null model.}
 
-\item{fm1}{the model to compare. Must be larger than the null model.}
+\item{fm1}{the (nested) model to compare. Must be larger than the null model.}
 
 \item{robust}{if TRUE a robust LRT is used (algorithm 1 in Chan and Meng), otherwise 
 algorithm 2 is used.}
@@ -34,6 +34,18 @@ The D4 statistic, the numerator, df1 and denominator, df2 degrees of freedom
 \description{
 \code{pool_D4} The D4 statistic to combine the likelihood ratio tests (LRT)
  across Multiply Imputed datasets according method D4.
+}
+\examples{
+
+fm0 <- Chronic ~ BMI + factor(Carrying) + 
+  Satisfaction + SocialSupport + Smoking
+fm1 <- Chronic ~ BMI + factor(Carrying) + 
+  Satisfaction +  SocialSupport + Smoking +
+  Radiation
+
+psfmi::pool_D4(data=lbpmilr, nimp=10, impvar="Impnr",
+               fm0=fm0, fm1=fm1, robust = TRUE)
+   
 }
 \references{
 Chan, K. W., & Meng, X.-L. (2019). Multiple improvements of multiple 

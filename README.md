@@ -68,7 +68,6 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) +
 #> 
 #> Selection correctly terminated, 
 #> No new variables entered the model
-
 pool_lr$RR_model_final
 #> $`Final model`
 #>                    term   estimate std.error  statistic        df     p.value

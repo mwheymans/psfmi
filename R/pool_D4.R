@@ -1,4 +1,4 @@
-#' Pools the Likelihood Ratio tests across Multiply Imputed datasets (D4) 
+#' Pools the Likelihood Ratio tests across Multiply Imputed datasets ( method D4) 
 #'
 #' \code{pool_D4} The D4 statistic to combine the likelihood ratio tests (LRT)
 #'  across Multiply Imputed datasets according method D4.
@@ -11,7 +11,7 @@
 #' @param impvar A character vector. Name of the variable that distinguishes the
 #' imputed datasets. 
 #' @param fm0 the null model.
-#' @param fm1 the model to compare. Must be larger than the null model.
+#' @param fm1 the (nested) model to compare. Must be larger than the null model.
 #' @param robust if TRUE a robust LRT is used (algorithm 1 in Chan and Meng), otherwise 
 #'  algorithm 2 is used. 
 #' @param model_type if TRUE (default) a logistic regression model is fitted, otherwise
@@ -26,6 +26,17 @@
 #'  Likelihood Ratio Tests in Multiply Imputed Data Sets.” PsyArXiv. January 29. doi:10.31234/osf.io/d459g.
 #'   
 #' @author Martijn Heymans, 2021
+#'
+#' @examples
+#'
+#' fm0 <- Chronic ~ BMI + factor(Carrying) + 
+#'   Satisfaction + SocialSupport + Smoking
+#' fm1 <- Chronic ~ BMI + factor(Carrying) + 
+#'   Satisfaction +  SocialSupport + Smoking +
+#'   Radiation
+#'
+#' psfmi::pool_D4(data=lbpmilr, nimp=10, impvar="Impnr",
+#'                fm0=fm0, fm1=fm1, robust = TRUE)
 #'    
 #' @export 
 pool_D4 <- function(data,

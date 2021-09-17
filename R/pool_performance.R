@@ -1,7 +1,7 @@
 #' Pooling performance measures across multiply imputed datasets
 #'
 #' \code{pool_performance} Pooling performance measures for logistic
-#'  regression models.
+#'  and Cox regression models.
 #'
 #' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded 

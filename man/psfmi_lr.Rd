@@ -3,7 +3,7 @@
 \name{psfmi_lr}
 \alias{psfmi_lr}
 \title{Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data.}
+Logistic regression models across multiply imputed data.}
 \usage{
 psfmi_lr(
   data,
@@ -98,7 +98,7 @@ An object of class \code{pmods} (multiply imputed models) from
 }
 \description{
 \code{psfmi_lr} Pooling and backward or forward selection of Logistic regression
- models in multiply imputed data using selection methods RR, D1, D2, D3, D4 and MPR.
+ models across multiply imputed data using selection methods RR, D1, D2, D3, D4 and MPR.
 }
 \details{
 The basic pooling procedure to derive pooled coefficients, standard errors, 95
