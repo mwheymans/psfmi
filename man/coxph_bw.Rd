@@ -2,7 +2,8 @@
 % Please edit documentation in R/coxph_bw.R
 \name{coxph_bw}
 \alias{coxph_bw}
-\title{Predictor selection function for backward selection of Cox regression models.}
+\title{Predictor selection function for backward selection of Cox regression models in
+ single dataset.}
 \usage{
 coxph_bw(
   data,

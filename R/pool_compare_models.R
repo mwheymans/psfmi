@@ -1,4 +1,4 @@
-#' Compare the fit and performance of prediction models in Multipy Imputed data 
+#' Compare the fit and performance of prediction models across Multipy Imputed data 
 #'
 #' \code{pool_compare_model} Compares the fit and performance of prediction models 
 #'  in multiply imputed data sets by using clinical important performance measures

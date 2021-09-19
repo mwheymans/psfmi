@@ -1,5 +1,5 @@
 #' Pooling and Predictor selection function for backward or forward selection of
-#' Cox regression models in multiply imputed data.
+#' Cox regression models across multiply imputed data.
 #'
 #' \code{psfmi_coxr} Pooling and backward or forward selection of Cox regression
 #' prediction models in multiply imputed data using selection methods D1, D2 and MPR.

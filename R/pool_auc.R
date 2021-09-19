@@ -1,4 +1,4 @@
-#' Calculates the pooled C-statistic (Area Under the ROC Curve) in Multiply Imputed datasets 
+#' Calculates the pooled C-statistic (Area Under the ROC Curve) across Multiply Imputed datasets 
 #'
 #' \code{pool_auc} Calculates the pooled C-statistic and 95% Confidence interval
 #'  by using Rubin's Rules. The C-statistic values are log transformed before pooling. 
@@ -10,7 +10,7 @@
 #' @param log_auc If TRUE natural logarithmic transformation is applied before
 #'  pooling and finally back transformed. If FALSE the raw values are pooled.                  
 #'                                               
-#' @return The pooled C-statistic value and the 95% CI.
+#' @return The pooled C-statistic value and the 95% confidence intervals.
 #' 
 #' @seealso \code{\link{psfmi_perform}}, \code{\link{pool_performance}}
 #' @author Martijn Heymans, 2021

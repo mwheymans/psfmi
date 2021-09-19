@@ -1,4 +1,5 @@
-#' Predictor selection function for backward selection of Cox regression models.
+#' Predictor selection function for backward selection of Cox regression models in
+#'  single dataset.
 #'
 #' \code{coxph_bw} Backward selection of Cox regression models in single dataset using 
 #'  as selection method the partial likelihood-ratio statistic.

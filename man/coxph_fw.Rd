@@ -2,7 +2,8 @@
 % Please edit documentation in R/coxph_fw.R
 \name{coxph_fw}
 \alias{coxph_fw}
-\title{Predictor selection function for forward selection of Cox regression models.}
+\title{Predictor selection function for forward selection of Cox regression models in 
+ single dataset.}
 \usage{
 coxph_fw(
   data,

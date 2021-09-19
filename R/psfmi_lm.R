@@ -1,5 +1,5 @@
 #' Pooling and Predictor selection function for backward or forward selection of
-#' Linear regression models in multiply imputed data.
+#' Linear regression models across multiply imputed data.
 #'
 #' \code{psfmi_lm} Pooling and backward or forward selection of Linear regression
 #'  models in multiply imputed data using selection methods RR, D1, D2 and MPR.

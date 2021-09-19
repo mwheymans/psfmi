@@ -47,7 +47,7 @@ is low, less than 10 groups can be chosen, but not < 3.}
 }
 \description{
 \code{pool_performance} Pooling performance measures for logistic
- regression models.
+ and Cox regression models.
 }
 \examples{
  perf <- pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 

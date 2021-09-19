@@ -2,7 +2,7 @@
 % Please edit documentation in R/pool_auc.R
 \name{pool_auc}
 \alias{pool_auc}
-\title{Calculates the pooled C-statistic (Area Under the ROC Curve) in Multiply Imputed datasets}
+\title{Calculates the pooled C-statistic (Area Under the ROC Curve) across Multiply Imputed datasets}
 \usage{
 pool_auc(est_auc, est_se, nimp = 5, log_auc = TRUE)
 }
@@ -18,7 +18,7 @@ in Multiply Imputed datasets.}
 pooling and finally back transformed. If FALSE the raw values are pooled.}
 }
 \value{
-The pooled C-statistic value and the 95% CI.
+The pooled C-statistic value and the 95% confidence intervals.
 }
 \description{
 \code{pool_auc} Calculates the pooled C-statistic and 95% Confidence interval
