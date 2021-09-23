@@ -47,9 +47,6 @@ Nice code.
 * win-builder Development: * DONE Status: OK
 * win-builder Release: * DONE Status: OK
 * on Travis CI: R session information
-$ Rscript -e 'sessionInfo()'
-R version 4.0.2 (2020-06-22)
-Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 16.04.6 LTS
 Done. Your build exited with 0.
   
