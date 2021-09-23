@@ -41,7 +41,7 @@ knitr::include_graphics("MI_boot.png")
 
 internal validation is done of the last model that is selected by the function `psfmi_lr`. 
 In the example below, `psfmi_lr` is used with `p.crit` set at 1. This setting is also
-used in the `psfmi_perform` function. This means that first the full model is pooled and
+used in the `psfmi_validate` function. This means that first the full model is pooled and
 subsequently interval validation is done of the full model.  
 
 ```{r}
@@ -52,7 +52,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Ta
                  nimp=5, impvar="Impnr", method="D1")
 
 set.seed(200)
-res <- psfmi_perform(pool_lr, val_method = "MI_boot", nboot = 5, p.crit=1)
+res <- psfmi_validate(pool_lr, val_method = "MI_boot", nboot = 5, p.crit=1)
 res
 
   
@@ -65,7 +65,7 @@ Back to [Examples]
 Internal validation is done of the last model that is selected by the function `psfmi_lr`. 
 In the example below, `psfmi_lr` is used with `p.crit` set at 1, and pooling is than done 
 without variable selection, i.e. the full model is pooled. When subsequently interval 
-validation is done with the `psfmi_perform` function including BW, BW is applied in 
+validation is done with the `psfmi_validate` function including BW, BW is applied in 
 each bootstrap sample from the full model.  
 
 ```{r}
@@ -76,7 +76,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Ta
                  nimp=5, impvar="Impnr", method="D1")
 
 set.seed(200)
-res <- psfmi_perform(pool_lr, val_method = "MI_boot", nboot = 5, p.crit=0.05, direction = "BW")
+res <- psfmi_validate(pool_lr, val_method = "MI_boot", nboot = 5, p.crit=0.05, direction = "BW")
 res
 
 ```

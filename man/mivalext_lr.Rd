@@ -10,14 +10,14 @@ mivalext_lr(
   data.orig = NULL,
   nimp = 5,
   impvar = NULL,
-  Outcome,
-  predictors = NULL,
+  formula = NULL,
   lp.orig = NULL,
   cal.plot = FALSE,
-  plot.indiv = FALSE,
+  plot.indiv,
   val.check = FALSE,
   g = 10,
-  groups_cal = 10
+  groups_cal = 10,
+  plot.method = "mean"
 )
 }
 \arguments{
@@ -35,18 +35,14 @@ coefficients in case lp.orig is not provided.}
 \item{impvar}{A character vector. Name of the variable that distinguishes the
 imputed datasets.}
 
-\item{Outcome}{Character vector containing the name of the outcome variable.}
-
-\item{predictors}{Character vector with the names of the predictor variables
-of the model that is validated.}
+\item{formula}{A formula object to specify the model as normally used by glm.}
 
 \item{lp.orig}{Numeric vector of the original coefficient values that are
 externally validated.}
 
 \item{cal.plot}{If TRUE a calibration plot is generated. Default is FALSE.}
 
-\item{plot.indiv}{If TRUE calibration plots of each imputed dataset are
-generated. Default is FALSE.}
+\item{plot.indiv}{This argument is deprecated; please use plot.method instead.}
 
 \item{val.check}{logical vector. If TRUE the names of the predictors of the LP
 are provided and can be used as information for the order of the coefficient
@@ -59,13 +55,18 @@ Lemeshow test. Default is 10.}
 \item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot. 
 Default is 10. If the range of predicted probabilities is low, less than 10 groups 
 can be chosen.}
+
+\item{plot.method}{If "mean" one calibration plot is generated, first taking the 
+mean of the linear predictor values across the multiply imputed datasets (default), if 
+"individual" the calibration plot in each imputed dataset is plotted, 
+if "overlay" calibration plots from each imputed datasets are plotted in one figure.}
 }
 \value{
 A \code{mivalext_lr} object from which the following objects 
- can be extracted: ROC results as \code{ROC}, R squared results (fixed and calibrated) 
- as \code{R2 (fixed)} and \code{R2 (calibr)}, Hosmer and Lemeshow test as \code{HL_test}, 
- coefficients pooled as \code{coef_pooled}, linear predictor pooled as \code{LP_pooled ext}, 
- and \code{Outcome}, \code{nimp}, \code{impvar}, \code{val.check}, 
+ can be extracted: ROC results as \code{ROC}, R squared results as \code{R2}, 
+ Hosmer and Lemeshow test as \code{HL_test}, coefficients pooled as 
+ \code{coef_pooled}, linear predictor pooled as \code{LP_pooled ext}, 
+ and \code{formula}, \code{nimp}, \code{impvar}, \code{val.check}, 
  \code{g}, \code{coef.check} and \code{groups_cal}.
 }
 \description{
@@ -73,24 +74,24 @@ A \code{mivalext_lr} object from which the following objects
 }
 \details{
 The following information of the externally validated model is provided:
- \code{ROC} pooled ROC curve (median and back transformed after pooling log transformed
- ROC curves), \code{R2_fixed} and \code{R2_calibr} pooled Nagelkerke R-Square value 
- (median and back transformed after pooling Fisher transformed values), \code{HLtest} 
- pooled Hosmer and Lemeshow Test (using miceadds package), \code{coef_pooled} pooled 
- coefficients when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
+ \code{ROC} pooled ROC curve (back transformed after pooling log transformed
+ ROC curves), \code{R2} pooled Nagelkerke R-Square value (back transformed after 
+ pooling Fisher transformed values), \code{HLtest} pooled Hosmer and Lemeshow 
+ Test (using function \code{pool_D2}), \code{coef_pooled} pooled coefficients 
+ when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
  the pooled linear predictor (LP), after the externally validated LP is estimated in 
  each imputed dataset (provides information about miscalibration in intercept and slope). 
- In addition information is provided about \code{nimp}, \code{impvar}, \code{Outcome},
+ In addition information is provided about \code{nimp}, \code{impvar}, \code{formula},
  \code{val_ckeck}, \code{g} and \code{coef_check}. When the external validation is 
- very poor, the R2 fixed can become negative due to the poor fit of the model in
+ very poor, the R2 can become negative due to the poor fit of the model in
  the external dataset (in that case you may report a R2 of zero).
 }
 \examples{
 
-mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-predictors=c("Gender", "factor(Carrying)", "Function", "Tampascale", "Age"),
-lp.orig=c(-10, -0.35, 1.00, 1.00, -0.04, 0.26, -0.01),
-cal.plot=TRUE, plot.indiv=TRUE, val.check = FALSE)
+mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr", 
+  formula = Chronic ~ Gender + factor(Carrying)  + Function + 
+  Tampascale + Age, lp.orig=c(-10, -0.35, 1.00, 1.00, -0.04, 0.26, -0.01),
+  cal.plot=TRUE, val.check = FALSE)
 
 }
 \references{

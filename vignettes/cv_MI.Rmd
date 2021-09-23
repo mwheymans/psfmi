@@ -17,7 +17,7 @@ Multiple Imputation with Cross-validation for the validation of
 logistic prediction models. This cross-validation method is based 
 on the papers of [Mertens BJ](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289) 
 and [Miles A](https://journals.sagepub.com/doi/abs/10.1177/0049124115610345).
-The `cv_MI` method is implemented in the function `psfmi_perform`.
+The `cv_MI` method is implemented in the function `psfmi_validate`.
 An explanation and examples of how to use the method can be found below.
 
 # Method cv_MI
@@ -56,7 +56,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + JobDemands 
              method="D1")
 
 set.seed(200)
-res_cv <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds = 5,
+res_cv <- psfmi_validate(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds = 5,
                      p.crit=1, BW=FALSE,  nimp_cv = 3, miceImp = miceImp, printFlag = FALSE)
 
 res_cv
@@ -78,7 +78,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + JobDemands 
              method="D1")
 
 set.seed(200)
-res_cv <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds = 5,
+res_cv <- psfmi_validate(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds = 5,
                      p.crit=0.05, BW=TRUE,  nimp_cv = 3, miceImp = miceImp, printFlag = FALSE)
 
 res_cv

@@ -13,14 +13,11 @@
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the
 #'  imputed datasets.
-#' @param Outcome Character vector containing the name of the outcome variable.
-#' @param predictors Character vector with the names of the predictor variables
-#'  of the model that is validated.
+#' @param formula A formula object to specify the model as normally used by glm.
 #' @param lp.orig Numeric vector of the original coefficient values that are
 #'  externally validated.
 #' @param cal.plot If TRUE a calibration plot is generated. Default is FALSE.
-#' @param plot.indiv If TRUE calibration plots of each imputed dataset are
-#'  generated. Default is FALSE.
+#' @param plot.indiv This argument is deprecated; please use plot.method instead.  
 #' @param val.check logical vector. If TRUE the names of the predictors of the LP
 #'  are provided and can be used as information for the order of the coefficient
 #'  values as input for lp.orig. If FALSE (default) validation procedure is executed
@@ -30,25 +27,29 @@
 #' @param groups_cal A numerical scalar. Number of groups used on the calibration plot. 
 #'  Default is 10. If the range of predicted probabilities is low, less than 10 groups 
 #'  can be chosen.
+#' @param plot.method If "mean" one calibration plot is generated, first taking the 
+#'   mean of the linear predictor values across the multiply imputed datasets (default), if 
+#'   "individual" the calibration plot in each imputed dataset is plotted, 
+#'   if "overlay" calibration plots from each imputed datasets are plotted in one figure. 
 #'
 #' @details The following information of the externally validated model is provided:
-#'  \code{ROC} pooled ROC curve (median and back transformed after pooling log transformed
-#'  ROC curves), \code{R2_fixed} and \code{R2_calibr} pooled Nagelkerke R-Square value 
-#'  (median and back transformed after pooling Fisher transformed values), \code{HLtest} 
-#'  pooled Hosmer and Lemeshow Test (using miceadds package), \code{coef_pooled} pooled 
-#'  coefficients when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
+#'  \code{ROC} pooled ROC curve (back transformed after pooling log transformed
+#'  ROC curves), \code{R2} pooled Nagelkerke R-Square value (back transformed after 
+#'  pooling Fisher transformed values), \code{HLtest} pooled Hosmer and Lemeshow 
+#'  Test (using function \code{pool_D2}), \code{coef_pooled} pooled coefficients 
+#'  when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
 #'  the pooled linear predictor (LP), after the externally validated LP is estimated in 
 #'  each imputed dataset (provides information about miscalibration in intercept and slope). 
-#'  In addition information is provided about \code{nimp}, \code{impvar}, \code{Outcome},
+#'  In addition information is provided about \code{nimp}, \code{impvar}, \code{formula},
 #'  \code{val_ckeck}, \code{g} and \code{coef_check}. When the external validation is 
-#'  very poor, the R2 fixed can become negative due to the poor fit of the model in
+#'  very poor, the R2 can become negative due to the poor fit of the model in
 #'  the external dataset (in that case you may report a R2 of zero).
 #'
 #'@return A \code{mivalext_lr} object from which the following objects 
-#'  can be extracted: ROC results as \code{ROC}, R squared results (fixed and calibrated) 
-#'  as \code{R2 (fixed)} and \code{R2 (calibr)}, Hosmer and Lemeshow test as \code{HL_test}, 
-#'  coefficients pooled as \code{coef_pooled}, linear predictor pooled as \code{LP_pooled ext}, 
-#'  and \code{Outcome}, \code{nimp}, \code{impvar}, \code{val.check}, 
+#'  can be extracted: ROC results as \code{ROC}, R squared results as \code{R2}, 
+#'  Hosmer and Lemeshow test as \code{HL_test}, coefficients pooled as 
+#'  \code{coef_pooled}, linear predictor pooled as \code{LP_pooled ext}, 
+#'  and \code{formula}, \code{nimp}, \code{impvar}, \code{val.check}, 
 #'  \code{g}, \code{coef.check} and \code{groups_cal}.
 #'
 #' @references F. Harrell. Regression Modeling Strategies. With Applications to
@@ -60,32 +61,39 @@
 #' 
 #'@examples
 #'
-#' mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
-#' predictors=c("Gender", "factor(Carrying)", "Function", "Tampascale", "Age"),
-#' lp.orig=c(-10, -0.35, 1.00, 1.00, -0.04, 0.26, -0.01),
-#' cal.plot=TRUE, plot.indiv=TRUE, val.check = FALSE)
+#' mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr", 
+#'   formula = Chronic ~ Gender + factor(Carrying)  + Function + 
+#'   Tampascale + Age, lp.orig=c(-10, -0.35, 1.00, 1.00, -0.04, 0.26, -0.01),
+#'   cal.plot=TRUE, val.check = FALSE)
 #'
 #' @export
 mivalext_lr <-
-  function(data.val=NULL, 
-           data.orig=NULL, 
-           nimp=5, 
-           impvar=NULL, 
-           Outcome,
-           predictors=NULL, 
-           lp.orig=NULL, 
-           cal.plot=FALSE, 
-           plot.indiv=FALSE,
-           val.check=FALSE, 
-           g=10, 
-           groups_cal=10)
- {
+  function(data.val=NULL,
+           data.orig=NULL,
+           nimp=5,
+           impvar=NULL,
+           formula=NULL,
+           lp.orig=NULL,
+           cal.plot=FALSE,
+           plot.indiv,
+           val.check=FALSE,
+           g=10,
+           groups_cal=10,
+           plot.method="mean")
+  {
     
-    if(is.null(predictors))
-      stop("No predictors defined, cannot fit model")
-    P <-
-      predictors
-    
+    if (!missing(plot.indiv)) {
+      warning("argument plot.indiv is deprecated; please use plot.method instead.",
+              call. = FALSE)
+      plot.method <- plot.indiv
+    }
+    if(is_empty(formula))
+      stop("\n", "Model not specified in formula object")
+    form <- terms(formula)
+    Outcome <-
+      as.character(attr(form, "variables")[[2]])
+    Y <-
+      c(paste(Outcome, paste("~")))
     # Check data input
     if (!(is.data.frame(data.val)))
       stop("Data should be a data frame")
@@ -105,7 +113,7 @@ mivalext_lr <-
         stop("Not needed to define lp.orig, coefficient values
       are derived from original dataset as defined under data.orig")
     }
-  
+    
     if(is.null(data.orig) & is.null(lp.orig))
       stop("data.orig and lp.orig not defined, no model to validate")
     if (ncol(data.val) < 2)
@@ -125,27 +133,26 @@ mivalext_lr <-
       lp.orig
     # Determine original coefficients from
     # original dataset
-    if(!is.null(data.orig))
-    {
+    if(!is.null(data.orig))  {
       lp.orig <-
         NULL
-      Y <-
-        c(paste(Outcome, paste("~")))
+      
       fm.orig <-
-        as.formula(paste(Y, paste(P, collapse = "+")))
+        formula
+      
       fit.orig <-
-        glm(fm.orig, x=TRUE, y=TRUE, data=data.orig, family = binomial)
+        glm(fm.orig, x=TRUE, y=TRUE, 
+            data=data.orig, family = binomial)
       coef.orig <-
         coef(fit.orig)
     }
     
-    Y <-
-      c(paste(Outcome, paste("~")))
     fm.val <-
-      as.formula(paste(Y, paste(P, collapse = "+")))
+      formula
     fit.check <-
       glm(fm.val, x=TRUE, y=TRUE,
-          data=data.val[data.val[impvar] == 1, ], family = binomial)
+          data=data.val[data.val[impvar] == 1, ], 
+          family = binomial)
     coef.check <-
       names(coef(fit.check))
     # Determine regression formula for correct
@@ -160,15 +167,34 @@ mivalext_lr <-
         stop("Number of Predictors not equal to number of coefficients under lp.orig")
     }
     
-    pred.group <- obs.group <- coef.mi <- list()
+    LLlogistic <-
+      function(formula, data, coefs) {
+        logistic <- function(mu) exp(mu)/(1 + exp(mu))
+        Xb <- model.matrix(formula, data) %*% coefs
+        y <- model.frame(formula, data)[1][, 1]
+        p <- logistic(Xb)
+        y <- (y - min(y))/(max(y) - min(y))
+        term1 <- term2 <- rep(0, length(y))
+        term1[y != 0] <- y[y != 0] * log(y[y != 0]/p[y != 0])
+        term2[y == 0] <- (1 - y[y == 0]) * log((1 - y[y == 0])/(1 - p[y == 0]))
+        return(-(2 * sum(term1 + term2)))
+      }
+    
+    pred.group <- obs.group <- coef_extern <- list()
     
     stats_ext <-
-      matrix(NA, nrow = nimp, ncol = 7)
+      matrix(NA, nrow = nimp, ncol = 6)
+    
+    lp_mi <- 
+      matrix(NA, nrow(data.val[data.val[impvar] == 1, ]), nimp)
+    
     # Determine performance in each
     # imputed external dataset
     for(i in 1:nimp) {
       data <-
         data.val[data.val[impvar] == i, ]
+      n <-
+        nrow(data)
       f.ext <-
         glm(fm.val, data=data, family = binomial)
       X <-
@@ -176,124 +202,105 @@ mivalext_lr <-
       
       lp.ext <-
         X %*% coef.orig
+      lp_mi[, i] <-
+        lp.ext
       f.ext.lp <-
         glm(f.ext$y ~ lp.ext, family = binomial)
+      
       p.ext <-
         c(1/(1+exp(-lp.ext)))
       
-      coef.mi[[i]] <-
+      coef_extern[[i]] <-
         coef(f.ext)
-      lp_ext <-
+      slope_extern <-
         coef(f.ext.lp)
       
-      f.ext.stats <-
-        lrm.fit(lp.ext, f.ext$y, initial = c(0, 1), maxit = 1L)
+      fit_full <-
+        -1*LLlogistic(fm.val, data = data,
+                      coef.orig)
+      
+      fit_null <-
+        -2*logLik(glm(as.formula(paste(Y, paste(1))),
+                      data = data, family=binomial))
+      
       
       # Nagelkerke R squared
-      rsq.mi <-
-        f.ext.stats$stats["R2"]
+      rsq.nagel <-
+        c((1 - exp((fit_full - fit_null)/n))/
+            (1 - exp(-fit_null/n)))[1]
+      #if(rsq.nagel<0) rsq.nagel <- 0.00000001
       
-      # Calibrated R squared
-      n <-
-        f.ext.lp$df.null + 1
-      k <-
-        f.ext.lp$rank
-      logLik1 <-
-        as.numeric(logLik(f.ext.lp))
-      f.ext.lp0 <-
-        update(f.ext.lp, . ~ 1)
-      logLik0 <-
-        as.numeric(logLik(f.ext.lp0))
-      rsq.mi.cal <-
-        (1 - exp(-2 * (logLik1 - logLik0)/n)) / (1 - exp(logLik0 * 2/n))
-      
-      if (cal.plot){
-        # Group predicted probabilities for calibration curve
-        if(groups_cal ==0) stop("\n", "Number of groups on calibration curve too low", "\n")
+      if(cal.plot){
+        # Group predicted probabilities
+        if(groups_cal <4) stop("\n", "Number of groups on calibration curve must be > 3", "\n")
         group.dec <- cut(p.ext, quantile(p.ext,
                                          c(seq(0, 1, 1 / groups_cal))))
-        pred.group[[i]] <- tapply(p.ext, group.dec, mean)
+        # Predicted probabilities
+        pred.group[[i]] <-
+          tapply(p.ext, group.dec, mean)
         # Observed probabilities
-        obs.group[[i]] <- tapply(f.ext$y, group.dec, mean)
+        obs.group[[i]] <-
+          tapply(f.ext$y, group.dec, mean)
       }
       
       # ROC/AUC
-      auc.mi <-
+      auc.m <-
         roc(f.ext$y, p.ext, quiet = TRUE)$auc
-      se.roc.mi <-
-        sqrt(pROC::var(auc.mi))
-
+      se.roc.m <-
+        sqrt(pROC::var(auc.m))
+      
       # Hosmer and Lemeshow Chi square value
       if(g<4){
         stop("For Hosmer and Lemeshow test, number of groups must be > 3")
       } else {
-        hl.mi <- hoslem.test(f.ext$y, p.ext, g=g)[[1]]
+        hl.m <- hoslem_test(f.ext$y, p.ext, g=g)$chisq
       }
       
-      stats_ext[i,] <-  c(lp_ext, rsq.mi, rsq.mi.cal, auc.mi, se.roc.mi, hl.mi)
+      stats_ext[i,] <-  c(slope_extern, rsq.nagel, auc.m, se.roc.m, hl.m)
     }
     
-    stats_ext <- data.frame(intercept=stats_ext[, 1], slope=stats_ext[, 2], rsq.mi=stats_ext[, 3],
-                            rsq.mi.cal=stats_ext[, 4], auc.mi=stats_ext[, 5], auc.mi.se=stats_ext[, 6],
-                            hl.mi=stats_ext[, 7])
+    stats_ext <-
+      data.frame(intercept=stats_ext[, 1], slope=stats_ext[, 2],
+                 rsq.mi=stats_ext[, 3],
+                 auc.mi=stats_ext[, 4], auc.mi.se=stats_ext[, 5],
+                 hl.mi=stats_ext[, 6])
     
-    coef.pool <- round(colMeans(do.call("rbind", coef.mi)), 5)
-    lp.pool <- round(colMeans(stats_ext[, c("intercept", "slope")]), 5)
+    coef.pool <-
+      round(colMeans(do.call("rbind", coef_extern)), 5)
+    lp.pool <-
+      round(colMeans(stats_ext[, c("intercept", "slope")]), 5)
     
     # ROC/AUC
     # RR on logit transformation ROC curve and SE
-    auc_RR <- pool_auc(stats_ext$auc.mi, stats_ext$auc.mi.se,
-                       nimp = nimp, log_auc = TRUE)
+    auc_RR <-
+      pool_auc(stats_ext$auc.mi, stats_ext$auc.mi.se,
+               nimp = nimp, log_auc = TRUE)
     
-    # Median and IQR ROC
-    roc.med.iqr <- round(summary(stats_ext$auc.mi)[-c(1, 4, 6)], 5)
-    
-    roc.res <- list("ROC (logit)"=auc_RR,
-                    "ROC (median)"=roc.med.iqr)
-    
-    # Pooling R square (uncalibrated)
     # Fisher z Transformation
-    z.rsq <- atanh(stats_ext$rsq.mi)
-    z.rsq.p <- mean(z.rsq)
-    
+    z.rsq <-
+      atanh(stats_ext$rsq.mi)
+    z.rsq.p <-
+      mean(z.rsq)
     # inv Fisher z = pooled rsq
     inv.z.rsq.p <- round(tanh(z.rsq.p), 5)
     
-    # Median and IQR R square
-    rsq.med.iqr <- round(summary(stats_ext$rsq.mi)[-c(1,4,6)], 5)
-    
-    res.rsq <- list("Fisher Z (fixed)"=inv.z.rsq.p,
-                    "Median (fixed)"=rsq.med.iqr)
-    
-    # Pooling R square (calibrated)
-    # Fisher z Transformation
-    z.rsq.cal <- atanh(stats_ext$rsq.mi.cal)
-    z.rsq.p.cal <- mean(z.rsq.cal)
-
-    # inv Fisher z = pooled rsq
-    inv.z.rsq.p.cal <- round(tanh(z.rsq.p.cal), 5)
-    
-    # Median and IQR R square
-    rsq.med.iqr.cal <- round(summary(stats_ext$rsq.mi.cal)[-c(1,4,6)], 5)
-    
-    res.rsq.cal <- list("Fisher Z (calibrated)"=inv.z.rsq.p.cal,
-                        "Median (calibrated)"=rsq.med.iqr.cal)
-    
     # H&L test
-    res.hl <- round(miceadds::micombine.chisquare(stats_ext$hl.mi,
-                                                  g-2, display = F), 5)
+    res.hl <- pool_D2(dw=stats_ext[, 6], v=g-2)
     
     message("\n", "Pooled performance measures over m = ",
-            nimp, " imputed external validation datasets correctly estimated", "\n\n")
+            nimp, " imputed external validation datasets
+            correctly estimated", "\n\n")
     
-    res.perform <- list(ROC=roc.res, R2_fixed=res.rsq,
-                        R2_calibr=res.rsq.cal, HLtest=res.hl, coef_pooled=coef.pool,
+    res.perform <- list(ROC=auc_RR, R2=inv.z.rsq.p,
+                        HLtest=res.hl, coef_pooled=coef.pool,
                         LP_pooled_ext=lp.pool, nimp=nimp, impvar=impvar,
-                        Outcome=Outcome, val_check=val.check, g=g, coef_check=coef.check,
+                        formula=formula, val_check=val.check, g=g,
+                        coef_check=coef.check,
                         groups_cal=groups_cal)
     
-    if(cal.plot==TRUE) {
-      ID.mi <- rep(1:nimp, each = groups_cal)
+    
+    if(cal.plot){
+      ID.mi <- rep(1:nimp, each=groups_cal)
       myX <- scale_x_continuous(limits = c(-0.1, 1.1),
                                 breaks=seq(0,1,0.1),
                                 name = "Predicted Probabilities")
@@ -303,17 +310,54 @@ mivalext_lr <-
       data.cal.plot <- data.frame(ID.mi, "Obs"=unlist(obs.group),
                                   "Pred"=unlist(pred.group))
       theme_set(theme_bw())
-      if(plot.indiv==TRUE){
+      if(plot.method=="mean")
+      {
+        pred_mean <-
+          1 / ( 1 + exp(-rowMeans(lp_mi)))
+        # Group predicted probabilities
+        group.dec <- cut(pred_mean, quantile(pred_mean,
+                                             c(seq(0, 1, 1 / groups_cal))))
+        # Predicted probabilities
+        pred.group <-
+          tapply(pred_mean, group.dec, mean)
+        
+        # Observed probabilities
+        obs.group <-
+          do.call("rbind", obs.group)
+        
+        obs.group <- ifelse(obs.group==0, 0.000001, obs.group)
+        obs.group <- ifelse(obs.group==1, 0.999999, obs.group)
+        
+        log_mean_obs_group <-
+          rowMeans(apply(obs.group,1, FUN = function (x) (log(x / (1-x)))))
+        obs.group_exp <- exp(log_mean_obs_group) / (1 + exp(log_mean_obs_group))
+        
+        #obs.group <-
+        #  colMeans(do.call("rbind", obs.group))
+        mean.cal.plot <- data.frame("Obs"=obs.group_exp,
+                                    "Pred"=pred.group)
+        g1 <- ggplot(data = mean.cal.plot, aes_string(x = "Pred",
+                                                      y = "Obs")) + geom_point() +
+          theme(panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank()) + myX + myY
+        g2 <- g1 + stat_smooth(method = "lm", se = FALSE,
+                               formula = y ~ splines::bs(x, 3))
+        g3 <- g2 + geom_abline(slope=1, intercept=0, linetype="dashed")
+        print(g3)
+      }
+      if(plot.method=="individual"){
         # Calibration plot in each imputed dataset
         g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred", y = "Obs",
-                                                      group = "ID.mi")) + geom_point() + theme(panel.grid.major = element_blank(),
-                                                                                               panel.grid.minor = element_blank())
+                                                      group = "ID.mi")) + geom_point() +
+          theme(panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank())
         g2 <- g1 + stat_smooth(method = "lm", se = FALSE,
                                formula = y ~ splines::bs(x, 3)) +
           facet_wrap(~ ID.mi) + myX + myY
         g3 <- g2 + geom_abline(slope=1, intercept=0, linetype="dashed")
         print(g3)
-      } else {
+      }
+      if(plot.method=="overlay") {
         # Overlaying Calibration plots
         g1 <- ggplot(data = data.cal.plot, aes_string(x = "Pred",
                                                       y = "Obs", group = "ID.mi")) + geom_point() +

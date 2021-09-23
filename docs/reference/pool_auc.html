@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculates the pooled Area Under the Curve in Multiply Imputed datasets — pool_auc • psfmi</title>
+<title>Calculates the pooled C-statistic (Area Under the ROC Curve) across Multiply Imputed datasets — pool_auc • psfmi</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Calculates the pooled Area Under the Curve in Multiply Imputed datasets — pool_auc" />
-<meta property="og:description" content="pool_auc Calculates the pooled AUC and 95
- by using Rubin's Rules. The AUC values are log transformed before pooling." />
+<meta property="og:title" content="Calculates the pooled C-statistic (Area Under the ROC Curve) across Multiply Imputed datasets — pool_auc" />
+<meta property="og:description" content="pool_auc Calculates the pooled C-statistic and 95
+ by using Rubin's Rules. The C-statistic values are log transformed before pooling." />
 
 
 
@@ -114,6 +114,12 @@
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -154,14 +160,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculates the pooled Area Under the Curve in Multiply Imputed datasets</h1>
+    <h1>Calculates the pooled C-statistic (Area Under the ROC Curve) across Multiply Imputed datasets</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/pool_auc.R'><code>R/pool_auc.R</code></a></small>
     <div class="hidden name"><code>pool_auc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>pool_auc</code> Calculates the pooled AUC and 95<!-- % Confidence interval -->
- by using Rubin's Rules. The AUC values are log transformed before pooling.</p>
+    <p><code>pool_auc</code> Calculates the pooled C-statistic and 95<!-- % Confidence interval -->
+ by using Rubin's Rules. The C-statistic values are log transformed before pooling.</p>
     </div>
 
     <pre class="usage"><span class='fu'>pool_auc</span><span class='op'>(</span><span class='va'>est_auc</span>, <span class='va'>est_se</span>, nimp <span class='op'>=</span> <span class='fl'>5</span>, log_auc <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
@@ -171,11 +177,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>est_auc</th>
-      <td><p>A list of AUC values estimated in Multiply Imputed datasets.</p></td>
+      <td><p>A list of C-statistic (AUC/ROC) values estimated in Multiply Imputed datasets.</p></td>
     </tr>
     <tr>
       <th>est_se</th>
-      <td><p>A list of standard errors of AUC values estimated 
+      <td><p>A list of standard errors of C-statistic values estimated 
 in Multiply Imputed datasets.</p></td>
     </tr>
     <tr>
@@ -191,13 +197,13 @@ pooling and finally back transformed. If FALSE the raw values are pooled.</p></t
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The pooled AUC value and the 95<!-- % CI. --></p>
+    <p>The pooled C-statistic value and the 95<!-- % confidence intervals. --></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='psfmi_perform.html'>psfmi_perform</a></code>, <code><a href='pool_performance.html'>pool_performance</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Martijn Heymans, 2020</p>
+    <p>Martijn Heymans, 2021</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

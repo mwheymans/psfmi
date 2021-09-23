@@ -30,7 +30,7 @@ Suggests:
     testthat,
     bookdown,
     readr
-Title: Prediction Model Pooling, Selection and Performance Evaluation across Multiply Imputed Datasets
+Title: Prediction Model Pooling, Selection and Performance Evaluation Across Multiply Imputed Datasets
 Version: 1.0.0
 Authors@R: c(
   person("Martijn", "Heymans", email = "mw.heymans@amsterdamumc.nl", role=c("cre", "aut"),

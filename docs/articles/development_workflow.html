@@ -72,6 +72,12 @@
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -115,7 +121,7 @@
       <h1 data-toc-skip>Workflow to Develop and Validate a Prediction model in Multiply Imputed data</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2021-08-27</h4>
+            <h4 class="date">2021-09-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/development_workflow.Rmd"><code>vignettes/development_workflow.Rmd</code></a></small>
       <div class="hidden name"><code>development_workflow.Rmd</code></div>
@@ -275,19 +281,15 @@
 <a href="#step-4---determine-model-performance" class="anchor"></a>Step 4 - Determine model performance</h2>
 <p>The performance of the model selected at step 3 can be determined by using the <code>pool_performance</code> function.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">pool_select</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
-  formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span>,  
-  p.crit <span class="op">=</span> <span class="fl">1</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-  
-  <span class="va">perf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pool_performance.html">pool_performance</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
-  formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span>  <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span>, 
-  cal.plot<span class="op">=</span><span class="cn">TRUE</span>, plot.method<span class="op">=</span><span class="st">"mean"</span>, groups_cal <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R">  <span class="va">perf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pool_performance.html">pool_performance</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
+    formula <span class="op">=</span> <span class="va">pool_lr</span><span class="op">$</span><span class="va">formula_final</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, 
+    cal.plot<span class="op">=</span><span class="cn">TRUE</span>, plot.method<span class="op">=</span><span class="st">"mean"</span>, groups_cal <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="development_workflow_files/figure-html/plot-1.png" width="480"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">perf</span></code></pre></div>
 <pre><code>## $ROC_pooled
-##             95% Low    AUC 95% Up
-## AUC (logit)  0.8144 0.8978 0.9462
+##                     95% Low C-statistic 95% Up
+## C-statistic (logit)  0.8144      0.8978 0.9462
 ## 
 ## $coef_pooled
 ##           (Intercept)                  Pain             Radiation 
@@ -308,12 +310,15 @@
 ## 
 ## $HLtest_pooled
 ##         D2          p        df1        df2 
-##  0.7163405  0.6758435  8.0000000 42.8715173</code></pre>
+##  0.7163405  0.6758435  8.0000000 42.8715173 
+## 
+## $model_type
+## [1] "binomial"</code></pre>
 </div>
 <div id="step-5---internally-validate-the-model" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#step-5---internally-validate-the-model" class="anchor"></a>Step 5 - Internally validate the model</h2>
-<p>To internally validate the model we use the <code>psfmi_perform</code> function. With this function five different methods can be used to internally validate models in MI data <a href="https://mwheymans.github.io/psfmi/articles/">see these Vignettes</a>, Three methods use cross-validation and two bootstrapping in combination with MI.</p>
+<p>To internally validate the model we use the <code>psfmi_</code> function. With this function five different methods can be used to internally validate models in MI data <a href="https://mwheymans.github.io/psfmi/articles/">see these Vignettes</a>, Three methods use cross-validation and two bootstrapping in combination with MI.</p>
 <p>We will use cross-validation and more specific the method <a href="https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html">cv_MI_RR</a>. With this method it is possible to integrate backward selection into the cross-validation procedure. The last model that is selected by the psfmi_lr function is internally validated. So, if we want to apply backward selection during cross-validation from the full model we first have to apply the psfmi_lr function without variable selection. That is what we apply here, because we know that variable selection is one of the main reasons that prediction models are over-fitted.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">pool_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">JobControl</span> <span class="op">+</span> <span class="va">Tampascale</span> <span class="op">+</span> 
@@ -322,7 +327,7 @@
                       nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
   <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>
-  <span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_val</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">5</span>,
+  <span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_validate.html">psfmi_validate</a></span><span class="op">(</span><span class="va">pool_val</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">5</span>,
                      p.crit<span class="op">=</span><span class="fl">0.05</span>, BW<span class="op">=</span><span class="cn">TRUE</span>, nimp_mice <span class="op">=</span> <span class="fl">10</span>, miceImp <span class="op">=</span> <span class="va">miceImp</span>, printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## fold 1</code></pre>
@@ -416,7 +421,7 @@
 <p>We use the <code>pool_intadj</code> function for this that will provide the adjusted coefficients and new intercept value.</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">pool_select</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
-  formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">Radiation</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Carrying</span><span class="op">)</span>,  
+  formula <span class="op">=</span> <span class="va">pool_lr</span><span class="op">$</span><span class="va">formula_final</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,  
   p.crit <span class="op">=</span> <span class="fl">1</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
   <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pool_intadj.html">pool_intadj</a></span><span class="op">(</span><span class="va">pool_select</span>, shrinkage_factor <span class="op">=</span> <span class="fl">0.8449148</span><span class="op">)</span>
@@ -438,38 +443,28 @@
 <p>We validate the model in an external dataset that is imputed five times due to missing data.</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mivalext_lr.html">mivalext_lr</a></span><span class="op">(</span>data.val <span class="op">=</span> <span class="va">lbpmi_extval</span>, nimp <span class="op">=</span> <span class="fl">5</span>, impvar <span class="op">=</span> <span class="st">"Impnr"</span>,
-  Outcome <span class="op">=</span> <span class="st">"Chronic"</span>, predictors <span class="op">=</span> <span class="va">pool_lr</span><span class="op">$</span><span class="va">predictors_final</span>,
-  lp.orig <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">int_adj</span>, <span class="va">res</span><span class="op">$</span><span class="va">coef_shrink_pooled</span><span class="op">)</span>,
-  cal.plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    formula <span class="op">=</span> <span class="va">pool_lr</span><span class="op">$</span><span class="va">formula_final</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, lp.orig <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">int_adj</span>, 
+    <span class="va">res</span><span class="op">$</span><span class="va">coef_shrink_pooled</span><span class="op">)</span>, cal.plot <span class="op">=</span> <span class="cn">TRUE</span>, plot.method <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
-## Pooled performance measures over m = 5 imputed external validation datasets correctly estimated</code></pre>
+## Pooled performance measures over m = 5 imputed external validation datasets
+##             correctly estimated</code></pre>
 <p><img src="development_workflow_files/figure-html/plot2-1.png" width="480"></p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">ROC</span></code></pre></div>
-<pre><code>## $`ROC (logit)`
-##             95% Low    AUC 95% Up
-## AUC (logit)  0.7382 0.8482 0.9172
-## 
-## $`ROC (median)`
-## 1st Qu.  Median 3rd Qu. 
-## 0.84803 0.84897 0.85366</code></pre>
+<pre><code>##                     95% Low C-statistic 95% Up
+## C-statistic (logit)  0.7382      0.8482 0.9172</code></pre>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">R2_fixed</span></code></pre></div>
-<pre><code>## $`Fisher Z (fixed)`
-## [1] 0.45587
-## 
-## $`Median (fixed)`
-## 1st Qu.  Median 3rd Qu. 
-## 0.46034 0.46045 0.47505</code></pre>
+<code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">R2</span></code></pre></div>
+<pre><code>## [1] 0.45587</code></pre>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">HLtest</span></code></pre></div>
-<pre><code>##         D         p        df       df2 
-##   0.71479   0.67820   8.00000 149.55620</code></pre>
+<pre><code>##          D2           p         df1         df2 
+##   0.7147875   0.6781956   8.0000000 149.5561959</code></pre>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">res_extval</span><span class="op">$</span><span class="va">LP_pooled_ext</span></code></pre></div>
 <pre><code>## intercept     slope 
 ##  -0.01812   0.88741</code></pre>
-<p>In the external dataset the AUC is 0.8482 and the R-squared 0.45587. The Hosmer and Lemeshow test has a p-value of 0.67820, which means that the fit is satisfactory. This is also confirmed on the calibration plot where the calibration curves in each imputed dataset are near the optimal (dashed) line. The slope (regression coefficients) has a value of 0.88741 and slightly deviates from the value of 1, which means that the coefficients values differ between the development and external dataset.</p>
+<p>In the external dataset the AUC is 0.8482 and the R-squared 0.45587. The Hosmer and Lemeshow test has a p-value of 0.67820, which means that the fit is satisfactory. This is also confirmed by the calibration plot where the calibration curves averaged across multiply imputed datasets is near the optimal (dashed) line. The slope (regression coefficients) has a value of 0.88741 and slightly deviates from the value of 1, which means that the coefficient values differ between the development and external dataset.</p>
 <p>Back to <a href="#steps">Steps</a></p>
 </div>
 </div>

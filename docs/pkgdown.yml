@@ -8,12 +8,14 @@ articles:
   development_workflow: development_workflow.html
   MI_boot: MI_boot.html
   MI_cv_naive: MI_cv_naive.html
+  Pooling_AUC_values: Pooling_AUC_values.html
+  Pool_Model_Performance: Pool_Model_Performance.html
   psfmi_CoxModels: psfmi_CoxModels.html
   psfmi_LinearModels: psfmi_LinearModels.html
   psfmi_LogisticModels: psfmi_LogisticModels.html
   psfmi_mice: psfmi_mice.html
   psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
-last_built: 2021-08-27T14:26Z
+last_built: 2021-09-23T08:00Z
 urls:
   reference: https://mwheymans.github.io/psfmi//reference
   article: https://mwheymans.github.io/psfmi//articles

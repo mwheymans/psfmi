@@ -3,7 +3,7 @@
 \name{psfmi_coxr}
 \alias{psfmi_coxr}
 \title{Pooling and Predictor selection function for backward or forward selection of
-Cox regression models in multiply imputed data.}
+Cox regression models across multiply imputed data.}
 \usage{
 psfmi_coxr(
   data,

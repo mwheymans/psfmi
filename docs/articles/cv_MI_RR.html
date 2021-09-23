@@ -72,6 +72,12 @@
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -115,7 +121,7 @@
       <h1 data-toc-skip>Multiple Imputation and Cross-validation - Method cv_MI_RR</h1>
                         <h4 class="author">Martijn W Heymans</h4>
             
-            <h4 class="date">2021-08-27</h4>
+            <h4 class="date">2021-09-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/cv_MI_RR.Rmd"><code>vignettes/cv_MI_RR.Rmd</code></a></small>
       <div class="hidden name"><code>cv_MI_RR.Rmd</code></div>
@@ -127,7 +133,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This page contains information of the <code>cv_MI_RR</code> method that combines Multiple Imputation with Cross-validation for the validation of logistic prediction models. This cross-validation method is based on the paper ofs <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289">Mertens BJ</a> and <a href="https://journals.sagepub.com/doi/abs/10.1177/0049124115610345">Miles A</a>. The <code>cv_MI_RR</code> method is implemented in the function <code>psfmi_perform</code>. An explanation and examples of how to use the methods can be found below.</p>
+<p>This page contains information of the <code>cv_MI_RR</code> method that combines Multiple Imputation with Cross-validation for the validation of logistic prediction models. This cross-validation method is based on the paper ofs <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289">Mertens BJ</a> and <a href="https://journals.sagepub.com/doi/abs/10.1177/0049124115610345">Miles A</a>. The <code>cv_MI_RR</code> method is implemented in the function <code>psfmi_validate</code>. An explanation and examples of how to use the methods can be found below.</p>
 </div>
 <div id="method-cv_mi_rr" class="section level1">
 <h1 class="hasAnchor">
@@ -158,7 +164,7 @@ Schematic overview of the cv_MI_RR method
                    nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>
-<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">3</span>,
+<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_validate.html">psfmi_validate</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">3</span>,
                      p.crit<span class="op">=</span><span class="fl">1</span>, BW<span class="op">=</span><span class="cn">FALSE</span>,  nimp_mice <span class="op">=</span> <span class="fl">5</span>, miceImp <span class="op">=</span> <span class="va">miceImp</span>, printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## fold 1</code></pre>
@@ -190,7 +196,7 @@ Schematic overview of the cv_MI_RR method
                    nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>
-<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_perform.html">psfmi_perform</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">3</span>,
+<span class="va">res_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_validate.html">psfmi_validate</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"cv_MI_RR"</span>, data_orig <span class="op">=</span> <span class="va">lbp_orig</span>, folds <span class="op">=</span> <span class="fl">3</span>,
                      p.crit<span class="op">=</span><span class="fl">0.05</span>, BW<span class="op">=</span><span class="cn">TRUE</span>, nimp_mice <span class="op">=</span> <span class="fl">5</span>, miceImp <span class="op">=</span> <span class="va">miceImp</span>, printFlag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## fold 1</code></pre>

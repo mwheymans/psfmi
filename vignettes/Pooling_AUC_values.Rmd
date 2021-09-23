@@ -1,0 +1,37 @@
+---
+title: "Pooling AUC values"
+author: "Martijn W Heymans"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pooling AUC values}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(psfmi)
+```
+
+# Introduction
+
+The `psfmi` package includes the function pool_auc, to pool the values of multiple
+Area Under the Curve values. This vignette show you how to use this function. The function
+needs as input a list of the multiple AUC and related standard error values.
+
+# Example
+
+```{r}
+
+auc <- list(0.84, 0.78, 0.75, 0.71, 0.79)
+auc_se <- list(0.04, 0.05, 0.01, 0.02, 0.03)
+
+psfmi::pool_auc(auc, auc_se)
+
+```  
+

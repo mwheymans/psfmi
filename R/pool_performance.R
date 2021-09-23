@@ -17,7 +17,7 @@
 #' @param plot.method If "mean" one calibration plot is generated, first taking the 
 #'   mean of the linear predictor across the multiply imputed datasets (default), if 
 #'   "individual" the calibration plot of each imputed dataset is plotted, 
-#'   if "overlay" calibration plots from each imputed datasets are plotted in one figure. 
+#'   if "overlay" calibration plots from each imputed datasets are plotted in one figure.
 #' @param plot.indiv This argument is deprecated; please use plot.method instead.  
 #' @param groups_cal A numerical scalar. Number of groups used on the calibration plot and. 
 #'  for the Hosmer and Lemeshow test. Default is 10. If the range of predicted probabilities. 
@@ -38,10 +38,10 @@ pool_performance <- function(data,
                              formula, 
                              nimp, 
                              impvar, 
+                             plot.indiv,
                              model_type="binomial",
                              cal.plot=TRUE, 
                              plot.method="mean", 
-                             plot.indiv,
                              groups_cal=10)
  {
   

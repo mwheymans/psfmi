@@ -115,6 +115,12 @@
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -170,14 +176,14 @@
   data.orig <span class='op'>=</span> <span class='cn'>NULL</span>,
   nimp <span class='op'>=</span> <span class='fl'>5</span>,
   impvar <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>Outcome</span>,
-  predictors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  formula <span class='op'>=</span> <span class='cn'>NULL</span>,
   lp.orig <span class='op'>=</span> <span class='cn'>NULL</span>,
   cal.plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  plot.indiv <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>plot.indiv</span>,
   val.check <span class='op'>=</span> <span class='cn'>FALSE</span>,
   g <span class='op'>=</span> <span class='fl'>10</span>,
-  groups_cal <span class='op'>=</span> <span class='fl'>10</span>
+  groups_cal <span class='op'>=</span> <span class='fl'>10</span>,
+  plot.method <span class='op'>=</span> <span class='st'>"mean"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -206,13 +212,8 @@ coefficients in case lp.orig is not provided.</p></td>
 imputed datasets.</p></td>
     </tr>
     <tr>
-      <th>Outcome</th>
-      <td><p>Character vector containing the name of the outcome variable.</p></td>
-    </tr>
-    <tr>
-      <th>predictors</th>
-      <td><p>Character vector with the names of the predictor variables
-of the model that is validated.</p></td>
+      <th>formula</th>
+      <td><p>A formula object to specify the model as normally used by glm.</p></td>
     </tr>
     <tr>
       <th>lp.orig</th>
@@ -225,8 +226,7 @@ externally validated.</p></td>
     </tr>
     <tr>
       <th>plot.indiv</th>
-      <td><p>If TRUE calibration plots of each imputed dataset are
-generated. Default is FALSE.</p></td>
+      <td><p>This argument is deprecated; please use plot.method instead.</p></td>
     </tr>
     <tr>
       <th>val.check</th>
@@ -246,29 +246,36 @@ Lemeshow test. Default is 10.</p></td>
 Default is 10. If the range of predicted probabilities is low, less than 10 groups 
 can be chosen.</p></td>
     </tr>
+    <tr>
+      <th>plot.method</th>
+      <td><p>If "mean" one calibration plot is generated, first taking the 
+mean of the linear predictor values across the multiply imputed datasets (default), if 
+"individual" the calibration plot in each imputed dataset is plotted, 
+if "overlay" calibration plots from each imputed datasets are plotted in one figure.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>mivalext_lr</code> object from which the following objects 
- can be extracted: ROC results as <code>ROC</code>, R squared results (fixed and calibrated) 
- as <code>R2 (fixed)</code> and <code>R2 (calibr)</code>, Hosmer and Lemeshow test as <code>HL_test</code>, 
- coefficients pooled as <code>coef_pooled</code>, linear predictor pooled as <code>LP_pooled ext</code>, 
- and <code>Outcome</code>, <code>nimp</code>, <code>impvar</code>, <code>val.check</code>, 
+ can be extracted: ROC results as <code>ROC</code>, R squared results as <code>R2</code>, 
+ Hosmer and Lemeshow test as <code>HL_test</code>, coefficients pooled as 
+ <code>coef_pooled</code>, linear predictor pooled as <code>LP_pooled ext</code>, 
+ and <code>formula</code>, <code>nimp</code>, <code>impvar</code>, <code>val.check</code>, 
  <code>g</code>, <code>coef.check</code> and <code>groups_cal</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following information of the externally validated model is provided:
- <code>ROC</code> pooled ROC curve (median and back transformed after pooling log transformed
- ROC curves), <code>R2_fixed</code> and <code>R2_calibr</code> pooled Nagelkerke R-Square value 
- (median and back transformed after pooling Fisher transformed values), <code>HLtest</code> 
- pooled Hosmer and Lemeshow Test (using miceadds package), <code>coef_pooled</code> pooled 
- coefficients when model is freely estimated in imputed datasets and <code>LP_pooled_ext</code> 
+ <code>ROC</code> pooled ROC curve (back transformed after pooling log transformed
+ ROC curves), <code>R2</code> pooled Nagelkerke R-Square value (back transformed after 
+ pooling Fisher transformed values), <code>HLtest</code> pooled Hosmer and Lemeshow 
+ Test (using function <code>pool_D2</code>), <code>coef_pooled</code> pooled coefficients 
+ when model is freely estimated in imputed datasets and <code>LP_pooled_ext</code> 
  the pooled linear predictor (LP), after the externally validated LP is estimated in 
  each imputed dataset (provides information about miscalibration in intercept and slope). 
- In addition information is provided about <code>nimp</code>, <code>impvar</code>, <code>Outcome</code>,
+ In addition information is provided about <code>nimp</code>, <code>impvar</code>, <code>formula</code>,
  <code>val_ckeck</code>, <code>g</code> and <code>coef_check</code>. When the external validation is 
- very poor, the R2 fixed can become negative due to the poor fit of the model in
+ very poor, the R2 can become negative due to the poor fit of the model in
  the external dataset (in that case you may report a R2 of zero).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -281,43 +288,23 @@ can be chosen.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>mivalext_lr</span><span class='op'>(</span>data.val<span class='op'>=</span><span class='va'>lbpmilr</span>, nimp<span class='op'>=</span><span class='fl'>5</span>, impvar<span class='op'>=</span><span class='st'>"Impnr"</span>, Outcome<span class='op'>=</span><span class='st'>"Chronic"</span>,
-predictors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gender"</span>, <span class='st'>"factor(Carrying)"</span>, <span class='st'>"Function"</span>, <span class='st'>"Tampascale"</span>, <span class='st'>"Age"</span><span class='op'>)</span>,
-lp.orig<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>, <span class='op'>-</span><span class='fl'>0.35</span>, <span class='fl'>1.00</span>, <span class='fl'>1.00</span>, <span class='op'>-</span><span class='fl'>0.04</span>, <span class='fl'>0.26</span>, <span class='op'>-</span><span class='fl'>0.01</span><span class='op'>)</span>,
-cal.plot<span class='op'>=</span><span class='cn'>TRUE</span>, plot.indiv<span class='op'>=</span><span class='cn'>TRUE</span>, val.check <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>mivalext_lr</span><span class='op'>(</span>data.val<span class='op'>=</span><span class='va'>lbpmilr</span>, nimp<span class='op'>=</span><span class='fl'>5</span>, impvar<span class='op'>=</span><span class='st'>"Impnr"</span>, 
+  formula <span class='op'>=</span> <span class='va'>Chronic</span> <span class='op'>~</span> <span class='va'>Gender</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>Carrying</span><span class='op'>)</span>  <span class='op'>+</span> <span class='va'>Function</span> <span class='op'>+</span> 
+  <span class='va'>Tampascale</span> <span class='op'>+</span> <span class='va'>Age</span>, lp.orig<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>, <span class='op'>-</span><span class='fl'>0.35</span>, <span class='fl'>1.00</span>, <span class='fl'>1.00</span>, <span class='op'>-</span><span class='fl'>0.04</span>, <span class='fl'>0.26</span>, <span class='op'>-</span><span class='fl'>0.01</span><span class='op'>)</span>,
+  cal.plot<span class='op'>=</span><span class='cn'>TRUE</span>, val.check <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Pooled performance measures over m = 5 imputed external validation datasets correctly estimated</span>
+#&gt; <span class='message'>Pooled performance measures over m = 5 imputed external validation datasets</span>
+#&gt; <span class='message'>            correctly estimated</span>
 #&gt; <span class='message'></span></div><div class='img'><img src='mivalext_lr-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $ROC
-#&gt; $ROC$`ROC (logit)`
-#&gt;             95% Low    AUC 95% Up
-#&gt; AUC (logit)  0.7854 0.8551 0.9048
+#&gt;                     95% Low C-statistic 95% Up
+#&gt; C-statistic (logit)  0.7854      0.8551 0.9048
 #&gt; 
-#&gt; $ROC$`ROC (median)`
-#&gt; 1st Qu.  Median 3rd Qu. 
-#&gt; 0.85491 0.85620 0.85789 
-#&gt; 
-#&gt; 
-#&gt; $R2_fixed
-#&gt; $R2_fixed$`Fisher Z (fixed)`
+#&gt; $R2
 #&gt; [1] 0.46333
 #&gt; 
-#&gt; $R2_fixed$`Median (fixed)`
-#&gt; 1st Qu.  Median 3rd Qu. 
-#&gt; 0.46254 0.46506 0.47510 
-#&gt; 
-#&gt; 
-#&gt; $R2_calibr
-#&gt; $R2_calibr$`Fisher Z (calibrated)`
-#&gt; [1] 0.46465
-#&gt; 
-#&gt; $R2_calibr$`Median (calibrated)`
-#&gt; 1st Qu.  Median 3rd Qu. 
-#&gt; 0.46309 0.46562 0.47609 
-#&gt; 
-#&gt; 
 #&gt; $HLtest
-#&gt;        D        p       df      df2 
-#&gt;  1.11778  0.37425  8.00000 36.86064 
+#&gt;         D2          p        df1        df2 
+#&gt;  1.1177789  0.3742486  8.0000000 36.8606400 
 #&gt; 
 #&gt; $coef_pooled
 #&gt;       (Intercept)            Gender factor(Carrying)2 factor(Carrying)3 
@@ -335,8 +322,10 @@ cal.plot<span class='op'>=</span><span class='cn'>TRUE</span>, plot.indiv<span c
 #&gt; $impvar
 #&gt; [1] "Impnr"
 #&gt; 
-#&gt; $Outcome
-#&gt; [1] "Chronic"
+#&gt; $formula
+#&gt; Chronic ~ Gender + factor(Carrying) + Function + Tampascale + 
+#&gt;     Age
+#&gt; &lt;environment: 0x000000004f1c8a18&gt;
 #&gt; 
 #&gt; $val_check
 #&gt; [1] FALSE

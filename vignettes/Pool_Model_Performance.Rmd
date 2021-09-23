@@ -1,0 +1,60 @@
+---
+title: "Pool Model Performance"
+author: "Martijn W Heymans"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pool Model Performance}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(survival)
+library(psfmi)
+```
+
+# Introduction
+
+The `psfmi` package includes the function `pool_performance`, to pool the performance 
+measures of logistic and Cox regression models. This vignette show you how to use this function.
+
+# Examples 
+
+# Performance Logistic regression model
+
+The performance of a logistic regression model across multiply imputed datasets can be obtained 
+as follows. 
+
+```{r}
+
+perf <- pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 
+  formula = Chronic ~ Gender + Pain + Tampascale + 
+  Smoking + Function + Radiation + Age + 
+  Duration + BMI, 
+  cal.plot=TRUE, plot.method="mean", 
+  groups_cal=10, model_type="binomial")
+  
+perf
+
+``` 
+
+# Performance Cox regression model
+
+For a Cox regression model the following code can be used.
+
+```{r}
+
+perf <- pool_performance(data=lbpmicox, nimp=5, impvar="Impnr", 
+  formula = Surv(Time, Status) ~ Duration + Pain + Tampascale + 
+  factor(Expect_cat) + Function + Radiation + Age , 
+  cal.plot=FALSE, model_type="survival")
+  
+perf
+
+```  

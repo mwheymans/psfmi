@@ -21,16 +21,18 @@ knitr::opts_chunk$set(
 [![minimal R version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
 
 The package provides functions to apply pooling, backward and forward selection 
-of linear, logistic and Cox regression models in multiply imputed data sets 
-using Rubin's Rules (RR), the D1, D2, D3, D4 and the median p-values method. 
+of linear, logistic and Cox regression models across multiply imputed data sets 
+using Rubin's Rules (RR). The D1, D2, D3, D4 and the median p-values method can be
+used to pool the significance of categorical variables (multiparameter test). 
 The model can contain	continuous, dichotomous, categorical and restricted cubic 
-spline predictors and interaction terms between all these type of predictors. 
+spline predictors and interaction terms between all these type of variables. 
+Variables can also be forced in the model during selection. 
 
 Validation of the prediction models can be performed with cross-validation or 
 bootstrapping across multiply imputed data sets and pooled model performance measures 
 as AUC value, R-square, Hosmer and Lemeshow test, scaled Brier score and calibration 
 plots are generated. Also a function to externally validate logistic	prediction models 
-in multiple imputed data sets is available and a function to compare models 
+across multiple imputed data sets is available and a function to compare models 
 in multiply imputed data.
 
 ## Installation
@@ -54,22 +56,37 @@ Cite the package as:
 Martijn W Heymans (2021). psfmi: Prediction Model Selection and Performance Evaluation in
 Multiple Imputed Datasets. R package version 1.0.0. https://mwheymans.github.io/psfmi/
 ```
-## Example
+## Examples
 
-This example shows you how to apply forward selection with a model that includes a 
-restricted cubic spline function and an interaction term.
+This example shows you how to pool a logistic regression model across 5 multiply imputed 
+datasets and that includes two restricted cubic spline variables and a categorical, continuous
+and dichotomous variable. The pooling method that is used is method D1.
 
-```{r example}
+```{r }
 library(psfmi)
 
 pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + 
                       JobDemands + rcs(Tampascale, 3) + factor(Satisfaction) + 
-                      Smoking + factor(Satisfaction)*rcs(Pain, 3) ,
-                      p.crit = 0.05, direction="FW", nimp=5, impvar="Impnr",
-                      method="D1")
+                      Smoking, nimp=5, impvar="Impnr", method="D1")
+
+pool_lr$RR_model
+
+pool_lr$multiparm
+```
+
+This example shows you how to apply forward selection of the above model using a p-value of 0.05. 
+
+```{r }
+library(psfmi)
+
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ rcs(Pain, 3) + 
+                      JobDemands + rcs(Tampascale, 3) + factor(Satisfaction) + 
+                      Smoking, p.crit = 0.05, direction="FW", 
+                      nimp=5, impvar="Impnr", method="D1")
 
 pool_lr$RR_model_final
 
-
+pool_lr$multiparm
 ```
 
+More examples for logistic, linear and Cox regression models as well as internal and external validation of prediction models can be found on the [package website](https://mwheymans.github.io/psfmi/) or in the online book [Applied Missing Data Analysis](https://bookdown.org/mwheymans/bookmi/). 

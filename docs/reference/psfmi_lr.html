@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data. — psfmi_lr • psfmi</title>
+Logistic regression models across multiply imputed data. — psfmi_lr • psfmi</title>
 
 
 <!-- jquery -->
@@ -41,9 +41,9 @@ Logistic regression models in multiply imputed data. — psfmi_lr • psfmi</tit
 
 
 <meta property="og:title" content="Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data. — psfmi_lr" />
+Logistic regression models across multiply imputed data. — psfmi_lr" />
 <meta property="og:description" content="psfmi_lr Pooling and backward or forward selection of Logistic regression
- models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR." />
+ models across multiply imputed data using selection methods RR, D1, D2, D3, D4 and MPR." />
 
 
 
@@ -116,6 +116,12 @@ Logistic regression models in multiply imputed data. — psfmi_lr" />
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -157,14 +163,14 @@ Logistic regression models in multiply imputed data. — psfmi_lr" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pooling and Predictor selection function for backward or forward selection of
-Logistic regression models in multiply imputed data.</h1>
+Logistic regression models across multiply imputed data.</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/psfmi_lr.R'><code>R/psfmi_lr.R</code></a></small>
     <div class="hidden name"><code>psfmi_lr.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><code>psfmi_lr</code> Pooling and backward or forward selection of Logistic regression
- models in multiply imputed data using selection methods RR, D1, D2, D3 and MPR.</p>
+ models across multiply imputed data using selection methods RR, D1, D2, D3, D4 and MPR.</p>
     </div>
 
     <pre class="usage"><span class='fu'>psfmi_lr</span><span class='op'>(</span>
@@ -252,7 +258,7 @@ provides the pooled model without selection.</p></td>
     <tr>
       <th>method</th>
       <td><p>A character vector to indicate the pooling method for p-values to pool the
-total model or used during predictor selection. This can be "RR", D1", "D2", "D3" or "MPR".
+total model or used during predictor selection. This can be "RR", D1", "D2", "D3", "D4", or "MPR".
 See details for more information. Default is "RR".</p></td>
     </tr>
     <tr>
@@ -297,7 +303,7 @@ means forward selection.</p></td>
  the model included continuous or dichotomous variables. Specific procedures are
  available when the model also included categorical (&gt; 2 categories) or restricted cubic spline
  variables. These pooling methods are: “D1” is pooling of the total covariance matrix,
- ”D2” is pooling of Chi-square values, “D3” is pooling Likelihood ratio statistics
+ ”D2” is pooling of Chi-square values, “D3” and "D4" is pooling Likelihood ratio statistics
  (method of Meng and Rubin) and “MPR” is pooling of median p-values (MPR rule).
  Spline regression coefficients are defined by using the rcs function for restricted cubic
  splines of the rms package. A minimum number of 3 knots as defined under knots is required.</p>

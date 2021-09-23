@@ -12,7 +12,7 @@ reference:
   - psfmi_mm_multiparm
 - title: Functions to evaluate Model performance
 - contents: 
-  - psfmi_perform
+  - psfmi_validate
   - pool_performance
   - pool_intadj
   - mivalext_lr
@@ -25,13 +25,17 @@ reference:
   - pool_reclassification   
 - title: Extra Functions
 - contents:
-  - bw_single
-  - bw_single_cox
+  - glm_bw
+  - glm_fw
+  - coxph_bw
+  - coxph_fw
   - hoslem_test
   - pool_auc
   - scaled_brier
   - rsq_nagel
+  - rsq_surv
   - pool_D2
+  - pool_D4
 - title: Datasets used in examples and tutorials
 - contents: 
   - lbp_orig

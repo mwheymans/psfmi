@@ -1,6 +1,6 @@
 #' Internal validation and performance of logistic prediction models across Multiply Imputed datasets
 #'
-#' \code{psfmi_perform} Evaluate Performance of logistic regression models selected with
+#' \code{psfmi_validate} Evaluate Performance of logistic regression models selected with
 #'  the \code{psfmi_lr} function of the \code{psfmi} package by using cross-validation
 #'  or bootstrapping.
 #'
@@ -101,8 +101,28 @@
 #' 
 #' @author Martijn Heymans, 2020
 #'
+#' @examples
+#' pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+#'            factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+#'            nimp=5, impvar="Impnr", method="D1")
+#'            
+#' pool_lr$RR_model
+#'
+#' res_perf <- psfmi_validate(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds=3,
+#'             nimp_cv = 2, p.crit=0.05, BW=TRUE, miceImp = miceImp, printFlag = FALSE)
+#'             
+#' res_perf
+#'
+#'\dontrun{
+#'  set.seed(200)
+#'   res_val <- psfmi_validate(pobj, val_method = "boot_MI", data_orig = lbp_orig, nboot = 5,
+#'   p.crit=0.05, BW=TRUE, miceImp = miceImp, nimp_mice = 5, printFlag = FALSE, direction = "FW")
+#'   
+#'   res_val$stats_val
+#'}
+#'
 #' @export
-psfmi_perform <- function(pobj, 
+psfmi_validate <- function(pobj, 
                           val_method = NULL, 
                           data_orig = NULL, 
                           int_val = TRUE, 
@@ -122,9 +142,6 @@ psfmi_perform <- function(pobj,
 {
   ##############################
   #General Settings
-  
-  .Deprecated("psfmi_validate")
-  
   call <- match.call()
   
   if(class(pobj)!="pmods")

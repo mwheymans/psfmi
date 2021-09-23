@@ -116,6 +116,12 @@ Linear and Logistic regression models. — bw_single" />
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -261,49 +267,10 @@ in the model during predictor selection. All type of variables are allowed.</p><
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>http://missingdatasolutions.rbind.io/</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='psfmi_perform.html'>psfmi_perform</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Martijn Heymans, 2020</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>res_single</span> <span class='op'>&lt;-</span> <span class='fu'>bw_single</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>lbpmilr</span>, p.crit <span class='op'>=</span> <span class='fl'>0.05</span>, Outcome<span class='op'>=</span><span class='st'>"Chronic"</span>,
-         predictors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tampascale"</span>, <span class='st'>"Smoking"</span><span class='op'>)</span>,
-         cat.predictors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Satisfaction"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>         
-<span class='va'>res_single</span><span class='op'>$</span><span class='va'>RR_model_final</span>
-</div><div class='output co'>#&gt; $`Step 2`
-#&gt;                          Estimate  Std Error    Z value      P-value
-#&gt; (Intercept)           -13.0922408 0.65283752 -20.054363 1.848950e-89
-#&gt; Tampascale              0.3413733 0.01685617  20.252126 3.402375e-91
-#&gt; factor(Satisfaction)2  -0.3851599 0.15884572  -2.424742 1.531927e-02
-#&gt; factor(Satisfaction)3  -1.6603160 0.19638360  -8.454453 2.803976e-17
-#&gt;                                 OR low EXP(OR) High EXP(OR)
-#&gt; (Intercept)           2.061162e-06   0.2781598     3.595070
-#&gt; Tampascale            1.406878e+00   3.9504924     4.220343
-#&gt; factor(Satisfaction)2 6.803418e-01   1.4462937     2.695758
-#&gt; factor(Satisfaction)3 1.900789e-01   0.8229721     1.777114
-#&gt; </div><div class='input'>
-<span class='va'>res_single</span> <span class='op'>&lt;-</span> <span class='fu'>bw_single</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>lbpmilr</span>, p.crit <span class='op'>=</span> <span class='fl'>0.05</span>, Outcome<span class='op'>=</span><span class='st'>"Pain"</span>,
-         predictors<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tampascale"</span>, <span class='st'>"Smoking"</span><span class='op'>)</span>,
-         cat.predictors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Satisfaction"</span><span class='op'>)</span>, model_type<span class='op'>=</span><span class='st'>"linear"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>         
-<span class='va'>res_single</span><span class='op'>$</span><span class='va'>RR_model_final</span>
-</div><div class='output co'>#&gt; $`Step 1`
-#&gt;                          Estimate  Std. Error    t value      Pr(&gt;|t|)
-#&gt; (Intercept)           -7.15626215 0.199950580 -35.790154 4.130400e-206
-#&gt; Tampascale             0.31386692 0.005090637  61.655726  0.000000e+00
-#&gt; Smoking               -0.17056565 0.053679180  -3.177501  1.514148e-03
-#&gt; factor(Satisfaction)2  0.09471944 0.064155327   1.476408  1.400330e-01
-#&gt; factor(Satisfaction)3  0.56199340 0.079802763   7.042280  2.808103e-12
-#&gt; </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

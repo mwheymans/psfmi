@@ -112,6 +112,12 @@
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -162,9 +168,15 @@
 </h1>
 <ul>
 <li>Added the functions psfmi_lm, psfmi_lm_fw, psfmi_lr_bw for pooling and backward and forward selection of linear regression models.</li>
+<li>Added the functions glm_bw, glm_fw, coxph_bw and coxph_fw for backward and forward selection of linear, logistic and Cox models in a single dataset based on the likelihood ratio statistic.</li>
+<li>Function psfmi_perform is now deprecated, use psfmi_validate instead.</li>
+<li>Function bw_single is now deprecated, use glm_bw instead.</li>
 <li>Added the function hoslem_test and implemented this in the function pool_performance.</li>
+<li>added pooled concordance and R-squared measures for Cox regression to function pool_performance.</li>
 <li>Added the function pool_D2, to pool chi-square statistics.</li>
-<li>Added the internal function pool_performance_internal, used by psfmi_perform.</li>
+<li>Added the function pool_D4, to pool likelihood ratio tests.</li>
+<li>Added the internal function pool_performance_internal, used internally by psfmi_perform.</li>
+<li>Option plot.indiv in function pool_performance and mivalext_lr is deprecated, use plot.method instead.</li>
 <li>created a new vignette for the psfmi_lm function and updated the other ones.</li>
 <li>corrected other bug fixes.</li>
 <li>Updated package website with pkgdown (included citation).</li>

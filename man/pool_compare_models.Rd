@@ -2,7 +2,7 @@
 % Please edit documentation in R/pool_compare_models.R
 \name{pool_compare_models}
 \alias{pool_compare_models}
-\title{Compare the fit and performance of prediction models in Multipy Imputed data}
+\title{Compare the fit and performance of prediction models across Multipy Imputed data}
 \usage{
 pool_compare_models(
   pobj,

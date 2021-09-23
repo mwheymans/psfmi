@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Pooling and Predictor selection function for backward or forward selection of
-Cox regression models in multiply imputed data. — psfmi_coxr • psfmi</title>
+Cox regression models across multiply imputed data. — psfmi_coxr • psfmi</title>
 
 
 <!-- jquery -->
@@ -41,7 +41,7 @@ Cox regression models in multiply imputed data. — psfmi_coxr • psfmi</title>
 
 
 <meta property="og:title" content="Pooling and Predictor selection function for backward or forward selection of
-Cox regression models in multiply imputed data. — psfmi_coxr" />
+Cox regression models across multiply imputed data. — psfmi_coxr" />
 <meta property="og:description" content="psfmi_coxr Pooling and backward or forward selection of Cox regression
 prediction models in multiply imputed data using selection methods D1, D2 and MPR." />
 
@@ -116,6 +116,12 @@ prediction models in multiply imputed data using selection methods D1, D2 and MP
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -157,7 +163,7 @@ prediction models in multiply imputed data using selection methods D1, D2 and MP
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pooling and Predictor selection function for backward or forward selection of
-Cox regression models in multiply imputed data.</h1>
+Cox regression models across multiply imputed data.</h1>
     <small class="dont-index">Source: <a href='https://github.com/mwheymans/psfmi/blob/master/R/psfmi_coxr.R'><code>R/psfmi_coxr.R</code></a></small>
     <div class="hidden name"><code>psfmi_coxr.Rd</code></div>
     </div>
@@ -313,15 +319,6 @@ means forward selection.</p></td>
  variable1:variable2</code>. All variables in the terms part have to be separated by a "+". If a formula
  object is used set predictors, cat.predictors, spline.predictors or int.predictors
  at the default value of NULL.</p>
-<p>pooled p-values at final step according to pooling method as <code>multiparm_final</code>, and
- at each step as <code>multiparm</code>, or <code>multiparm_out</code> (only when direction = "FW"),
- formula object at final step as <code>fm_step_final</code>, and at each step as <code>fm_step</code>,
- predictors included at each selection step as <code>predictors_in</code>, predictors excluded
- at each step as <code>predictors_out</code>, and name of variable to distinguish imputed datasets
- as <code>impvar</code>, <code>nimp</code>, <code>Outcome</code>, <code>method</code>, <code>p.crit</code>, <code>call</code>,
- <code>model_type</code>, direction of selection as <code>direction</code>, <code>predictors_final</code> for
- names of predictors in final selection step and <code>predictors_initial</code> for names of
- predictors in start model.</p>
     <h2 class="hasAnchor" id="vignettes"><a class="anchor" href="#vignettes"></a>Vignettes</h2>
 
     

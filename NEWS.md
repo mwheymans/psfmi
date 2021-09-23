@@ -5,7 +5,8 @@ and backward and forward selection of linear regression models.
 * Added the functions glm_bw, glm_fw, coxph_bw and coxph_fw for 
 backward and forward selection of linear, logistic and Cox models 
 in a single dataset based on the likelihood ratio statistic.
-* Function bw_single is now deprecated.
+* Function psfmi_perform is now deprecated, use psfmi_validate instead.
+* Function bw_single is now deprecated, use glm_bw instead.
 * Added the function hoslem_test and implemented this in the 
 function pool_performance.
 * added pooled concordance and R-squared measures for Cox regression to
@@ -14,6 +15,8 @@ function pool_performance.
 * Added the function pool_D4, to pool likelihood ratio tests.
 * Added the internal function pool_performance_internal, used internally 
 by psfmi_perform.
+* Option plot.indiv in function pool_performance and mivalext_lr is deprecated, 
+use plot.method instead.
 * created a new vignette for the psfmi_lm function and updated
 the other ones.
 * corrected other bug fixes.

@@ -16,7 +16,7 @@ This page contains information of the `MI_cv_naive` method that is implemented
 in the [`psfmi`](https://github.com/mwheymans/psfmi) package and that combines 
 Multiple Imputation with Cross-validation for the validation of 
 logistic regression / prediction models. The `MI_cv_naive` method is implemented 
-in the function `psfmi_perform`. An explanation and examples of how to use 
+in the function `psfmi_validate`. An explanation and examples of how to use 
 the method can be found below.
 
 # Method MI_cv_naive
@@ -48,7 +48,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Ta
                    nimp=5, impvar="Impnr", method="D1")
 
 set.seed(100)
-res_cv <- psfmi_perform(pool_lr, val_method = "MI_cv_naive", folds = 5,
+res_cv <- psfmi_validate(pool_lr, val_method = "MI_cv_naive", folds = 5,
                      p.crit=1, BW=FALSE)
 res_cv
 
@@ -68,7 +68,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Ta
                    nimp=5, impvar="Impnr", method="D1")
 
 set.seed(100)
-res_cv <- psfmi_perform(pool_lr, val_method = "MI_cv_naive", folds = 5,
+res_cv <- psfmi_validate(pool_lr, val_method = "MI_cv_naive", folds = 5,
                      p.crit=0.05, BW=TRUE)
 res_cv
 

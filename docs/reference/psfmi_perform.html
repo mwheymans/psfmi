@@ -115,6 +115,12 @@
       <a href="../articles/MI_cv_naive.html">Multiple Imputation and Cross-validation - The MI_cv_naive method</a>
     </li>
     <li>
+      <a href="../articles/Pooling_AUC_values.html">Pooling AUC values</a>
+    </li>
+    <li>
+      <a href="../articles/Pool_Model_Performance.html">Pool Model Performance</a>
+    </li>
+    <li>
       <a href="../articles/psfmi_CoxModels.html">Pooling and Selection of Cox Regression Models</a>
     </li>
     <li>
@@ -345,79 +351,6 @@ be changed.</p></td>
 
     <p>Martijn Heymans, 2020</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>pool_lr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psfmi_lr.html'>psfmi_lr</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>lbpmilr</span>, formula <span class='op'>=</span> <span class='va'>Chronic</span> <span class='op'>~</span> <span class='va'>Pain</span> <span class='op'>+</span> <span class='va'>JobDemands</span> <span class='op'>+</span> <span class='fu'>rcs</span><span class='op'>(</span><span class='va'>Tampascale</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
-           <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>Satisfaction</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Smoking</span>, p.crit <span class='op'>=</span> <span class='fl'>1</span>, direction<span class='op'>=</span><span class='st'>"FW"</span>,
-           nimp<span class='op'>=</span><span class='fl'>5</span>, impvar<span class='op'>=</span><span class='st'>"Impnr"</span>, method<span class='op'>=</span><span class='st'>"D1"</span><span class='op'>)</span>
-           
-<span class='va'>pool_lr</span><span class='op'>$</span><span class='va'>RR_model</span>
-</div><div class='output co'>#&gt; $`Step 1 - no variables removed -`
-#&gt;                            term      estimate  std.error  statistic        df
-#&gt; 1                   (Intercept) -18.194984918 7.46386123 -2.4377443  66.86346
-#&gt; 2                          Pain   0.787297519 0.28791031  2.7345236  23.89602
-#&gt; 3                    JobDemands  -0.009136444 0.05316641 -0.1718462  50.22157
-#&gt; 4                       Smoking   0.078959504 0.47947339  0.1646796  72.71887
-#&gt; 5         factor(Satisfaction)2  -0.439137053 0.58056883 -0.7563910 132.98121
-#&gt; 6         factor(Satisfaction)3  -2.255502423 0.71238726 -3.1661184 113.70396
-#&gt; 7  rcs(Tampascale, 3)Tampascale   0.404284518 0.19688244  2.0534311  96.31169
-#&gt; 8 rcs(Tampascale, 3)Tampascale'  -0.335633226 0.24663776 -1.3608347  28.85941
-#&gt;       p.value           OR    lower.EXP  upper.EXP
-#&gt; 1 0.017444622 1.253194e-08 4.243137e-15 0.03701262
-#&gt; 2 0.011578833 2.197450e+00 1.212814e+00 3.98147379
-#&gt; 3 0.864249071 9.909052e-01 8.905530e-01 1.10256554
-#&gt; 4 0.869653055 1.082160e+00 4.161574e-01 2.81401089
-#&gt; 5 0.450752704 6.445924e-01 2.044399e-01 2.03237915
-#&gt; 6 0.001983287 1.048209e-01 2.555875e-02 0.42988853
-#&gt; 7 0.042741589 1.498230e+00 1.013584e+00 2.21461135
-#&gt; 8 0.184099209 7.148853e-01 4.316368e-01 1.18400693
-#&gt; </div><div class='input'>
-<span class='va'>res_perf</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_perform</span><span class='op'>(</span><span class='va'>pool_lr</span>, val_method <span class='op'>=</span> <span class='st'>"cv_MI"</span>, data_orig <span class='op'>=</span> <span class='va'>lbp_orig</span>, folds<span class='op'>=</span><span class='fl'>3</span>,
-            nimp_cv <span class='op'>=</span> <span class='fl'>2</span>, p.crit<span class='op'>=</span><span class='fl'>0.05</span>, BW<span class='op'>=</span><span class='cn'>TRUE</span>, miceImp <span class='op'>=</span> <span class='va'>miceImp</span>, printFlag <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Imp run 1</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>fold 1</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>fold 2</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>fold 3</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Imp run 2</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>fold 1</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>fold 2</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>fold 3</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 1 is - Smoking</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 2 is - JobDemands</span></div><div class='output co'>#&gt; <span class='message'>Removed at Step 3 is - rcs(Tampascale,3)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Selection correctly terminated, </span>
-#&gt; <span class='message'>No more variables removed from the model</span></div><div class='input'>            
-<span class='va'>res_perf</span>
-</div><div class='output co'>#&gt; $pool_stats
-#&gt;                  Train      Test
-#&gt; AUC          0.8851746 0.8369000
-#&gt; Scaled Brier 0.4662845 0.3307882
-#&gt; R2           0.5596404 0.4589613
-#&gt; 
-#&gt; $LP_val
-#&gt; (Intercept)     lp_test 
-#&gt;  0.05803686  0.83609232 
-#&gt; 
-#&gt; $auc_test
-#&gt;             95% Low    AUC 95% Up
-#&gt; AUC (logit)  0.7285 0.8369 0.9076
-#&gt; </div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>
-  <span class='va'>res_val</span> <span class='op'>&lt;-</span> <span class='fu'>psfmi_perform</span><span class='op'>(</span><span class='va'>pobj</span>, val_method <span class='op'>=</span> <span class='st'>"boot_MI"</span>, data_orig <span class='op'>=</span> <span class='va'>lbp_orig</span>, nboot <span class='op'>=</span> <span class='fl'>5</span>,
-  p.crit<span class='op'>=</span><span class='fl'>0.05</span>, BW<span class='op'>=</span><span class='cn'>TRUE</span>, miceImp <span class='op'>=</span> <span class='va'>miceImp</span>, nimp_mice <span class='op'>=</span> <span class='fl'>5</span>, printFlag <span class='op'>=</span> <span class='cn'>FALSE</span>, direction <span class='op'>=</span> <span class='st'>"FW"</span><span class='op'>)</span>
-  
-  <span class='va'>res_val</span><span class='op'>$</span><span class='va'>stats_val</span>
-<span class='op'>}</span>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

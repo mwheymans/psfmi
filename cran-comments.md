@@ -4,6 +4,58 @@ title: "cran_comments"
 
 ## Resubmission
 This is a resubmission. In this version I have:
+* Updated version nr to 1.0.0.
+* Added the functions psfmi_lm, psfmi_lm_fw, psfmi_lr_bw for pooling
+and backward and forward selection of linear regression models.
+* Added the functions glm_bw, glm_fw, coxph_bw and coxph_fw for 
+backward and forward selection of linear, logistic and Cox models 
+in a single dataset based on the likelihood ratio statistic.
+* Function psfmi_perform is now deprecated, use psfmi_validate instead.
+* Function bw_single is now deprecated, use glm_bw instead.
+* Added the function hoslem_test and implemented this in the 
+function pool_performance.
+* Added pooled concordance and R-squared measures for Cox regression to
+function pool_performance.
+* Added the function pool_D2, to pool chi-square statistics.
+* Added the function pool_D4, to pool likelihood ratio tests.
+* Added the internal function pool_performance_internal, used internally 
+by psfmi_perform.
+* Option plot.indiv in function pool_performance and mivalext_lr is deprecated, 
+use plot.method instead.
+* Created a new vignette for the psfmi_lm function and updated
+the other ones.
+* corrected other bug fixes.
+* Updated package website with pkgdown (included citation).
+
+## R CMD check results
+Duration: 6m 8.1s
+
+0 errors √ | 0 warnings √ | 0 notes √
+
+## devtools::test()
+i Loading psfmi
+i Testing psfmi
+√ |  OK F W S | Context
+/ |   0       | testthat.R                                                                                  
+== Results =================================================================================================
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
+
+Nice code.
+
+## Test environments
+*	R studio 1.4.1717, R version 4.1.1
+* win-builder Development: * DONE Status: OK
+* win-builder Release: * DONE Status: OK
+* on Travis CI: R session information
+$ Rscript -e 'sessionInfo()'
+R version 4.0.2 (2020-06-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 16.04.6 LTS
+Done. Your build exited with 0.
+  
+
+## Resubmission
+This is a resubmission. In this version I have:
 Updated version nr to 0.7.1.
 Added new functions to compare models, the functions pool_compare_models and 
 pool_reclassification. Applied some bug fixes in the function bw_single. 

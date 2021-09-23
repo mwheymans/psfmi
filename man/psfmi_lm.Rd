@@ -3,7 +3,7 @@
 \name{psfmi_lm}
 \alias{psfmi_lm}
 \title{Pooling and Predictor selection function for backward or forward selection of
-Linear regression models in multiply imputed data.}
+Linear regression models across multiply imputed data.}
 \usage{
 psfmi_lm(
   data,

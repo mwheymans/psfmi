@@ -9,10 +9,10 @@ pool_performance(
   formula,
   nimp,
   impvar,
+  plot.indiv,
   model_type = "binomial",
   cal.plot = TRUE,
   plot.method = "mean",
-  plot.indiv,
   groups_cal = 10
 )
 }
@@ -28,6 +28,8 @@ from the dataset.}
 \item{impvar}{A character vector. Name of the variable that distinguishes 
 the imputed datasets.}
 
+\item{plot.indiv}{This argument is deprecated; please use plot.method instead.}
+
 \item{model_type}{If "binomial" (default), performance measures are calculated
 for logistic regression models, if "survival" for Cox regression models.}
 
@@ -38,8 +40,6 @@ model_type must be "binomial".}
 mean of the linear predictor across the multiply imputed datasets (default), if 
 "individual" the calibration plot of each imputed dataset is plotted, 
 if "overlay" calibration plots from each imputed datasets are plotted in one figure.}
-
-\item{plot.indiv}{This argument is deprecated; please use plot.method instead.}
 
 \item{groups_cal}{A numerical scalar. Number of groups used on the calibration plot and. 
 for the Hosmer and Lemeshow test. Default is 10. If the range of predicted probabilities. 
