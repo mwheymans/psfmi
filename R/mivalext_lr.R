@@ -141,7 +141,7 @@ mivalext_lr <-
         formula
       
       fit.orig <-
-        glm(fm.orig, x=TRUE, y=TRUE, 
+        glm(fm.orig, x=TRUE, y=TRUE,
             data=data.orig, family = binomial)
       coef.orig <-
         coef(fit.orig)
@@ -151,7 +151,7 @@ mivalext_lr <-
       formula
     fit.check <-
       glm(fm.val, x=TRUE, y=TRUE,
-          data=data.val[data.val[impvar] == 1, ], 
+          data=data.val[data.val[impvar] == 1, ],
           family = binomial)
     coef.check <-
       names(coef(fit.check))
@@ -183,18 +183,21 @@ mivalext_lr <-
     pred.group <- obs.group <- coef_extern <- list()
     
     stats_ext <-
-      matrix(NA, nrow = nimp, ncol = 6)
+      matrix(NA, nrow = nimp, ncol = 12)
     
-    lp_mi <- 
-      matrix(NA, nrow(data.val[data.val[impvar] == 1, ]), nimp)
+    n <-
+      nrow(data.val[data.val[impvar] == 1, ])
+    
+    lp_mi <-
+      matrix(NA, n, nimp)
     
     # Determine performance in each
     # imputed external dataset
     for(i in 1:nimp) {
       data <-
         data.val[data.val[impvar] == i, ]
-      n <-
-        nrow(data)
+      #n <-
+      #  nrow(data)
       f.ext <-
         glm(fm.val, data=data, family = binomial)
       X <-
@@ -206,7 +209,6 @@ mivalext_lr <-
         lp.ext
       f.ext.lp <-
         glm(f.ext$y ~ lp.ext, family = binomial)
-      
       p.ext <-
         c(1/(1+exp(-lp.ext)))
       
@@ -214,6 +216,17 @@ mivalext_lr <-
         coef(f.ext)
       slope_extern <-
         coef(f.ext.lp)
+      slope_extern_se <-
+        sqrt(diag(vcov(f.ext.lp)))
+      
+      lp_offset_int <-
+        glm(f.ext$y ~ offset(lp.ext), family = binomial)
+      lp_offset_int_se <-
+        sqrt(diag(vcov(lp_offset_int)))
+      lp_offset_slope <-
+        glm(f.ext$y ~ lp.ext + offset(lp.ext), family = binomial)
+      lp_offset_slope_se <-
+        sqrt(diag(vcov(lp_offset_slope)))
       
       fit_full <-
         -1*LLlogistic(fm.val, data = data,
@@ -256,19 +269,35 @@ mivalext_lr <-
         hl.m <- hoslem_test(f.ext$y, p.ext, g=g)$chisq
       }
       
-      stats_ext[i,] <-  c(slope_extern, rsq.nagel, auc.m, se.roc.m, hl.m)
+      stats_ext[i,] <-  c(slope_extern, slope_extern_se, rsq.nagel, auc.m, se.roc.m, hl.m,
+                          coef(lp_offset_int), lp_offset_int_se, coef(lp_offset_slope)[2],
+                          lp_offset_slope_se[2])
     }
     
     stats_ext <-
-      data.frame(intercept=stats_ext[, 1], slope=stats_ext[, 2],
-                 rsq.mi=stats_ext[, 3],
-                 auc.mi=stats_ext[, 4], auc.mi.se=stats_ext[, 5],
-                 hl.mi=stats_ext[, 6])
+      data.frame(intercept=stats_ext[, 1], intercept_se=stats_ext[, 3], slope=stats_ext[, 2],
+                 slope_se=stats_ext[, 4], rsq.mi=stats_ext[, 5],
+                 auc.mi=stats_ext[, 6], auc.mi.se=stats_ext[, 7],
+                 hl.mi=stats_ext[, 8], offset_intercept=stats_ext[, 9],
+                 offset_intercept_se=stats_ext[, 10], offset_slope=stats_ext[, 11],
+                 offset_slope_se=stats_ext[, 12])
     
     coef.pool <-
       round(colMeans(do.call("rbind", coef_extern)), 5)
-    lp.pool <-
-      round(colMeans(stats_ext[, c("intercept", "slope")]), 5)
+    
+    source("pool_RR.R")
+    
+    pooled_int <-
+      pool_RR(stats_ext$intercept, stats_ext$intercept_se, n=n, k=1)
+    
+    pooled_slope <-
+      pool_RR(stats_ext$slope, stats_ext$slope_se, n=n, k=1)
+    pooled_offset_int <-
+      pool_RR(stats_ext$offset_intercept, stats_ext$offset_intercept_se, n=n, k=1)
+    pooled_offset_slope <-
+      pool_RR(stats_ext$offset_slope, stats_ext$offset_slope_se, n=n, k=1)
+    res_pool_lp <-
+      rbind(pooled_int, pooled_slope, pooled_offset_int, pooled_offset_slope)
     
     # ROC/AUC
     # RR on logit transformation ROC curve and SE
@@ -285,20 +314,20 @@ mivalext_lr <-
     inv.z.rsq.p <- round(tanh(z.rsq.p), 5)
     
     # H&L test
-    res.hl <- pool_D2(dw=stats_ext[, 6], v=g-2)
+    res.hl <-
+      round(pool_D2(dw=stats_ext[, 6], v=g-2), 5)
     
     message("\n", "Pooled performance measures over m = ",
             nimp, " imputed external validation datasets
             correctly estimated", "\n\n")
     
-    res.perform <- list(ROC=auc_RR, R2=inv.z.rsq.p,
-                        HLtest=res.hl, coef_pooled=coef.pool,
-                        LP_pooled_ext=lp.pool, nimp=nimp, impvar=impvar,
-                        formula=formula, val_check=val.check, g=g,
-                        coef_check=coef.check,
-                        groups_cal=groups_cal)
-    
-    
+    res.perform <-
+      list(Calibrate_LP=res_pool_lp, coef_pooled=coef.pool,
+           ROC=auc_RR, R2=inv.z.rsq.p, HLtest=res.hl,
+           nimp=nimp, impvar=impvar, formula=formula,
+           val_check=val.check, g=g,
+           coef_check=coef.check,
+           groups_cal=groups_cal)
     if(cal.plot){
       ID.mi <- rep(1:nimp, each=groups_cal)
       myX <- scale_x_continuous(limits = c(-0.1, 1.1),
@@ -369,5 +398,6 @@ mivalext_lr <-
         print(g3)
       }
     }
+    
     return(res.perform)
 }

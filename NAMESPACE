@@ -37,6 +37,7 @@ export(coxph_bw)
 export(coxph_fw)
 export(bw_single)
 export(psfmi_perform)
+export(pool_RR)
 
 importFrom(stats, glm)
 importFrom(stats, coef)
