@@ -289,9 +289,7 @@ mivalext_lr <-
     
     coef.pool <-
       round(colMeans(do.call("rbind", coef_extern)), 5)
-    
-    source("pool_RR.R")
-    
+
     pooled_int <-
       pool_RR(stats_ext$intercept, stats_ext$intercept_se, n=n, k=1)
     
