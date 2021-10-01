@@ -63,28 +63,31 @@ if "overlay" calibration plots from each imputed datasets are plotted in one fig
 }
 \value{
 A \code{mivalext_lr} object from which the following objects 
- can be extracted: ROC results as \code{ROC}, R squared results as \code{R2}, 
- Hosmer and Lemeshow test as \code{HL_test}, coefficients pooled as 
- \code{coef_pooled}, linear predictor pooled as \code{LP_pooled ext}, 
- and \code{formula}, \code{nimp}, \code{impvar}, \code{val.check}, 
- \code{g}, \code{coef.check} and \code{groups_cal}.
+ can be extracted: \code{calibrate} with information about 
+ mis-calibration in intercept and slope with and without offset procedure, 
+ \code{coef_pooled}, coefficients pooled, ROC results as \code{ROC}, 
+ R squared results as \code{R2}, Hosmer and Lemeshow test as \code{HL_test}, 
+ \code{nimp}, \code{formula}, \code{impvar}, \code{val.check}, \code{g}, 
+ \code{coef.check} and \code{groups_cal}.
 }
 \description{
 \code{mivalext_lr} External validation of logistic prediction models
 }
 \details{
 The following information of the externally validated model is provided:
- \code{ROC} pooled ROC curve (back transformed after pooling log transformed
+ \code{calibrate} with information of \code{pooled_int} and \code{pooled_slope} that is
+ the pooled linear predictor (LP), after the LP is freely estimated in each external imputed 
+ dataset (provides information about miscalibration in intercept and slope),
+ \code{pooled_offset_int} and \code{pooled_offset_slope} with information about miscalibration
+ in intercept and slope separately by using an offset procedure (Steyerberg, p. 300), 
+ \code{coef_pooled} with the pooled coefficients when the model is freely estimated in 
+ imputed datasets, \code{ROC} pooled ROC curve (back transformed after pooling log transformed
  ROC curves), \code{R2} pooled Nagelkerke R-Square value (back transformed after 
  pooling Fisher transformed values), \code{HLtest} pooled Hosmer and Lemeshow 
- Test (using function \code{pool_D2}), \code{coef_pooled} pooled coefficients 
- when model is freely estimated in imputed datasets and \code{LP_pooled_ext} 
- the pooled linear predictor (LP), after the externally validated LP is estimated in 
- each imputed dataset (provides information about miscalibration in intercept and slope). 
- In addition information is provided about \code{nimp}, \code{impvar}, \code{formula},
- \code{val_ckeck}, \code{g} and \code{coef_check}. When the external validation is 
- very poor, the R2 can become negative due to the poor fit of the model in
- the external dataset (in that case you may report a R2 of zero).
+ Test (using function \code{pool_D2}). In addition information is provided about 
+ \code{nimp}, \code{impvar}, \code{formula}, \code{val_ckeck}, \code{g} and \code{coef_check}. 
+ When the external validation is very poor, the R2 can become negative due to the poor fit of 
+ the model in the external dataset (in that case you may report a R2 of zero).
 }
 \examples{
 
@@ -98,6 +101,9 @@ mivalext_lr(data.val=lbpmilr, nimp=5, impvar="Impnr",
 F. Harrell. Regression Modeling Strategies. With Applications to
  Linear Models, Logistic and Ordinal Regression, and Survival Analysis. 2nd Edition.
  Springer, New York, NY, 2015.
+
+EW. Steyerberg (2019). Clinical Prediction MOdels. A Practical Approach
+ to Development, Validation, and Updating (2nd edition). Springer Nature Switzerland AG.
 
 Van Buuren S. (2018). Flexible Imputation of Missing Data. 2nd Edition. Chapman &
  Hall/CRC Interdisciplinary Statistics. Boca Raton.
