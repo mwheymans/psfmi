@@ -77,14 +77,15 @@ A \code{mivalext_lr} object from which the following objects
 The following information of the externally validated model is provided:
  \code{calibrate} with information of \code{pooled_int} and \code{pooled_slope} that is
  the pooled linear predictor (LP), after the LP is freely estimated in each external imputed 
- dataset (provides information about miscalibration in intercept and slope),
- \code{pooled_offset_int} and \code{pooled_offset_slope} with information about miscalibration
- in intercept and slope separately by using an offset procedure (Steyerberg, p. 300), 
- \code{coef_pooled} with the pooled coefficients when the model is freely estimated in 
- imputed datasets, \code{ROC} pooled ROC curve (back transformed after pooling log transformed
- ROC curves), \code{R2} pooled Nagelkerke R-Square value (back transformed after 
- pooling Fisher transformed values), \code{HLtest} pooled Hosmer and Lemeshow 
- Test (using function \code{pool_D2}). In addition information is provided about 
+ dataset \code{Outcome ~ a + LP} (provides information about miscalibration in intercept 
+ and slope), \code{pooled_offset_int} as \code{Outcome ~ a + offset(LP)} and 
+ \code{pooled_offset_slope} as \code{Outcome ~ a + LP + offset(LP)} with information 
+ about miscalibration in intercept and slope separately by using an offset procedure 
+ (see Steyerberg, p. 300), \code{coef_pooled} with the pooled coefficients when the model 
+ is freely estimated in imputed datasets, \code{ROC} pooled ROC curve (back transformed 
+ after pooling log transformed ROC curves), \code{R2} pooled Nagelkerke R-Square value 
+ (back transformed after pooling Fisher transformed values), \code{HLtest} pooled Hosmer 
+ and Lemeshow Test (using function \code{pool_D2}). In addition information is provided about 
  \code{nimp}, \code{impvar}, \code{formula}, \code{val_ckeck}, \code{g} and \code{coef_check}. 
  When the external validation is very poor, the R2 can become negative due to the poor fit of 
  the model in the external dataset (in that case you may report a R2 of zero).
