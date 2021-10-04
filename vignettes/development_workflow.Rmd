@@ -187,22 +187,38 @@ due to missing data.
     formula = pool_lr$formula_final[[1]], lp.orig = c(res$int_adj, 
     res$coef_shrink_pooled), cal.plot = TRUE, plot.method = "mean")
  
+  res_extval$calibrate  
+
   res_extval$ROC
  
   res_extval$R2
  
   res_extval$HLtest
  
-  res_extval$LP_pooled_ext
+  
  
 ```
 
-In the external dataset the AUC is 0.8482 and the R-squared 0.45587. The
-Hosmer and Lemeshow test has a p-value of 0.67820, which means that
-the fit is satisfactory. This is also confirmed by the calibration plot
-where the calibration curves averaged across multiply imputed datasets is 
-near the optimal (dashed) line. The slope (regression coefficients) has a 
-value of 0.88741 and slightly deviates from the value of 1, which means 
-that the coefficient values differ between the development and external dataset.
+Under calibrate information is provided about `pooled_int`, `pooled_slope`, 
+`pooled_offset_int` and `pooled_offset_slope`. The `pooled_int` and `pooled_slope`
+gives information about the pooled linear predictor (LP), after the LP is freely 
+estimated in each external imputed dataset (provides information about 
+miscalibration in intercept and slope). The `pooled_offset_int` and 
+`pooled_offset_slope` give information about miscalibration in intercept and slope 
+separately by using an offset procedure (see Steyerberg, p. 300). We see that in
+the external dataset the slope has a value of 0.88741 and slightly deviates from 
+the value of 1, which means that the coefficient values slightly differ between 
+the development and external dataset. The `pooled_offset_int` and 
+`pooled_offset_slope` are not significant, which means that the deviation in 
+intercept and slope are not significant in the external dataset (be aware that
+the p-value has to be interpreted with care). Also see that the deviation 
+in the slope under `pooled_offset_slope` of -0.1125917 is exactly equal to 
+the difference from 1 of the pooled_slope, i.e. 1-0.1125917 = 0.8874083 (the
+intercept value of this model is equal to the value under `pooled_int`). 
+the AUC is 0.8482 and the R-squared 0.45587. The Hosmer and Lemeshow test has a 
+p-value of 0.67820 (interprete with care also), which means that the fit is satisfactory. 
+This is also confirmed by the calibration plot where the calibration curves averaged 
+across multiply imputed datasets is near the optimal (dashed) line. 
+
 
 Back to [Steps]
