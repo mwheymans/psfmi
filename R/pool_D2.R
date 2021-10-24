@@ -36,6 +36,6 @@ pool_D2 <- function(dw, v){
   p_value <-
     stats::pf(D2, df1 = v, df2 = v2, lower.tail = FALSE)
   res <-
-    c(D2=D2, p=p_value, df1 = v, df2 = v2)
+    round(c(D2=D2, p=p_value, df1 = v, df2 = v2), 6)
   return(res)
 }
