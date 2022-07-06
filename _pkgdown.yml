@@ -34,6 +34,7 @@ reference:
   - scaled_brier
   - rsq_nagel
   - rsq_surv
+  - pool_RR
   - pool_D2
   - pool_D4
 - title: Datasets used in examples and tutorials
@@ -62,3 +63,7 @@ reference:
   - lbpmilr
   - lbpmilr_dev
   - lbpmi_extval
+- title: Old functions (Deprecated)
+- contents:
+  - bw_single
+  - psfmi_perform

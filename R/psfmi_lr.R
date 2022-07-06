@@ -81,7 +81,6 @@
 #'  \item  \code{keep.predictors} names of predictors that were forced in the model    
 #' }
 #'
-#'
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
 #'   covariates in logistic regression models after multiple imputation: power and applicability
 #'   analysis. BMC Med Res Methodol. 2017;17(1):129.

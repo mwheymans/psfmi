@@ -7,9 +7,9 @@
 pool_D2(dw, v)
 }
 \arguments{
-\item{dw}{a vector of chi square values obtained after multiple imputation.}
+\item{dw}{a vector of Chi square values obtained after multiple imputation.}
 
-\item{v}{single value for the degrees of freedom of the chi square statistic.}
+\item{v}{single value for the degrees of freedom of the Chi square statistic.}
 }
 \value{
 The pooled chi square values as the D2 statistic, the p-value,

@@ -17,7 +17,7 @@
 pool_reclassification <-
   function(datasets, cutoff = cutoff) {
     
-    if(class(datasets)!="list")
+    if(!inherits(datasets, "list"))
       stop("\n", "Object should be a list of data.frames or matrices
                with predicted probabilities and outcomes corresponding
                to the multiply imputed datasets", "\n")

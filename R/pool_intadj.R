@@ -46,7 +46,7 @@
 #'   
 #' @export   
 pool_intadj <- function(pobj, shrinkage_factor){
-  if(class(pobj)!="pmods")
+  if(!inherits(pobj, "pmods"))
     stop("\n", "Object should be of type pmods", "\n")
   if(pobj$model_type=="survival")
     stop("\n", "Pooling of intercepts only available for models of type binomial", "\n")

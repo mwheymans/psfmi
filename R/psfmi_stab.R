@@ -67,7 +67,7 @@ psfmi_stab <- function(pobj, boot_method=NULL, nboot=20,
                        p.crit = 0.05, start_model = TRUE, direction = NULL)
 {
   
-  if(class(pobj)!="pmods")
+  if(!inherits(pobj, "pmods"))
     stop("\n", "Object should be of type pmods", "\n")
   if(is.null(boot_method))
     stop("\n", "boot_method is not defined, choose single or cluster", "\n")
@@ -101,7 +101,7 @@ psfmi_stab <- function(pobj, boot_method=NULL, nboot=20,
   data <- pobj$data
   boot_seq <- as.list(1:nboot)
   
-  if (class(pobj)=="pmods" & boot_method == "single"){
+  if (inherits(pobj, "pmods") & boot_method == "single"){
     
     boot_data <- bootstraps(data, strata = pobj$impvar, times = nboot)
     boot_pred_pat <- mapply(function(x, y) {
@@ -177,7 +177,7 @@ psfmi_stab <- function(pobj, boot_method=NULL, nboot=20,
     return(stabobj)
   }
   
-  if(class(pobj)=="pmods" & boot_method == "cluster")
+  if(inherits(pobj, "pmods") & boot_method == "cluster")
   {
     if(is_empty(pobj$clusvar))
       stop("\n", "No cluster variable defined, use single bootstrapping method")

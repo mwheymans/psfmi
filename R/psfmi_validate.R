@@ -144,7 +144,7 @@ psfmi_validate <- function(pobj,
   #General Settings
   call <- match.call()
   
-  if(class(pobj)!="pmods")
+  if(!inherits(pobj, "pmods"))
     stop("\n", "Object should be of type pmods", "\n")
   if(pobj$model_type!="binomial")
     stop("\n", "Methods only available for models of type binomial", "\n")

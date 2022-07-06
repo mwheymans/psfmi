@@ -3,8 +3,8 @@
 #' \code{pool_D2} The D2 statistic to combine the Chi square values 
 #'  across Multiply Imputed datasets.
 #'  
-#' @param dw a vector of chi square values obtained after multiple imputation.  
-#' @param v single value for the degrees of freedom of the chi square statistic.
+#' @param dw a vector of Chi square values obtained after multiple imputation.  
+#' @param v single value for the degrees of freedom of the Chi square statistic.
 #'                                               
 #' @return The pooled chi square values as the D2 statistic, the p-value,
 #'  the numerator, df1 and denominator, df2 degrees of freedom for the
@@ -36,6 +36,7 @@ pool_D2 <- function(dw, v){
   p_value <-
     stats::pf(D2, df1 = v, df2 = v2, lower.tail = FALSE)
   res <-
-    round(c(D2=D2, p=p_value, df1 = v, df2 = v2), 6)
+    matrix(c(D2, p_value, v, v2), ncol=4)
+  colnames(res) <- c("F_value", "P(>F)", "df1", "df2")
   return(res)
 }

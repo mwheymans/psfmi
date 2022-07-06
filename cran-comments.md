@@ -4,6 +4,12 @@ title: "cran_comments"
 
 ## Resubmission
 This is a resubmission. In this version I have:
+* Updated version nr to 1.1.0.
+* Added df_com to the D1 and D2 method for small sample
+correction.
+
+## Resubmission
+This is a resubmission. In this version I have:
 * Updated version nr to 1.0.0.
 * Added the functions psfmi_lm, psfmi_lm_fw, psfmi_lr_bw for pooling
 and backward and forward selection of linear regression models.

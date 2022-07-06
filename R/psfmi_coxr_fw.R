@@ -144,7 +144,7 @@ psfmi_coxr_fw <- function(data, nimp, impvar, status, time, p.crit, P, keep.P, m
         names(RR.model)[k] <- paste("Step", j)
         if(P_select==0) names(RR.model)[k] <- paste("Step", 1)
 
-        tmr <- mitml::testModels(fit1, fit0, method = method)
+        tmr <- suppressWarnings(mitml::testModels(fit1, fit0, method = method))
 
         pvalue <- tmr$test[4]
         fstat <- tmr$test[1]
