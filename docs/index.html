@@ -36,6 +36,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -48,23 +50,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -117,7 +113,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mwheymans/psfmi/">
+  <a href="https://github.com/mwheymans/psfmi/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -134,163 +130,173 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="psfmi" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#psfmi" class="anchor"></a>psfmi</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="psfmi">psfmi<a class="anchor" aria-label="anchor" href="#psfmi"></a>
+</h1></div>
 
 <p>The package provides functions to apply pooling, backward and forward selection of linear, logistic and Cox regression models across multiply imputed data sets using Rubin’s Rules (RR). The D1, D2, D3, D4 and the median p-values method can be used to pool the significance of categorical variables (multiparameter test). The model can contain continuous, dichotomous, categorical and restricted cubic spline predictors and interaction terms between all these type of variables. Variables can also be forced in the model during selection.</p>
 <p>Validation of the prediction models can be performed with cross-validation or bootstrapping across multiply imputed data sets and pooled model performance measures as AUC value, R-square, Hosmer and Lemeshow test, scaled Brier score and calibration plots are generated. Also a function to externally validate logistic prediction models across multiple imputed data sets is available and a function to compare models in multiply imputed data.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install the released version of psfmi with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"psfmi"</span><span class="op">)</span></code></pre></div>
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"psfmi"</span><span class="op">)</span></span></code></pre></div>
+<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"mwheymans/psfmi"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mwheymans/psfmi"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h2>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
 <p>Cite the package as:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Martijn W <span class="fu">Heymans</span> (<span class="dv">2021</span>). psfmi<span class="sc">:</span> Prediction Model Pooling, Selection and Performance Evaluation </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Across Multiply Imputed Datasets. R package version <span class="dv">1</span>.<span class="dv">0</span>.<span class="fl">0.</span> https<span class="sc">:</span><span class="er">//</span>mwheymans.github.io<span class="sc">/</span>psfmi<span class="sc">/</span> </span></code></pre></div>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>This example shows you how to pool a logistic regression model across 5 multiply imputed datasets and that includes two restricted cubic spline variables and a categorical, continuous and dichotomous variable. The pooling method that is used is method D1.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-
-<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Pain</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> 
-                      <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> 
-                      <span class="va">Smoking</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-
-<span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span>
-<span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;                            term      estimate  std.error  statistic        df</span>
-<span class="co">#&gt; 1                   (Intercept) -21.374498123 7.96491209 -2.6835824  65.71094</span>
-<span class="co">#&gt; 2                    JobDemands  -0.007500147 0.05525835 -0.1357288  38.94021</span>
-<span class="co">#&gt; 3                       Smoking   0.072207184 0.51097303  0.1413131  47.98415</span>
-<span class="co">#&gt; 4         factor(Satisfaction)2  -0.506544055 0.56499941 -0.8965391 139.35335</span>
-<span class="co">#&gt; 5         factor(Satisfaction)3  -2.580503376 0.77963853 -3.3098715 100.66273</span>
-<span class="co">#&gt; 6              rcs(Pain, 3)Pain  -0.090675006 0.50510774 -0.1795162  26.92182</span>
-<span class="co">#&gt; 7             rcs(Pain, 3)Pain'   1.183787048 0.55697046  2.1254036  94.79276</span>
-<span class="co">#&gt; 8  rcs(Tampascale, 3)Tampascale   0.583697990 0.22707747  2.5704796  77.83368</span>
-<span class="co">#&gt; 9 rcs(Tampascale, 3)Tampascale'  -0.602128298 0.29484065 -2.0422160  31.45559</span>
-<span class="co">#&gt;       p.value           OR    lower.EXP  upper.EXP</span>
-<span class="co">#&gt; 1 0.009206677 5.214029e-10 6.460344e-17 0.00420815</span>
-<span class="co">#&gt; 2 0.892734942 9.925279e-01 8.875626e-01 1.10990663</span>
-<span class="co">#&gt; 3 0.888214212 1.074878e+00 3.847422e-01 3.00295282</span>
-<span class="co">#&gt; 4 0.371511077 6.025744e-01 1.971829e-01 1.84141687</span>
-<span class="co">#&gt; 5 0.001296125 7.573587e-02 1.612863e-02 0.35563604</span>
-<span class="co">#&gt; 6 0.858876729 9.133145e-01 3.239353e-01 2.57503035</span>
-<span class="co">#&gt; 7 0.036152843 3.266722e+00 1.081155e+00 9.87043962</span>
-<span class="co">#&gt; 8 0.012063538 1.792655e+00 1.140659e+00 2.81733025</span>
-<span class="co">#&gt; 9 0.049589266 5.476448e-01 3.002599e-01 0.99885104</span>
-<span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm</span>
-<span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;                      p-values D1 F-statistic</span>
-<span class="co">#&gt; JobDemands           0.892487763  0.01842230</span>
-<span class="co">#&gt; Smoking              0.887968553  0.01996939</span>
-<span class="co">#&gt; factor(Satisfaction) 0.002611518  6.04422205</span>
-<span class="co">#&gt; rcs(Pain,3)          0.014630986  4.84409246</span>
-<span class="co">#&gt; rcs(Tampascale,3)    0.130741167  2.24870192</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Pain</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>                      <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>                      <span class="va">Smoking</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span></span>
+<span><span class="co">#&gt; $`Step 1 - no variables removed -`</span></span>
+<span><span class="co">#&gt;                            term      estimate  std.error  statistic        df</span></span>
+<span><span class="co">#&gt; 1                   (Intercept) -21.374498123 7.96491209 -2.6835824  65.71094</span></span>
+<span><span class="co">#&gt; 2                    JobDemands  -0.007500147 0.05525835 -0.1357288  38.94021</span></span>
+<span><span class="co">#&gt; 3                       Smoking   0.072207184 0.51097303  0.1413131  47.98415</span></span>
+<span><span class="co">#&gt; 4         factor(Satisfaction)2  -0.506544055 0.56499941 -0.8965391 139.35335</span></span>
+<span><span class="co">#&gt; 5         factor(Satisfaction)3  -2.580503376 0.77963853 -3.3098715 100.66273</span></span>
+<span><span class="co">#&gt; 6              rcs(Pain, 3)Pain  -0.090675006 0.50510774 -0.1795162  26.92182</span></span>
+<span><span class="co">#&gt; 7             rcs(Pain, 3)Pain'   1.183787048 0.55697046  2.1254036  94.79276</span></span>
+<span><span class="co">#&gt; 8  rcs(Tampascale, 3)Tampascale   0.583697990 0.22707747  2.5704796  77.83368</span></span>
+<span><span class="co">#&gt; 9 rcs(Tampascale, 3)Tampascale'  -0.602128298 0.29484065 -2.0422160  31.45559</span></span>
+<span><span class="co">#&gt;       p.value           OR    lower.EXP  upper.EXP</span></span>
+<span><span class="co">#&gt; 1 0.009206677 5.214029e-10 6.460344e-17 0.00420815</span></span>
+<span><span class="co">#&gt; 2 0.892734942 9.925279e-01 8.875626e-01 1.10990663</span></span>
+<span><span class="co">#&gt; 3 0.888214212 1.074878e+00 3.847422e-01 3.00295282</span></span>
+<span><span class="co">#&gt; 4 0.371511077 6.025744e-01 1.971829e-01 1.84141687</span></span>
+<span><span class="co">#&gt; 5 0.001296125 7.573587e-02 1.612863e-02 0.35563604</span></span>
+<span><span class="co">#&gt; 6 0.858876729 9.133145e-01 3.239353e-01 2.57503035</span></span>
+<span><span class="co">#&gt; 7 0.036152843 3.266722e+00 1.081155e+00 9.87043962</span></span>
+<span><span class="co">#&gt; 8 0.012063538 1.792655e+00 1.140659e+00 2.81733025</span></span>
+<span><span class="co">#&gt; 9 0.049589266 5.476448e-01 3.002599e-01 0.99885104</span></span>
+<span><span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm</span></span>
+<span><span class="co">#&gt; $`Step 1 - no variables removed -`</span></span>
+<span><span class="co">#&gt;                      p-values D1 F-statistic</span></span>
+<span><span class="co">#&gt; JobDemands           0.892487763  0.01842230</span></span>
+<span><span class="co">#&gt; Smoking              0.887968553  0.01996939</span></span>
+<span><span class="co">#&gt; factor(Satisfaction) 0.002611518  6.04422205</span></span>
+<span><span class="co">#&gt; rcs(Pain,3)          0.014630986  4.84409246</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)    0.130741167  2.24870192</span></span></code></pre></div>
 <p>This example shows you how to apply forward selection of the above model using a p-value of 0.05.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-
-<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Pain</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> 
-                      <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> 
-                      <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">0.05</span>, direction<span class="op">=</span><span class="st">"FW"</span>, 
-                      nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-<span class="co">#&gt; Entered at Step 1 is - rcs(Pain,3)</span>
-<span class="co">#&gt; Entered at Step 2 is - factor(Satisfaction)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span>
-<span class="co">#&gt; $`Final model`</span>
-<span class="co">#&gt;                    term   estimate std.error  statistic        df     p.value</span>
-<span class="co">#&gt; 1           (Intercept) -3.6027668 1.5427414 -2.3353018  60.25659 0.022875170</span>
-<span class="co">#&gt; 2 factor(Satisfaction)2 -0.4725289 0.5164342 -0.9149838 145.03888 0.361718841</span>
-<span class="co">#&gt; 3 factor(Satisfaction)3 -2.3328994 0.7317131 -3.1882707 122.95905 0.001815476</span>
-<span class="co">#&gt; 4      rcs(Pain, 3)Pain  0.6514983 0.4028728  1.6171315  51.09308 0.112008088</span>
-<span class="co">#&gt; 5     rcs(Pain, 3)Pain'  0.4703811 0.4596490  1.0233483  75.29317 0.309419924</span>
-<span class="co">#&gt;           OR   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 0.02724823 0.001245225 0.5962503</span>
-<span class="co">#&gt; 2 0.62342367 0.224644070 1.7301016</span>
-<span class="co">#&gt; 3 0.09701406 0.022793375 0.4129150</span>
-<span class="co">#&gt; 4 1.91841309 0.854476033 4.3070942</span>
-<span class="co">#&gt; 5 1.60060402 0.640677978 3.9987846</span>
-<span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm</span>
-<span class="co">#&gt; $`Step 0 - selected - rcs(Pain,3)`</span>
-<span class="co">#&gt;                        p-value D1</span>
-<span class="co">#&gt; JobDemands           7.777737e-01</span>
-<span class="co">#&gt; Smoking              9.371529e-01</span>
-<span class="co">#&gt; factor(Satisfaction) 9.271071e-01</span>
-<span class="co">#&gt; rcs(Pain,3)          3.282999e-07</span>
-<span class="co">#&gt; rcs(Tampascale,3)    2.780012e-06</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Step 1 - selected - factor(Satisfaction)`</span>
-<span class="co">#&gt;                       p-value D1</span>
-<span class="co">#&gt; JobDemands           0.952900908</span>
-<span class="co">#&gt; Smoking              0.769394518</span>
-<span class="co">#&gt; factor(Satisfaction) 0.004738608</span>
-<span class="co">#&gt; rcs(Tampascale,3)    0.125280292</span></code></pre></div>
-<p>More examples for logistic, linear and Cox regression models as well as internal and external validation of prediction models can be found on the <a href="https://mwheymans.github.io/psfmi/">package website</a> or in the online book <a href="https://bookdown.org/mwheymans/bookmi/">Applied Missing Data Analysis</a>.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Pain</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>                      <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>                      <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">0.05</span>, direction<span class="op">=</span><span class="st">"FW"</span>, </span>
+<span>                      nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - rcs(Pain,3)</span></span>
+<span><span class="co">#&gt; Entered at Step 2 is - factor(Satisfaction)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
+<span><span class="co">#&gt; $`Final model`</span></span>
+<span><span class="co">#&gt;                    term   estimate std.error  statistic        df     p.value</span></span>
+<span><span class="co">#&gt; 1           (Intercept) -3.6027668 1.5427414 -2.3353018  60.25659 0.022875170</span></span>
+<span><span class="co">#&gt; 2 factor(Satisfaction)2 -0.4725289 0.5164342 -0.9149838 145.03888 0.361718841</span></span>
+<span><span class="co">#&gt; 3 factor(Satisfaction)3 -2.3328994 0.7317131 -3.1882707 122.95905 0.001815476</span></span>
+<span><span class="co">#&gt; 4      rcs(Pain, 3)Pain  0.6514983 0.4028728  1.6171315  51.09308 0.112008088</span></span>
+<span><span class="co">#&gt; 5     rcs(Pain, 3)Pain'  0.4703811 0.4596490  1.0233483  75.29317 0.309419924</span></span>
+<span><span class="co">#&gt;           OR   lower.EXP upper.EXP</span></span>
+<span><span class="co">#&gt; 1 0.02724823 0.001245225 0.5962503</span></span>
+<span><span class="co">#&gt; 2 0.62342367 0.224644070 1.7301016</span></span>
+<span><span class="co">#&gt; 3 0.09701406 0.022793375 0.4129150</span></span>
+<span><span class="co">#&gt; 4 1.91841309 0.854476033 4.3070942</span></span>
+<span><span class="co">#&gt; 5 1.60060402 0.640677978 3.9987846</span></span>
+<span><span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm</span></span>
+<span><span class="co">#&gt; $`Step 0 - selected - rcs(Pain,3)`</span></span>
+<span><span class="co">#&gt;                        p-value D1</span></span>
+<span><span class="co">#&gt; JobDemands           7.777737e-01</span></span>
+<span><span class="co">#&gt; Smoking              9.371529e-01</span></span>
+<span><span class="co">#&gt; factor(Satisfaction) 9.271071e-01</span></span>
+<span><span class="co">#&gt; rcs(Pain,3)          3.282999e-07</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)    2.780012e-06</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Step 1 - selected - factor(Satisfaction)`</span></span>
+<span><span class="co">#&gt;                       p-value D1</span></span>
+<span><span class="co">#&gt; JobDemands           0.952900908</span></span>
+<span><span class="co">#&gt; Smoking              0.769394518</span></span>
+<span><span class="co">#&gt; factor(Satisfaction) 0.004738608</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)    0.125280292</span></span></code></pre></div>
+<p>More examples for logistic, linear and Cox regression models as well as internal and external validation of prediction models can be found on the <a href="https://mwheymans.github.io/psfmi/">package website</a> or in the online book <a href="https://bookdown.org/mwheymans/bookmi/" class="external-link">Applied Missing Data Analysis</a>.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=psfmi">https://​cloud.r-project.org/​package=psfmi</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/mwheymans/psfmi/">https://​github.com/​mwheymans/​psfmi/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/mwheymans/psfmi/issues/%20">https://​github.com/​mwheymans/​psfmi/​issues/​ </a>
-</li>
+<li><a href="https://cloud.r-project.org/package=psfmi" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/mwheymans/psfmi/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/mwheymans/psfmi/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;= 2)</li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Martijn Heymans <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-3889-0921" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing psfmi</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=psfmi"><img src="https://www.r-pkg.org/badges/version-ago/psfmi" alt="CRAN_Release_Badge"></a></li>
-<li><a href="https://CRAN.R-project.org/package=psfmi"><img src="https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue" alt="Monthly downloads badge"></a></li>
-<li><a href="https://travis-ci.org/mwheymans/psfmi"><img src="https://travis-ci.com/mwheymans/psfmi.svg?branch=master" alt="Travis Build Status"></a></li>
-<li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg" alt="minimal R version"></a></li>
+<li>Martijn Heymans <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-3889-0921" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=psfmi" class="external-link"><img src="https://www.r-pkg.org/badges/version-ago/psfmi" alt="CRAN_Release_Badge"></a></li>
+<li><a href="https://CRAN.R-project.org/package=psfmi" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue" alt="Monthly downloads badge"></a></li>
+<li><a href="https://travis-ci.org/mwheymans/psfmi" class="external-link"><img src="https://travis-ci.com/mwheymans/psfmi.svg?branch=master" alt="Travis Build Status"></a></li>
+<li><a href="https://cran.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg" alt="minimal R version"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Martijn Heymans.</p>
+  <p></p>
+<p>Developed by Martijn Heymans.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -298,6 +304,8 @@
 
   
 
+
+  
 
   </body>
 </html>

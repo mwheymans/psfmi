@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -100,7 +96,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mwheymans/psfmi/">
+  <a href="https://github.com/mwheymans/psfmi/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -115,1039 +111,500 @@
 
       
 
-      </header><script src="psfmi_StabilityAnalysis_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Stability analysis after Multiple Imputation</h1>
-                        <h4 class="author">Martijn W Heymans</h4>
+      <h1 data-toc-skip>Stability analysis after Multiple
+Imputation</h1>
+                        <h4 data-toc-skip class="author">Martijn W
+Heymans</h4>
             
-            <h4 class="date">2021-09-23</h4>
+            <h4 data-toc-skip class="date">2022-07-06</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_StabilityAnalysis.Rmd"><code>vignettes/psfmi_StabilityAnalysis.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/HEAD/vignettes/psfmi_StabilityAnalysis.Rmd" class="external-link"><code>vignettes/psfmi_StabilityAnalysis.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_StabilityAnalysis.Rmd</code></div>
 
     </div>
 
     
     
-<div id="stability-analysis" class="section level1">
-<h1 class="hasAnchor">
-<a href="#stability-analysis" class="anchor"></a>Stability analysis</h1>
-<p>The psfmi package contains a function to conduct stability analyses of logistic, Cox and Mixed models. With this function the stability of models selected and the bootstrap inclusion frequency can be evaluated. For logistic and Cox regression models bootstrapping is than used and for Multilevel models cluster bootstrapping.</p>
+<div class="section level2">
+<h2 id="stability-analysis">Stability analysis<a class="anchor" aria-label="anchor" href="#stability-analysis"></a>
+</h2>
+<p>The psfmi package contains a function to conduct stability analyses
+of logistic, Cox and Mixed models. With this function the stability of
+models selected and the bootstrap inclusion frequency can be evaluated.
+For logistic and Cox regression models bootstrapping is than used and
+for Multilevel models cluster bootstrapping.</p>
 </div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <ul>
-<li><a href="#stability-analysis-of-logistic-regression-model">Stability analysis of Logistic regression model</a></li>
-<li><a href="#stability-analysis-of-cox-regression-model">Stability analysis of Cox regression model</a></li>
+<li><a href="#stability-analysis-of-logistic-regression-model">Stability
+analysis of Logistic regression model</a></li>
+<li><a href="#stability-analysis-of-cox-regression-model">Stability
+analysis of Cox regression model</a></li>
 </ul>
-<div id="stability-analysis-of-logistic-regression-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#stability-analysis-of-logistic-regression-model" class="anchor"></a>Stability analysis of Logistic regression model</h2>
+<div class="section level3">
+<h3 id="stability-analysis-of-logistic-regression-model">Stability analysis of Logistic regression model<a class="anchor" aria-label="anchor" href="#stability-analysis-of-logistic-regression-model"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">psfmi_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,
-                      predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"JobControl"</span>, <span class="st">"Age"</span>, <span class="st">"Duration"</span>,
-                         <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, p.crit <span class="op">=</span><span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"MPR"</span>,
-                      cat.predictors <span class="op">=</span> <span class="st">"Satisfaction"</span>, int.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender:JobControl"</span><span class="op">)</span>,
-                      direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span>
-<span class="co">#&gt; Removed at Step 1 is - Smoking</span>
-<span class="co">#&gt; Removed at Step 2 is - Duration</span>
-<span class="co">#&gt; Removed at Step 3 is - JobDemands</span>
-<span class="co">#&gt; Removed at Step 4 is - factor(Satisfaction)</span>
-<span class="co">#&gt; Removed at Step 5 is - Gender*JobControl</span>
-<span class="co">#&gt; Removed at Step 6 is - JobControl</span>
-<span class="co">#&gt; Removed at Step 7 is - SocialSupport</span>
-<span class="co">#&gt; Removed at Step 8 is - Age</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No more variables removed from the model</span>
-   <span class="va">stab_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_stab.html">psfmi_stab</a></span><span class="op">(</span><span class="va">psfmi_res</span>, direction<span class="op">=</span><span class="st">"FW"</span>, start_model <span class="op">=</span> <span class="cn">TRUE</span>,
-      boot_method <span class="op">=</span> <span class="st">"single"</span>, nboot<span class="op">=</span><span class="fl">20</span>, p.crit<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 1</span>
-<span class="co">#&gt; Entered at Step 1 is - Gender</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 3</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 4</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 6</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 7</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 8</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 9</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 10</span>
-<span class="co">#&gt; Entered at Step 1 is - Age</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 11</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 12</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 13</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 14</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 15</span>
-<span class="co">#&gt; Entered at Step 1 is - Gender</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 16</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 17</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 18</span>
-<span class="co">#&gt; Entered at Step 1 is - Age</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 19</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 20</span>
-<span class="co">#&gt; Entered at Step 1 is - Gender</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-   <span class="va">stab_res</span><span class="op">$</span><span class="va">bif</span>
-<span class="co">#&gt;         Gender Smoking JobControl Age Duration JobDemands SocialSupport</span>
-<span class="co">#&gt; boot 1       1       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 2       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 3       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 4       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 5       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 6       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 7       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 8       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 9       0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 10      0       0          0   1        0          0             0</span>
-<span class="co">#&gt; boot 11      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 12      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 13      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 14      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 15      1       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 16      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 17      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 18      0       0          0   1        0          0             0</span>
-<span class="co">#&gt; boot 19      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; boot 20      1       0          0   0        0          0             0</span>
-<span class="co">#&gt;         factor(Satisfaction) Gender*JobControl</span>
-<span class="co">#&gt; boot 1                     0                 0</span>
-<span class="co">#&gt; boot 2                     0                 0</span>
-<span class="co">#&gt; boot 3                     0                 0</span>
-<span class="co">#&gt; boot 4                     0                 0</span>
-<span class="co">#&gt; boot 5                     0                 0</span>
-<span class="co">#&gt; boot 6                     0                 0</span>
-<span class="co">#&gt; boot 7                     0                 0</span>
-<span class="co">#&gt; boot 8                     0                 0</span>
-<span class="co">#&gt; boot 9                     0                 0</span>
-<span class="co">#&gt; boot 10                    0                 0</span>
-<span class="co">#&gt; boot 11                    0                 0</span>
-<span class="co">#&gt; boot 12                    0                 0</span>
-<span class="co">#&gt; boot 13                    0                 0</span>
-<span class="co">#&gt; boot 14                    0                 0</span>
-<span class="co">#&gt; boot 15                    0                 0</span>
-<span class="co">#&gt; boot 16                    0                 0</span>
-<span class="co">#&gt; boot 17                    0                 0</span>
-<span class="co">#&gt; boot 18                    0                 0</span>
-<span class="co">#&gt; boot 19                    0                 0</span>
-<span class="co">#&gt; boot 20                    0                 0</span>
-  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif_perc</span>
-<span class="co">#&gt;               Gender              Smoking           JobControl </span>
-<span class="co">#&gt;                   15                    0                    0 </span>
-<span class="co">#&gt;                  Age             Duration           JobDemands </span>
-<span class="co">#&gt;                   10                    0                    0 </span>
-<span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender*JobControl </span>
-<span class="co">#&gt;                    0                    0                    0</span>
-  <span class="va">stab_res</span><span class="op">$</span><span class="va">model_stab</span>
-<span class="co">#&gt;   Gender Smoking JobControl Age Duration JobDemands SocialSupport</span>
-<span class="co">#&gt; 1      0       0          0   0        0          0             0</span>
-<span class="co">#&gt; 2      1       0          0   0        0          0             0</span>
-<span class="co">#&gt; 3      0       0          0   1        0          0             0</span>
-<span class="co">#&gt;   factor(Satisfaction) Gender*JobControl freq bif_pat_perc</span>
-<span class="co">#&gt; 1                    0                 0   15           75</span>
-<span class="co">#&gt; 2                    0                 0    3           15</span>
-<span class="co">#&gt; 3                    0                 0    2           10</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span>  <span class="va">psfmi_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, Outcome<span class="op">=</span><span class="st">"Chronic"</span>,</span>
+<span>                      predictors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gender"</span>, <span class="st">"Smoking"</span>, <span class="st">"JobControl"</span>, <span class="st">"Age"</span>, <span class="st">"Duration"</span>,</span>
+<span>                         <span class="st">"JobDemands"</span>, <span class="st">"SocialSupport"</span><span class="op">)</span>, p.crit <span class="op">=</span><span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"MPR"</span>,</span>
+<span>                      cat.predictors <span class="op">=</span> <span class="st">"Satisfaction"</span>, int.predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gender:JobControl"</span><span class="op">)</span>,</span>
+<span>                      direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Removed at Step 1 is - Smoking</span></span>
+<span><span class="co">#&gt; Removed at Step 2 is - Duration</span></span>
+<span><span class="co">#&gt; Removed at Step 3 is - JobDemands</span></span>
+<span><span class="co">#&gt; Removed at Step 4 is - factor(Satisfaction)</span></span>
+<span><span class="co">#&gt; Removed at Step 5 is - Gender*JobControl</span></span>
+<span><span class="co">#&gt; Removed at Step 6 is - JobControl</span></span>
+<span><span class="co">#&gt; Removed at Step 7 is - SocialSupport</span></span>
+<span><span class="co">#&gt; Removed at Step 8 is - Age</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No more variables removed from the model</span></span>
+<span></span>
+<span>   <span class="va">stab_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_stab.html">psfmi_stab</a></span><span class="op">(</span><span class="va">psfmi_res</span>, direction<span class="op">=</span><span class="st">"FW"</span>, start_model <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      boot_method <span class="op">=</span> <span class="st">"single"</span>, nboot<span class="op">=</span><span class="fl">20</span>, p.crit<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 2</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Age</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 3</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Age</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 4</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 5</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 7</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 8</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 9</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 10</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 11</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 12</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 13</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 14</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 15</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 16</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Age</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 17</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 18</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 19</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 20</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span>  </span>
+<span>   <span class="va">stab_res</span><span class="op">$</span><span class="va">bif</span></span>
+<span><span class="co">#&gt;         Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></span>
+<span><span class="co">#&gt; boot 1       0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 2       0       0          0   1        0          0             0</span></span>
+<span><span class="co">#&gt; boot 3       0       0          0   1        0          0             0</span></span>
+<span><span class="co">#&gt; boot 4       0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 5       1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 6       0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 7       1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 8       1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 9       1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 10      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 11      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 12      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 13      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 14      1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 15      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 16      0       0          0   1        0          0             0</span></span>
+<span><span class="co">#&gt; boot 17      1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 18      1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 19      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 20      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt;         factor(Satisfaction) Gender*JobControl</span></span>
+<span><span class="co">#&gt; boot 1                     0                 0</span></span>
+<span><span class="co">#&gt; boot 2                     0                 0</span></span>
+<span><span class="co">#&gt; boot 3                     0                 0</span></span>
+<span><span class="co">#&gt; boot 4                     0                 0</span></span>
+<span><span class="co">#&gt; boot 5                     0                 0</span></span>
+<span><span class="co">#&gt; boot 6                     0                 0</span></span>
+<span><span class="co">#&gt; boot 7                     0                 0</span></span>
+<span><span class="co">#&gt; boot 8                     0                 0</span></span>
+<span><span class="co">#&gt; boot 9                     0                 0</span></span>
+<span><span class="co">#&gt; boot 10                    0                 0</span></span>
+<span><span class="co">#&gt; boot 11                    0                 0</span></span>
+<span><span class="co">#&gt; boot 12                    0                 0</span></span>
+<span><span class="co">#&gt; boot 13                    0                 0</span></span>
+<span><span class="co">#&gt; boot 14                    0                 0</span></span>
+<span><span class="co">#&gt; boot 15                    0                 0</span></span>
+<span><span class="co">#&gt; boot 16                    0                 0</span></span>
+<span><span class="co">#&gt; boot 17                    0                 0</span></span>
+<span><span class="co">#&gt; boot 18                    0                 0</span></span>
+<span><span class="co">#&gt; boot 19                    0                 0</span></span>
+<span><span class="co">#&gt; boot 20                    0                 0</span></span>
+<span>   </span>
+<span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif_perc</span></span>
+<span><span class="co">#&gt;               Gender              Smoking           JobControl </span></span>
+<span><span class="co">#&gt;                   35                    0                    0 </span></span>
+<span><span class="co">#&gt;                  Age             Duration           JobDemands </span></span>
+<span><span class="co">#&gt;                   15                    0                    0 </span></span>
+<span><span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender*JobControl </span></span>
+<span><span class="co">#&gt;                    0                    0                    0</span></span>
+<span>  </span>
+<span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">model_stab</span></span>
+<span><span class="co">#&gt;   Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></span>
+<span><span class="co">#&gt; 1      0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; 2      1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; 3      0       0          0   1        0          0             0</span></span>
+<span><span class="co">#&gt;   factor(Satisfaction) Gender*JobControl freq bif_pat_perc</span></span>
+<span><span class="co">#&gt; 1                    0                 0   10           50</span></span>
+<span><span class="co">#&gt; 2                    0                 0    7           35</span></span>
+<span><span class="co">#&gt; 3                    0                 0    3           15</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
-<div id="stability-analysis-of-cox-regression-model" class="section level3">
-<h3 class="hasAnchor">
-<a href="#stability-analysis-of-cox-regression-model" class="anchor"></a>Stability analysis of Cox regression model</h3>
+<div class="section level4">
+<h4 id="stability-analysis-of-cox-regression-model">Stability analysis of Cox regression model<a class="anchor" aria-label="anchor" href="#stability-analysis-of-cox-regression-model"></a>
+</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="fu">Surv</span><span class="op">(</span><span class="va">Time</span>, <span class="va">Status</span><span class="op">)</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>,<span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-                        <span class="va">Radiation</span> <span class="op">+</span> <span class="va">Radiation</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">Duration</span> <span class="op">+</span> <span class="va">Previous</span> <span class="op">+</span>
-                        <span class="va">Radiation</span><span class="op">*</span><span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span>, data<span class="op">=</span><span class="va">lbpmicox</span>, p.crit <span class="op">=</span> <span class="fl">0.157</span>, direction<span class="op">=</span><span class="st">"FW"</span>,
-                        nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, keep.predictors <span class="op">=</span> <span class="cn">NULL</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; Entered at Step 2 is - Duration</span>
-<span class="co">#&gt; Entered at Step 3 is - rcs(Tampascale,3)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_Model</span>
-<span class="co">#&gt; NULL</span>
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm</span>
-<span class="co">#&gt; $`Step 0 - selected - Pain`</span>
-<span class="co">#&gt;                                 p-value D1</span>
-<span class="co">#&gt; Pain                           0.002972173</span>
-<span class="co">#&gt; Radiation                      0.181042842</span>
-<span class="co">#&gt; Age                            0.351345242</span>
-<span class="co">#&gt; Duration                       0.044028841</span>
-<span class="co">#&gt; Previous                       0.714681296</span>
-<span class="co">#&gt; factor(Satisfaction)           0.708284253</span>
-<span class="co">#&gt; rcs(Tampascale,3)              0.032223680</span>
-<span class="co">#&gt; factor(Satisfaction)*Radiation 0.712860014</span>
-<span class="co">#&gt; rcs(Tampascale,3)*Radiation    0.452891382</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Step 1 - selected - Duration`</span>
-<span class="co">#&gt;                                p-value D1</span>
-<span class="co">#&gt; Radiation                      0.31938607</span>
-<span class="co">#&gt; Age                            0.22333023</span>
-<span class="co">#&gt; Duration                       0.04853205</span>
-<span class="co">#&gt; Previous                       0.54425893</span>
-<span class="co">#&gt; factor(Satisfaction)           0.76439993</span>
-<span class="co">#&gt; rcs(Tampascale,3)              0.07594972</span>
-<span class="co">#&gt; factor(Satisfaction)*Radiation 0.66328781</span>
-<span class="co">#&gt; rcs(Tampascale,3)*Radiation    0.44642240</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Step 2 - selected - rcs(Tampascale,3)`</span>
-<span class="co">#&gt;                                p-value D1</span>
-<span class="co">#&gt; Radiation                      0.32679294</span>
-<span class="co">#&gt; Age                            0.40528789</span>
-<span class="co">#&gt; Previous                       0.44216497</span>
-<span class="co">#&gt; factor(Satisfaction)           0.81050733</span>
-<span class="co">#&gt; rcs(Tampascale,3)              0.06066281</span>
-<span class="co">#&gt; factor(Satisfaction)*Radiation 0.70440131</span>
-<span class="co">#&gt; rcs(Tampascale,3)*Radiation    0.35955920</span>
-  <span class="va">stab_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_stab.html">psfmi_stab</a></span><span class="op">(</span><span class="va">pool_lr</span>, direction<span class="op">=</span><span class="st">"FW"</span>, start_model <span class="op">=</span> <span class="cn">TRUE</span>,
-      boot_method <span class="op">=</span> <span class="st">"single"</span>, nboot<span class="op">=</span><span class="fl">20</span>, p.crit<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 1</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 2</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 3</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 4</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 5</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 6</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 7</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 8</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 9</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Warning in coxph.fit(X, Y, istrat, offset, init, control, weights = weights, :</span>
-<span class="co">#&gt; Loglik converged before variable 3 ; coefficient may be infinite.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 10</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 11</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 12</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 13</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 14</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 15</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Radiation</span>
-<span class="co">#&gt; Entered at Step 2 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 16</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 17</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 18</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; Entered at Step 2 is - Duration</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 19</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Boot 20</span>
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-
-<span class="co">#&gt; Warning in mitml::testModels(fit1, fit0, method = method): The 'model' and</span>
-<span class="co">#&gt; 'null.model' arguments appear to include objects of different classes. Results</span>
-<span class="co">#&gt; may not be trustworthy.</span>
-<span class="co">#&gt; Entered at Step 1 is - Pain</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif</span>
-<span class="co">#&gt;         Pain Radiation Age Duration Previous factor(Satisfaction)</span>
-<span class="co">#&gt; boot 1     0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 2     1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 3     0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 4     0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 5     0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 6     1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 7     0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 8     1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 9     0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 10    0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 11    1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 12    0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 13    1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 14    0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 15    1         1   0        0        0                    0</span>
-<span class="co">#&gt; boot 16    1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 17    1         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 18    1         0   0        1        0                    0</span>
-<span class="co">#&gt; boot 19    0         0   0        0        0                    0</span>
-<span class="co">#&gt; boot 20    1         0   0        0        0                    0</span>
-<span class="co">#&gt;         rcs(Tampascale,3) factor(Satisfaction)*Radiation</span>
-<span class="co">#&gt; boot 1                  0                              0</span>
-<span class="co">#&gt; boot 2                  0                              0</span>
-<span class="co">#&gt; boot 3                  0                              0</span>
-<span class="co">#&gt; boot 4                  0                              0</span>
-<span class="co">#&gt; boot 5                  0                              0</span>
-<span class="co">#&gt; boot 6                  0                              0</span>
-<span class="co">#&gt; boot 7                  0                              0</span>
-<span class="co">#&gt; boot 8                  0                              0</span>
-<span class="co">#&gt; boot 9                  0                              0</span>
-<span class="co">#&gt; boot 10                 0                              0</span>
-<span class="co">#&gt; boot 11                 0                              0</span>
-<span class="co">#&gt; boot 12                 0                              0</span>
-<span class="co">#&gt; boot 13                 0                              0</span>
-<span class="co">#&gt; boot 14                 0                              0</span>
-<span class="co">#&gt; boot 15                 0                              0</span>
-<span class="co">#&gt; boot 16                 0                              0</span>
-<span class="co">#&gt; boot 17                 0                              0</span>
-<span class="co">#&gt; boot 18                 0                              0</span>
-<span class="co">#&gt; boot 19                 0                              0</span>
-<span class="co">#&gt; boot 20                 0                              0</span>
-<span class="co">#&gt;         rcs(Tampascale,3)*Radiation</span>
-<span class="co">#&gt; boot 1                            0</span>
-<span class="co">#&gt; boot 2                            0</span>
-<span class="co">#&gt; boot 3                            0</span>
-<span class="co">#&gt; boot 4                            0</span>
-<span class="co">#&gt; boot 5                            0</span>
-<span class="co">#&gt; boot 6                            0</span>
-<span class="co">#&gt; boot 7                            0</span>
-<span class="co">#&gt; boot 8                            0</span>
-<span class="co">#&gt; boot 9                            0</span>
-<span class="co">#&gt; boot 10                           0</span>
-<span class="co">#&gt; boot 11                           0</span>
-<span class="co">#&gt; boot 12                           0</span>
-<span class="co">#&gt; boot 13                           0</span>
-<span class="co">#&gt; boot 14                           0</span>
-<span class="co">#&gt; boot 15                           0</span>
-<span class="co">#&gt; boot 16                           0</span>
-<span class="co">#&gt; boot 17                           0</span>
-<span class="co">#&gt; boot 18                           0</span>
-<span class="co">#&gt; boot 19                           0</span>
-<span class="co">#&gt; boot 20                           0</span>
-  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif_perc</span>
-<span class="co">#&gt;                           Pain                      Radiation </span>
-<span class="co">#&gt;                             50                              5 </span>
-<span class="co">#&gt;                            Age                       Duration </span>
-<span class="co">#&gt;                              0                              5 </span>
-<span class="co">#&gt;                       Previous           factor(Satisfaction) </span>
-<span class="co">#&gt;                              0                              0 </span>
-<span class="co">#&gt;              rcs(Tampascale,3) factor(Satisfaction)*Radiation </span>
-<span class="co">#&gt;                              0                              0 </span>
-<span class="co">#&gt;    rcs(Tampascale,3)*Radiation </span>
-<span class="co">#&gt;                              0</span>
-  <span class="va">stab_res</span><span class="op">$</span><span class="va">model_stab</span>
-<span class="co">#&gt;   Pain Radiation Age Duration Previous factor(Satisfaction) rcs(Tampascale,3)</span>
-<span class="co">#&gt; 1    0         0   0        0        0                    0                 0</span>
-<span class="co">#&gt; 2    1         0   0        0        0                    0                 0</span>
-<span class="co">#&gt; 3    1         0   0        1        0                    0                 0</span>
-<span class="co">#&gt; 4    1         1   0        0        0                    0                 0</span>
-<span class="co">#&gt;   factor(Satisfaction)*Radiation rcs(Tampascale,3)*Radiation freq bif_pat_perc</span>
-<span class="co">#&gt; 1                              0                           0   10           50</span>
-<span class="co">#&gt; 2                              0                           0    8           40</span>
-<span class="co">#&gt; 3                              0                           0    1            5</span>
-<span class="co">#&gt; 4                              0                           0    1            5</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span>  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="fu">Surv</span><span class="op">(</span><span class="va">Time</span>, <span class="va">Status</span><span class="op">)</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>,<span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                        <span class="va">Radiation</span> <span class="op">+</span> <span class="va">Radiation</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">Duration</span> <span class="op">+</span> <span class="va">Previous</span> <span class="op">+</span></span>
+<span>                        <span class="va">Radiation</span><span class="op">*</span><span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span>, data<span class="op">=</span><span class="va">lbpmicox</span>, p.crit <span class="op">=</span> <span class="fl">0.157</span>, direction<span class="op">=</span><span class="st">"FW"</span>,</span>
+<span>                        nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, keep.predictors <span class="op">=</span> <span class="cn">NULL</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; Entered at Step 2 is - Duration</span></span>
+<span><span class="co">#&gt; Entered at Step 3 is - rcs(Tampascale,3)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_Model</span></span>
+<span><span class="co">#&gt; NULL</span></span>
+<span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">multiparm</span></span>
+<span><span class="co">#&gt; $`Step 0 - selected - Pain`</span></span>
+<span><span class="co">#&gt;                                 p-value D1</span></span>
+<span><span class="co">#&gt; Pain                           0.002972173</span></span>
+<span><span class="co">#&gt; Radiation                      0.181042842</span></span>
+<span><span class="co">#&gt; Age                            0.351345242</span></span>
+<span><span class="co">#&gt; Duration                       0.044028841</span></span>
+<span><span class="co">#&gt; Previous                       0.714681296</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)           0.708284253</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)              0.032223680</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)*Radiation 0.712860014</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)*Radiation    0.452891382</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Step 1 - selected - Duration`</span></span>
+<span><span class="co">#&gt;                                p-value D1</span></span>
+<span><span class="co">#&gt; Radiation                      0.31938607</span></span>
+<span><span class="co">#&gt; Age                            0.22333023</span></span>
+<span><span class="co">#&gt; Duration                       0.04853205</span></span>
+<span><span class="co">#&gt; Previous                       0.54425893</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)           0.76439993</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)              0.07594972</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)*Radiation 0.66328781</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)*Radiation    0.44642240</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Step 2 - selected - rcs(Tampascale,3)`</span></span>
+<span><span class="co">#&gt;                                p-value D1</span></span>
+<span><span class="co">#&gt; Radiation                      0.32679294</span></span>
+<span><span class="co">#&gt; Age                            0.40528789</span></span>
+<span><span class="co">#&gt; Previous                       0.44216497</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)           0.81050733</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)              0.06066281</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)*Radiation 0.70440131</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3)*Radiation    0.35955920</span></span>
+<span></span>
+<span>  <span class="va">stab_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_stab.html">psfmi_stab</a></span><span class="op">(</span><span class="va">pool_lr</span>, direction<span class="op">=</span><span class="st">"FW"</span>, start_model <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      boot_method <span class="op">=</span> <span class="st">"single"</span>, nboot<span class="op">=</span><span class="fl">20</span>, p.crit<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 1</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 2</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 3</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 4</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 5</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 6</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 7</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 8</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 9</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 10</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 11</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 12</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Duration</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 13</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 14</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - rcs(Tampascale,3)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 15</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; Entered at Step 2 is - rcs(Tampascale,3)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 16</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 17</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 18</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 19</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Boot 20</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span>  </span>
+<span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif</span></span>
+<span><span class="co">#&gt;         Pain Radiation Age Duration Previous factor(Satisfaction)</span></span>
+<span><span class="co">#&gt; boot 1     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 2     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 3     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 4     0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 5     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 6     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 7     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 8     0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 9     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 10    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 11    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 12    0         0   0        1        0                    0</span></span>
+<span><span class="co">#&gt; boot 13    0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 14    0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 15    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 16    0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 17    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 18    0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 19    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 20    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt;         rcs(Tampascale,3) factor(Satisfaction)*Radiation</span></span>
+<span><span class="co">#&gt; boot 1                  0                              0</span></span>
+<span><span class="co">#&gt; boot 2                  0                              0</span></span>
+<span><span class="co">#&gt; boot 3                  0                              0</span></span>
+<span><span class="co">#&gt; boot 4                  0                              0</span></span>
+<span><span class="co">#&gt; boot 5                  0                              0</span></span>
+<span><span class="co">#&gt; boot 6                  0                              0</span></span>
+<span><span class="co">#&gt; boot 7                  0                              0</span></span>
+<span><span class="co">#&gt; boot 8                  0                              0</span></span>
+<span><span class="co">#&gt; boot 9                  0                              0</span></span>
+<span><span class="co">#&gt; boot 10                 0                              0</span></span>
+<span><span class="co">#&gt; boot 11                 0                              0</span></span>
+<span><span class="co">#&gt; boot 12                 0                              0</span></span>
+<span><span class="co">#&gt; boot 13                 0                              0</span></span>
+<span><span class="co">#&gt; boot 14                 1                              0</span></span>
+<span><span class="co">#&gt; boot 15                 1                              0</span></span>
+<span><span class="co">#&gt; boot 16                 0                              0</span></span>
+<span><span class="co">#&gt; boot 17                 0                              0</span></span>
+<span><span class="co">#&gt; boot 18                 0                              0</span></span>
+<span><span class="co">#&gt; boot 19                 0                              0</span></span>
+<span><span class="co">#&gt; boot 20                 0                              0</span></span>
+<span><span class="co">#&gt;         rcs(Tampascale,3)*Radiation</span></span>
+<span><span class="co">#&gt; boot 1                            0</span></span>
+<span><span class="co">#&gt; boot 2                            0</span></span>
+<span><span class="co">#&gt; boot 3                            0</span></span>
+<span><span class="co">#&gt; boot 4                            0</span></span>
+<span><span class="co">#&gt; boot 5                            0</span></span>
+<span><span class="co">#&gt; boot 6                            0</span></span>
+<span><span class="co">#&gt; boot 7                            0</span></span>
+<span><span class="co">#&gt; boot 8                            0</span></span>
+<span><span class="co">#&gt; boot 9                            0</span></span>
+<span><span class="co">#&gt; boot 10                           0</span></span>
+<span><span class="co">#&gt; boot 11                           0</span></span>
+<span><span class="co">#&gt; boot 12                           0</span></span>
+<span><span class="co">#&gt; boot 13                           0</span></span>
+<span><span class="co">#&gt; boot 14                           0</span></span>
+<span><span class="co">#&gt; boot 15                           0</span></span>
+<span><span class="co">#&gt; boot 16                           0</span></span>
+<span><span class="co">#&gt; boot 17                           0</span></span>
+<span><span class="co">#&gt; boot 18                           0</span></span>
+<span><span class="co">#&gt; boot 19                           0</span></span>
+<span><span class="co">#&gt; boot 20                           0</span></span>
+<span>  </span>
+<span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif_perc</span></span>
+<span><span class="co">#&gt;                           Pain                      Radiation </span></span>
+<span><span class="co">#&gt;                             65                              0 </span></span>
+<span><span class="co">#&gt;                            Age                       Duration </span></span>
+<span><span class="co">#&gt;                              0                              5 </span></span>
+<span><span class="co">#&gt;                       Previous           factor(Satisfaction) </span></span>
+<span><span class="co">#&gt;                              0                              0 </span></span>
+<span><span class="co">#&gt;              rcs(Tampascale,3) factor(Satisfaction)*Radiation </span></span>
+<span><span class="co">#&gt;                             10                              0 </span></span>
+<span><span class="co">#&gt;    rcs(Tampascale,3)*Radiation </span></span>
+<span><span class="co">#&gt;                              0</span></span>
+<span>  </span>
+<span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">model_stab</span></span>
+<span><span class="co">#&gt;   Pain Radiation Age Duration Previous factor(Satisfaction) rcs(Tampascale,3)</span></span>
+<span><span class="co">#&gt; 1    1         0   0        0        0                    0                 0</span></span>
+<span><span class="co">#&gt; 2    0         0   0        0        0                    0                 0</span></span>
+<span><span class="co">#&gt; 3    0         0   0        0        0                    0                 1</span></span>
+<span><span class="co">#&gt; 4    0         0   0        1        0                    0                 0</span></span>
+<span><span class="co">#&gt; 5    1         0   0        0        0                    0                 1</span></span>
+<span><span class="co">#&gt;   factor(Satisfaction)*Radiation rcs(Tampascale,3)*Radiation freq bif_pat_perc</span></span>
+<span><span class="co">#&gt; 1                              0                           0   12           60</span></span>
+<span><span class="co">#&gt; 2                              0                           0    5           25</span></span>
+<span><span class="co">#&gt; 3                              0                           0    1            5</span></span>
+<span><span class="co">#&gt; 4                              0                           0    1            5</span></span>
+<span><span class="co">#&gt; 5                              0                           0    1            5</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -1165,11 +622,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Martijn Heymans.</p>
+  <p></p>
+<p>Developed by Martijn Heymans.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -1177,6 +636,8 @@
 
   
 
+
+  
 
   </body>
 </html>

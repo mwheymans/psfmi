@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -100,7 +96,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mwheymans/psfmi/">
+  <a href="https://github.com/mwheymans/psfmi/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -115,30 +111,42 @@
 
       
 
-      </header><script src="MI_boot_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Multiple Imputation and Bootstrapping - Method MI_boot</h1>
-                        <h4 class="author">Martijn W Heymans</h4>
+      <h1 data-toc-skip>Multiple Imputation and Bootstrapping - Method
+MI_boot</h1>
+                        <h4 data-toc-skip class="author">Martijn W
+Heymans</h4>
             
-            <h4 class="date">2021-09-23</h4>
+            <h4 data-toc-skip class="date">2022-07-06</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/MI_boot.Rmd"><code>vignettes/MI_boot.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/HEAD/vignettes/MI_boot.Rmd" class="external-link"><code>vignettes/MI_boot.Rmd</code></a></small>
       <div class="hidden name"><code>MI_boot.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This page contains information of the <code>MI_boot</code> method that is implemented in the <a href="https://github.com/mwheymans/psfmi"><code>psfmi</code></a> package and that combines Multiple Imputation with bootstrapping for the validation of logistic regression / prediction models. Internal validation is always done of the last model that is selected by the function <code>psfmi_lr</code>. An explanation and examples of how to use the methods can be found below.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>This page contains information of the <code>MI_boot</code> method
+that is implemented in the <a href="https://github.com/mwheymans/psfmi" class="external-link"><code>psfmi</code></a> package
+and that combines Multiple Imputation with bootstrapping for the
+validation of logistic regression / prediction models. Internal
+validation is always done of the last model that is selected by the
+function <code>psfmi_lr</code>. An explanation and examples of how to
+use the methods can be found below.</p>
 </div>
-<div id="method-mi_boot" class="section level1">
-<h1 class="hasAnchor">
-<a href="#method-mi_boot" class="anchor"></a>Method MI_boot</h1>
-<p>With this method bootstrap samples are drawn from each multiply imputed dataset. The same cases are drawn in each imputed dataset. The pooled model is analyzed in the each bootstrap training data and subsequently tested in original multiply imputed data. The method can be performed in combination with backward or forward selection.</p>
+<div class="section level2">
+<h2 id="method-mi_boot">Method MI_boot<a class="anchor" aria-label="anchor" href="#method-mi_boot"></a>
+</h2>
+<p>With this method bootstrap samples are drawn from each multiply
+imputed dataset. The same cases are drawn in each imputed dataset. The
+pooled model is analyzed in the each bootstrap training data and
+subsequently tested in original multiply imputed data. The method can be
+performed in combination with backward or forward selection.</p>
 <p>How these steps work is visualized in the Figure below.</p>
 <div class="figure" style="text-align: center">
 <img src="MI_boot.png" alt="Schematic overview of the boot_MI method" width="100%"><p class="caption">
@@ -146,173 +154,185 @@ Schematic overview of the boot_MI method
 </p>
 </div>
 </div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <ul>
 <li><a href="#method-mi_boot-1">Method MI_boot</a></li>
-<li><a href="#method-mi_boot-including-bw-selection">Method MI_boot including BW selection</a></li>
+<li><a href="#method-mi_boot-including-bw-selection">Method MI_boot
+including BW selection</a></li>
 </ul>
-<div id="method-mi_boot-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#method-mi_boot-1" class="anchor"></a>Method MI_boot</h2>
-<p>internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1. This setting is also used in the <code>psfmi_validate</code> function. This means that first the full model is pooled and subsequently interval validation is done of the full model.</p>
+<div class="section level3">
+<h3 id="method-mi_boot-1">Method MI_boot<a class="anchor" aria-label="anchor" href="#method-mi_boot-1"></a>
+</h3>
+<p>internal validation is done of the last model that is selected by the
+function <code>psfmi_lr</code>. In the example below,
+<code>psfmi_lr</code> is used with <code>p.crit</code> set at 1. This
+setting is also used in the <code>psfmi_validate</code> function. This
+means that first the full model is pooled and subsequently interval
+validation is done of the full model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"FW"</span>,
-                 nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_validate.html">psfmi_validate</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"MI_boot"</span>, nboot <span class="op">=</span> <span class="fl">5</span>, p.crit<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Boot 1</code></pre>
-<pre><code>## 
-## Boot 2</code></pre>
-<pre><code>## 
-## Boot 3</code></pre>
-<pre><code>## 
-## Boot 4</code></pre>
-<pre><code>## 
-## Boot 5</code></pre>
-<pre><code>## 
-## p.crit = 1, validation is done without variable selection</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span><span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"FW"</span>,</span>
+<span>                 nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_validate.html">psfmi_validate</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"MI_boot"</span>, nboot <span class="op">=</span> <span class="fl">5</span>, p.crit<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 1</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 2</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 3</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 4</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 5</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## p.crit = 1, validation is done without variable selection</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span></code></pre></div>
-<pre><code>## $stats_val
-##                   Orig  Apparent      Test  Optimism Corrected
-## AUC          0.8871000 0.9131800 0.8786800 0.0345000 0.8526000
-## R2           0.5605521 0.6354404 0.5332539 0.1021865 0.4583656
-## Brier Scaled 0.4514569 0.5382256 0.4128859 0.1253397 0.3261172
-## Slope        1.0000000 1.0000000 0.7449554 0.2550446 0.7449554
-## 
-## $intercept_test
-##  intercept 
-## -0.1683646 
-## 
-## $res_boot
-##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test
-## Boot 1  0.8708   0.8767 0.5261128 0.5275393    0.4123378     0.4042778
-## Boot 2  0.9099   0.8813 0.6249260 0.5439424    0.5238909     0.4342868
-## Boot 3  0.9447   0.8793 0.7183270 0.5353093    0.6457725     0.4158834
-## Boot 4  0.9225   0.8714 0.6620081 0.5166176    0.5715999     0.4284101
-## Boot 5  0.9180   0.8847 0.6458284 0.5428610    0.5375269     0.3815714
-##           intercept     Slope
-## Boot 1 -0.153194405 0.9741632
-## Boot 2 -0.008403925 0.7697086
-## Boot 3 -0.121148496 0.5440115
-## Boot 4 -0.074413523 0.6987898
-## Boot 5 -0.484662668 0.7381040
-## 
-## $predictors_selected
-##        Pain JobDemands Smoking factor(Satisfaction) rcs(Tampascale,3)
-## Boot 1    1          1       1                    1                 1
-## Boot 2    1          1       1                    1                 1
-## Boot 3    1          1       1                    1                 1
-## Boot 4    1          1       1                    1                 1
-## Boot 5    1          1       1                    1                 1
-## 
-## $model_orig
-## Chronic ~ Pain + JobDemands + Smoking + factor(Satisfaction) + 
-##     rcs(Tampascale, 3)
-## &lt;environment: 0x0000000029216580&gt;</code></pre>
+<code class="sourceCode R"><span><span class="va">res</span></span></code></pre></div>
+<pre><code><span><span class="co">## $stats_val</span></span>
+<span><span class="co">##                   Orig  Apparent      Test  Optimism Corrected</span></span>
+<span><span class="co">## AUC          0.8871000 0.9131800 0.8786800 0.0345000 0.8526000</span></span>
+<span><span class="co">## R2           0.5605521 0.6354404 0.5332539 0.1021865 0.4583656</span></span>
+<span><span class="co">## Brier Scaled 0.4514569 0.5382256 0.4128859 0.1253397 0.3261172</span></span>
+<span><span class="co">## Slope        1.0000000 1.0000000 0.7449554 0.2550446 0.7449554</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $intercept_test</span></span>
+<span><span class="co">##  intercept </span></span>
+<span><span class="co">## -0.1683646 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $res_boot</span></span>
+<span><span class="co">##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test</span></span>
+<span><span class="co">## Boot 1  0.8708   0.8767 0.5261128 0.5275393    0.4123378     0.4042778</span></span>
+<span><span class="co">## Boot 2  0.9099   0.8813 0.6249260 0.5439424    0.5238909     0.4342868</span></span>
+<span><span class="co">## Boot 3  0.9447   0.8793 0.7183270 0.5353093    0.6457725     0.4158834</span></span>
+<span><span class="co">## Boot 4  0.9225   0.8714 0.6620081 0.5166176    0.5715999     0.4284101</span></span>
+<span><span class="co">## Boot 5  0.9180   0.8847 0.6458284 0.5428610    0.5375269     0.3815714</span></span>
+<span><span class="co">##           intercept     Slope</span></span>
+<span><span class="co">## Boot 1 -0.153194405 0.9741632</span></span>
+<span><span class="co">## Boot 2 -0.008403925 0.7697086</span></span>
+<span><span class="co">## Boot 3 -0.121148496 0.5440115</span></span>
+<span><span class="co">## Boot 4 -0.074413523 0.6987898</span></span>
+<span><span class="co">## Boot 5 -0.484662668 0.7381040</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $predictors_selected</span></span>
+<span><span class="co">##        Pain JobDemands Smoking factor(Satisfaction) rcs(Tampascale,3)</span></span>
+<span><span class="co">## Boot 1    1          1       1                    1                 1</span></span>
+<span><span class="co">## Boot 2    1          1       1                    1                 1</span></span>
+<span><span class="co">## Boot 3    1          1       1                    1                 1</span></span>
+<span><span class="co">## Boot 4    1          1       1                    1                 1</span></span>
+<span><span class="co">## Boot 5    1          1       1                    1                 1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $model_orig</span></span>
+<span><span class="co">## Chronic ~ Pain + JobDemands + Smoking + factor(Satisfaction) + </span></span>
+<span><span class="co">##     rcs(Tampascale, 3)</span></span>
+<span><span class="co">## &lt;environment: 0x000001dbb64f4380&gt;</span></span></code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
-<div id="method-mi_boot-including-bw-selection" class="section level2">
-<h2 class="hasAnchor">
-<a href="#method-mi_boot-including-bw-selection" class="anchor"></a>Method MI_boot including BW selection</h2>
-<p>Internal validation is done of the last model that is selected by the function <code>psfmi_lr</code>. In the example below, <code>psfmi_lr</code> is used with <code>p.crit</code> set at 1, and pooling is than done without variable selection, i.e. the full model is pooled. When subsequently interval validation is done with the <code>psfmi_validate</code> function including BW, BW is applied in each bootstrap sample from the full model.</p>
+<div class="section level3">
+<h3 id="method-mi_boot-including-bw-selection">Method MI_boot including BW selection<a class="anchor" aria-label="anchor" href="#method-mi_boot-including-bw-selection"></a>
+</h3>
+<p>Internal validation is done of the last model that is selected by the
+function <code>psfmi_lr</code>. In the example below,
+<code>psfmi_lr</code> is used with <code>p.crit</code> set at 1, and
+pooling is than done without variable selection, i.e. the full model is
+pooled. When subsequently interval validation is done with the
+<code>psfmi_validate</code> function including BW, BW is applied in each
+bootstrap sample from the full model.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-<span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"FW"</span>,
-                 nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_validate.html">psfmi_validate</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"MI_boot"</span>, nboot <span class="op">=</span> <span class="fl">5</span>, p.crit<span class="op">=</span><span class="fl">0.05</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Boot 1</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 2</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 3</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## Removed at Step 3 is - JobDemands</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 4</code></pre>
-<pre><code>## Removed at Step 1 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - JobDemands</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 5</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span><span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmilr</span>, formula <span class="op">=</span> <span class="va">Chronic</span> <span class="op">~</span> <span class="va">Pain</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="va">Smoking</span>, p.crit <span class="op">=</span> <span class="fl">1</span>, direction<span class="op">=</span><span class="st">"FW"</span>,</span>
+<span>                 nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_validate.html">psfmi_validate</a></span><span class="op">(</span><span class="va">pool_lr</span>, val_method <span class="op">=</span> <span class="st">"MI_boot"</span>, nboot <span class="op">=</span> <span class="fl">5</span>, p.crit<span class="op">=</span><span class="fl">0.05</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 1</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 1 is - Smoking</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 2 is - JobDemands</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Selection correctly terminated, </span></span>
+<span><span class="co">## No more variables removed from the model</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 2</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 1 is - JobDemands</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 2 is - Smoking</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 3 is - rcs(Tampascale,3)</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Selection correctly terminated, </span></span>
+<span><span class="co">## No more variables removed from the model</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 3</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 1 is - Smoking</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 2 is - rcs(Tampascale,3)</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 3 is - JobDemands</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Selection correctly terminated, </span></span>
+<span><span class="co">## No more variables removed from the model</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 4</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 1 is - rcs(Tampascale,3)</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 2 is - Smoking</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 3 is - JobDemands</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Selection correctly terminated, </span></span>
+<span><span class="co">## No more variables removed from the model</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Boot 5</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 1 is - Smoking</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 2 is - JobDemands</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 3 is - rcs(Tampascale,3)</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Selection correctly terminated, </span></span>
+<span><span class="co">## No more variables removed from the model</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 1 is - Smoking</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 2 is - JobDemands</span></span></code></pre>
+<pre><code><span><span class="co">## Removed at Step 3 is - rcs(Tampascale,3)</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Selection correctly terminated, </span></span>
+<span><span class="co">## No more variables removed from the model</span></span></code></pre>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span></code></pre></div>
-<pre><code>## $stats_val
-##                   Orig  Apparent      Test   Optimism Corrected
-## AUC          0.8730000 0.9001200 0.8740600 0.02606000 0.8469400
-## R2           0.5244014 0.6012708 0.5231900 0.07808081 0.4463206
-## Brier Scaled 0.4384749 0.5105213 0.4331223 0.07739902 0.3610759
-## Slope        1.0000000 1.0000000 0.8603053 0.13969467 0.8603053
-## 
-## $intercept_test
-##   intercept 
-## -0.06307424 
-## 
-## $res_boot
-##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test
-## Boot 1  0.8680   0.8783 0.5132543 0.5362514    0.3997598     0.4122129
-## Boot 2  0.8941   0.8730 0.5801429 0.5236584    0.4867631     0.4385677
-## Boot 3  0.9300   0.8730 0.6831782 0.5173532    0.5958985     0.4446954
-## Boot 4  0.9156   0.8730 0.6410638 0.5169447    0.5565305     0.4441806
-## Boot 5  0.8929   0.8730 0.5887150 0.5217423    0.5136547     0.4259549
-##           intercept     Slope
-## Boot 1 -0.181845909 1.0237503
-## Boot 2 -0.066031545 0.8350387
-## Boot 3  0.057587096 0.7083871
-## Boot 4 -0.009979645 0.7793790
-## Boot 5 -0.115101220 0.9549715
-## 
-## $predictors_selected
-##        Pain JobDemands Smoking factor(Satisfaction) rcs(Tampascale,3)
-## Boot 1    1          0       0                    1                 1
-## Boot 2    1          0       0                    1                 0
-## Boot 3    1          0       0                    1                 0
-## Boot 4    1          0       0                    1                 0
-## Boot 5    1          0       0                    1                 0
-## 
-## $model_orig
-## Chronic ~ Pain + factor(Satisfaction)
-## &lt;environment: 0x0000000021ec7618&gt;</code></pre>
+<code class="sourceCode R"><span><span class="va">res</span></span></code></pre></div>
+<pre><code><span><span class="co">## $stats_val</span></span>
+<span><span class="co">##                   Orig  Apparent      Test   Optimism Corrected</span></span>
+<span><span class="co">## AUC          0.8730000 0.9001200 0.8740600 0.02606000 0.8469400</span></span>
+<span><span class="co">## R2           0.5244014 0.6012708 0.5231900 0.07808081 0.4463206</span></span>
+<span><span class="co">## Brier Scaled 0.4384749 0.5105213 0.4331223 0.07739902 0.3610759</span></span>
+<span><span class="co">## Slope        1.0000000 1.0000000 0.8603053 0.13969467 0.8603053</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $intercept_test</span></span>
+<span><span class="co">##   intercept </span></span>
+<span><span class="co">## -0.06307424 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $res_boot</span></span>
+<span><span class="co">##        ROC_app ROC_test    R2_app   R2_test Brier_sc_app Brier_sc_test</span></span>
+<span><span class="co">## Boot 1  0.8680   0.8783 0.5132543 0.5362514    0.3997598     0.4122129</span></span>
+<span><span class="co">## Boot 2  0.8941   0.8730 0.5801429 0.5236584    0.4867631     0.4385677</span></span>
+<span><span class="co">## Boot 3  0.9300   0.8730 0.6831782 0.5173532    0.5958985     0.4446954</span></span>
+<span><span class="co">## Boot 4  0.9156   0.8730 0.6410638 0.5169447    0.5565305     0.4441806</span></span>
+<span><span class="co">## Boot 5  0.8929   0.8730 0.5887150 0.5217423    0.5136547     0.4259549</span></span>
+<span><span class="co">##           intercept     Slope</span></span>
+<span><span class="co">## Boot 1 -0.181845909 1.0237503</span></span>
+<span><span class="co">## Boot 2 -0.066031545 0.8350387</span></span>
+<span><span class="co">## Boot 3  0.057587096 0.7083871</span></span>
+<span><span class="co">## Boot 4 -0.009979645 0.7793790</span></span>
+<span><span class="co">## Boot 5 -0.115101220 0.9549715</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $predictors_selected</span></span>
+<span><span class="co">##        Pain JobDemands Smoking factor(Satisfaction) rcs(Tampascale,3)</span></span>
+<span><span class="co">## Boot 1    1          0       0                    1                 1</span></span>
+<span><span class="co">## Boot 2    1          0       0                    1                 0</span></span>
+<span><span class="co">## Boot 3    1          0       0                    1                 0</span></span>
+<span><span class="co">## Boot 4    1          0       0                    1                 0</span></span>
+<span><span class="co">## Boot 5    1          0       0                    1                 0</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $model_orig</span></span>
+<span><span class="co">## Chronic ~ Pain + factor(Satisfaction)</span></span>
+<span><span class="co">## &lt;environment: 0x000001dbb55085b0&gt;</span></span></code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -329,11 +349,13 @@ Schematic overview of the boot_MI method
 
 
       <footer><div class="copyright">
-  <p>Developed by Martijn Heymans.</p>
+  <p></p>
+<p>Developed by Martijn Heymans.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -341,6 +363,8 @@ Schematic overview of the boot_MI method
 
   
 
+
+  
 
   </body>
 </html>

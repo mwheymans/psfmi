@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -100,7 +96,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mwheymans/psfmi/">
+  <a href="https://github.com/mwheymans/psfmi/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -115,169 +111,182 @@
 
       
 
-      </header><script src="psfmi_mice_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working together: mice and psfmi</h1>
-                        <h4 class="author">Martijn W Heymans</h4>
+                        <h4 data-toc-skip class="author">Martijn W
+Heymans</h4>
             
-            <h4 class="date">2021-09-23</h4>
+            <h4 data-toc-skip class="date">2022-07-06</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/master/vignettes/psfmi_mice.Rmd"><code>vignettes/psfmi_mice.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/HEAD/vignettes/psfmi_mice.Rmd" class="external-link"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The <code>mice</code> function is one of the most used functions to apply multiple imputation. This page shows how functions in the <code>psfmi</code> package can be easily used in combination with <code>mice</code>. In this way multivariable models can easily be developed in combination with mice.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>The <code>mice</code> function is one of the most used functions to
+apply multiple imputation. This page shows how functions in the
+<code>psfmi</code> package can be easily used in combination with
+<code>mice</code>. In this way multivariable models can easily be
+developed in combination with mice.</p>
 </div>
-<div id="installing-the-psfmi-and-mice-packages" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installing-the-psfmi-and-mice-packages" class="anchor"></a>Installing the psfmi and mice packages</h1>
+<div class="section level2">
+<h2 id="installing-the-psfmi-and-mice-packages">Installing the psfmi and mice packages<a class="anchor" aria-label="anchor" href="#installing-the-psfmi-and-mice-packages"></a>
+</h2>
 <p>You can install the released version of psfmi with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"psfmi"</span><span class="op">)</span></code></pre></div>
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"psfmi"</span><span class="op">)</span></span></code></pre></div>
+<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"mwheymans/psfmi"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mwheymans/psfmi"</span><span class="op">)</span></span></code></pre></div>
 <p>You can install the released version of mice with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"mice"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mice"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <ul>
-<li><a href="#mice-and-psfmi-for-pooling-logistic-regression-models">mice and psfmi for pooling logistic regression models</a></li>
-<li><a href="#mice-and-psfmi-for-selecting-logistic-regression-models">mice and psfmi for selecting logistic regression models</a></li>
+<li><a href="#mice-and-psfmi-for-pooling-logistic-regression-models">mice and
+psfmi for pooling logistic regression models</a></li>
+<li><a href="#mice-and-psfmi-for-selecting-logistic-regression-models">mice and
+psfmi for selecting logistic regression models</a></li>
 </ul>
-<div id="mice-and-psfmi-for-pooling-logistic-regression-models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#mice-and-psfmi-for-pooling-logistic-regression-models" class="anchor"></a>mice and psfmi for pooling logistic regression models</h2>
+<div class="section level3">
+<h3 id="mice-and-psfmi-for-pooling-logistic-regression-models">mice and psfmi for pooling logistic regression models<a class="anchor" aria-label="anchor" href="#mice-and-psfmi-for-pooling-logistic-regression-models"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amices/mice">mice</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'mice'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     cbind, rbind</span>
-  <span class="va">imp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/mice.html">mice</a></span><span class="op">(</span><span class="va">lbp_orig</span>, m<span class="op">=</span><span class="fl">5</span>, maxit<span class="op">=</span><span class="fl">5</span><span class="op">)</span> 
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  iter imp variable</span>
-<span class="co">#&gt;   1   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-  <span class="va">data_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/complete.mids.html">complete</a></span><span class="op">(</span><span class="va">imp</span>, action <span class="op">=</span> <span class="st">"long"</span>, include <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
-                      formula<span class="op">=</span><span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="va">Function</span> <span class="op">+</span> 
-                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span>
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span>
-<span class="co">#&gt; $`Step 1 - no variables removed -`</span>
-<span class="co">#&gt;            term     estimate  std.error  statistic       df     p.value</span>
-<span class="co">#&gt; 1   (Intercept)  0.555430410 2.38437225  0.2329462 138.3637 0.816147443</span>
-<span class="co">#&gt; 2        Gender -0.393754180 0.41647581 -0.9454431 141.7596 0.346041399</span>
-<span class="co">#&gt; 3       Smoking  0.092031561 0.34009887  0.2706024 149.6732 0.787069670</span>
-<span class="co">#&gt; 4      Function -0.143308509 0.04466703 -3.2083733 106.4864 0.001763854</span>
-<span class="co">#&gt; 5    JobControl  0.005371667 0.02002062  0.2683068 123.8131 0.788909685</span>
-<span class="co">#&gt; 6    JobDemands -0.005657878 0.03765978 -0.1502366 109.6271 0.880853995</span>
-<span class="co">#&gt; 7 SocialSupport  0.036424773 0.05631729  0.6467778 139.0741 0.518841758</span>
-<span class="co">#&gt;          OR lower.EXP   upper.EXP</span>
-<span class="co">#&gt; 1 1.7426909 0.0156218 194.4059474</span>
-<span class="co">#&gt; 2 0.6745198 0.2960994   1.5365686</span>
-<span class="co">#&gt; 3 1.0963994 0.5599076   2.1469467</span>
-<span class="co">#&gt; 4 0.8664867 0.7930567   0.9467157</span>
-<span class="co">#&gt; 5 1.0053861 0.9663247   1.0460265</span>
-<span class="co">#&gt; 6 0.9943581 0.9228454   1.0714124</span>
-<span class="co">#&gt; 7 1.0370963 0.9278140   1.1592503</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amices/mice" class="external-link">mice</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'mice'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     cbind, rbind</span></span>
+<span></span>
+<span>  <span class="va">imp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/mice.html" class="external-link">mice</a></span><span class="op">(</span><span class="va">lbp_orig</span>, m<span class="op">=</span><span class="fl">5</span>, maxit<span class="op">=</span><span class="fl">5</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  iter imp variable</span></span>
+<span><span class="co">#&gt;   1   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span>  </span>
+<span>  <span class="va">data_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html" class="external-link">complete</a></span><span class="op">(</span><span class="va">imp</span>, action <span class="op">=</span> <span class="st">"long"</span>, include <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span>  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, </span>
+<span>                      formula<span class="op">=</span><span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="va">Function</span> <span class="op">+</span> </span>
+<span>                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
+<span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span></span>
+<span><span class="co">#&gt; $`Step 1 - no variables removed -`</span></span>
+<span><span class="co">#&gt;            term     estimate  std.error   statistic        df     p.value</span></span>
+<span><span class="co">#&gt; 1   (Intercept)  0.123367957 2.42153876  0.05094610 127.13840 0.959448425</span></span>
+<span><span class="co">#&gt; 2        Gender -0.371730360 0.41356316 -0.89884785 144.28662 0.370231268</span></span>
+<span><span class="co">#&gt; 3       Smoking  0.067685146 0.33828876  0.20008098 147.71379 0.841692443</span></span>
+<span><span class="co">#&gt; 4      Function -0.127504221 0.04667502 -2.73174458  54.29308 0.008481825</span></span>
+<span><span class="co">#&gt; 5    JobControl  0.006117072 0.01958832  0.31228158 136.50092 0.755303071</span></span>
+<span><span class="co">#&gt; 6    JobDemands  0.002661919 0.03819546  0.06969203  94.77025 0.944585629</span></span>
+<span><span class="co">#&gt; 7 SocialSupport  0.033298757 0.05620684  0.59243246 134.80510 0.554553464</span></span>
+<span><span class="co">#&gt;          OR   lower.EXP   upper.EXP</span></span>
+<span><span class="co">#&gt; 1 1.1313006 0.009387558 136.3337587</span></span>
+<span><span class="co">#&gt; 2 0.6895401 0.304478369   1.5615744</span></span>
+<span><span class="co">#&gt; 3 1.0700284 0.548358749   2.0879774</span></span>
+<span><span class="co">#&gt; 4 0.8802897 0.801660221   0.9666314</span></span>
+<span><span class="co">#&gt; 5 1.0061358 0.967907507   1.0458740</span></span>
+<span><span class="co">#&gt; 6 1.0026655 0.929444641   1.0816546</span></span>
+<span><span class="co">#&gt; 7 1.0338594 0.925091589   1.1554155</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
-<div id="mice-and-psfmi-for-selecting-logistic-regression-models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#mice-and-psfmi-for-selecting-logistic-regression-models" class="anchor"></a>mice and psfmi for selecting logistic regression models</h2>
+<div class="section level3">
+<h3 id="mice-and-psfmi-for-selecting-logistic-regression-models">mice and psfmi for selecting logistic regression models<a class="anchor" aria-label="anchor" href="#mice-and-psfmi-for-selecting-logistic-regression-models"></a>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amices/mice">mice</a></span><span class="op">)</span>
-
-  <span class="va">imp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/mice.html">mice</a></span><span class="op">(</span><span class="va">lbp_orig</span>, m<span class="op">=</span><span class="fl">5</span>, maxit<span class="op">=</span><span class="fl">5</span><span class="op">)</span> 
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  iter imp variable</span>
-<span class="co">#&gt;   1   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   1   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   2   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   3   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   4   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-<span class="co">#&gt;   5   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span>
-  <span class="va">data_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/complete.mids.html">complete</a></span><span class="op">(</span><span class="va">imp</span>, action <span class="op">=</span> <span class="st">"long"</span>, include <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span>
-  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, 
-                      formula<span class="op">=</span><span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="va">Function</span> <span class="op">+</span> 
-                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, 
-                      p.crit <span class="op">=</span> <span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"FW"</span><span class="op">)</span>
-<span class="co">#&gt; Entered at Step 1 is - Function</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Selection correctly terminated, </span>
-<span class="co">#&gt; No new variables entered the model</span>
-  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span>
-<span class="co">#&gt; $`Final model`</span>
-<span class="co">#&gt;          term   estimate  std.error statistic       df      p.value        OR</span>
-<span class="co">#&gt; 1 (Intercept)  1.2486731 0.46706618  2.673439 143.6856 0.0083769237 3.4857146</span>
-<span class="co">#&gt; 2    Function -0.1421032 0.04161378 -3.414812 142.5182 0.0008315687 0.8675317</span>
-<span class="co">#&gt;   lower.EXP upper.EXP</span>
-<span class="co">#&gt; 1 1.3846738 8.7747789</span>
-<span class="co">#&gt; 2 0.7990248 0.9419122</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amices/mice" class="external-link">mice</a></span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">imp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/mice.html" class="external-link">mice</a></span><span class="op">(</span><span class="va">lbp_orig</span>, m<span class="op">=</span><span class="fl">5</span>, maxit<span class="op">=</span><span class="fl">5</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  iter imp variable</span></span>
+<span><span class="co">#&gt;   1   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   1   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   2   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   3   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   4   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   1  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   2  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   3  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   4  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span><span class="co">#&gt;   5   5  Carrying  Pain  Tampascale  Function  Radiation  Age  Satisfaction  JobControl  JobDemands  SocialSupport</span></span>
+<span>  </span>
+<span>  <span class="va">data_comp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html" class="external-link">complete</a></span><span class="op">(</span><span class="va">imp</span>, action <span class="op">=</span> <span class="st">"long"</span>, include <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span>  <span class="va">pool_lr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_lr.html">psfmi_lr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">data_comp</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">".imp"</span>, </span>
+<span>                      formula<span class="op">=</span><span class="va">Chronic</span> <span class="op">~</span> <span class="va">Gender</span> <span class="op">+</span> <span class="va">Smoking</span> <span class="op">+</span> <span class="va">Function</span> <span class="op">+</span> </span>
+<span>                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, </span>
+<span>                      p.crit <span class="op">=</span> <span class="fl">0.157</span>, method<span class="op">=</span><span class="st">"D1"</span>, direction <span class="op">=</span> <span class="st">"FW"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Function</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No new variables entered the model</span></span>
+<span>  </span>
+<span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
+<span><span class="co">#&gt; $`Final model`</span></span>
+<span><span class="co">#&gt;          term  estimate  std.error statistic       df      p.value        OR</span></span>
+<span><span class="co">#&gt; 1 (Intercept)  1.238320 0.46633470  2.655431 137.9388 0.0088530987 3.4498123</span></span>
+<span><span class="co">#&gt; 2    Function -0.141194 0.04182441 -3.375874 127.9282 0.0009747734 0.8683209</span></span>
+<span><span class="co">#&gt;   lower.EXP upper.EXP</span></span>
+<span><span class="co">#&gt; 1 1.3719471 8.6746823</span></span>
+<span><span class="co">#&gt; 2 0.7993542 0.9432379</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -294,11 +303,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Martijn Heymans.</p>
+  <p></p>
+<p>Developed by Martijn Heymans.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -306,6 +317,8 @@
 
   
 
+
+  
 
   </body>
 </html>
