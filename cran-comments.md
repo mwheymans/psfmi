@@ -7,6 +7,18 @@ This is a resubmission. In this version I have:
 * Updated version nr to 1.1.0.
 * Added df_com to the D1 and D2 method for small sample
 correction.
+* Update strata option in functions cv_MI and cv_MI_RR.
+
+## devtools::test()
+ℹ Testing psfmi
+✔ | F W S  OK | Context
+⠏ |         0 | testthat.R                                                                                    
+══ Results ═══════════════════════════════════════════════════════════════════════════════════════════════════
+Duration: 0.2 s
+
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 0 ]
+
+Nice code.
 
 ## Resubmission
 This is a resubmission. In this version I have:

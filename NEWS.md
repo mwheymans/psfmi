@@ -1,6 +1,8 @@
 # Package 1.1.0
 
-* Adjusted strata comment of cv_MI and cv_MI_RR functions.
+* Added df_com to the D1 and D2 method for small sample
+correction.
+* Update strata option in functions cv_MI and cv_MI_RR.
 
 # Package 1.0.0
 
