@@ -1,3 +1,7 @@
+# Package 1.1.0
+
+* Adjusted strata comment of cv_MI and cv_MI_RR functions.
+
 # Package 1.0.0
 
 * Added the functions psfmi_lm, psfmi_lm_fw, psfmi_lr_bw for pooling
