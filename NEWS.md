@@ -1,3 +1,9 @@
+# Package 1.1.0
+
+* Added df_com to the D1 and D2 method for small sample
+correction.
+* Update strata option in functions cv_MI and cv_MI_RR.
+
 # Package 1.0.0
 
 * Added the functions psfmi_lm, psfmi_lm_fw, psfmi_lr_bw for pooling

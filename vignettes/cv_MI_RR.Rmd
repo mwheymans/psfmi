@@ -14,11 +14,7 @@ vignette: >
 
 This page contains information of the `cv_MI_RR` method that combines 
 Multiple Imputation with Cross-validation for the validation of 
-logistic prediction models. This cross-validation method is 
-based on the paper ofs [Mertens BJ](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289) 
-and [Miles A](https://journals.sagepub.com/doi/abs/10.1177/0049124115610345).
-The `cv_MI_RR` method is implemented in the function `psfmi_validate`.
-An explanation and examples of how to use the methods can be found below.
+logistic prediction models. This cross-validation method is based on the papers of Mertens BJ (2020) and Miles A (2015). The `cv_MI_RR` method is implemented in the function `psfmi_validate`. An explanation and examples of how to use the methods can be found below.
 
 # Method cv_MI_RR
 

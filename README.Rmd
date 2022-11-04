@@ -55,7 +55,7 @@ Cite the package as:
 ``` r
 
 Martijn W Heymans (2021). psfmi: Prediction Model Pooling, Selection and Performance Evaluation 
-Across Multiply Imputed Datasets. R package version 1.0.0. https://mwheymans.github.io/psfmi/ 
+Across Multiply Imputed Datasets. R package version 1.1.0. https://mwheymans.github.io/psfmi/ 
 
 ```
 ## Examples
