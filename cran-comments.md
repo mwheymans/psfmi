@@ -20,6 +20,17 @@ Duration: 0.2 s
 
 Nice code.
 
+## R CMD check results
+── R CMD check results ────────────────────────────────────────────────────────────────────── psfmi 1.1.0 ────
+Duration: 5m 44.3s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+## Test environments
+*	R studio 2022.07.1, R version 4.2.1
+* win-builder Development: * DONE Status: OK
+* win-builder Release: * DONE Status: OK
+
 ## Resubmission
 This is a resubmission. In this version I have:
 * Updated version nr to 1.0.0.
