@@ -173,13 +173,11 @@ analysis of Cox regression model</a></li>
 <span>      boot_method <span class="op">=</span> <span class="st">"single"</span>, nboot<span class="op">=</span><span class="fl">20</span>, p.crit<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 1</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Age</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 2</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -190,13 +188,11 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 4</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 5</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -217,7 +213,6 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 9</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -253,13 +248,12 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 16</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - JobDemands</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 17</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Gender</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -281,23 +275,23 @@ analysis of Cox regression model</a></li>
 <span>  </span>
 <span>   <span class="va">stab_res</span><span class="op">$</span><span class="va">bif</span></span>
 <span><span class="co">#&gt;         Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></span>
-<span><span class="co">#&gt; boot 1       0       0          0   1        0          0             0</span></span>
-<span><span class="co">#&gt; boot 2       1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 1       0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 2       0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 3       0       0          0   0        0          0             0</span></span>
-<span><span class="co">#&gt; boot 4       1       0          0   0        0          0             0</span></span>
-<span><span class="co">#&gt; boot 5       1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 4       0       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 5       0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 6       0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 7       0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 8       0       0          0   0        0          0             0</span></span>
-<span><span class="co">#&gt; boot 9       1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 9       0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 10      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 11      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 12      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 13      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 14      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 15      0       0          0   0        0          0             0</span></span>
-<span><span class="co">#&gt; boot 16      0       0          0   0        0          1             0</span></span>
-<span><span class="co">#&gt; boot 17      1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 16      1       0          0   0        0          0             0</span></span>
+<span><span class="co">#&gt; boot 17      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 18      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 19      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; boot 20      0       0          0   0        0          0             0</span></span>
@@ -325,9 +319,9 @@ analysis of Cox regression model</a></li>
 <span>   </span>
 <span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif_perc</span></span>
 <span><span class="co">#&gt;               Gender              Smoking           JobControl </span></span>
-<span><span class="co">#&gt;                   25                    0                    0 </span></span>
+<span><span class="co">#&gt;                    5                    0                    0 </span></span>
 <span><span class="co">#&gt;                  Age             Duration           JobDemands </span></span>
-<span><span class="co">#&gt;                    5                    0                    5 </span></span>
+<span><span class="co">#&gt;                    0                    0                    0 </span></span>
 <span><span class="co">#&gt;        SocialSupport factor(Satisfaction)    Gender*JobControl </span></span>
 <span><span class="co">#&gt;                    0                    0                    0</span></span>
 <span>  </span>
@@ -335,13 +329,9 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt;   Gender Smoking JobControl Age Duration JobDemands SocialSupport</span></span>
 <span><span class="co">#&gt; 1      0       0          0   0        0          0             0</span></span>
 <span><span class="co">#&gt; 2      1       0          0   0        0          0             0</span></span>
-<span><span class="co">#&gt; 3      0       0          0   0        0          1             0</span></span>
-<span><span class="co">#&gt; 4      0       0          0   1        0          0             0</span></span>
 <span><span class="co">#&gt;   factor(Satisfaction) Gender*JobControl freq bif_pat_perc</span></span>
-<span><span class="co">#&gt; 1                    0                 0   13           65</span></span>
-<span><span class="co">#&gt; 2                    0                 0    5           25</span></span>
-<span><span class="co">#&gt; 3                    0                 0    1            5</span></span>
-<span><span class="co">#&gt; 4                    0                 0    1            5</span></span></code></pre></div>
+<span><span class="co">#&gt; 1                    0                 0   19           95</span></span>
+<span><span class="co">#&gt; 2                    0                 0    1            5</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 <div class="section level4">
 <h4 id="stability-analysis-of-cox-regression-model">Stability analysis of Cox regression model<a class="anchor" aria-label="anchor" href="#stability-analysis-of-cox-regression-model"></a>
@@ -399,13 +389,12 @@ analysis of Cox regression model</a></li>
 <span>      boot_method <span class="op">=</span> <span class="st">"single"</span>, nboot<span class="op">=</span><span class="fl">20</span>, p.crit<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 1</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 2</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Duration</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -416,26 +405,22 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 4</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 5</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 6</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - rcs(Tampascale,3)</span></span>
-<span><span class="co">#&gt; Entered at Step 2 is - Duration</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 7</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -446,8 +431,7 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 9</span></span>
-<span><span class="co">#&gt; Warning in coxph.fit(X, Y, istrat, offset, init, control, weights = weights, :</span></span>
-<span><span class="co">#&gt; Loglik converged before variable 3 ; coefficient may be infinite.</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Duration</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -463,6 +447,7 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 12</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -473,12 +458,14 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 14</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 15</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Duration</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
+<span><span class="co">#&gt; Entered at Step 2 is - Duration</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -496,8 +483,7 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 18</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
-<span><span class="co">#&gt; Entered at Step 2 is - rcs(Tampascale,3)</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Duration</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
@@ -509,40 +495,40 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Boot 20</span></span>
-<span><span class="co">#&gt; Entered at Step 1 is - rcs(Tampascale,3)</span></span>
+<span><span class="co">#&gt; Entered at Step 1 is - Pain</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Selection correctly terminated, </span></span>
 <span><span class="co">#&gt; No new variables entered the model</span></span>
 <span>  </span>
 <span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif</span></span>
 <span><span class="co">#&gt;         Pain Radiation Age Duration Previous factor(Satisfaction)</span></span>
-<span><span class="co">#&gt; boot 1     1         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 2     0         0   0        1        0                    0</span></span>
+<span><span class="co">#&gt; boot 1     0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 2     1         0   0        0        0                    0</span></span>
 <span><span class="co">#&gt; boot 3     0         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 4     1         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 5     1         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 6     0         0   0        1        0                    0</span></span>
-<span><span class="co">#&gt; boot 7     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 4     0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 5     0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 6     1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 7     0         0   0        0        0                    0</span></span>
 <span><span class="co">#&gt; boot 8     0         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 9     0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 9     0         0   0        1        0                    0</span></span>
 <span><span class="co">#&gt; boot 10    0         0   0        0        0                    0</span></span>
 <span><span class="co">#&gt; boot 11    0         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 12    0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 12    1         0   0        0        0                    0</span></span>
 <span><span class="co">#&gt; boot 13    0         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 14    0         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 15    0         0   0        1        0                    0</span></span>
+<span><span class="co">#&gt; boot 14    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 15    1         0   0        1        0                    0</span></span>
 <span><span class="co">#&gt; boot 16    1         0   0        0        0                    0</span></span>
 <span><span class="co">#&gt; boot 17    1         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 18    1         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 18    0         0   0        1        0                    0</span></span>
 <span><span class="co">#&gt; boot 19    1         0   0        0        0                    0</span></span>
-<span><span class="co">#&gt; boot 20    0         0   0        0        0                    0</span></span>
+<span><span class="co">#&gt; boot 20    1         0   0        0        0                    0</span></span>
 <span><span class="co">#&gt;         rcs(Tampascale,3) factor(Satisfaction)*Radiation</span></span>
 <span><span class="co">#&gt; boot 1                  0                              0</span></span>
 <span><span class="co">#&gt; boot 2                  0                              0</span></span>
 <span><span class="co">#&gt; boot 3                  0                              0</span></span>
 <span><span class="co">#&gt; boot 4                  0                              0</span></span>
 <span><span class="co">#&gt; boot 5                  0                              0</span></span>
-<span><span class="co">#&gt; boot 6                  1                              0</span></span>
+<span><span class="co">#&gt; boot 6                  0                              0</span></span>
 <span><span class="co">#&gt; boot 7                  0                              0</span></span>
 <span><span class="co">#&gt; boot 8                  0                              0</span></span>
 <span><span class="co">#&gt; boot 9                  0                              0</span></span>
@@ -554,9 +540,9 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; boot 15                 0                              0</span></span>
 <span><span class="co">#&gt; boot 16                 0                              0</span></span>
 <span><span class="co">#&gt; boot 17                 0                              0</span></span>
-<span><span class="co">#&gt; boot 18                 1                              0</span></span>
+<span><span class="co">#&gt; boot 18                 0                              0</span></span>
 <span><span class="co">#&gt; boot 19                 0                              0</span></span>
-<span><span class="co">#&gt; boot 20                 1                              0</span></span>
+<span><span class="co">#&gt; boot 20                 0                              0</span></span>
 <span><span class="co">#&gt;         rcs(Tampascale,3)*Radiation</span></span>
 <span><span class="co">#&gt; boot 1                            0</span></span>
 <span><span class="co">#&gt; boot 2                            0</span></span>
@@ -581,13 +567,13 @@ analysis of Cox regression model</a></li>
 <span>  </span>
 <span>  <span class="va">stab_res</span><span class="op">$</span><span class="va">bif_perc</span></span>
 <span><span class="co">#&gt;                           Pain                      Radiation </span></span>
-<span><span class="co">#&gt;                             40                              0 </span></span>
+<span><span class="co">#&gt;                             45                              0 </span></span>
 <span><span class="co">#&gt;                            Age                       Duration </span></span>
 <span><span class="co">#&gt;                              0                             15 </span></span>
 <span><span class="co">#&gt;                       Previous           factor(Satisfaction) </span></span>
 <span><span class="co">#&gt;                              0                              0 </span></span>
 <span><span class="co">#&gt;              rcs(Tampascale,3) factor(Satisfaction)*Radiation </span></span>
-<span><span class="co">#&gt;                             15                              0 </span></span>
+<span><span class="co">#&gt;                              0                              0 </span></span>
 <span><span class="co">#&gt;    rcs(Tampascale,3)*Radiation </span></span>
 <span><span class="co">#&gt;                              0</span></span>
 <span>  </span>
@@ -596,16 +582,12 @@ analysis of Cox regression model</a></li>
 <span><span class="co">#&gt; 1    0         0   0        0        0                    0                 0</span></span>
 <span><span class="co">#&gt; 2    1         0   0        0        0                    0                 0</span></span>
 <span><span class="co">#&gt; 3    0         0   0        1        0                    0                 0</span></span>
-<span><span class="co">#&gt; 4    0         0   0        0        0                    0                 1</span></span>
-<span><span class="co">#&gt; 5    0         0   0        1        0                    0                 1</span></span>
-<span><span class="co">#&gt; 6    1         0   0        0        0                    0                 1</span></span>
+<span><span class="co">#&gt; 4    1         0   0        1        0                    0                 0</span></span>
 <span><span class="co">#&gt;   factor(Satisfaction)*Radiation rcs(Tampascale,3)*Radiation freq bif_pat_perc</span></span>
-<span><span class="co">#&gt; 1                              0                           0    8           40</span></span>
-<span><span class="co">#&gt; 2                              0                           0    7           35</span></span>
+<span><span class="co">#&gt; 1                              0                           0    9           45</span></span>
+<span><span class="co">#&gt; 2                              0                           0    8           40</span></span>
 <span><span class="co">#&gt; 3                              0                           0    2           10</span></span>
-<span><span class="co">#&gt; 4                              0                           0    1            5</span></span>
-<span><span class="co">#&gt; 5                              0                           0    1            5</span></span>
-<span><span class="co">#&gt; 6                              0                           0    1            5</span></span></code></pre></div>
+<span><span class="co">#&gt; 4                              0                           0    1            5</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
