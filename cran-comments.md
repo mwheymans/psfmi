@@ -7,7 +7,7 @@ This is a resubmission. In this version I have:
 * Updated version nr to 1.1.0.
 * Added df_com to the D1 and D2 method for small sample
 correction.
-* Update strata option in functions cv_MI and cv_MI_RR.
+* Defined strata=strata in functions cv_MI and cv_MI_RR.
 
 ## devtools::test()
 ℹ Testing psfmi
@@ -21,8 +21,8 @@ Duration: 0.2 s
 Nice code.
 
 ## R CMD check results
-── R CMD check results ────────────────────────────────────────────────────────────────────── psfmi 1.1.0 ────
-Duration: 5m 44.3s
+── R CMD check results ──────────────────────────────────────────────────────────────────────── psfmi 1.1.0 ────
+Duration: 5m 22.6s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
