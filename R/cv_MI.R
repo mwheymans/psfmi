@@ -38,8 +38,9 @@ cv_MI <- function(pobj, data_orig, folds, nimp_cv, BW, p.crit, miceImp, ...)
     # Stratified on outcome
     # Extract row id's in first imputed dataset
     # to apply in each imputed dataset
+    strata <- pobj$Outcome
     idfold <-
-      map(vfold_cv(data_orig, v=folds, strata = pobj$Outcome)$splits,
+      map(vfold_cv(data_orig, v=folds, strata = strata)$splits,
           function(x) id_test <- as.integer(row.names(x[[1]]))[-x[[2]]])
 
     Pred <-

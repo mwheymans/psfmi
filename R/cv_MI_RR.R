@@ -25,9 +25,9 @@ cv_MI_RR <- function(pobj, data_orig, folds, nimp_mice, p.crit, BW, miceImp, ...
 {
 
   # Single fold definition
-  #strata <- unlist(data_orig[pobj$Outcome], use.names = FALSE)
+  strata <- pobj$Outcome
   idfold <- 
-      map(vfold_cv(data_orig, v=folds, strata = pobj$Outcome)$splits,
+      map(vfold_cv(data_orig, v=folds, strata = strata)$splits,
           function(x) id_test <- as.integer(row.names(x[[1]]))[-x[[2]]])
 
   Y <- c(paste(pobj$Outcome, paste("~")))

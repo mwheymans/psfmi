@@ -121,7 +121,7 @@ The performance of the model selected at step 3 can be determined by using the
 
 ## Step 5 - Internally validate the model {-}
 
-To internally validate the model we use the `psfmi_` function. With this function five different
+To internally validate the model we use the `psfmi_validate` function. With this function five different
 methods can be used to internally validate models in MI data [see these Vignettes](https://mwheymans.github.io/psfmi/articles/),
 Three methods use cross-validation and two bootstrapping in combination with MI.
 
