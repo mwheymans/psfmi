@@ -6,6 +6,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(rsconnect)
 knitr::opts_chunk$set(echo = FALSE)
 library(psfmi)
 ```
