@@ -12,3 +12,4 @@
 ^docs$
 ^inst/tutorials/.*\.html$
 ^codecov\.yml$
+^CRAN-SUBMISSION$
