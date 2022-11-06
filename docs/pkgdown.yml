@@ -3,11 +3,6 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   boot_MI: boot_MI.html
-  cv_MI: cv_MI.html
-  cv_MI_RR: cv_MI_RR.html
-  development_workflow: development_workflow.html
-  MI_boot: MI_boot.html
-  MI_cv_naive: MI_cv_naive.html
   Pooling_AUC_values: Pooling_AUC_values.html
   Pool_Model_Performance: Pool_Model_Performance.html
   psfmi_CoxModels: psfmi_CoxModels.html
@@ -15,7 +10,7 @@ articles:
   psfmi_LogisticModels: psfmi_LogisticModels.html
   psfmi_mice: psfmi_mice.html
   psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
-last_built: 2022-11-04T16:14Z
+last_built: 2022-11-06T14:51Z
 urls:
   reference: https://mwheymans.github.io/psfmi/reference
   article: https://mwheymans.github.io/psfmi/articles
