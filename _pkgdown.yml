@@ -1,7 +1,6 @@
 url: https://mwheymans.github.io/psfmi/
 
-template:
-  bootstrap: 5
+bootswatch: spacelab
   
 reference:
 - title: Pooling and Predictor selection functions
