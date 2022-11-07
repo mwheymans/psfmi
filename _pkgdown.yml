@@ -2,7 +2,7 @@ url: https://mwheymans.github.io/psfmi/
 
 template:
   bootstrap: 5
-
+  
 reference:
 - title: Pooling and Predictor selection functions
 - contents: 
@@ -64,8 +64,7 @@ reference:
   - lbpmilr
   - lbpmilr_dev
   - lbpmi_extval
-- title: Old functions (Deprecated)
+- title: Deprecated functions
 - contents:
   - bw_single
   - psfmi_perform
-  

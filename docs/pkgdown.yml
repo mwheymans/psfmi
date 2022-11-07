@@ -2,15 +2,13 @@ pandoc: '2.18'
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
-  boot_MI: boot_MI.html
   Pooling_AUC_values: Pooling_AUC_values.html
   Pool_Model_Performance: Pool_Model_Performance.html
   psfmi_CoxModels: psfmi_CoxModels.html
   psfmi_LinearModels: psfmi_LinearModels.html
   psfmi_LogisticModels: psfmi_LogisticModels.html
   psfmi_mice: psfmi_mice.html
-  psfmi_StabilityAnalysis: psfmi_StabilityAnalysis.html
-last_built: 2022-11-06T14:51Z
+last_built: 2022-11-07T06:45Z
 urls:
   reference: https://mwheymans.github.io/psfmi/reference
   article: https://mwheymans.github.io/psfmi/articles
