@@ -97,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martijn W
 Heymans</h4>
             
-            <h4 data-toc-skip class="date">2022-11-07</h4>
+            <h4 data-toc-skip class="date">2022-11-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mwheymans/psfmi/blob/HEAD/vignettes/psfmi_mice.Rmd" class="external-link"><code>vignettes/psfmi_mice.Rmd</code></a></small>
       <div class="hidden name"><code>psfmi_mice.Rmd</code></div>
@@ -191,22 +191,22 @@ psfmi for selecting logistic regression models</a></li>
 <span>                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
 <span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span></span>
 <span><span class="co">#&gt; $`Step 1 - no variables removed -`</span></span>
-<span><span class="co">#&gt;            term      estimate  std.error   statistic        df    p.value</span></span>
-<span><span class="co">#&gt; 1   (Intercept) -0.0344841539 2.57051580 -0.01341527  81.80058 0.98932915</span></span>
-<span><span class="co">#&gt; 2        Gender -0.3302993562 0.42049020 -0.78551023 140.87052 0.43347365</span></span>
-<span><span class="co">#&gt; 3       Smoking  0.0807693429 0.34343818  0.23517869 143.73025 0.81440478</span></span>
-<span><span class="co">#&gt; 4      Function -0.1432186690 0.04516869 -3.17075076  95.31289 0.00204533</span></span>
-<span><span class="co">#&gt; 5    JobControl  0.0085149267 0.02058761  0.41359480 106.84472 0.67999987</span></span>
-<span><span class="co">#&gt; 6    JobDemands  0.0005967303 0.04209728  0.01417503  38.51415 0.98876351</span></span>
-<span><span class="co">#&gt; 7 SocialSupport  0.0425651773 0.05685643  0.74864321 146.09361 0.45527587</span></span>
-<span><span class="co">#&gt;          OR   lower.EXP   upper.EXP</span></span>
-<span><span class="co">#&gt; 1 0.9661036 0.005809588 160.6579028</span></span>
-<span><span class="co">#&gt; 2 0.7187086 0.312989295   1.6503503</span></span>
-<span><span class="co">#&gt; 3 1.0841208 0.549870327   2.1374456</span></span>
-<span><span class="co">#&gt; 4 0.8665646 0.792243832   0.9478573</span></span>
-<span><span class="co">#&gt; 5 1.0085513 0.968217740   1.0505650</span></span>
-<span><span class="co">#&gt; 6 1.0005969 0.918891337   1.0895675</span></span>
-<span><span class="co">#&gt; 7 1.0434841 0.932578292   1.1675792</span></span></code></pre></div>
+<span><span class="co">#&gt;            term      estimate  std.error   statistic        df     p.value</span></span>
+<span><span class="co">#&gt; 1   (Intercept)  0.8803395545 2.51499374  0.35003648  89.82314 0.727130768</span></span>
+<span><span class="co">#&gt; 2        Gender -0.4041536514 0.41582884 -0.97192309 141.88919 0.332742770</span></span>
+<span><span class="co">#&gt; 3       Smoking  0.0860321866 0.33902046  0.25376695 149.40824 0.800024489</span></span>
+<span><span class="co">#&gt; 4      Function -0.1374149913 0.04296049 -3.19863651 137.86343 0.001713239</span></span>
+<span><span class="co">#&gt; 5    JobControl  0.0008387391 0.02008920  0.04175075 102.42798 0.966778673</span></span>
+<span><span class="co">#&gt; 6    JobDemands -0.0081976902 0.03934912 -0.20833226  74.78094 0.835535929</span></span>
+<span><span class="co">#&gt; 7 SocialSupport  0.0353028744 0.05607256  0.62959264 143.58985 0.529961628</span></span>
+<span><span class="co">#&gt;          OR  lower.EXP   upper.EXP</span></span>
+<span><span class="co">#&gt; 1 2.4117185 0.01630524 356.7187371</span></span>
+<span><span class="co">#&gt; 2 0.6675415 0.29341297   1.5187185</span></span>
+<span><span class="co">#&gt; 3 1.0898414 0.55774037   2.1295828</span></span>
+<span><span class="co">#&gt; 4 0.8716084 0.80062575   0.9488844</span></span>
+<span><span class="co">#&gt; 5 1.0008391 0.96174485   1.0415225</span></span>
+<span><span class="co">#&gt; 6 0.9918358 0.91705401   1.0727158</span></span>
+<span><span class="co">#&gt; 7 1.0359334 0.92725058   1.1573550</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div class="section level3">
@@ -261,11 +261,11 @@ psfmi for selecting logistic regression models</a></li>
 <span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
 <span><span class="co">#&gt; $`Final model`</span></span>
 <span><span class="co">#&gt;          term   estimate  std.error statistic       df     p.value        OR</span></span>
-<span><span class="co">#&gt; 1 (Intercept)  1.2108971 0.47525193  2.547906 117.5528 0.012126995 3.3564943</span></span>
-<span><span class="co">#&gt; 2    Function -0.1371435 0.04196411 -3.268115 113.3971 0.001433241 0.8718451</span></span>
+<span><span class="co">#&gt; 1 (Intercept)  1.1666547 0.46379068  2.515477 141.7760 0.013002490 3.2112322</span></span>
+<span><span class="co">#&gt; 2    Function -0.1345265 0.04136593 -3.252108 139.2461 0.001437161 0.8741297</span></span>
 <span><span class="co">#&gt;   lower.EXP upper.EXP</span></span>
-<span><span class="co">#&gt; 1 1.3096131 8.6025816</span></span>
-<span><span class="co">#&gt; 2 0.8022951 0.9474243</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 1.2837889 8.0324830</span></span>
+<span><span class="co">#&gt; 2 0.8054832 0.9486267</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
