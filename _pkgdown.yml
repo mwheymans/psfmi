@@ -19,10 +19,12 @@ reference:
 - title: Functions to evaluate Model stability
 - contents:
   - psfmi_stab
+  - stab_single
 - title: Functions to compare prediction models
 - contents:
   - pool_compare_models
-  - pool_reclassification   
+  - pool_reclassification
+  - nri_cox
 - title: Extra Functions
 - contents:
   - glm_bw
@@ -37,6 +39,10 @@ reference:
   - pool_RR
   - pool_D2
   - pool_D4
+  - nri_est
+  - km_estimates
+  - km_fit
+  - risk_coxph
 - title: Datasets used in examples and tutorials
 - contents: 
   - lbp_orig
