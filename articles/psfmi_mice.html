@@ -191,22 +191,22 @@ psfmi for selecting logistic regression models</a></li>
 <span>                      <span class="va">JobControl</span> <span class="op">+</span> <span class="va">JobDemands</span> <span class="op">+</span> <span class="va">SocialSupport</span>, method<span class="op">=</span><span class="st">"D1"</span><span class="op">)</span></span>
 <span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model</span></span>
 <span><span class="co">#&gt; $`Step 1 - no variables removed -`</span></span>
-<span><span class="co">#&gt;            term     estimate  std.error  statistic       df     p.value</span></span>
-<span><span class="co">#&gt; 1   (Intercept)  0.671733041 2.47071450  0.2718781 118.1852 0.786190163</span></span>
-<span><span class="co">#&gt; 2        Gender -0.379356842 0.41560362 -0.9127852 143.7945 0.362883361</span></span>
-<span><span class="co">#&gt; 3       Smoking  0.097771422 0.33975580  0.2877697 149.9336 0.773920423</span></span>
-<span><span class="co">#&gt; 4      Function -0.141646499 0.04310552 -3.2860407 134.1836 0.001296712</span></span>
-<span><span class="co">#&gt; 5    JobControl  0.003568652 0.01962843  0.1818104 143.4420 0.855988172</span></span>
-<span><span class="co">#&gt; 6    JobDemands -0.006637396 0.03771961 -0.1759667 124.4829 0.860606031</span></span>
-<span><span class="co">#&gt; 7 SocialSupport  0.035786168 0.05663012  0.6319281 136.0437 0.528494347</span></span>
-<span><span class="co">#&gt;          OR  lower.EXP   upper.EXP</span></span>
-<span><span class="co">#&gt; 1 1.9576270 0.01468579 260.9531735</span></span>
-<span><span class="co">#&gt; 2 0.6843014 0.30094175   1.5560100</span></span>
-<span><span class="co">#&gt; 3 1.1027107 0.56351783   2.1578215</span></span>
-<span><span class="co">#&gt; 4 0.8679280 0.79699996   0.9451682</span></span>
-<span><span class="co">#&gt; 5 1.0035750 0.96538366   1.0432773</span></span>
-<span><span class="co">#&gt; 6 0.9933846 0.92192425   1.0703840</span></span>
-<span><span class="co">#&gt; 7 1.0364342 0.92662806   1.1592524</span></span></code></pre></div>
+<span><span class="co">#&gt;            term     estimate  std.error   statistic       df     p.value</span></span>
+<span><span class="co">#&gt; 1   (Intercept) -0.157234576 2.49835442 -0.06293526 106.2504 0.949936304</span></span>
+<span><span class="co">#&gt; 2        Gender -0.352779482 0.41512816 -0.84980860 146.3263 0.396819795</span></span>
+<span><span class="co">#&gt; 3       Smoking  0.077607788 0.33905645  0.22889341 149.4469 0.819264690</span></span>
+<span><span class="co">#&gt; 4      Function -0.139584957 0.04324552 -3.22773215 136.5640 0.001562419</span></span>
+<span><span class="co">#&gt; 5    JobControl  0.007246408 0.01994369  0.36334333 135.7820 0.716913489</span></span>
+<span><span class="co">#&gt; 6    JobDemands  0.001414690 0.03771871  0.03750633 120.2847 0.970143473</span></span>
+<span><span class="co">#&gt; 7 SocialSupport  0.049097218 0.05635377  0.87123222 140.8584 0.385109845</span></span>
+<span><span class="co">#&gt;          OR   lower.EXP   upper.EXP</span></span>
+<span><span class="co">#&gt; 1 0.8545036 0.006034089 121.0085592</span></span>
+<span><span class="co">#&gt; 2 0.7027321 0.309375067   1.5962258</span></span>
+<span><span class="co">#&gt; 3 1.0806987 0.553022923   2.1118649</span></span>
+<span><span class="co">#&gt; 4 0.8697191 0.798434429   0.9473682</span></span>
+<span><span class="co">#&gt; 5 1.0072727 0.968318685   1.0477938</span></span>
+<span><span class="co">#&gt; 6 1.0014157 0.929355508   1.0790633</span></span>
+<span><span class="co">#&gt; 7 1.0503225 0.939590356   1.1741045</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div class="section level3">
@@ -260,12 +260,12 @@ psfmi for selecting logistic regression models</a></li>
 <span>  </span>
 <span>  <span class="va">pool_lr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
 <span><span class="co">#&gt; $`Final model`</span></span>
-<span><span class="co">#&gt;          term   estimate std.error statistic       df      p.value       OR</span></span>
-<span><span class="co">#&gt; 1 (Intercept)  1.2184164 0.4588221  2.655531 152.1915 0.0087614285 3.381828</span></span>
-<span><span class="co">#&gt; 2    Function -0.1386404 0.0406491 -3.410664 151.6658 0.0008306627 0.870541</span></span>
+<span><span class="co">#&gt;          term  estimate  std.error statistic       df     p.value        OR</span></span>
+<span><span class="co">#&gt; 1 (Intercept)  1.141627 0.47057007  2.426052 117.4145 0.016785568 3.1318611</span></span>
+<span><span class="co">#&gt; 2    Function -0.132409 0.04214451 -3.141785 109.6688 0.002159359 0.8759827</span></span>
 <span><span class="co">#&gt;   lower.EXP upper.EXP</span></span>
-<span><span class="co">#&gt; 1 1.3660637 8.3720548</span></span>
-<span><span class="co">#&gt; 2 0.8033603 0.9433397</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 1.2333357  7.952866</span></span>
+<span><span class="co">#&gt; 2 0.8057898  0.952290</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
