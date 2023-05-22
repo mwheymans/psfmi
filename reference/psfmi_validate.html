@@ -226,17 +226,6 @@ be changed.</p></dd>
  cross-validation and with methods boot_MI and MI_boot, backward and forward selection can
  be used. For methods cv_MI and cv_MI_RR the outcome in the original dataset has to be complete.</p>
     </div>
-    <div id="vignettes">
-    <h2>Vignettes</h2>
-    
-
-
-<ul><li><p><a href="https://mwheymans.github.io/psfmi/articles/cv_MI.html">MI and Cross-validation - Method cv_MI</a></p></li>
-<li><p><a href="https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html">MI and Cross-validation - Method cv_MI_RR</a></p></li>
-<li><p><a href="https://mwheymans.github.io/psfmi/articles/MI_cv_naive.html">MI and Cross-validation - Method MI_cv_naive</a></p></li>
-<li><p><a href="https://mwheymans.github.io/psfmi/articles/boot_MI.html">MI and Bootstrapping - Method boot_MI</a></p></li>
-<li><p><a href="https://mwheymans.github.io/psfmi/articles/MI_boot.html">MI and Bootstrapping - Method MI_boot</a></p></li>
-</ul></div>
     <div id="references">
     <h2>References</h2>
     <p>Heymans MW, van Buuren S, Knol DL, van Mechelen W, de Vet HC. Variable selection under
@@ -299,6 +288,7 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - JobDemands</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - Smoking</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - Pain</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
@@ -306,15 +296,16 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - JobDemands</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - rcs(Tampascale,3)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - factor(Satisfaction)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 4 is - Pain</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - rcs(Tampascale,3)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - JobDemands</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - JobDemands</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - rcs(Tampascale,3)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
@@ -322,8 +313,8 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Imp run 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - rcs(Tampascale,3)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - Smoking</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - rcs(Tampascale,3)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - JobDemands</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
@@ -332,15 +323,14 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - JobDemands</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - rcs(Tampascale,3)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 3</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - JobDemands</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - factor(Satisfaction)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - Pain</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - Smoking</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
@@ -348,17 +338,17 @@ be changed.</p></dd>
 <span class="r-in"><span><span class="va">res_perf</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pool_stats</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  Train      Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AUC          0.8772841 0.8239000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Scaled Brier 0.4361074 0.3252574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R2           0.5390959 0.4379627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AUC          0.8978883 0.8003000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Scaled Brier 0.4704484 0.2323868</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R2           0.5843574 0.3806410</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $LP_val</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)     lp_test </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.02100302  0.83820172 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.07654534  0.65997085 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $auc_test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     95% Low C-statistic 95% Up</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C-statistic (logit)  0.7376      0.8239 0.8862</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C-statistic (logit)  0.6827      0.8003 0.8819</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
