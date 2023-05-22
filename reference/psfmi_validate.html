@@ -304,8 +304,8 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - JobDemands</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - Smoking</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - JobDemands</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - rcs(Tampascale,3)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
@@ -313,9 +313,8 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - JobDemands</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - Pain</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 4 is - factor(Satisfaction)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - rcs(Tampascale,3)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - JobDemands</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
@@ -323,9 +322,9 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Imp run 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - JobDemands</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - rcs(Tampascale,3)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - Smoking</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - rcs(Tampascale,3)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - JobDemands</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
@@ -334,15 +333,14 @@ be changed.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - JobDemands</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - rcs(Tampascale,3)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 4 is - factor(Satisfaction)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fold 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 1 is - Smoking</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - JobDemands</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - rcs(Tampascale,3)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 2 is - factor(Satisfaction)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Removed at Step 3 is - Pain</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Selection correctly terminated, </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No more variables removed from the model</span>
@@ -350,17 +348,17 @@ be changed.</p></dd>
 <span class="r-in"><span><span class="va">res_perf</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pool_stats</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  Train      Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AUC          0.8797876 0.8135000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Scaled Brier 0.4499952 0.2846163</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R2           0.5436919 0.4137558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AUC          0.8772841 0.8239000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Scaled Brier 0.4361074 0.3252574</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R2           0.5390959 0.4379627</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $LP_val</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)     lp_test </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.1361672   0.8178188 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.02100302  0.83820172 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $auc_test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     95% Low C-statistic 95% Up</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C-statistic (logit)  0.7268      0.8135 0.8773</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C-statistic (logit)  0.7376      0.8239 0.8862</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
