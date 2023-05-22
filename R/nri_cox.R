@@ -132,8 +132,8 @@ nri_cox <- function(data,
                        n_control,
                        n_excl), 4, 1)
   dimnames(n_totals) <- list(c("Total",
-                               "Controls",
                                "Cases",
+                               "Controls",
                                "Censored (excluded)"),
                              c("N"))
   
