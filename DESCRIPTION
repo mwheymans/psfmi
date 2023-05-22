@@ -30,7 +30,8 @@ Suggests:
     bookdown,
     readr,
     gtools,
-    covr
+    covr,
+    ucminf
 Title: Prediction Model Pooling, Selection and Performance Evaluation Across Multiply Imputed Datasets
 Version: 1.1.0
 Authors@R: c(
