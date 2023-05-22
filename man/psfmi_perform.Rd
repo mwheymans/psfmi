@@ -113,18 +113,6 @@ For internal validation five methods can be used, cv_MI, cv_MI_RR, MI_cv_naive,
  cross-validation and with methods boot_MI and MI_boot, backward and forward selection can
  be used. For methods cv_MI and cv_MI_RR the outcome in the original dataset has to be complete.
 }
-\section{Vignettes}{
-
-
-\itemize{
-\item  \href{https://mwheymans.github.io/psfmi/articles/cv_MI.html}{MI and Cross-validation - Method cv_MI}
-\item  \href{https://mwheymans.github.io/psfmi/articles/cv_MI_RR.html}{MI and Cross-validation - Method cv_MI_RR}
-\item  \href{https://mwheymans.github.io/psfmi/articles/MI_cv_naive.html}{MI and Cross-validation - Method MI_cv_naive} 
-\item  \href{https://mwheymans.github.io/psfmi/articles/boot_MI.html}{MI and Bootstrapping - Method boot_MI}
-\item  \href{https://mwheymans.github.io/psfmi/articles/MI_boot.html}{MI and Bootstrapping - Method MI_boot}
-}
-}
-
 \references{
 Heymans MW, van Buuren S, Knol DL, van Mechelen W, de Vet HC. Variable selection under
  multiple imputation using the bootstrap in a prognostic study. BMC Med Res Methodol. 2007(13);7:33.
