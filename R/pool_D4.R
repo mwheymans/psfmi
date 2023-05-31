@@ -49,7 +49,7 @@ pool_D4 <- function(data,
 {
   m <- nimp
   data <-
-    filter(data, data[impvar] <= nimp)
+    subset(data, data[impvar] <= nimp)
   
   if(model_type=="binomial") family="binomial"
   if(model_type=="linear") family="gaussian"

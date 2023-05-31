@@ -123,7 +123,7 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
         }
         if(method=="D4"){
           data <-
-            filter(data, data[impvar] <= nimp)
+            subset(data, data[impvar] <= nimp)
           imp_list <-
             data %>% group_split(data[, impvar], .keep = FALSE) %>%
             mitools::imputationList(imp_list)
@@ -162,7 +162,7 @@ psfmi_lr_bw <- function(data, nimp, impvar, Outcome, P, p.crit, method, keep.P)
         }
         if(method=="D3"){
           data <-
-            filter(data, data[impvar] <= nimp)
+            subset(data, data[impvar] <= nimp)
           imp_list <-
             data %>% group_split(data[, impvar], .keep = FALSE) %>%
             mitools::imputationList(imp_list)
