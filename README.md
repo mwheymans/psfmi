@@ -21,11 +21,11 @@ Variables can also be forced in the model during selection.
 
 Validation of the prediction models can be performed with
 cross-validation or bootstrapping across multiply imputed data sets and
-pooled model performance measures as AUC value, R-square, Hosmer and
-Lemeshow test, scaled Brier score and calibration plots are generated.
-Also a function to externally validate logistic prediction models across
-multiple imputed data sets is available and a function to compare models
-in multiply imputed data.
+pooled model performance measures as AUC value, Reclassification,
+R-square, Hosmer and Lemeshow test, scaled Brier score and calibration
+plots are generated. Also a function to externally validate logistic
+prediction models across multiple imputed data sets is available and a
+function to compare models in multiply imputed data.
 
 ## Installation
 
