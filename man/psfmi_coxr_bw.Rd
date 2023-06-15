@@ -45,6 +45,8 @@ See details for more information. Default is "RR".}
 
 \item{keep.P}{A single string or a vector of strings including the variables that are forced
 in the model during predictor selection. All type of variables are allowed.}
+
+\item{strata.P}{A single string including the strata variable.}
 }
 \description{
 \code{psfmi_coxr_bw} Backward selection of Cox regression

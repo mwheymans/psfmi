@@ -23,6 +23,7 @@
 #'   See details for more information. Default is "RR".
 #' @param keep.P A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. All type of variables are allowed.
+#' @param strata.P A single string including the strata variable. 
 #'   
 #' @author Martijn Heymans, 2020
 #' @keywords internal

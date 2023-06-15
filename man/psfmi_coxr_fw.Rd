@@ -45,6 +45,8 @@ in the model during predictor selection. All type of variables are allowed.}
 \item{method}{A character vector to indicate the pooling method for p-values to pool the
 total model or used during predictor selection. This can be "RR", D1", "D2" or "MPR".
 See details for more information. Default is "RR".}
+
+\item{strata.P}{A single string including the strata variable.}
 }
 \description{
 \code{psfmi_coxr_fw} Forward selection of Cox regression
