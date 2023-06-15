@@ -7,7 +7,7 @@
 clean_P <-
   function(variable){
     variable <-
-      gsub(paste(c("factor", "[()]", 
+      gsub(paste(c("factor", "[()]", "strata",
                    "rcs", ",", " ", 
                    c(3:7)), collapse = "|"),
            "", variable)

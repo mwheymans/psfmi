@@ -1,6 +1,21 @@
 ---
 title: "cran_comments"
 ---
+## Resubmission
+This is a resubmission. In this version I have:
+* Updated version nr to 1.3.0.
+* Added a new function nri_cox.R for reclassification analyses of Cox models.
+* Added the possibility to pool stratified Cox models in the function psfmi_coxr.
+
+── R CMD check results ────────────────────────────────────────────── psfmi 1.3.0 ────
+Duration: 3m 16.3s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+## Test environments
+*	R studio 2023.06.0, R version 4.3.0
+* win-builder Development: * DONE Status: OK
+* win-builder Release: * DONE Status: OK
 
 ## Resubmission
 This is a resubmission. In this version I have:

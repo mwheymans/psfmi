@@ -6,12 +6,13 @@
 #' @param data Data frame with stacked multiple imputed datasets.
 #'   The original dataset that contains missing values must be excluded 
 #'   from the dataset.
-#' @param formula A formula object to specify the model as normally used by glm.
+#' @param formula A formula object to specify the model as normally used by glm
+#'   or coxph. See details.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes 
 #'   the imputed datasets.
 #' @param model_type If "binomial" (default), performance measures are calculated
-#'  for logistic regression models, if "survival" for Cox regression models.      
+#'  for logistic regression models, if "survival" for Cox regression models. See details.      
 #' @param cal.plot If TRUE a calibration plot is generated. Default is TRUE. 
 #'  model_type must be "binomial".
 #' @param plot.method If "mean" one calibration plot is generated, first taking the 
@@ -23,6 +24,11 @@
 #'  for the Hosmer and Lemeshow test. Default is 10. If the range of predicted probabilities. 
 #'  is low, less than 10 groups can be chosen, but not < 3. 
 #'
+#' @details A typical formula object for logistic regression models has the form 
+#'   \code{formula = Outcome ~ terms}. For Cox regression models the formula object must
+#'   be defined as \code{Surv(time, status) ~ terms}. For Cox models calibration curves 
+#'   can not be generated.
+#'     
 #' @examples
 #'  perf <- pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 
 #'  formula = Chronic ~ Gender + Pain + Tampascale + 
