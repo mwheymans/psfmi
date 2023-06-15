@@ -102,7 +102,8 @@ from the dataset.</p></dd>
 
 
 <dt>formula</dt>
-<dd><p>A formula object to specify the model as normally used by glm.</p></dd>
+<dd><p>A formula object to specify the model as normally used by glm
+or coxph. See details.</p></dd>
 
 
 <dt>nimp</dt>
@@ -120,7 +121,7 @@ the imputed datasets.</p></dd>
 
 <dt>model_type</dt>
 <dd><p>If "binomial" (default), performance measures are calculated
-for logistic regression models, if "survival" for Cox regression models.</p></dd>
+for logistic regression models, if "survival" for Cox regression models. See details.</p></dd>
 
 
 <dt>cal.plot</dt>
@@ -141,6 +142,13 @@ for the Hosmer and Lemeshow test. Default is 10. If the range of predicted proba
 is low, less than 10 groups can be chosen, but not &lt; 3.</p></dd>
 
 </dl></div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>A typical formula object for logistic regression models has the form 
+  <code>formula = Outcome ~ terms</code>. For Cox regression models the formula object must
+  be defined as <code>Surv(time, status) ~ terms</code>. For Cox models calibration curves 
+  can not be generated.</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

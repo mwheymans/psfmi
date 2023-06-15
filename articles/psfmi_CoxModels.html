@@ -133,6 +133,8 @@ with FW including interaction terms and method D1</a></li>
 with BW including spline coefficients and method D1</a></li>
 <li><a href="#pooling-with-fw-including-spline-coefficients-and-method-mpr">Pooling
 with FW including spline coefficients and method MPR</a></li>
+<li><a href="#pooling-with-bw-for-a-stratified-cox-model">Pooling with
+BW for a stratified Cox model</a></li>
 </ul>
 </li>
 </ul>
@@ -223,16 +225,18 @@ result.</p>
 <span><span class="co">#&gt; 1 0.9851240 0.9997776</span></span>
 <span><span class="co">#&gt; 2 1.0264257 1.0907861</span></span>
 <span><span class="co">#&gt; 3 0.9079217 0.9926396</span></span>
-<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
-<span><span class="co">#&gt; $`Final model`</span></span>
-<span><span class="co">#&gt;       term     estimate   std.error statistic       df      p.value        HR</span></span>
-<span><span class="co">#&gt; 1 Duration -0.007605055 0.003742491 -2.032084 188.0122 0.0435521399 0.9924238</span></span>
-<span><span class="co">#&gt; 2 Function  0.056490633 0.015414714  3.664722 188.0122 0.0003219893 1.0581167</span></span>
-<span><span class="co">#&gt; 3   Social -0.051992380 0.022611457 -2.299382 188.0122 0.0225821316 0.9493361</span></span>
-<span><span class="co">#&gt;   lower.EXP upper.EXP</span></span>
-<span><span class="co">#&gt; 1 0.9851240 0.9997776</span></span>
-<span><span class="co">#&gt; 2 1.0264257 1.0907861</span></span>
-<span><span class="co">#&gt; 3 0.9079217 0.9926396</span></span>
+<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">multiparm_final</span></span>
+<span><span class="co">#&gt; $`Step 2 - selected - Duration`</span></span>
+<span><span class="co">#&gt;                    p-value D1</span></span>
+<span><span class="co">#&gt; Duration            0.0421452</span></span>
+<span><span class="co">#&gt; Radiation           0.4898252</span></span>
+<span><span class="co">#&gt; Onset               0.5294033</span></span>
+<span><span class="co">#&gt; Age                 0.2989933</span></span>
+<span><span class="co">#&gt; Previous            0.7136713</span></span>
+<span><span class="co">#&gt; Tampascale          0.1555227</span></span>
+<span><span class="co">#&gt; JobControl          0.5565327</span></span>
+<span><span class="co">#&gt; JobDemand           0.1341280</span></span>
+<span><span class="co">#&gt; factor(Expect_cat)  0.6103930</span></span>
 <span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_in</span></span>
 <span><span class="co">#&gt;          Duration Radiation Onset Function Age Previous Tampascale JobControl</span></span>
 <span><span class="co">#&gt; Step 1          0         0     0        1   0        0          0          0</span></span>
@@ -279,16 +283,18 @@ in the models during backward selection.</p>
 <span><span class="co">#&gt; 1 0.9844091 0.9990955</span></span>
 <span><span class="co">#&gt; 2 0.9575624 1.0094108</span></span>
 <span><span class="co">#&gt; 3 1.0179701 1.0861332</span></span>
-<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
-<span><span class="co">#&gt; $`Final model`</span></span>
-<span><span class="co">#&gt;         term     estimate   std.error statistic       df     p.value        HR</span></span>
-<span><span class="co">#&gt; 1   Duration -0.008309329 0.003753484 -2.213765 187.9452 0.028047868 0.9917251</span></span>
-<span><span class="co">#&gt; 2 Tampascale -0.016998788 0.013360456 -1.272321 177.6436 0.204921997 0.9831449</span></span>
-<span><span class="co">#&gt; 3   Function  0.050217190 0.016427330  3.056930 187.0360 0.002563622 1.0514994</span></span>
-<span><span class="co">#&gt;   lower.EXP upper.EXP</span></span>
-<span><span class="co">#&gt; 1 0.9844091 0.9990955</span></span>
-<span><span class="co">#&gt; 2 0.9575624 1.0094108</span></span>
-<span><span class="co">#&gt; 3 1.0179701 1.0861332</span></span>
+<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">multiparm_final</span></span>
+<span><span class="co">#&gt; $`Step 1 - selected - Duration`</span></span>
+<span><span class="co">#&gt;                               p-value D1</span></span>
+<span><span class="co">#&gt; Duration                      0.02684499</span></span>
+<span><span class="co">#&gt; Radiation                     0.49765169</span></span>
+<span><span class="co">#&gt; Onset                         0.47699469</span></span>
+<span><span class="co">#&gt; Age                           0.18893166</span></span>
+<span><span class="co">#&gt; Previous                      0.46140973</span></span>
+<span><span class="co">#&gt; factor(Expect_cat)            0.57323599</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)          0.78635590</span></span>
+<span><span class="co">#&gt; Radiation*Tampascale          0.23337740</span></span>
+<span><span class="co">#&gt; Tampascale*factor(Expect_cat) 0.34684004</span></span>
 <span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_in</span></span>
 <span><span class="co">#&gt;          Duration Radiation Onset Function Age Previous Tampascale</span></span>
 <span><span class="co">#&gt; Step 1          0         0     0        1   0        0          1</span></span>
@@ -342,18 +348,12 @@ during backward selection.</p>
 <span><span class="co">#&gt; 2 0.001104361 1.0568545 1.0226366 1.0922174</span></span>
 <span><span class="co">#&gt; 3 0.017380618 0.9364698 0.8873345 0.9883259</span></span>
 <span><span class="co">#&gt; 4 0.048860903 1.0612279 1.0003023 1.1258642</span></span>
-<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
+<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">multiparm_final</span></span>
 <span><span class="co">#&gt; $`Step 6`</span></span>
-<span><span class="co">#&gt;                            term    estimate  std.error statistic       df</span></span>
-<span><span class="co">#&gt; 1                      Duration -0.00834864 0.00375033 -2.226108 186.9008</span></span>
-<span><span class="co">#&gt; 2                      Function  0.05529708 0.01668254  3.314668 184.6679</span></span>
-<span><span class="co">#&gt; 3  rcs(Tampascale, 3)Tampascale -0.06563800 0.02724068 -2.409558 129.2769</span></span>
-<span><span class="co">#&gt; 4 rcs(Tampascale, 3)Tampascale'  0.05942661 0.02982168  1.992732 106.0096</span></span>
-<span><span class="co">#&gt;       p.value        HR lower.EXP upper.EXP</span></span>
-<span><span class="co">#&gt; 1 0.027201742 0.9916861 0.9843763 0.9990502</span></span>
-<span><span class="co">#&gt; 2 0.001104361 1.0568545 1.0226366 1.0922174</span></span>
-<span><span class="co">#&gt; 3 0.017380618 0.9364698 0.8873345 0.9883259</span></span>
-<span><span class="co">#&gt; 4 0.048860903 1.0612279 1.0003023 1.1258642</span></span>
+<span><span class="co">#&gt;                    p-values D1 F-statistic</span></span>
+<span><span class="co">#&gt; Duration          0.0260069717    4.955557</span></span>
+<span><span class="co">#&gt; Function          0.0009181754   10.987023</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3) 0.0522892728    2.971050</span></span>
 <span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_in</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 1</span></span></span>
 <span><span class="co">#&gt;   value            </span></span>
@@ -397,18 +397,15 @@ during forward selection.</p>
 <span><span class="co">#&gt; 2 0.017380618 0.9364698 0.8873345 0.9883259</span></span>
 <span><span class="co">#&gt; 3 0.048860903 1.0612279 1.0003023 1.1258642</span></span>
 <span><span class="co">#&gt; 4 0.001104361 1.0568545 1.0226366 1.0922174</span></span>
-<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
-<span><span class="co">#&gt; $`Final model`</span></span>
-<span><span class="co">#&gt;                            term    estimate  std.error statistic       df</span></span>
-<span><span class="co">#&gt; 1                      Duration -0.00834864 0.00375033 -2.226108 186.9008</span></span>
-<span><span class="co">#&gt; 2  rcs(Tampascale, 3)Tampascale -0.06563800 0.02724068 -2.409558 129.2769</span></span>
-<span><span class="co">#&gt; 3 rcs(Tampascale, 3)Tampascale'  0.05942661 0.02982168  1.992732 106.0096</span></span>
-<span><span class="co">#&gt; 4                      Function  0.05529708 0.01668254  3.314668 184.6679</span></span>
-<span><span class="co">#&gt;       p.value        HR lower.EXP upper.EXP</span></span>
-<span><span class="co">#&gt; 1 0.027201742 0.9916861 0.9843763 0.9990502</span></span>
-<span><span class="co">#&gt; 2 0.017380618 0.9364698 0.8873345 0.9883259</span></span>
-<span><span class="co">#&gt; 3 0.048860903 1.0612279 1.0003023 1.1258642</span></span>
-<span><span class="co">#&gt; 4 0.001104361 1.0568545 1.0226366 1.0922174</span></span>
+<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">multiparm_final</span></span>
+<span><span class="co">#&gt; $`Step 1 - selected - Duration`</span></span>
+<span><span class="co">#&gt;                                P-value</span></span>
+<span><span class="co">#&gt; Duration                    0.02280326</span></span>
+<span><span class="co">#&gt; Radiation                   0.46220293</span></span>
+<span><span class="co">#&gt; Onset                       0.41857220</span></span>
+<span><span class="co">#&gt; Previous                    0.64851606</span></span>
+<span><span class="co">#&gt; factor(Satisfaction)        0.58075823</span></span>
+<span><span class="co">#&gt; Radiation*rcs(Tampascale,3) 0.75488109</span></span>
 <span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">predictors_in</span></span>
 <span><span class="co">#&gt;          Duration Radiation Onset Function Previous factor(Satisfaction)</span></span>
 <span><span class="co">#&gt; Step 1          0         0     0        1        0                    0</span></span>
@@ -418,6 +415,67 @@ during forward selection.</p>
 <span><span class="co">#&gt; Step 1                   1                           0</span></span>
 <span><span class="co">#&gt; Step 2                   1                           0</span></span>
 <span><span class="co">#&gt; Included                 1                           0</span></span></code></pre></div>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div class="section level3">
+<h3 id="pooling-with-bw-for-a-stratified-cox-model">Pooling with BW for a stratified Cox model<a class="anchor" aria-label="anchor" href="#pooling-with-bw-for-a-stratified-cox-model"></a>
+</h3>
+<p>Pooling Cox regression models over 5 imputed datasets with backward
+selection using a p-value of 0.05 and as method MPR for a stratified Cox
+model.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mwheymans.github.io/psfmi/">psfmi</a></span><span class="op">)</span></span>
+<span>  <span class="va">pool_coxr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psfmi_coxr.html">psfmi_coxr</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lbpmicox</span>, nimp<span class="op">=</span><span class="fl">5</span>, impvar<span class="op">=</span><span class="st">"Impnr"</span>, </span>
+<span>                formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">Time</span>, <span class="va">Status</span><span class="op">)</span> <span class="op">~</span> <span class="va">Duration</span> <span class="op">+</span> <span class="va">Onset</span> <span class="op">+</span> </span>
+<span>                <span class="va">Function</span> <span class="op">+</span> <span class="va">Previous</span> <span class="op">+</span> <span class="fu">rcs</span><span class="op">(</span><span class="va">Tampascale</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>                <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Satisfaction</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/strata.html" class="external-link">strata</a></span><span class="op">(</span><span class="va">Radiation</span><span class="op">)</span>, </span>
+<span>                p.crit<span class="op">=</span><span class="fl">0.05</span>, method<span class="op">=</span><span class="st">"MPR"</span>, direction <span class="op">=</span> <span class="st">"BW"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Removed at Step 1 is - factor(Satisfaction)</span></span>
+<span><span class="co">#&gt; Removed at Step 2 is - Onset</span></span>
+<span><span class="co">#&gt; Removed at Step 3 is - Previous</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span><span class="co">#&gt; No more variables removed from the model</span></span>
+<span>  </span>
+<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">RR_model_final</span></span>
+<span><span class="co">#&gt; $`Step 4`</span></span>
+<span><span class="co">#&gt;                            term     estimate   std.error statistic        df</span></span>
+<span><span class="co">#&gt; 1                      Duration -0.008484749 0.003738762 -2.269401 186.85272</span></span>
+<span><span class="co">#&gt; 2                      Function  0.055437188 0.017461177  3.174883 184.30915</span></span>
+<span><span class="co">#&gt; 3  rcs(Tampascale, 3)Tampascale -0.064744168 0.027417178 -2.361445 124.61432</span></span>
+<span><span class="co">#&gt; 4 rcs(Tampascale, 3)Tampascale'  0.061363612 0.030289959  2.025873  97.02152</span></span>
+<span><span class="co">#&gt;       p.value        HR lower.EXP upper.EXP</span></span>
+<span><span class="co">#&gt; 1 0.024386480 0.9915511 0.9842648 0.9988915</span></span>
+<span><span class="co">#&gt; 2 0.001757088 1.0570026 1.0212095 1.0940503</span></span>
+<span><span class="co">#&gt; 3 0.019754160 0.9373072 0.8878009 0.9895742</span></span>
+<span><span class="co">#&gt; 4 0.045523544 1.0632855 1.0012474 1.1291675</span></span>
+<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">multiparm_final</span></span>
+<span><span class="co">#&gt; $`Step 4`</span></span>
+<span><span class="co">#&gt;                   p-value MPR</span></span>
+<span><span class="co">#&gt; Duration          0.024176044</span></span>
+<span><span class="co">#&gt; Function          0.001305273</span></span>
+<span><span class="co">#&gt; rcs(Tampascale,3) 0.037329200</span></span>
+<span>  <span class="va">pool_coxr</span><span class="op">$</span><span class="va">formula_step</span></span>
+<span><span class="co">#&gt; $`Step 1 - removal - factor(Satisfaction)`</span></span>
+<span><span class="co">#&gt; Surv(Time, Status) ~ Duration + Onset + Function + Previous + </span></span>
+<span><span class="co">#&gt;     factor(Satisfaction) + rcs(Tampascale, 3) + strata(Radiation)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x565509978ba0&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Step 2 - removal - Onset`</span></span>
+<span><span class="co">#&gt; Surv(Time, Status) ~ Duration + Onset + Function + Previous + </span></span>
+<span><span class="co">#&gt;     rcs(Tampascale, 3) + strata(Radiation)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x565509978ba0&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Step 3 - removal - Previous`</span></span>
+<span><span class="co">#&gt; Surv(Time, Status) ~ Duration + Function + Previous + rcs(Tampascale, </span></span>
+<span><span class="co">#&gt;     3) + strata(Radiation)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x565509978ba0&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Step 4 - removal - ended`</span></span>
+<span><span class="co">#&gt; Surv(Time, Status) ~ Duration + Function + rcs(Tampascale, 3) + </span></span>
+<span><span class="co">#&gt;     strata(Radiation)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x565509978ba0&gt;</span></span></code></pre></div>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
