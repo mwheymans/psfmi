@@ -1,8 +1,8 @@
 #' Predictor selection function for forward selection of Cox regression models in 
-#'  single dataset.
+#'  single complete dataset.
 #'
-#' \code{coxph_bw} Forward selection of Cox regression models in single dataset 
-#'  using as selection method the partial likelihood-ratio statistic.
+#' \code{coxph_bw} Forward selection of Cox regression models in single complete 
+#'  dataset using as selection method the partial likelihood-ratio statistic.
 #'
 #' @param data A data frame. 
 #' @param formula A formula object to specify the model as normally used by coxph.
@@ -262,7 +262,7 @@ coxph_fw <- function(data,
       if(P_orig_temp == keep.P)
         stop("\n", "No need to define keep.predictors. Exclude keep.predictors and set p.crit = 1","\n")
   
-  ############################## BW selection
+  ############################## FW selection
 
   P_each_step <- fm_step <- fm_total <- RR_model_total <- chi_test_total <-
     RR_model_select <- multiparm_step <- multiparm_end <- list()
@@ -389,7 +389,7 @@ coxph_fw <- function(data,
     fm_total[[j]] <- fm_step
     RR_model_total[[j]] <- RR.model
     
-    # p.pool for multiparameer pooling
+    # p.pool for multiparameter pooling
     p.pool <- data.frame(do.call("rbind", P_Chi))
     rownames_temp <- row.names(p.pool)
     p.pool <- data.frame(p.pool)#[, 1])

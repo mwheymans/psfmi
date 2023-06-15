@@ -14,20 +14,22 @@
 #'   at the default value of NULL.
 #' @param nimp A numerical scalar. Number of imputed datasets. Default is 5.
 #' @param impvar A character vector. Name of the variable that distinguishes the
-#' imputed datasets.
+#'   imputed datasets.
 #' @param time Survival time.
 #' @param status The status variable, normally 0=censoring, 1=event.
 #' @param predictors Character vector with the names of the predictor variables.
 #'   At least one predictor variable has to be defined. Give predictors unique names
 #'   and do not use predictor name combinations with numbers as, age2, gnder10, etc.
 #' @param cat.predictors A single string or a vector of strings to define the
-#' categorical variables. Default is NULL categorical predictors.
+#'   categorical variables. Default is NULL categorical predictors.
 #' @param spline.predictors A single string or a vector of strings to define the
-#' (restricted cubic) spline variables. Default is NULL spline predictors. See details.
+#'   (restricted cubic) spline variables. Default is NULL spline predictors. See details.
 #' @param int.predictors A single string or a vector of strings with the names of the variables that form
 #'   an interaction pair, separated by a “:” symbol.
 #' @param keep.predictors A single string or a vector of strings including the variables that are forced
 #'   in the model during predictor selection. Categorical and interaction variables are allowed.
+#' @param strata.variable A single string including the strata variable. See under "Details" 
+#'   and "Examples" how such a variable can be specified.  
 #' @param nknots A numerical vector that defines the number of knots for each spline predictor separately.
 #' @param p.crit A numerical scalar. P-value selection criterion. A value of 1
 #'   provides the pooled model without selection.
@@ -52,8 +54,8 @@
 #'  \code{Surv(time, status) ~ variable1*variable2} or \code{Surv(time, status) ~ variable1 + variable2 + 
 #'  variable1:variable2}. All variables in the terms part have to be separated by a "+". If a formula
 #'  object is used set predictors, cat.predictors, spline.predictors or int.predictors
-#'  at the default value of NULL.
-#'
+#'  at the default value of NULL. For Cox models also a strata variable is allowed to include in 
+#'  the formula as \code{Surv(time, status) ~ strata(variable) + terms}.
 #'
 #' @return An object of class \code{pmods} (multiply imputed models) from
 #'  which the following objects can be extracted: 
@@ -80,7 +82,8 @@
 #'  \item  \code{direction} direction of predictor selection
 #'  \item  \code{predictors_final} names of predictors in final selection step
 #'  \item  \code{predictors_initial} names of predictors in start model
-#'  \item  \code{keep.predictors} names of predictors that were forced in the model    
+#'  \item  \code{keep.predictors} names of predictors that were forced in the model
+#'  \item  \code{strata.variable} names of the strata variable in the model    
 #' }
 #'
 #' @references Eekhout I, van de Wiel MA, Heymans MW. Methods for significance testing of categorical
@@ -112,27 +115,35 @@
 #'                      
 #'  pool_coxr$RR_model_final
 #'  
+#'  pool_coxr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + Tampascale +
+#'                        Previous + strata(Radiation), data=lbpmicox, p.crit = 0.05, 
+#'                        direction="BW", nimp=5, impvar="Impnr", method="D1")
+#'                      
+#'  pool_coxr$RR_model_final
+#'  
 #' @export
 psfmi_coxr <- function(data,
                        formula = NULL,
                        nimp=5,
                        impvar=NULL,
-                       status = NULL,
-                       time = NULL,
+                       time,
+                       status,
                        predictors=NULL,
                        cat.predictors=NULL,
                        spline.predictors=NULL,
                        int.predictors=NULL,
                        keep.predictors=NULL,
+                       strata.variable=NULL,
                        nknots=NULL,
                        p.crit=1,
                        method="RR",
-                       direction=NULL)
-{
+                       direction=NULL) {
+  
   call <- match.call()
   
   if(method=="D3")
     stop("\n", "Method D3 not available for survival data")
+  
   if(is_empty(formula)) {
     if(!all(data[status]==1 | data[status]==0))
       stop("Status should be a 0 - 1 variable")
@@ -147,6 +158,8 @@ psfmi_coxr <- function(data,
       gsub(":", "*", int.predictors)
     s.P <-
       spline.predictors
+    strata.P <-
+      strata.variable
   } else{
     form <-
       terms(formula)
@@ -170,6 +183,10 @@ psfmi_coxr <- function(data,
       form_vars[grepl("factor", form_vars)]
     form_vars <-
       form_vars[!grepl("factor", form_vars)]
+    strata.P <-
+      form_vars[grepl("strata", form_vars)]
+    form_vars <-
+      form_vars[!grepl("strata", form_vars)]
     s.P <-
       form_vars[grepl("rcs", form_vars)]
     nknots <-
@@ -178,18 +195,31 @@ psfmi_coxr <- function(data,
       form_vars[!grepl("rcs", form_vars)]
     int.P <-
       gsub(":", "*", clean_P(int.P))
+    strata.P <- clean_P(strata.P)
     cat.P <- clean_P(cat.P)
     s.P <- clean_P(s.P)
     P <- form_vars
   }
+  if(length(strata.P)>1)
+    stop("\n", "Only one strata variable allowed")
   
-  keep.P <-
-    gsub(":", "*", keep.predictors)
+  if(!is_empty(strata.P)){
+    keep.P <-
+      c(gsub(":", "*", keep.predictors), strata.P)
+  } else {
+    keep.P <-
+      gsub(":", "*", keep.predictors)
+  }
   keep.P <-
     sapply(as.list(keep.P), clean_P)
   
   P.check <-
     c(P, cat.P, s.P)
+  
+  if(!is_empty(strata.P)) {
+    if(any(grepl(strata.P, int.P)))
+      stop("\n", "Interaction with strata variable not allowed", "\n\n")
+  }
   
   # Check data input
   if(p.crit!=1){
@@ -240,7 +270,7 @@ psfmi_coxr <- function(data,
     stop("\n", "Predictor(s) - ", c(P[duplicated(P)]),
          " - defined more than once", "\n\n")
   }
-  # Check if al variables are available in dataset
+  # Check if all variables are available in dataset
   if(any(!P.check %in% names(data))) {
     P.mis <- P.check[!P.check %in% names(data)]
     stop("\n", "Predictor(s) - ", P.mis,
@@ -257,7 +287,7 @@ psfmi_coxr <- function(data,
   # First predictors, second categorical
   # predictors and last interactions
   P <-
-    c(P, cat.P, s.P, int.P)
+    c(P, cat.P, s.P, strata.P, int.P)
   if (is_empty(P))
     stop("\n", "No predictors to select, model is empty", "\n\n")
   
@@ -272,7 +302,29 @@ psfmi_coxr <- function(data,
       }
     }
   }
-  
+  if (!is_empty(strata.P)) {
+    if(length(strata.P)==1){
+      P <-
+        gsub(strata.P,
+             replacement=paste0("strata(", strata.P, ")"), P)
+      if(!is_empty(keep.P)){
+        keep.P <-
+          gsub(strata.P,
+               replacement=paste0("strata(", strata.P, ")"), keep.P)
+      }
+    } else {
+      for(i in 1:length(strata.P)) {
+        P <-
+          gsub(strata.P[i],
+               replacement=paste0("strata(", strata.P[i], ")"), P)
+        if(!is_empty(keep.P)){
+          keep.P <-
+            gsub(strata.P[i],
+                 replacement=paste0("strata(", strata.P[i], ")"), keep.P)
+        }
+      }
+    }
+  }
   if (!is_empty(cat.P)) {
     if(length(cat.P)==1){
       P <-
@@ -332,7 +384,7 @@ psfmi_coxr <- function(data,
   if(p.crit==1){
     pobjpool <-
       psfmi_coxr_bw(data = data, nimp=nimp, impvar = impvar, status = status, time = time,
-                    P = P, p.crit = p.crit, method = method, keep.P = keep.P)
+                    P = P, p.crit = p.crit, method = method, keep.P = keep.P, strata.P = strata.P)
     class(pobjpool) <-
       "pmods"
     return(pobjpool)
@@ -340,8 +392,8 @@ psfmi_coxr <- function(data,
   if(direction=="FW"){
     
     pobjfw <-
-      psfmi_coxr_fw(data = data, nimp = nimp, impvar = impvar, status = status, time = time, p.crit = p.crit,
-                    P = P, keep.P = keep.P, method = method)
+      psfmi_coxr_fw(data = data, nimp = nimp, impvar = impvar, status = status, time = time, 
+                    P = P, p.crit = p.crit, keep.P = keep.P, method = method, strata.P = strata.P)
     class(pobjfw) <-
       "pmods"
     return(pobjfw)
@@ -349,7 +401,7 @@ psfmi_coxr <- function(data,
   if(direction=="BW"){
     pobjbw <-
       psfmi_coxr_bw(data = data, nimp=nimp, impvar = impvar, status = status, time = time,
-                    P = P, p.crit = p.crit, method = method, keep.P = keep.P)
+                    P = P, p.crit = p.crit, method = method, keep.P = keep.P, strata.P = strata.P)
     class(pobjbw) <-
       "pmods"
     return(pobjbw)

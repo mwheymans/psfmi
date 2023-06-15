@@ -1,8 +1,8 @@
 #' Predictor selection function for backward selection of Cox regression models in
-#'  single dataset.
+#'  single complete dataset.
 #'
-#' \code{coxph_bw} Backward selection of Cox regression models in single dataset using 
-#'  as selection method the partial likelihood-ratio statistic.
+#' \code{coxph_bw} Backward selection of Cox regression models in single complete dataset 
+#'  using as selection method the partial likelihood-ratio statistic.
 #'
 #' @param data A data frame. 
 #' @param formula A formula object to specify the model as normally used by coxph.
@@ -280,7 +280,7 @@ coxph_bw <- function(data,
       if(P_orig_temp == keep.P)
         stop("\n", "No need to define keep.predictors. Exclude keep.predictors and set p.crit = 1","\n")
   
-  # Loop k, to pool models in multiply imputed datasets
+  # Loop k, to fit models
   for (k in 1:(length(P)+1)) {
     
     # set regression formula fm
@@ -288,8 +288,6 @@ coxph_bw <- function(data,
       c(paste0("Surv(", time, ",", status, ")~"))
     fm <-
       as.formula(paste(Y, paste(P, collapse = "+")))
-    
-    # pooling methods
     
     pool.p.val <-
       matrix(0, length(P), 2)

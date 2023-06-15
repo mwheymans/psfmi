@@ -28,55 +28,101 @@
 #' @keywords internal
 #'   
 #' @export
-psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, keep.P)
+psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, keep.P, strata.P)
 {
   call <- match.call()
-
+  
   RR.model <- P_rm_step <- fm_step <- imp.dt <- multiparm <- list()
-
+  
   P_orig <-
     P
+  if(length(P_orig)==1 & any(grepl("strata", P_orig)))
+    stop("\n", "strata variable is only defined, add more predictors","\n")
+  
   keep.P <-
     sapply(as.list(keep.P), clean_P)
-
+  
   P_orig_temp <-
     clean_P(P)
-
+  
   if(!is_empty(keep.P))
     if(length(P_orig)==1)
       if(P_orig_temp == keep.P)
         stop("\n", "No need to define keep.predictors. Exclude keep.predictors and set p.crit = 1","\n")
-
+  
+  if(any(grepl("strata", P_orig))){
+    P_length <- length(P)
+  } else {
+    P_length <- length(P)+1
+  }
+  
   # Loop k, to pool models in multiply imputed datasets
-  for (k in 1:(length(P)+1)) {
+  for (k in 1:P_length) {
 
     # set regression formula fm
     Y <-
       c(paste0("Surv(", time, ",", status, ")~"))
     fm <-
       as.formula(paste(Y, paste(P, collapse = "+")))
-
+    
     # Extract df of freedom for MPR
     if(method=="MPR" | method=="RR"){
-
-      chi.LR <-
-        data.frame(matrix(0, length(attr(terms(fm), "term.labels")), nimp))
-      chi.p <-
-        data.frame(matrix(0, length(attr(terms(fm), "term.labels")), nimp))
-
+      
+      if(any(grepl("strata", P_orig))){
+        if(length(attr(terms(fm), "term.labels"))>1){
+          chi.LR <-
+            data.frame(matrix(0, length(attr(terms(fm), "term.labels"))-1, nimp))
+          chi.p <-
+            data.frame(matrix(0, length(attr(terms(fm), "term.labels"))-1, nimp))
+        } else {
+          chi.LR <-
+            data.frame(matrix(0, length(attr(terms(fm), "term.labels")), nimp))
+          chi.p <-
+            data.frame(matrix(0, length(attr(terms(fm), "term.labels")), nimp))
+        }
+      } else {
+        chi.LR <-
+          data.frame(matrix(0, length(attr(terms(fm), "term.labels")), nimp))
+        chi.p <-
+          data.frame(matrix(0, length(attr(terms(fm), "term.labels")), nimp))
+      }
+      
+      
       fit <- list()
       for (i in 1:nimp) {
         imp.dt[[i]] <- data[data[impvar] == i, ]
         fit[[i]] <- coxph(fm, data = imp.dt[[i]])
         if(length(attr(terms(fm), "term.labels")) == 1){
-          chi.LR[, i] <- car::Anova(fit[[i]])[-1, 2]
-          chi.p[, i] <- car::Anova(fit[[i]])[-1, 4]
+          if(any(grepl("strata", P_orig))){
+            chi.LR[, i] <-
+              suppressWarnings(suppressMessages(car::Anova(fit[[i]],
+                                                           test.statistic=c("Wald"))[-1, 2]))
+            chi.p[, i] <-
+              suppressWarnings(suppressMessages(car::Anova(fit[[i]],
+                                                           test.statistic=c("Wald"))[-1, 4]))
+          } else{
+            chi.LR[, i] <-
+              car::Anova(fit[[i]])[-1, 2]
+            chi.p[, i] <-
+              car::Anova(fit[[i]])[-1, 4]
+          }
         } else {
-          chi.LR[, i] <- car::Anova(fit[[i]])[, 1]
-          chi.p[, i] <- car::Anova(fit[[i]])[, 3]
+          if(any(grepl("strata", P_orig))){
+            chi.LR[, i] <-
+              suppressWarnings(suppressMessages(car::Anova(fit[[i]],
+                                                           test.statistic=c("Wald"))[, 1]))
+            chi.p[, i] <-
+              suppressWarnings(suppressMessages(car::Anova(fit[[i]],
+                                                           test.statistic=c("Wald"))[, 3]))
+          } else {
+            chi.LR[, i] <-
+              car::Anova(fit[[i]])[, 1]
+            chi.p[, i] <-
+              car::Anova(fit[[i]])[, 3]
+          }
         }
       }
-
+      
       # Rubin's Rules
       out.res <-
         suppressWarnings(summary(pool(fit)))
@@ -93,15 +139,28 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
       names(RR.model)[[k]] <-
         paste("Step", k)#
     }
-
+    
     # D1 and D2 pooling methods
     if(method=="D1" | method == "D2") {
-
-      pool.p.val <-
-        matrix(0, length(P), 2)
+      
       P_test <-
         clean_P(P)
-
+      
+      if(any(grepl("strata", P_orig))){
+        if(length(P)==1){
+          pool.p.val <-
+            matrix(0, length(P), 2)
+        } else {
+          pool.p.val <-
+            matrix(0, length(P_test[!P_test %in% strata.P]), 2)
+        }
+        P_test <- P_test[!P_test %in% strata.P]
+        P <- P[!grepl("strata", P)]
+      } else {
+        pool.p.val <-
+          matrix(0, length(P), 2)
+      }
+      
       for (j in 1:length(P)) {
         cov.nam0 <-
           P[-j]
@@ -111,18 +170,25 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
         }
         Y <-
           c(paste0("Surv(", time, ",", status, ")~"))
-        form1 <-
-          as.formula(paste(Y, paste(P, collapse = "+")))
-        form0 <-
-          as.formula(paste(Y, paste(cov.nam0, collapse = "+")))
-
+        
+        if(any(grepl("strata", P_orig))){
+          form1 <-
+            as.formula(paste(Y, paste(c(P, P_orig[grepl("strata", P_orig)]), collapse = "+")))
+          form0 <-
+            as.formula(paste(Y, paste(c(cov.nam0, P_orig[grepl("strata", P_orig)]), collapse = "+")))
+        } else{
+          form1 <-
+            as.formula(paste(Y, paste(P, collapse = "+")))
+          form0 <-
+            as.formula(paste(Y, paste(cov.nam0, collapse = "+")))
+        }
         if(any(grepl(P_test[j], P_test[-j]))){
           cov.nam0 <-
             P[-grep(P_test[j], P_test)]
           form0 <-
             as.formula(paste(Y, paste(c(cov.nam0), collapse = "+")))
         }
-
+        
         if(method =="D1" | method =="D2")
           fit1 <- fit0 <- imp.dt <- list()
         for (i in 1:nimp) {
@@ -147,7 +213,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
           model.res1
         names(RR.model)[[k]] <-
           paste("Step", k)
-
+        
         test_P <-
           mitml::testModels(fit1, fit0, method = method)
         pvalue <-
@@ -156,7 +222,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
           test_P$test[1]
         pool.p.val[j, ] <-
           c(pvalue, fstat)
-
+        
       }
       p.pool <-
         data.frame(pool.p.val)
@@ -164,18 +230,25 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
         P
       names(p.pool) <-
         c(paste("p-values", method), "F-statistic")
+    fm <- form1  
     }
-
+    
     # MPR Pooling
     if(method=="MPR") {
       p.pool <-
         data.frame(apply(chi.p, 1 , median))
-      rownames(p.pool) <-
-        P
+      P_names <- P
+      if(any(grepl("strata", P_names))){
+        rownames(p.pool) <-
+          P_names[!grepl("strata", P_names)]
+      } else {
+        rownames(p.pool) <-
+          P
+      }
       names(p.pool) <-
         c("p-value MPR")
     }
-
+    
     # RR Pooling
     if(method=="RR") {
       p.pool <-
@@ -184,7 +257,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
       names(p.pool) <-
         c("p-value RR")
     }
-
+    
     # Extract regression formula's
     fm_step[[k]] <-
       formula(fm)
@@ -195,7 +268,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
       p.pool
     names(multiparm)[[k]] <-
       paste("Step", k)
-
+    
     # Clean variable names for selection
     P_temp <-
       clean_P(row.names(p.pool))
@@ -225,14 +298,14 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
       p.pool <-
         p.pool[remove_P_keep, , FALSE]
     }
-
+    
     if(p.crit==1){
       break()
     }
-
+    
     if(nrow(p.pool)==0)
       break()
-
+    
     # Select variables
     P_temp <-
       row.names(p.pool)
@@ -242,28 +315,31 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
       P_excl <-
         P_excl[1]
     }
-
+    
     if (p.pool[, 1][P_excl] < p.crit) {
       message("\n", "Selection correctly terminated, ",
               "\n", "No more variables removed from the model", "\n")
       (break)()
     }
-
+    
     P_out <-
       P_temp[P_excl]
-
+    
     if(p.pool[, 1][P_excl] > p.crit) {
       message("Removed at Step ", k,
               " is - ", P_out)
-
+      
     }
-
+    
     P_rm_step[[k]] <-
       P_out
     # Variable excluded on each step
     P <-
       P[!P %in% P_out]
-
+    
+    if(length(P)==1 & any(grepl("strata", P)))
+      P <- NULL
+    
     if(is_empty(P)){
       fm_step[[k+1]] <-
         as.formula(paste(Y, 1))
@@ -280,7 +356,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
         fit[[i]] <-
           coxph(fm_step[[k+1]], data = imp.dt[[i]])
       }
-
+      
       if(is_empty(P)){
         RR.model[[k+1]] <-
           fit[[1]]
@@ -288,7 +364,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
           paste("Step", k+1)
         break()
       }
-
+      
       # Rubin's Rules
       out.res <-
         suppressWarnings(summary(pool(fit)))
@@ -309,7 +385,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
   }
   # End k loop
   ##############################################################
-
+  
   P_rm_step_final <-
     P_rm_step
   if(is_empty(P)) {
@@ -319,7 +395,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
     P_rm_step <-
       lapply(P_rm_step[-k], clean_P)
   }
-
+  
   # Extract selected models
   outOrder_step <-
     P_orig_temp
@@ -353,14 +429,14 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
     dimnames(P_remove) <-
       list("Removed", P_orig)
   }
-
+  
   P_included <-
     as_tibble(names(P_remove[nrow(P_remove), ][P_remove[nrow(P_remove), ] == 0] ))
   predictors_final <-
     names(P_remove[nrow(P_remove), ][P_remove[nrow(P_remove), ] == 0])
   if(length(P_orig)==1 & !is_empty(P))
     P_included <- predictors_final <- P
-
+  
   if(is_empty(P) | p.crit==1){
     RR_model_step <-
       RR.model
@@ -383,7 +459,7 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
         c(paste0("Surv(", time, ",", status, ")~"))
       formula_initial <-
         as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
-      fm_step_final <- 
+      fm_step_final <-
         formula_initial
       RR_model_final <-
         RR_model_step[k]
@@ -408,22 +484,22 @@ psfmi_coxr_bw <- function(data, nimp, impvar, status, time, P, p.crit, method, k
     fm_step_final <-
       fm_step[k]
   }
-
+  
   Y_initial <-
     c(paste0("Surv(", time, ",", status, ")~"))
   formula_initial <-
     as.formula(paste(Y_initial, paste(P_orig, collapse = "+")))
-
+  
   bw <-
     list(data = data, RR_model = RR_model_step, RR_model_final = RR_model_final,
-         multiparm = multiparm_step, multiparm_final = multiparm_final, 
+         multiparm = multiparm_step, multiparm_final = multiparm_final,
          formula_step = fm_step_total, formula_final = fm_step_final,
          formula_initial = formula_initial, predictors_in = P_included,
-         predictors_out = P_remove, 
+         predictors_out = P_remove,
          impvar = impvar, nimp = nimp, status = status, time = time,
-         method = method, p.crit = p.crit, call = call, 
+         method = method, p.crit = p.crit, call = call,
          model_type = "survival", direction = "BW",
-         predictors_final = predictors_final, predictors_initial = P_orig, 
-         keep.predictors = keep.P)
+         predictors_final = predictors_final, predictors_initial = P_orig,
+         keep.predictors = keep.P, strata.variable = strata.P)
   return(bw)
 }
