@@ -1,5 +1,5 @@
-pandoc: '2.18'
-pkgdown: 2.0.6
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   Pooling_AUC_values: Pooling_AUC_values.html
@@ -8,7 +8,7 @@ articles:
   psfmi_LinearModels: psfmi_LinearModels.html
   psfmi_LogisticModels: psfmi_LogisticModels.html
   psfmi_mice: psfmi_mice.html
-last_built: 2022-11-17T18:55Z
+last_built: 2023-06-15T11:44Z
 urls:
   reference: https://mwheymans.github.io/psfmi/reference
   article: https://mwheymans.github.io/psfmi/articles

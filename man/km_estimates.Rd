@@ -44,10 +44,10 @@ An object from which the following objects can be extracted:
  for Cox Regression Models
 }
 \details{
-Follow-up for which cases nd controls are determined. For censored cases before this follow-up 
+Follow-up for which cases and controls are determined. For censored cases before this follow-up 
  the expected risk of being a case is calculated by using the Kaplan-Meier value to calculate
- the expected number of cases. These expected numbers are used to calculate the NRI proportions 
- but are not shown by function \code{nricens}.
+ the expected number of cases. These expected numbers are used to calculate the NRI proportions. 
+ (These are not shown by function \code{nricens}).
 }
 \examples{
   library(survival)

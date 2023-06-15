@@ -19,14 +19,15 @@
 	the median p-values method. This is also possible for Mixed models. 
 	The models can contain continuous, dichotomous, categorical and restricted 
 	cubic spline predictors and interaction terms between	all these type of predictors. 
-	The stability of the models	can be evaluated using bootstrapping and cluster 
-	bootstrapping. The package further contains functions to pool the model performance 
-	as ROC/AUC, R-squares, scaled Brier score, H&amp;L test and calibration	plots for logistic 
-	regression models. Internal validation can be	done with cross-validation or bootstrapping. 
-	The adjusted intercept after shrinkage of pooled regression coefficients can be obtained. 
-	Backward and forward selection as part of internal validation is possible. 
+	The stability of the models	can be evaluated using (cluster) bootstrapping. The package 
+	further contains functions to pool model performance measures as ROC/AUC, Reclassification, 
+	R-squared, scaled Brier score, H&amp;L test and calibration	plots for logistic regression models. 
+	Internal validation can be done across multiply imputed datasets with cross-validation or 
+	bootstrapping. The adjusted intercept after shrinkage of pooled regression coefficients 
+	can be obtained. Backward and forward selection as part of internal validation is possible. 
 	A function to externally validate logistic prediction models in multiple imputed 
-	datasets is available and a function to compare models. 
+	datasets is available and a function to compare models. For Cox models a strata variable
+	can be included.
 	Eekhout (2017) &lt;doi:10.1186/s12874-017-0404-7&gt;.
 	Wiel (2009) &lt;doi:10.1093/biostatistics/kxp011&gt;.
 	Marshall (2009) &lt;doi:10.1186/1471-2288-9-57&gt;.">
@@ -50,7 +51,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">psfmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -86,18 +87,6 @@
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="tutorials/Variable_Selection.html">Practical Exercises Variable Selection</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
@@ -124,9 +113,9 @@
 <div class="section level1">
 <div class="page-header"><h1 id="psfmi">psfmi<a class="anchor" aria-label="anchor" href="#psfmi"></a>
 </h1></div>
-
+<p><a href="https://CRAN.R-project.org/package=psfmi" class="external-link"><img src="https://www.r-pkg.org/badges/version-ago/psfmi" alt="CRAN_Release_Badge"></a> <a href="https://CRAN.R-project.org/package=psfmi" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue" alt="Monthly downloads badge"></a> <a href="https://github.com/mwheymans/psfmi/actions" class="external-link"><img src="https://github.com/mwheymans/psfmi/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://cran.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg" alt="minimal R version"></a></p>
 <p>The package provides functions to apply pooling, backward and forward selection of linear, logistic and Cox regression models across multiply imputed data sets using Rubin’s Rules (RR). The D1, D2, D3, D4 and the median p-values method can be used to pool the significance of categorical variables (multiparameter test). The model can contain continuous, dichotomous, categorical and restricted cubic spline predictors and interaction terms between all these type of variables. Variables can also be forced in the model during selection.</p>
-<p>Validation of the prediction models can be performed with cross-validation or bootstrapping across multiply imputed data sets and pooled model performance measures as AUC value, R-square, Hosmer and Lemeshow test, scaled Brier score and calibration plots are generated. Also a function to externally validate logistic prediction models across multiple imputed data sets is available and a function to compare models in multiply imputed data.</p>
+<p>Validation of the prediction models can be performed with cross-validation or bootstrapping across multiply imputed data sets and pooled model performance measures as AUC value, Reclassification, R-square, Hosmer and Lemeshow test, scaled Brier score and calibration plots are generated. Also a function to externally validate logistic prediction models across multiple imputed data sets is available and a function to compare models in multiply imputed data.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -142,9 +131,9 @@
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Cite the package as:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Martijn W <span class="fu">Heymans</span> (<span class="dv">2021</span>). psfmi<span class="sc">:</span> Prediction Model Pooling, Selection and Performance Evaluation </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Across Multiply Imputed Datasets. R package version <span class="dv">1</span>.<span class="dv">1</span>.<span class="fl">0.</span> https<span class="sc">:</span><span class="er">//</span>mwheymans.github.io<span class="sc">/</span>psfmi<span class="sc">/</span> </span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>Martijn W <span class="fu">Heymans</span> (<span class="dv">2021</span>). psfmi<span class="sc">:</span> Prediction Model Pooling, Selection and Performance Evaluation </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>Across Multiply Imputed Datasets. R package version <span class="dv">1</span>.<span class="dv">1</span>.<span class="fl">0.</span> https<span class="sc">:</span><span class="er">//</span>mwheymans.github.io<span class="sc">/</span>psfmi<span class="sc">/</span> </span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -270,15 +259,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=psfmi" class="external-link"><img src="https://www.r-pkg.org/badges/version-ago/psfmi" alt="CRAN_Release_Badge"></a></li>
-<li><a href="https://CRAN.R-project.org/package=psfmi" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/psfmi?color=blue" alt="Monthly downloads badge"></a></li>
-<li><a href="https://github.com/mwheymans/psfmi/actions" class="external-link"><img src="https://github.com/mwheymans/psfmi/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://cran.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg" alt="minimal R version"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -291,7 +272,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

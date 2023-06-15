@@ -33,6 +33,7 @@ procedures.
     + [Pooling with FW including interaction terms and method D1]
     + [Pooling with BW including spline coefficients and method D1]
     + [Pooling with FW including spline coefficients and method MPR]
+    + [Pooling with BW for a stratified Cox model]
 
 ## Pooling without BW and method D1
 
@@ -68,7 +69,7 @@ Back to [Examples]
                 method="D1", direction = "FW")
   
   pool_coxr$RR_model_final
-  pool_coxr$RR_model_final
+  pool_coxr$multiparm_final
   pool_coxr$predictors_in
   
 ```  
@@ -94,7 +95,7 @@ during backward selection.
                 p.crit=0.05, method="D1", direction = "FW")
   
   pool_coxr$RR_model_final
-  pool_coxr$RR_model_final
+  pool_coxr$multiparm_final
   pool_coxr$predictors_in
 
 ```  
@@ -119,7 +120,7 @@ predictor and forcing Tampascale in the models during backward selection.
                 p.crit=0.05, method="D1", direction = "BW")
   
   pool_coxr$RR_model_final
-  pool_coxr$RR_model_final
+  pool_coxr$multiparm_final
   pool_coxr$predictors_in
 
 ```  
@@ -143,8 +144,30 @@ predictor and forcing Tampascale in the models during forward selection.
                 p.crit=0.05, method="MPR", direction = "FW")
   
   pool_coxr$RR_model_final
-  pool_coxr$RR_model_final
+  pool_coxr$multiparm_final
   pool_coxr$predictors_in
+  
+```  
+
+Back to [Examples]
+
+## Pooling with BW for a stratified Cox model
+
+Pooling Cox regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and as method MPR for a stratified Cox model.
+
+```{r}
+
+  library(psfmi)
+  pool_coxr <- psfmi_coxr(data=lbpmicox, nimp=5, impvar="Impnr", 
+                formula = Surv(Time, Status) ~ Duration + Onset + 
+                Function + Previous + rcs(Tampascale, 3) + 
+                factor(Satisfaction) + strata(Radiation), 
+                p.crit=0.05, method="MPR", direction = "BW")
+  
+  pool_coxr$RR_model_final
+  pool_coxr$multiparm_final
+  pool_coxr$formula_step
   
 ```  
 

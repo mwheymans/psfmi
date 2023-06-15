@@ -10,13 +10,14 @@ psfmi_coxr(
   formula = NULL,
   nimp = 5,
   impvar = NULL,
-  status = NULL,
-  time = NULL,
+  time,
+  status,
   predictors = NULL,
   cat.predictors = NULL,
   spline.predictors = NULL,
   int.predictors = NULL,
   keep.predictors = NULL,
+  strata.variable = NULL,
   nknots = NULL,
   p.crit = 1,
   method = "RR",
@@ -39,9 +40,9 @@ at the default value of NULL.}
 \item{impvar}{A character vector. Name of the variable that distinguishes the
 imputed datasets.}
 
-\item{status}{The status variable, normally 0=censoring, 1=event.}
-
 \item{time}{Survival time.}
+
+\item{status}{The status variable, normally 0=censoring, 1=event.}
 
 \item{predictors}{Character vector with the names of the predictor variables.
 At least one predictor variable has to be defined. Give predictors unique names
@@ -58,6 +59,9 @@ an interaction pair, separated by a “:” symbol.}
 
 \item{keep.predictors}{A single string or a vector of strings including the variables that are forced
 in the model during predictor selection. Categorical and interaction variables are allowed.}
+
+\item{strata.variable}{A single string including the strata variable. See under "Details" 
+and "Examples" how such a variable can be specified.}
 
 \item{nknots}{A numerical vector that defines the number of knots for each spline predictor separately.}
 
@@ -97,7 +101,8 @@ An object of class \code{pmods} (multiply imputed models) from
  \item  \code{direction} direction of predictor selection
  \item  \code{predictors_final} names of predictors in final selection step
  \item  \code{predictors_initial} names of predictors in start model
- \item  \code{keep.predictors} names of predictors that were forced in the model    
+ \item  \code{keep.predictors} names of predictors that were forced in the model
+ \item  \code{strata.variable} names of the strata variable in the model    
 }
 }
 \description{
@@ -120,7 +125,8 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
  \code{Surv(time, status) ~ variable1*variable2} or \code{Surv(time, status) ~ variable1 + variable2 + 
  variable1:variable2}. All variables in the terms part have to be separated by a "+". If a formula
  object is used set predictors, cat.predictors, spline.predictors or int.predictors
- at the default value of NULL.
+ at the default value of NULL. For Cox models also a strata variable is allowed to include in 
+ the formula as \code{Surv(time, status) ~ strata(variable) + terms}.
 }
 \section{Vignettes}{
 
@@ -132,6 +138,12 @@ The basic pooling procedure to derive pooled coefficients, standard errors, 95
                        Radiation + Radiation*Pain + Age + Duration + Previous,
                      data=lbpmicox, p.crit = 0.05, direction="BW", nimp=5, impvar="Impnr",
                      keep.predictors = "Radiation*Pain", method="D1")
+                     
+ pool_coxr$RR_model_final
+ 
+ pool_coxr <- psfmi_coxr(formula = Surv(Time, Status) ~ Pain + Tampascale +
+                       Previous + strata(Radiation), data=lbpmicox, p.crit = 0.05, 
+                       direction="BW", nimp=5, impvar="Impnr", method="D1")
                      
  pool_coxr$RR_model_final
  

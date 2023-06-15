@@ -21,7 +21,8 @@ pool_performance(
 The original dataset that contains missing values must be excluded 
 from the dataset.}
 
-\item{formula}{A formula object to specify the model as normally used by glm.}
+\item{formula}{A formula object to specify the model as normally used by glm
+or coxph. See details.}
 
 \item{nimp}{A numerical scalar. Number of imputed datasets. Default is 5.}
 
@@ -31,7 +32,7 @@ the imputed datasets.}
 \item{plot.indiv}{This argument is deprecated; please use plot.method instead.}
 
 \item{model_type}{If "binomial" (default), performance measures are calculated
-for logistic regression models, if "survival" for Cox regression models.}
+for logistic regression models, if "survival" for Cox regression models. See details.}
 
 \item{cal.plot}{If TRUE a calibration plot is generated. Default is TRUE. 
 model_type must be "binomial".}
@@ -48,6 +49,12 @@ is low, less than 10 groups can be chosen, but not < 3.}
 \description{
 \code{pool_performance} Pooling performance measures for logistic
  and Cox regression models.
+}
+\details{
+A typical formula object for logistic regression models has the form 
+  \code{formula = Outcome ~ terms}. For Cox regression models the formula object must
+  be defined as \code{Surv(time, status) ~ terms}. For Cox models calibration curves 
+  can not be generated.
 }
 \examples{
  perf <- pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 

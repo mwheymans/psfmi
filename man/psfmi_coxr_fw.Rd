@@ -4,7 +4,18 @@
 \alias{psfmi_coxr_fw}
 \title{Forward selection of Cox regression models across multiply imputed data.}
 \usage{
-psfmi_coxr_fw(data, nimp, impvar, status, time, p.crit, P, keep.P, method)
+psfmi_coxr_fw(
+  data,
+  nimp,
+  impvar,
+  status,
+  time,
+  p.crit,
+  P,
+  keep.P,
+  method,
+  strata.P
+)
 }
 \arguments{
 \item{data}{Data frame with stacked multiple imputed datasets.

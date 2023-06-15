@@ -4,7 +4,18 @@
 \alias{psfmi_coxr_bw}
 \title{Backward selection of Cox regression models in multiply imputed data.}
 \usage{
-psfmi_coxr_bw(data, nimp, impvar, status, time, P, p.crit, method, keep.P)
+psfmi_coxr_bw(
+  data,
+  nimp,
+  impvar,
+  status,
+  time,
+  P,
+  p.crit,
+  method,
+  keep.P,
+  strata.P
+)
 }
 \arguments{
 \item{data}{Data frame with stacked multiple imputed datasets.

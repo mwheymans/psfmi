@@ -3,7 +3,7 @@
 \name{coxph_bw}
 \alias{coxph_bw}
 \title{Predictor selection function for backward selection of Cox regression models in
- single dataset.}
+ single complete dataset.}
 \usage{
 coxph_bw(
   data,
@@ -64,8 +64,8 @@ An object of class \code{smods} (single models) from
  variables that are forced in the model during selection.
 }
 \description{
-\code{coxph_bw} Backward selection of Cox regression models in single dataset using 
- as selection method the partial likelihood-ratio statistic.
+\code{coxph_bw} Backward selection of Cox regression models in single complete dataset 
+ using as selection method the partial likelihood-ratio statistic.
 }
 \details{
 A typical formula object has the form \code{Surv(time, status) ~ terms}. Categorical variables has to
