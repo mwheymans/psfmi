@@ -1,3 +1,8 @@
+# Package 1.4.0
+
+* Added a new function nri_cox.R for reclassification analyses of Cox models.
+* Added the possibility to pool stratified Cox models in the function psfmi_coxr.
+
 # Package 1.1.0
 
 * Added df_com to the D1 and D2 method for small sample

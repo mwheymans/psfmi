@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(survival)
-library(psfmi)
 ```
 
 # Introduction
@@ -32,6 +30,8 @@ The performance of a logistic regression model across multiply imputed datasets 
 as follows. 
 
 ```{r}
+
+library(psfmi)
 
 perf <- pool_performance(data=lbpmilr, nimp=5, impvar="Impnr", 
   formula = Chronic ~ Gender + Pain + Tampascale + 
@@ -49,6 +49,8 @@ perf
 For a Cox regression model the following code can be used.
 
 ```{r}
+
+library(survival)
 
 perf <- pool_performance(data=lbpmicox, nimp=5, impvar="Impnr", 
   formula = Surv(Time, Status) ~ Duration + Pain + Tampascale + 

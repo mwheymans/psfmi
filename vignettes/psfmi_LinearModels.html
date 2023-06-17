@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Martijn W Heymans" />
+
+<meta name="date" content="2023-06-17" />
+
+<title>Pooling and Selection of Linear Regression Models</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Pooling and Selection of Linear Regression
+Models</h1>
+<h4 class="author">Martijn W Heymans</h4>
+<h4 class="date">2023-06-17</h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>With the <code>psfmi_lm</code> function you can pool Linear
+regression models by using<br />
+the following pooling methods: RR (Rubin’s Rules), D1, D2 and MPR
+(Median R Rule).</p>
+<p>You can also use forward or backward selection from the pooled
+model.</p>
+<p>This vignette show you examples of how to apply these procedures.</p>
+</div>
+<div id="examples" class="section level1">
+<h1>Examples</h1>
+<ul>
+<li>[Linear Regression]
+<ul>
+<li><a href="#pooling-without-bs-and-method-d1">Pooling without BS and
+method D1</a></li>
+<li><a href="#pooling-with-bs-and-method-d1">Pooling with BS and method
+D1</a></li>
+<li><a href="#pooling-with-bs-and-method-mpr">Pooling with BS and method
+MPR</a></li>
+<li><a href="#pooling-with-bs-including-interaction-terms-and-method-d2">Pooling
+with BS including interaction terms and method D2</a></li>
+<li><a href="#pooling-with-bs-and-forcing-interaction-terms-and-method-d1">Pooling
+with BS and forcing interaction terms and method D1</a></li>
+<li><a href="#pooling-with-bs-including-spline-coefficient-and-method-d1">Pooling
+with BS including spline coefficient and method D1</a></li>
+</ul></li>
+</ul>
+<div id="pooling-without-bs-and-method-d1" class="section level2">
+<h2>Pooling without BS and method D1</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">library</span>(psfmi)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  pool_lm <span class="ot">&lt;-</span> <span class="fu">psfmi_lm</span>(<span class="at">data=</span>lbpmilr, <span class="at">nimp=</span><span class="dv">5</span>, <span class="at">impvar=</span><span class="st">&quot;Impnr&quot;</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>                      <span class="at">formula =</span> Pain <span class="sc">~</span> Gender <span class="sc">+</span> Smoking <span class="sc">+</span> </span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>                      Function <span class="sc">+</span> JobControl <span class="sc">+</span> JobDemands <span class="sc">+</span> SocialSupport, </span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>                      <span class="at">method=</span><span class="st">&quot;D1&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  </span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  pool_lm<span class="sc">$</span>RR_model</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; $`Step 1 - no variables removed -`</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt;            term     estimate  std.error   statistic        df     p.value</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; 1   (Intercept)  7.626750501 2.37470136  3.21166721 103.21605 0.001760151</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; 2        Gender -0.549897436 0.41763180 -1.31670395  97.10997 0.191036859</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; 3       Smoking -0.184822738 0.35459284 -0.52122524  60.23783 0.604120893</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; 4      Function -0.126983721 0.04264394 -2.97776686  46.48759 0.004600709</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; 5    JobControl -0.018201443 0.01884372 -0.96591573 117.54453 0.336069460</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; 6    JobDemands  0.015351105 0.03590006  0.42760673 121.85071 0.669692207</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&gt; 7 SocialSupport -0.003435975 0.05621115 -0.06112622  96.21255 0.951385488</span></span></code></pre></div>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-and-method-d1" class="section level2">
+<h2>Pooling with BS and method D1</h2>
+<p>Pooling linear regression models over 5 imputed datasets with
+backward selection using a p-value of 0.05 and as method D1 and forcing
+the predictor “Smoking” in the models during backward selection.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">library</span>(psfmi)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  pool_lm <span class="ot">&lt;-</span> <span class="fu">psfmi_lm</span>(<span class="at">data=</span>lbpmilr, <span class="at">nimp=</span><span class="dv">5</span>, <span class="at">impvar=</span><span class="st">&quot;Impnr&quot;</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                      <span class="at">formula =</span> Pain <span class="sc">~</span> Gender <span class="sc">+</span> Smoking <span class="sc">+</span> </span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                      Function <span class="sc">+</span> JobControl <span class="sc">+</span> JobDemands <span class="sc">+</span> SocialSupport, </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                      <span class="at">keep.predictors =</span> <span class="st">&quot;Smoking&quot;</span>, <span class="at">method=</span><span class="st">&quot;D1&quot;</span>, <span class="at">p.crit=</span><span class="fl">0.05</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                      <span class="at">direction=</span><span class="st">&quot;BW&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; Removed at Step 1 is - SocialSupport</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; Removed at Step 2 is - JobDemands</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; Removed at Step 3 is - JobControl</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; Removed at Step 4 is - Gender</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; No more variables removed from the model</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  </span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  pool_lm<span class="sc">$</span>RR_model_final</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; $`Step 5`</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt;          term   estimate  std.error  statistic       df      p.value</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 1 (Intercept)  6.7504947 0.47607990 14.1793314 78.48419 2.368256e-23</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 2     Smoking -0.1998222 0.35556369 -0.5619871 57.20990 5.763201e-01</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 3    Function -0.1403048 0.04077998 -3.4405314 51.97198 1.153144e-03</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  pool_lm<span class="sc">$</span>multiparm_final</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; $`Step 5`</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt;           p-values D1 F-statistic</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; Smoking  0.5753099186   0.3158295</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; Function 0.0008794238  11.8372561</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  pool_lm<span class="sc">$</span>predictors_out</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt;         Gender Smoking Function JobControl JobDemands SocialSupport</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; Step 1       0       0        0          0          0             1</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; Step 2       0       0        0          0          1             0</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Step 3       0       0        0          1          0             0</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; Step 4       1       0        0          0          0             0</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; Removed      1       0        0          1          1             1</span></span></code></pre></div>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-and-method-mpr" class="section level2">
+<h2>Pooling with BS and method MPR</h2>
+<p>Pooling linear regression models over 5 imputed datasets with
+backward selection using a p-value of 0.05 and as method D1 and forcing
+the predictor “Smoking” in the models during backward selection.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">library</span>(psfmi)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  pool_lm <span class="ot">&lt;-</span> <span class="fu">psfmi_lm</span>(<span class="at">data=</span>lbpmilr, <span class="at">nimp=</span><span class="dv">5</span>, <span class="at">impvar=</span><span class="st">&quot;Impnr&quot;</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                      <span class="at">formula =</span> Pain <span class="sc">~</span> Gender <span class="sc">+</span> Smoking <span class="sc">+</span> </span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>                      Function <span class="sc">+</span> JobControl <span class="sc">+</span> JobDemands <span class="sc">+</span> SocialSupport, </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                      <span class="at">keep.predictors =</span> <span class="st">&quot;Smoking&quot;</span>, <span class="at">method=</span><span class="st">&quot;MPR&quot;</span>, <span class="at">p.crit=</span><span class="fl">0.05</span>, </span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>                      <span class="at">direction=</span><span class="st">&quot;BW&quot;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; Removed at Step 1 is - SocialSupport</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; Removed at Step 2 is - JobDemands</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; Removed at Step 3 is - JobControl</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; Removed at Step 4 is - Gender</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; No more variables removed from the model</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  </span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>  pool_lm<span class="sc">$</span>RR_model_final</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; $`Step 5`</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt;          term   estimate  std.error  statistic       df      p.value</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; 1 (Intercept)  6.7504947 0.47607990 14.1793314 78.48419 2.368256e-23</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; 2     Smoking -0.1998222 0.35556369 -0.5619871 57.20990 5.763201e-01</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; 3    Function -0.1403048 0.04077998 -3.4405314 51.97198 1.153144e-03</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>  pool_lm<span class="sc">$</span>multiparm_final</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt; $`Step 5`</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt;           p-value MPR</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; Smoking  0.6019832504</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; Function 0.0001268997</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>  pool_lm<span class="sc">$</span>predictors_out  </span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt;         Gender Smoking Function JobControl JobDemands SocialSupport</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; Step 1       0       0        0          0          0             1</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt; Step 2       0       0        0          0          1             0</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; Step 3       0       0        0          1          0             0</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; Step 4       1       0        0          0          0             0</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; Removed      1       0        0          1          1             1</span></span></code></pre></div>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-including-interaction-terms-and-method-d2" class="section level2">
+<h2>Pooling with BS including interaction terms and method D2</h2>
+<p>Pooling linear regression models over 5 imputed datasets with BS
+using a p-value of 0.05 and as method D2. Several interaction terms,
+including a categorical predictor, are part of the selection
+procedure.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">library</span>(psfmi)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  pool_lm <span class="ot">&lt;-</span> <span class="fu">psfmi_lm</span>(<span class="at">data=</span>lbpmilr, <span class="at">nimp=</span><span class="dv">5</span>, <span class="at">impvar=</span><span class="st">&quot;Impnr&quot;</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>                      <span class="at">formula =</span> Pain <span class="sc">~</span> Gender <span class="sc">+</span> Smoking <span class="sc">+</span> </span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>                        Function <span class="sc">+</span> JobControl <span class="sc">+</span> <span class="fu">factor</span>(Carrying) <span class="sc">+</span> </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>                        <span class="fu">factor</span>(Satisfaction) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>                        <span class="fu">factor</span>(Carrying)<span class="sc">:</span>Smoking <span class="sc">+</span> Gender<span class="sc">:</span>Smoking, </span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>                      <span class="at">method=</span><span class="st">&quot;D2&quot;</span>, <span class="at">p.crit=</span><span class="fl">0.05</span>, </span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>                      <span class="at">direction=</span><span class="st">&quot;BW&quot;</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; Removed at Step 1 is - Function</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; Removed at Step 2 is - Gender*Smoking</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; Removed at Step 3 is - Smoking*factor(Carrying)</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; Removed at Step 4 is - Smoking</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; Removed at Step 5 is - JobControl</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; Removed at Step 6 is - Gender</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; No more variables removed from the model</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>  </span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>  pool_lm<span class="sc">$</span>RR_model_final</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; $`Step 7`</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt;                    term  estimate std.error  statistic        df      p.value</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; 1           (Intercept) 3.8156476 0.3621860 10.5350490 129.49014 4.010553e-19</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; 2     factor(Carrying)2 0.8759161 0.3761904  2.3283850 113.24274 2.166656e-02</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; 3     factor(Carrying)3 1.8001704 0.3746799  4.8045553 145.87249 3.811778e-06</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; 4 factor(Satisfaction)2 0.1385358 0.3729809  0.3714288 108.41273 7.110431e-01</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; 5 factor(Satisfaction)3 1.4420012 0.4685986  3.0772635  74.55846 2.921715e-03</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>  pool_lm<span class="sc">$</span>multiparm_final</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; $`Step 7`</span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt;                       p-values D2 F-statistic</span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; factor(Carrying)     1.653888e-05   11.150999</span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; factor(Satisfaction) 7.789587e-03    5.372204</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>  pool_lm<span class="sc">$</span>predictors_out </span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt;         Gender Smoking Function JobControl factor(Carrying)</span></span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="co">#&gt; Step 1       0       0        1          0                0</span></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="co">#&gt; Step 2       0       0        0          0                0</span></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a><span class="co">#&gt; Step 3       0       0        0          0                0</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="co">#&gt; Step 4       0       1        0          0                0</span></span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a><span class="co">#&gt; Step 5       0       0        0          1                0</span></span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a><span class="co">#&gt; Step 6       1       0        0          0                0</span></span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a><span class="co">#&gt; Removed      1       1        1          1                0</span></span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="co">#&gt;         factor(Satisfaction) Smoking*factor(Carrying) Gender*Smoking</span></span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a><span class="co">#&gt; Step 1                     0                        0              0</span></span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a><span class="co">#&gt; Step 2                     0                        0              1</span></span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a><span class="co">#&gt; Step 3                     0                        1              0</span></span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a><span class="co">#&gt; Step 4                     0                        0              0</span></span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a><span class="co">#&gt; Step 5                     0                        0              0</span></span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a><span class="co">#&gt; Step 6                     0                        0              0</span></span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a><span class="co">#&gt; Removed                    0                        1              1</span></span></code></pre></div>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-and-forcing-interaction-terms-and-method-d1" class="section level2">
+<h2>Pooling with BS and forcing interaction terms and method D1</h2>
+<p>Same as above but now forcing several predictors, including
+interaction terms, in the model during BS.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">library</span>(psfmi)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  pool_lm <span class="ot">&lt;-</span> <span class="fu">psfmi_lm</span>(<span class="at">data=</span>lbpmilr, <span class="at">nimp=</span><span class="dv">5</span>, <span class="at">impvar=</span><span class="st">&quot;Impnr&quot;</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>                      <span class="at">formula =</span> Pain <span class="sc">~</span> Gender <span class="sc">+</span> Smoking <span class="sc">+</span> </span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>                      Function <span class="sc">+</span> JobControl <span class="sc">+</span> <span class="fu">factor</span>(Carrying) <span class="sc">+</span> <span class="fu">factor</span>(Satisfaction) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                        <span class="fu">factor</span>(Carrying)<span class="sc">:</span>Smoking <span class="sc">+</span> Gender<span class="sc">:</span>Smoking, </span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                      <span class="at">keep.predictors =</span> <span class="fu">c</span>(<span class="st">&quot;Smoking*Carrying&quot;</span>, <span class="st">&quot;JobControl&quot;</span>), <span class="at">method=</span><span class="st">&quot;D1&quot;</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                      <span class="at">p.crit=</span><span class="fl">0.05</span>, <span class="at">direction=</span><span class="st">&quot;BW&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; Removed at Step 1 is - Function</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; Removed at Step 2 is - Gender*Smoking</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; Removed at Step 3 is - Gender</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; No more variables removed from the model</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>  </span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>  pool_lm<span class="sc">$</span>RR_model_final</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; $`Step 4`</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;                        term    estimate  std.error  statistic        df</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; 1               (Intercept)  5.05673749 1.11537162  4.5336796  87.35469</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; 2                   Smoking -0.75879295 0.59455328 -1.2762405  50.60796</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; 3                JobControl -0.01558801 0.01737846 -0.8969733  87.93658</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; 4         factor(Carrying)2  0.51735642 0.51915658  0.9965325 132.99359</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; 5         factor(Carrying)3  1.31863192 0.50113424  2.6312948 126.77358</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; 6     factor(Satisfaction)2  0.11077123 0.37320587  0.2968100 117.98206</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; 7     factor(Satisfaction)3  1.44590689 0.48154484  3.0026423  64.65768</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; 8 Smoking:factor(Carrying)2  0.81312389 0.77812973  1.0449721  87.32029</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; 9 Smoking:factor(Carrying)3  1.13073244 0.79050622  1.4303903 104.46161</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt;        p.value</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; 1 1.832877e-05</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt; 2 2.076965e-01</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt; 3 3.721823e-01</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; 4 3.208012e-01</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; 5 9.561386e-03</span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt; 6 7.671335e-01</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; 7 3.802284e-03</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; 8 2.989200e-01</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; 9 1.555895e-01</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a>  pool_lm<span class="sc">$</span>multiparm_final</span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; $`Step 4`</span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt;                           p-values D1 F-statistic</span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt; Smoking                  0.5399398352   0.7214117</span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; JobControl               0.3705279273   0.8045610</span></span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt; factor(Carrying)         0.0001017566   5.9155402</span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt; factor(Satisfaction)     0.0025183119   6.2392581</span></span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="co">#&gt; Smoking*factor(Carrying) 0.3318368885   1.1068101</span></span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a>  pool_lm<span class="sc">$</span>predictors_out </span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt;         Gender Smoking Function JobControl factor(Carrying)</span></span>
+<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; Step 1       0       0        1          0                0</span></span>
+<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a><span class="co">#&gt; Step 2       0       0        0          0                0</span></span>
+<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a><span class="co">#&gt; Step 3       1       0        0          0                0</span></span>
+<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a><span class="co">#&gt; Removed      1       0        1          0                0</span></span>
+<span id="cb5-52"><a href="#cb5-52" tabindex="-1"></a><span class="co">#&gt;         factor(Satisfaction) Smoking*factor(Carrying) Gender*Smoking</span></span>
+<span id="cb5-53"><a href="#cb5-53" tabindex="-1"></a><span class="co">#&gt; Step 1                     0                        0              0</span></span>
+<span id="cb5-54"><a href="#cb5-54" tabindex="-1"></a><span class="co">#&gt; Step 2                     0                        0              1</span></span>
+<span id="cb5-55"><a href="#cb5-55" tabindex="-1"></a><span class="co">#&gt; Step 3                     0                        0              0</span></span>
+<span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a><span class="co">#&gt; Removed                    0                        0              1</span></span></code></pre></div>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-including-spline-coefficient-and-method-d1" class="section level2">
+<h2>Pooling with BS including spline coefficient and method D1</h2>
+<p>Pooling linear regression models over 5 imputed datasets with BS
+using a p-value of 0.05 and as method D1. A spline predictor and
+interaction term are part of the selection procedure.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">library</span>(psfmi)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  pool_lm <span class="ot">&lt;-</span> <span class="fu">psfmi_lm</span>(<span class="at">data=</span>lbpmilr, <span class="at">nimp=</span><span class="dv">5</span>, <span class="at">impvar=</span><span class="st">&quot;Impnr&quot;</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>                      <span class="at">formula =</span> Pain <span class="sc">~</span> Gender <span class="sc">+</span> Smoking <span class="sc">+</span> </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>                      JobControl <span class="sc">+</span> <span class="fu">factor</span>(Carrying) <span class="sc">+</span> <span class="fu">factor</span>(Satisfaction) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>                      <span class="fu">factor</span>(Carrying)<span class="sc">:</span>Smoking <span class="sc">+</span> <span class="fu">rcs</span>(Function, <span class="dv">3</span>), </span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>                      <span class="at">method=</span><span class="st">&quot;D1&quot;</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>                      <span class="at">p.crit=</span><span class="fl">0.05</span>, <span class="at">direction=</span><span class="st">&quot;BW&quot;</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; Removed at Step 1 is - rcs(Function,3)</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; Removed at Step 2 is - Smoking*factor(Carrying)</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; Removed at Step 3 is - Smoking</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; Removed at Step 4 is - JobControl</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; Removed at Step 5 is - Gender</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; Selection correctly terminated, </span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; No more variables removed from the model</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>  pool_lm<span class="sc">$</span>RR_model_final</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; $`Step 6`</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt;                    term  estimate std.error  statistic        df      p.value</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 1           (Intercept) 3.8156476 0.3621860 10.5350490 129.49014 4.010553e-19</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; 2     factor(Carrying)2 0.8759161 0.3761904  2.3283850 113.24274 2.166656e-02</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt; 3     factor(Carrying)3 1.8001704 0.3746799  4.8045553 145.87249 3.811778e-06</span></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt; 4 factor(Satisfaction)2 0.1385358 0.3729809  0.3714288 108.41273 7.110431e-01</span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt; 5 factor(Satisfaction)3 1.4420012 0.4685986  3.0772635  74.55846 2.921715e-03</span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>  pool_lm<span class="sc">$</span>multiparm_final</span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="co">#&gt; $`Step 6`</span></span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="co">#&gt;                       p-values D1 F-statistic</span></span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="co">#&gt; factor(Carrying)     1.752967e-05   11.125118</span></span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="co">#&gt; factor(Satisfaction) 2.477744e-03    6.275617</span></span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a>  pool_lm<span class="sc">$</span>predictors_out </span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="co">#&gt;         Gender Smoking JobControl factor(Carrying) factor(Satisfaction)</span></span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="co">#&gt; Step 1       0       0          0                0                    0</span></span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="co">#&gt; Step 2       0       0          0                0                    0</span></span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="co">#&gt; Step 3       0       1          0                0                    0</span></span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a><span class="co">#&gt; Step 4       0       0          1                0                    0</span></span>
+<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="co">#&gt; Step 5       1       0          0                0                    0</span></span>
+<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a><span class="co">#&gt; Removed      1       1          1                0                    0</span></span>
+<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="co">#&gt;         rcs(Function,3) Smoking*factor(Carrying)</span></span>
+<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="co">#&gt; Step 1                1                        0</span></span>
+<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="co">#&gt; Step 2                0                        1</span></span>
+<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="co">#&gt; Step 3                0                        0</span></span>
+<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="co">#&gt; Step 4                0                        0</span></span>
+<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="co">#&gt; Step 5                0                        0</span></span>
+<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a><span class="co">#&gt; Removed               1                        1</span></span></code></pre></div>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
