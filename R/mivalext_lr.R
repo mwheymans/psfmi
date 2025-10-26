@@ -319,7 +319,7 @@ mivalext_lr <-
     
     # H&L test
     res.hl <-
-      round(pool_D2(dw=stats_ext[, 6], v=g-2), 5)
+      round(pool_D2(dw=stats_ext[, 8], v=g-2), 5)
     
     message("\n", "Pooled performance measures over m = ",
             nimp, " imputed external validation datasets
